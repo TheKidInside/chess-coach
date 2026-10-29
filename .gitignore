@@ -1,0 +1,7 @@
+# Native Stockfish (~100 MB, over GitHub's file limit) — download per README
+engine/
+# Local-only runtime files
+server.log
+data/
+__pycache__/
+*.pyc

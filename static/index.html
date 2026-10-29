@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chess Coach</title>
+<link rel="icon" href="pieces/wN.svg">
+<link rel="stylesheet" href="style.css">
+<script>
+  // Apply the saved theme before first paint so there is no flash.
+  try { const t = localStorage.getItem('chess-coach-theme'); if (t && t !== 'system') document.documentElement.dataset.theme = t; } catch {}
+</script>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><img src="pieces/wN.svg" alt=""><span>Chess Coach</span></div>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab active" data-tab="openings" role="tab">Openings<span id="due-badge" class="badge hidden"></span></button>
+    <button class="tab" data-tab="puzzles" role="tab">Puzzles</button>
+    <button class="tab" data-tab="play" role="tab">Play</button>
+    <button class="tab" data-tab="analyze" role="tab">Analyze</button>
+    <button class="tab" data-tab="progress" role="tab">Progress</button>
+  </nav>
+
+  <div class="hud">
+    <div class="hud-item" id="hud-streak" title="Day streak: days in a row you hit your daily goal">
+      <svg viewBox="0 0 24 24" class="ico streak-ico" aria-hidden="true"><path d="M12 2c1 3.5-1.5 5.5-1.5 8 0 1.4 1 2.5 2.3 2.5 1.6 0 2.4-1.3 2.2-3.2C17.6 11.2 19 13.6 19 16a7 7 0 0 1-14 0c0-4.6 4.2-7.4 7-14Z"/></svg>
+      <b id="streak-num">0</b>
+    </div>
+    <div class="hud-item" id="hud-goal" title="Today's XP toward your daily goal">
+      <svg viewBox="0 0 36 36" class="ring" aria-hidden="true"><circle cx="18" cy="18" r="15" class="ring-bg"/><circle cx="18" cy="18" r="15" class="ring-fg" id="goal-ring"/></svg>
+      <span><b id="goal-num">0</b><span class="muted">/<span id="goal-max">60</span> XP</span></span>
+    </div>
+    <div class="hud-item hud-level" title="Level and XP to the next level">
+      <span class="lvl">Lv <b id="lvl-num">1</b></span>
+      <span class="xpbar"><span id="xp-fill"></span></span>
+    </div>
+    <button class="icon-btn" id="btn-sound" aria-label="Sound on" title="Sound (on)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="snd-waves" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none"/></svg>
+    </button>
+    <button class="icon-btn" id="btn-theme" aria-label="Theme" title="Theme: system">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none"/><path d="M12 4a8 8 0 0 1 0 16z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="board-col">
+    <div class="board-head">
+      <div id="opening-name" class="opening-name"></div>
+      <button id="live-pill" class="live-pill hidden" title="Return to the current position (End)">Viewing an earlier move · back to live</button>
+    </div>
+    <div class="board-wrap">
+      <div id="evalbar" class="evalbar" title="Stockfish evaluation (White's view)">
+        <div id="evalfill" class="evalfill"></div>
+      </div>
+      <div class="board-stack">
+        <div id="board" class="board" aria-label="Chess board"></div>
+        <svg id="arrows" class="arrows" viewBox="0 0 8 8" aria-hidden="true">
+          <defs>
+            <marker id="head-good" viewBox="0 0 4 4" refX="2" refY="2" markerWidth="3" markerHeight="3" orient="auto"><path d="M0,0 L4,2 L0,4 z" fill="var(--arrow-good)"/></marker>
+            <marker id="head-bad" viewBox="0 0 4 4" refX="2" refY="2" markerWidth="3" markerHeight="3" orient="auto"><path d="M0,0 L4,2 L0,4 z" fill="var(--arrow-bad)"/></marker>
+            <marker id="head-alt" viewBox="0 0 4 4" refX="2" refY="2" markerWidth="3" markerHeight="3" orient="auto"><path d="M0,0 L4,2 L0,4 z" fill="var(--arrow-alt)"/></marker>
+          </defs>
+        </svg>
+      </div>
+    </div>
+    <div class="board-tools">
+      <span id="evaltext" class="evaltext" title="Stockfish evaluation (White's view)">0.0</span>
+      <div class="navgroup" role="group" aria-label="Move navigation">
+        <button class="icon-btn" id="nav-first" aria-label="First move" title="First move (Home)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M18 6l-8 6 8 6z"/></svg></button>
+        <button class="icon-btn" id="nav-prev" aria-label="Previous move" title="Previous move (Left arrow)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6l-8 6 8 6z"/></svg></button>
+        <button class="icon-btn" id="nav-next" aria-label="Next move" title="Next move (Right arrow)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6l8 6-8 6z"/></svg></button>
+        <button class="icon-btn" id="nav-last" aria-label="Last move" title="Current position (End)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M6 6l8 6-8 6z"/></svg></button>
+      </div>
+      <span class="spacer"></span>
+      <button id="btn-undo" title="Take back your last move">Take back</button>
+      <button id="btn-flip" title="Flip the board (F)">Flip</button>
+      <button id="btn-reset" title="Start this line, game, or board over">Restart</button>
+    </div>
+  </section>
+
+  <section class="side-col">
+    <div id="banner" class="banner hidden" role="status"></div>
+
+    <!-- Openings -->
+    <div class="panel" id="panel-openings">
+      <div id="review-strip" class="review-strip"></div>
+      <div class="olist-head">
+        <span class="eyebrow">Repertoire</span>
+        <span class="muted small" id="mastery-count"></span>
+      </div>
+      <div id="opening-list" class="olist"></div>
+      <div class="odetail">
+        <div class="otitle"><b id="opening-title"></b></div>
+        <div id="opening-level" class="muted small"></div>
+        <p id="opening-idea" class="idea"></p>
+        <div class="seg" role="radiogroup" aria-label="Training mode">
+          <button class="seg-btn active" data-omode="learn">Learn</button>
+          <button class="seg-btn" data-omode="drill">Drill</button>
+        </div>
+        <div id="omode-hint" class="muted small">Arrows show every move. Read the note, then play it.</div>
+      </div>
+      <div id="opening-note" class="note"></div>
+    </div>
+
+    <!-- Puzzles -->
+    <div class="panel hidden" id="panel-puzzles">
+      <div class="pstats">
+        <div class="stat"><span class="eyebrow">Puzzle rating</span><b id="pz-rating" class="bignum">1200</b><span id="pz-delta" class="delta"></span></div>
+        <div class="stat"><span class="eyebrow">Run</span><b id="pz-run" class="bignum">0</b><span class="muted small">best <span id="pz-best">0</span></span></div>
+        <div class="stat"><span class="eyebrow">Solved</span><b id="pz-solved" class="bignum">0</b><span class="muted small" id="pz-rate"></span></div>
+      </div>
+      <div class="seg" role="radiogroup" aria-label="Puzzle source">
+        <button class="seg-btn active" data-psrc="lichess">Lichess puzzles</button>
+        <button class="seg-btn" data-psrc="mistakes">My mistakes <span id="mistake-count" class="count"></span></button>
+      </div>
+      <label class="field" id="pz-theme-field">Theme
+        <select id="pz-theme">
+          <option value="mix">Mixed</option>
+          <option value="mateIn1">Mate in 1</option>
+          <option value="mateIn2">Mate in 2</option>
+          <option value="fork">Forks</option>
+          <option value="pin">Pins</option>
+          <option value="skewer">Skewers</option>
+          <option value="hangingPiece">Hanging pieces</option>
+          <option value="discoveredAttack">Discovered attacks</option>
+          <option value="opening">Opening tactics</option>
+          <option value="endgame">Endgames</option>
+        </select>
+      </label>
+      <div id="pz-status" class="pz-status"></div>
+      <div class="btnrow">
+        <button id="pz-hint">Hint</button>
+        <button id="pz-solution">Show solution</button>
+        <span class="spacer"></span>
+        <button id="pz-next" class="primary">Next puzzle</button>
+      </div>
+      <div id="pz-meta" class="muted small"></div>
+    </div>
+
+    <!-- Play -->
+    <div class="panel hidden" id="panel-play">
+      <div class="field">You play
+        <div class="seg" role="radiogroup" aria-label="Your colour">
+          <button class="seg-btn active" data-color="w">White</button>
+          <button class="seg-btn" data-color="b">Black</button>
+          <button class="seg-btn" data-color="r">Random</button>
+        </div>
+      </div>
+      <label class="field">
+        <span class="field-row">Opponent <b id="elo-label"></b></span>
+        <input id="play-elo" type="range" min="1320" max="3190" step="10" value="1500">
+      </label>
+      <label class="switch"><input id="coach-on" type="checkbox" checked><span class="track"></span>Coach stops me on mistakes and blunders</label>
+      <div class="btnrow">
+        <button id="btn-newgame" class="primary grow">New game</button>
+        <button id="btn-resign">Resign</button>
+      </div>
+      <div id="play-note" class="note"></div>
+    </div>
+
+    <!-- Analyze -->
+    <div class="panel hidden" id="panel-analyze">
+      <div class="olist-head"><span class="eyebrow">Stockfish top lines</span><span class="muted small">click a line to play its first move</span></div>
+      <div id="lines" class="lines"></div>
+      <label class="field">Load a position
+        <textarea id="load-text" rows="2" spellcheck="false" placeholder="Paste a FEN or PGN"></textarea>
+      </label>
+      <div class="btnrow">
+        <button id="btn-load">Load</button>
+        <button id="btn-copyfen">Copy FEN</button>
+        <button id="btn-copypgn">Copy PGN</button>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="panel hidden" id="panel-progress"></div>
+
+    <div class="card moves-card" id="moves-card">
+      <div class="card-head"><span class="eyebrow">Moves</span><span class="muted small" id="moves-hint">Left / Right arrows to step through</span></div>
+      <div id="movelist" class="movelist"></div>
+    </div>
+
+    <div class="card coach" id="coach">
+      <button class="coach-head" id="coach-toggle" aria-expanded="true">
+        <span class="eyebrow">Ask the coach</span>
+        <span class="muted small" id="coach-ai"></span>
+        <svg viewBox="0 0 24 24" class="chev" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none"/></svg>
+      </button>
+      <div class="coach-body">
+        <div id="chat" class="chat"></div>
+        <div class="chips" id="chips"></div>
+        <form id="ask-form" class="ask">
+          <input id="ask-input" type="text" placeholder="Ask about this position" autocomplete="off" aria-label="Question for the coach">
+          <select id="provider" title="Which AI answers" aria-label="Which AI answers"></select>
+          <button type="submit" class="primary">Ask</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="toasts" class="toasts" aria-live="polite"></div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
