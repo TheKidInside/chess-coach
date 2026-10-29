@@ -176,6 +176,28 @@ Keeps whatever position you were in and lets you move both sides. Shows Stockfis
 
 ← → step through moves, Home/End jump to the start/live position, F flips the board, Esc clears a selection, Enter loads the next puzzle once one is done.
 
+## The hosted version (GitHub Pages)
+
+Live at https://thekidinside.github.io/chess-coach/ — repo `TheKidInside/chess-coach`. Every push to `main` runs `.github/workflows/pages.yml`, which publishes the `static/` folder as-is. There is no Python there, so the club loses its back office and the browser does the work itself.
+
+The switch is one file, `static/backend.js`. Everything in `app.js` calls `api('/api/...')`; `backend.js` decides who answers:
+
+| Request | Laptop (`server.py` on 127.0.0.1) | Hosted (GitHub Pages) |
+|---|---|---|
+| `/api/analyse`, `/api/move` | native Stockfish 19 | `engine.js`: Stockfish 19 **lite** as a WASM web worker |
+| `/api/puzzle` | server proxies Lichess | browser calls `lichess.org/api/puzzle/next` directly (Lichess allows it) |
+| `/api/ask` | Claude or local Qwen | local Qwen at `127.0.0.1:8080`, straight from the browser |
+| `/api/profile` | `data/profile.json` | skipped — the localStorage copy is the only copy |
+| `/api/status`, `/api/ping` | server | answered in the browser / no-op |
+
+It only probes for `server.py` when the page itself is on `127.0.0.1`/`localhost`, so the live site never makes a pointless request.
+
+**engine.js** wraps the worker in the same UCI conversation `server.py` has with the native binary (`uci` → `setoption` → `isready` → `position` → `go movetime` → `bestmove`) and parses the output into the identical `{bestmove, lines}` shape, scores flipped to White's view. Two workers, each started on first use: a full-strength analyser and an Elo-limited opponent. Searches are queued one at a time per worker; a crash or a search that never answers (movetime + 8 s) terminates the worker and starts a fresh one — the browser twin of the server restarting a dead process.
+
+Why the *lite, single-threaded* build: the full engine is ~94 MB (slow to load, especially on a phone), and the multi-threaded builds need two security headers (COOP/COEP) that GitHub Pages can't send. Lite is ~1.8 MB and still far stronger than any human.
+
+**Coach chat online** works only on a computer running `start-qwen.cmd`. Chrome treats a public site calling `127.0.0.1` as "local network access" and asks permission once — choose Allow. On a phone there is no Qwen, so the chat explains that instead.
+
 ## Changing things
 
 - **Add an opening**: append an object to `OPENINGS` in `openings.js` (`moves` and `notes` must be the same length; set `level` 1-3). It lands in the right list group automatically. Validate the SAN by playing it through chess.js; an illegal move would break the drill.
