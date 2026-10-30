@@ -26,7 +26,7 @@ function fresh() {
     puzzles: { rating: 1200, solved: 0, failed: 0, run: 0, bestRun: 0, history: [], seen: [] },
     mistakes: [],                              // {id, fen, best, played, label, cls, date, box, due}
     games: [],                                 // newest first
-    settings: { sound: true, theme: 'system', coachOpen: true, elo: 1500, color: 'w', coach: true },
+    settings: { sound: true, theme: 'system', coachOpen: true, coachStyle: 'standard', repOpen: true, elo: 1500, color: 'w', coach: true },
     savedAt: 0,
   };
 }

@@ -1,5 +1,6 @@
 import { Chess } from './vendor/chess.js';
-import { OPENINGS } from './openings.js';
+import { OPENINGS, FAMILIES } from './openings.js';
+import { STUDY } from './study.js';
 import {
   P, loadProfile, save, onEvent, addXp, levelOf, levelStart, todayXp, streakNow, INTERVALS, MASTERED_BOX,
   openingStat, recordOpening, dueOpenings, addMistake, dueMistakes, recordMistakeReview,
@@ -18,8 +19,9 @@ const S = {
   game: new Chess(),
   orient: 'w',
   tab: 'openings',
-  omode: 'learn',          // learn | drill
-  opening: OPENINGS[0],
+  omode: 'study',          // study | learn | drill
+  opening: OPENINGS[0],    // the line being trained
+  family: FAMILIES[0],     // the main opening it belongs to
   reviewQueue: [],         // opening ids still due in the current review session
   colorPref: 'w',          // w | b | r(andom)
   playColor: 'w',
@@ -47,6 +49,7 @@ const S = {
   lineDone: false,         // current opening run already recorded
   takebacks: 0,            // take-backs in the current Play game
   chat: [],
+  coachStyle: 'standard',  // standard | danya
 };
 
 // ------------------------------------------------------------------ server ---
@@ -146,6 +149,21 @@ const colorName = (c) => (c === 'w' ? 'White' : 'Black');
 // means transpositions still get the right name.
 let ECO = null;
 fetch('eco.json').then((r) => r.json()).then((j) => { ECO = j; render(); }).catch(() => {});
+
+// coaches.json lists the coach styles. A style with "lessons": "<slug>" is a grandmaster's
+// teaching, distilled into lessons/<slug>.json; their per-opening advice also shows under
+// "From the masters". Adding a GM is a data change: a lessons file plus a style entry.
+let COACHES = null;
+const LIBS = {};   // slug -> lesson library
+fetch('coaches.json').then((r) => r.json()).then(async (c) => {
+  COACHES = c;
+  await Promise.all(Object.values(c.styles).filter((s) => s.lessons).map((s) => fetch(`lessons/${s.lessons}.json`)
+    .then((r) => r.json()).then((j) => { LIBS[s.lessons] = j; }).catch(() => {})));
+  $('#coach-styles').innerHTML = Object.entries(c.styles)
+    .map(([k, s]) => `<button class="seg-btn" data-style="${esc(k)}">${esc(s.label)}</button>`).join('');
+  applyCoachStyle();
+  if (S.tab === 'openings') renderFamily();
+}).catch(() => {});
 
 function gameOpening(g = S.game) {
   if (!ECO) return null;
@@ -311,8 +329,13 @@ function renderMoves(book) {
 
 $('#movelist').addEventListener('click', (e) => {
   const b = e.target.closest('.mv');
-  if (b) setView(+b.dataset.ply);
+  if (b) navTo(+b.dataset.ply);
 });
+
+function navTo(ply) {   // Study steps through its line; everywhere else this browses back through the game
+  if (studying()) studyGo(ply);
+  else setView(ply);
+}
 
 function setView(ply) {
   const n = S.game.history().length;
@@ -350,7 +373,7 @@ function userColorCanMove(color) {
 }
 
 function inputLocked() {
-  if (S.viewPly !== null) return true;
+  if (S.viewPly !== null || studying()) return true;
   if (S.tab === 'puzzles' && (S.pz.done || (!S.pz.p && !S.pz.mistake))) return true;
   if (S.tab === 'play' && S.recorded) return true;
   return S.busy || S.paused || S.game.isGameOver();
@@ -514,6 +537,14 @@ onEvent((ev) => {
 
 // ---------------------------------------------------------------- openings ---
 
+// The repertoire is a list of main openings (FAMILIES); each is a main line plus
+// branches (variations, transpositions). Every line is reviewed on its own schedule.
+const LINE = new Map(OPENINGS.map((o) => [o.id, o]));
+const FAMILY = new Map(FAMILIES.map((f) => [f.id, f]));
+const familyOf = (o) => FAMILY.get(o.family);
+const familyLines = (f) => f.lines.map((id) => LINE.get(id));
+const mainOf = (f) => LINE.get(f.lines[0]);
+
 const OPENING_GROUPS = [
   ['As White · 1.e4', (o) => o.side === 'w' && o.moves[0] === 'e4'],
   ['As White · 1.d4 / 1.c4', (o) => o.side === 'w' && o.moves[0] !== 'e4'],
@@ -527,29 +558,108 @@ function pips(box) {
     [1, 2, 3, 4, 5].map((i) => `<i class="${i <= box ? 'on' : ''}"></i>`).join('') + '</span>';
 }
 
+const isDue = (o) => { const st = openingStat(o.id); return !!st && st.due <= today(); };
+
+function familyBar(f) {   // how well the whole opening is known: average memory box over its lines
+  const lines = familyLines(f);
+  const boxes = lines.map((o) => openingStat(o.id)?.box || 0);
+  const mastered = boxes.filter((b) => b >= MASTERED_BOX).length;
+  const pct = (boxes.reduce((a, b) => a + b, 0) / (5 * lines.length)) * 100;
+  return `<span class="fbar${mastered === lines.length ? ' mastered' : ''}" title="${mastered} of ${lines.length} lines mastered"><i style="width:${pct}%"></i></span>`;
+}
+
 function fillOpeningList() {
   const list = $('#opening-list');
   const scroll = list.scrollTop;
-  const t = today();
   list.innerHTML = '';
   for (const [label, test] of OPENING_GROUPS) {
     list.insertAdjacentHTML('beforeend', `<div class="olist-group eyebrow">${label}</div>`);
-    for (const o of OPENINGS.filter(test)) {
-      const st = openingStat(o.id);
-      const due = st && st.due <= t;
+    for (const f of FAMILIES.filter((x) => test(mainOf(x)))) {
+      const lines = familyLines(f);
+      const due = lines.filter(isDue).length;
       const row = document.createElement('button');
-      row.className = 'orow' + (o === S.opening ? ' active' : '');
-      row.dataset.id = o.id;
-      row.innerHTML = `<span class="oname">${due ? '<span class="due">Due</span>' : ''}${esc(o.name)}<span class="oeco">${o.eco}</span></span>` +
-        `<span class="olvl l${o.level}">${LEVELS[o.level]}</span>` + pips(st ? st.box : 0);
-      row.onclick = () => { S.opening = o; S.reviewQueue = []; fillOpeningList(); startOpening(); };
+      row.className = 'orow' + (f === S.family ? ' active' : '');
+      row.dataset.id = f.id;
+      row.innerHTML = `<span class="oname">${due ? '<span class="due">Due</span>' : ''}${esc(f.name)}` +
+        `<span class="oeco">${lines.length} line${lines.length > 1 ? 's' : ''}</span></span>` +
+        `<span class="olvl l${mainOf(f).level}">${LEVELS[mainOf(f).level]}</span>` + familyBar(f);
+      row.onclick = () => selectFamily(f);
       list.appendChild(row);
     }
   }
   list.scrollTop = scroll;
-  const mastered = OPENINGS.filter((o) => (openingStat(o.id)?.box || 0) >= MASTERED_BOX).length;
-  $('#mastery-count').textContent = `${mastered} of ${OPENINGS.length} mastered`;
+  renderRepHead();
   renderReviewStrip();
+}
+
+function renderRepHead() {
+  const open = !$('#repertoire').classList.contains('closed');
+  const due = dueOpenings(OPENINGS).length;
+  const mastered = OPENINGS.filter((o) => (openingStat(o.id)?.box || 0) >= MASTERED_BOX).length;
+  $('#mastery-count').textContent = open
+    ? `${FAMILIES.length} openings · ${mastered} of ${OPENINGS.length} lines mastered`
+    : `${due ? `${due} due · ` : ''}change opening`;
+}
+
+function setRepOpen(open) {   // fold the repertoire away while you study one opening
+  $('#repertoire').classList.toggle('closed', !open);
+  $('#rep-toggle').setAttribute('aria-expanded', String(open));
+  if (P.data.settings.repOpen !== open) { P.data.settings.repOpen = open; save(); }
+  renderRepHead();
+  if (open) $('#opening-list .orow.active')?.scrollIntoView({ block: 'nearest' });
+}
+$('#rep-toggle').addEventListener('click', () => setRepOpen($('#repertoire').classList.contains('closed')));
+
+function selectFamily(f) {
+  S.family = f;
+  S.opening = familyLines(f).find(isDue) || mainOf(f);
+  S.reviewQueue = [];
+  setRepOpen(false);
+  fillOpeningList();
+  startOpening();
+}
+
+// Pick a line inside the current opening. In Study, `atPly` keeps you at the same
+// point (a branch shares the moves so far; a transposition reaches the same position).
+function selectLine(o, atPly = null) {
+  S.opening = o;
+  S.family = familyOf(o);
+  S.reviewQueue = [];
+  fillOpeningList();
+  if (atPly === null || S.omode !== 'study') return startOpening();
+  startOpening(atPly);
+}
+
+function divergence(a, b) {   // first ply where two lines part ways
+  let i = 0;
+  while (i < a.moves.length && i < b.moves.length && a.moves[i] === b.moves[i]) i++;
+  return i;
+}
+
+function renderFamily() {
+  const f = S.family, main = mainOf(f);
+  $('#family-title').textContent = f.name;
+  $('#family-idea').textContent = f.idea;
+  const gm = Object.values(LIBS).flatMap((lib) => (lib.openings[f.topic || f.id] || []).map((d) => ({ ...d, who: lib.short })));
+  $('#masters').classList.toggle('hidden', !f.masters.length && !gm.length);
+  $('#masters-list').innerHTML = f.masters.map((m) => `<li>${esc(m)}</li>`).join('') +
+    gm.map((d) => `<li class="gm-note"><span class="eyebrow">${esc(d.who)}'s videos</span> ${esc(d.text)} <span class="small">${sourceLinks(d.sources)}</span></li>`).join('');
+  const lines = familyLines(f);
+  $('#branch-count').textContent = `${lines.length} line${lines.length > 1 ? 's' : ''}`;
+  const box = $('#branches');
+  box.innerHTML = '';
+  for (const o of lines) {
+    const d = divergence(o, main);
+    const at = o === main ? 'Main' : o.kind === 'transposition' ? 'Order' : d < o.moves.length ? moveLabel(d, o.moves[d]).replace(' ', '') : 'Main';
+    const st = openingStat(o.id);
+    const row = document.createElement('button');
+    row.className = `brow ${o.kind}${o === S.opening ? ' active' : ''}`;
+    row.title = o.kind === 'transposition' ? `Another move order into ${LINE.get(o.joins)?.branch || 'this opening'}` : o.name;
+    row.innerHTML = `<span class="bmove">${esc(at)}</span><span class="bname">${isDue(o) ? '<span class="due">Due</span>' : ''}${esc(o.branch)}</span>` +
+      `<span class="olvl l${o.level}">${LEVELS[o.level]}</span>` + pips(st ? st.box : 0);
+    row.onclick = () => { if (o !== S.opening) selectLine(o); };
+    box.appendChild(row);
+  }
 }
 
 function renderReviewStrip() {
@@ -570,40 +680,172 @@ function renderReviewStrip() {
     el.innerHTML = `<div class="rs-text"><b>All caught up</b>Next review ${next <= today() ? 'later today' : next === addDays(today(), 1) ? 'tomorrow' : `on ${next}`}. Learn a new line to grow your repertoire.</div>`;
   } else {
     el.className = 'review-strip clear';
-    el.innerHTML = '<div class="rs-text"><b>Start your repertoire</b>Pick a Beginner line and play it through in Learn mode. It comes back for a memory drill tomorrow.</div>';
+    el.innerHTML = '<div class="rs-text"><b>Start your repertoire</b>Pick a Beginner opening, Study its main line, then play it in Learn mode. It comes back for a memory drill tomorrow.</div>';
   }
 }
 
 function startReview() {
   S.reviewQueue = dueOpenings(OPENINGS).map((o) => o.id);
+  setRepOpen(false);
   nextReview();
 }
 
 function nextReview() {
   const id = S.reviewQueue.shift();
   if (!id) return;
-  S.opening = OPENINGS.find((o) => o.id === id);
+  S.opening = LINE.get(id);
+  S.family = familyOf(S.opening);
   fillOpeningList();
   setOpeningMode('drill');
 }
 
-function startOpening() {
+// `atPly` (Study only): start with that many moves of the line already on the board.
+function startOpening(atPly = 0) {
   S.epoch++;
   S.game = new Chess();
-  S.viewPly = null;
-  S.orient = S.opening.side;
-  S.tags = {}; S.slips = 0; S.busy = false; S.paused = false; S.arrows = []; S.lastVerdict = null; S.lineDone = false;
   const o = S.opening;
+  for (let i = 0; i < Math.min(atPly, o.moves.length); i++) S.game.move(o.moves[i]);
+  S.viewPly = null;
+  S.orient = o.side;
+  S.tags = {}; S.slips = 0; S.busy = false; S.paused = false; S.arrows = []; S.lastVerdict = null; S.lineDone = false;
   const st = openingStat(o.id);
+  const joins = o.kind === 'transposition' && LINE.get(o.joins);
+  renderFamily();
   $('#opening-title').textContent = o.name;
   $('#opening-level').textContent = `${o.eco} · ${LEVELS[o.level]} · you play ${colorName(o.side)} · ${Math.ceil(o.moves.length / 2)} moves` +
-    (st ? ` · practised ${st.runs}×` : '');
+    (st ? ` · practised ${st.runs}×` : '') + (joins ? ` · transposes into ${joins.branch}` : '');
   $('#opening-idea').textContent = o.idea;
+  $('#study').classList.toggle('hidden', S.omode !== 'study');
+  $('#opening-note').innerHTML = '';
   hideBanner();
   updateEval(null);
+  if (S.omode === 'study') return studyShow();
   render();
   openingStep();
 }
+
+// ------------------------------------------------------------------- study ---
+// Study: no board input. Next plays the next move of the line (both sides) and shows
+// why it is played; Back undoes. The arrow keys, the move list and the nav buttons
+// all step the same way (navTo), so there is one pointer: the moves on the board.
+
+const studying = () => S.tab === 'openings' && S.omode === 'study';
+const posKey = (fen) => fen.split(' ').slice(0, 4).join(' ');
+
+let POSITIONS = null;   // position -> [{ o, ply }] for every line, built on first use
+function positionIndex() {
+  if (POSITIONS) return POSITIONS;
+  POSITIONS = new Map();
+  for (const o of OPENINGS) {
+    const g = new Chess();
+    o.moves.forEach((san, i) => {
+      g.move(san);
+      const k = posKey(g.fen());
+      if (!POSITIONS.has(k)) POSITIONS.set(k, []);
+      POSITIONS.get(k).push({ o, ply: i + 1 });
+    });
+  }
+  return POSITIONS;
+}
+
+function studyGo(n) {
+  const o = S.opening, cur = S.game.history().length;
+  n = Math.max(0, Math.min(o.moves.length, n));
+  if (n === cur) return;
+  S.epoch++;
+  if (n === cur + 1) applyMove(o.moves[cur]);
+  else {
+    S.game = new Chess();
+    for (let i = 0; i < n; i++) S.game.move(o.moves[i]);
+  }
+  hideBanner();
+  studyShow();
+}
+
+// Lines that part ways from this one right here: same first n moves, a different next move.
+// Your own opening's branches first, then other openings of yours that pass through.
+function branchesAt(n) {
+  const o = S.opening, seen = new Set([o.moves[n]]), out = [];
+  const others = n >= 2 ? OPENINGS.filter((x) => x.family !== o.family && x.side === o.side) : [];   // not on move 1: every opening would list
+  const pool = [...familyLines(S.family), ...others];
+  for (const x of pool) {
+    if (x === o || x.moves.length <= n || seen.has(x.moves[n]) || divergence(x, o) < n) continue;
+    seen.add(x.moves[n]);
+    out.push(x);
+  }
+  return out.slice(0, 4);
+}
+
+// Lines that reach the position on the board by a different move order.
+function transpositionsHere() {
+  const o = S.opening, n = S.game.history().length;
+  if (!n) return [];
+  const mine = o.moves.slice(0, n).join();
+  return (positionIndex().get(posKey(S.game.fen())) || [])
+    .filter((e) => e.o !== o && e.o.side === o.side && e.o.moves.slice(0, e.ply).join() !== mine)
+    .slice(0, 2);
+}
+
+function studyShow() {
+  const o = S.opening, n = S.game.history().length, len = o.moves.length;
+  const st = STUDY[o.id] || {};
+  S.arrows = (st.show?.[n - 1] || []).map((a) => ({ from: a.slice(0, 2), to: a.slice(2, 4), kind: 'alt' }));
+  S.selected = null;
+  render();
+  let html = `<div class="study-top"><span class="eyebrow">${n ? `Move ${n} of ${len}` : 'Before move 1'}</span>` +
+    `<span class="study-bar"><i style="width:${(n / len) * 100}%"></i></span></div>`;
+  if (!n) {
+    html += `<p class="study-why">${esc(o.idea)}</p><p class="muted small">You play ${colorName(o.side)}. Press Next to see each move and the reasoning behind it.</p>`;
+  } else {
+    const p = n - 1, yours = (p % 2 === 0 ? 'w' : 'b') === o.side;
+    html += `<div class="study-move"><b>${esc(moveLabel(p, o.moves[p]))}</b><span class="who ${yours ? 'you' : 'them'}">${yours ? 'Your move' : 'Their move'}</span></div>` +
+      `<p class="study-note">${esc(o.notes[p])}</p>` +
+      (st.why?.[p] ? `<p class="study-why">${esc(st.why[p])}</p>` : '') +
+      (st.gm?.[p] ? `<div class="gm"><span class="eyebrow">From the masters</span>${esc(st.gm[p])}</div>` : '');
+    for (const t of transpositionsHere()) {
+      html += `<button class="xlink" data-line="${t.o.id}" data-ply="${t.ply}"><span class="eyebrow">Transposition</span>` +
+        `Same position as <b>${esc(t.o.branch)}</b>${t.o.family !== o.family ? ` (${esc(familyOf(t.o).name)})` : ''} after ${esc(moveLabel(t.ply - 1, t.o.moves[t.ply - 1]))}: a different move order, the same game.</button>`;
+    }
+  }
+  if (n === len) {
+    html += `<div class="study-end"><b>End of the line.</b> ${esc(o.idea)}</div>`;
+  }
+  const alts = n < len ? branchesAt(n) : [];
+  if (alts.length) {
+    html += `<div class="alts"><span class="eyebrow">${S.game.turn() === o.side ? 'Other moves you can play here' : 'Other replies to expect here'}</span>` +
+      alts.map((x) => `<button class="chip alt" data-line="${x.id}" data-ply="${n}"><b>${esc(moveLabel(n, x.moves[n]))}</b> ${esc(x.branch)}` +
+        `${x.family !== o.family ? ` <span class="muted">· ${esc(familyOf(x).name)}</span>` : ''}</button>`).join('') + '</div>';
+  }
+  html += '<div class="study-nav">';
+  if (n === len) {
+    const lines = familyLines(S.family);
+    const next = lines[(lines.indexOf(o) + 1) % lines.length];
+    html += '<button data-act="learn" class="primary">Learn it</button><button data-act="drill">Drill it</button>' +
+      (next !== o ? `<button data-act="branch" data-line="${next.id}">Next branch: ${esc(next.branch)}</button>` : '') +
+      '<button data-act="play">Play on vs Stockfish</button><button data-act="again">From the start</button>';
+  } else {
+    html += `<button data-act="back"${n ? '' : ' disabled'}>Back</button><span class="muted small kbd">← → or Space</span>` +
+      `<button data-act="next" class="primary">${n ? 'Next' : 'Start'}</button>`;
+  }
+  $('#study').innerHTML = html + '</div>';
+  refreshChips();
+}
+
+$('#study').addEventListener('click', (e) => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  if (b.dataset.line && b.dataset.act !== 'branch') return selectLine(LINE.get(b.dataset.line), +b.dataset.ply);
+  const n = S.game.history().length;
+  ({
+    next: () => studyGo(n + 1),
+    back: () => studyGo(n - 1),
+    again: () => studyGo(0),
+    learn: () => setOpeningMode('learn'),
+    drill: () => setOpeningMode('drill'),
+    branch: () => selectLine(LINE.get(b.dataset.line), 0),
+    play: continueOpeningInPlay,
+  })[b.dataset.act]?.();
+});
 
 function openingNote() {
   const o = S.opening;
@@ -736,12 +978,17 @@ function continueOpeningInPlay() {
   afterPositionChange();
 }
 
+const OMODE_HINTS = {
+  study: 'Step through the line with Next. Every move comes with the reasoning behind it; blue arrows show the idea.',
+  learn: 'Arrows show every move. Read the note, then play it.',
+  drill: 'No arrows. Play the line from memory; a clean run moves it up a review box.',
+};
+
 function setOpeningMode(mode) {
   S.omode = mode;
   document.querySelectorAll('[data-omode]').forEach((b) => b.classList.toggle('active', b.dataset.omode === mode));
-  $('#omode-hint').textContent = mode === 'learn'
-    ? 'Arrows show every move. Read the note, then play it.'
-    : 'No arrows. Play the line from memory; a clean run moves it up a review box.';
+  $('#omode-hint').textContent = OMODE_HINTS[mode];
+  syncToolButtons();
   startOpening();
 }
 
@@ -1321,6 +1568,7 @@ function takeBack() {
   if (S.tab === 'puzzles' || S.tab === 'progress') return;
   if (S.tab === 'play' && S.recorded) return;
   if (S.tab === 'openings' && S.lineDone) return;   // finished lines are recorded; use Again
+  if (studying()) return studyGo(S.game.history().length - 1);
   if (S.game.history().length === 0) return;   // nothing to undo; don't cancel a pending first reply
   if (S.tab === 'play') S.takebacks++;
   S.epoch++;
@@ -1358,15 +1606,16 @@ function restart() {
 $('#btn-undo').addEventListener('click', takeBack);
 $('#btn-flip').addEventListener('click', flip);
 $('#btn-reset').addEventListener('click', restart);
-$('#nav-first').addEventListener('click', () => setView(0));
-$('#nav-prev').addEventListener('click', () => setView((S.viewPly ?? S.game.history().length) - 1));
-$('#nav-next').addEventListener('click', () => setView((S.viewPly ?? S.game.history().length) + 1));
-$('#nav-last').addEventListener('click', () => setView(S.game.history().length));
+const navEnd = () => (studying() ? S.opening.moves.length : S.game.history().length);
+$('#nav-first').addEventListener('click', () => navTo(0));
+$('#nav-prev').addEventListener('click', () => navTo((S.viewPly ?? S.game.history().length) - 1));
+$('#nav-next').addEventListener('click', () => navTo((S.viewPly ?? S.game.history().length) + 1));
+$('#nav-last').addEventListener('click', () => navTo(navEnd()));
 $('#live-pill').addEventListener('click', () => setView(S.game.history().length));
 
 function syncToolButtons() {
   const t = S.tab;
-  $('#btn-undo').classList.toggle('hidden', t === 'puzzles' || t === 'progress');
+  $('#btn-undo').classList.toggle('hidden', t === 'puzzles' || t === 'progress' || studying());
   $('#btn-reset').classList.toggle('hidden', t === 'progress');
   $('#btn-reset').textContent = t === 'puzzles' ? 'Skip' : 'Restart';
   $('#moves-card').classList.toggle('hidden', t === 'progress');
@@ -1431,12 +1680,11 @@ $('#btn-resign').addEventListener('click', resign);
 
 document.addEventListener('keydown', (e) => {
   if (e.target.closest('input, textarea, select') || e.ctrlKey || e.altKey || e.metaKey) return;
-  const n = S.game.history().length;
-  const cur = S.viewPly ?? n;
-  if (e.key === 'ArrowLeft') { setView(cur - 1); e.preventDefault(); }
-  else if (e.key === 'ArrowRight') { setView(cur + 1); e.preventDefault(); }
-  else if (e.key === 'Home') { setView(0); e.preventDefault(); }
-  else if (e.key === 'End') { setView(n); e.preventDefault(); }
+  const cur = S.viewPly ?? S.game.history().length;
+  if (e.key === 'ArrowLeft') { navTo(cur - 1); e.preventDefault(); }
+  else if (e.key === 'ArrowRight' || (e.key === ' ' && studying() && !e.target.closest('button'))) { navTo(cur + 1); e.preventDefault(); }
+  else if (e.key === 'Home') { navTo(0); e.preventDefault(); }
+  else if (e.key === 'End') { navTo(navEnd()); e.preventDefault(); }
   else if (e.key === 'f') flip();
   else if (e.key === 'Escape') { S.selected = null; render(); }
   else if (e.key === 'Enter' && S.tab === 'puzzles' && (S.pz.done || (!S.pz.p && !S.pz.mistake)) && !e.target.closest('button')) loadPuzzle();
@@ -1475,7 +1723,9 @@ function addMsg(kind, html, who) {
 function refreshChips() {
   const v = S.lastVerdict;
   const chips = {
-    openings: ["Explain this opening's ideas", 'What are the typical plans here?', 'What if my opponent deviates?'],
+    openings: S.omode === 'study' && S.game.history().length
+      ? ['Explain the last move in more depth', 'What else could be played here?', 'What are the typical plans here?']
+      : ["Explain this opening's ideas", 'What are the typical plans here?', 'What if my opponent deviates?'],
     puzzles: !S.pz.p && !S.pz.mistake ? [] : S.pz.done ? ['Explain the solution', 'What pattern should I remember?'] : ['Give me a hint without the answer'],
     play: ["What's the plan here?", 'What should I watch out for?', ...(v && !v.takenBack && ['inaccuracy', 'mistake', 'blunder'].includes(v.cls) ? ['Why was my last move bad?'] : [])],
     analyze: ["What's the plan here?", 'Explain the top engine line'],
@@ -1497,9 +1747,14 @@ async function buildContext() {
   const fen = g.fen();
   const out = [`FEN: ${fen}`, `Side to move: ${colorName(g.turn())}`];
   if (S.tab === 'openings') {
-    const o = S.opening;
-    out.push(`Mode: opening training (${S.omode}) — ${o.name} (${o.eco}). Student plays ${colorName(o.side)}.`,
-      `Main line being taught: ${numberedLine(o.moves)}`, `Opening idea: ${o.idea}`);
+    const o = S.opening, f = familyOf(o);
+    out.push(`Mode: opening training (${S.omode}) — ${o.name} (${o.eco}), the "${o.branch}" branch of the student's ${f.name} repertoire. Student plays ${colorName(o.side)}.`,
+      `Line being taught: ${numberedLine(o.moves)}`, `Opening idea: ${o.idea}`,
+      `Other branches in this opening: ${familyLines(f).filter((x) => x !== o).map((x) => `${x.branch} (${numberedLine(x.moves)})`).join('; ') || 'none'}`);
+    const p = g.history().length - 1;
+    if (S.omode === 'study' && p >= 0 && p < o.moves.length) out.push(`Study commentary on the last move ${moveLabel(p, o.moves[p])}: ${o.notes[p]} ${STUDY[o.id]?.why?.[p] || ''}`);
+    const lib = styleLib(), dn = lib?.openings[f.topic || f.id];
+    if (dn?.length) out.push(`${lib.short}'s advice on this opening (from the lesson notes): ${dn.map((x) => x.text).join(' ')}`);
   } else if (S.tab === 'play') {
     out.push(`Mode: practice game vs Stockfish (${oppLabel()}). Student plays ${colorName(S.playColor)}.`);
   } else if (S.tab === 'puzzles') {
@@ -1543,8 +1798,9 @@ async function ask(question) {
   const pending = addMsg('ai', '<p class="muted">Thinking…</p>');
   try {
     const context = await buildContext();
-    const r = await api('/api/ask', { question, history: S.chat, context, provider: $('#provider').value });
-    pending.innerHTML = `<div class="who">${esc(r.provider)}</div>` + mdToHtml(r.answer);
+    const r = await api('/api/ask', { question, history: S.chat, context, provider: $('#provider').value, style: S.coachStyle });
+    const who = r.provider + (S.coachStyle !== 'standard' && COACHES ? ` · ${COACHES.styles[S.coachStyle].label}` : '');
+    pending.innerHTML = `<div class="who">${esc(who)}</div>` + mdToHtml(r.answer);
     S.chat.push({ role: 'user', content: question }, { role: 'assistant', content: r.answer });
     S.chat = S.chat.slice(-12);
   } catch (e) {
@@ -1568,6 +1824,38 @@ function setCoachOpen(open) {
   if (P.data.settings.coachOpen !== open) { P.data.settings.coachOpen = open; save(); }
 }
 $('#coach-toggle').addEventListener('click', () => setCoachOpen($('#coach').classList.contains('closed')));
+
+// Coach style (coaches.json): the server/backend builds the system prompt from it, and a
+// grandmaster style brings that GM's lesson library (Lessons button).
+const styleLib = () => LIBS[COACHES?.styles[S.coachStyle]?.lessons] || null;
+function applyCoachStyle() {   // UI only; COACHES may still be loading
+  if (COACHES && !COACHES.styles[S.coachStyle]) S.coachStyle = 'standard';
+  document.querySelectorAll('[data-style]').forEach((b) => b.classList.toggle('active', b.dataset.style === S.coachStyle));
+  $('#btn-lessons').classList.toggle('hidden', !styleLib());
+}
+function setCoachStyle(style) {
+  S.coachStyle = style;
+  applyCoachStyle();
+  if (P.data.settings.coachStyle !== S.coachStyle) { P.data.settings.coachStyle = S.coachStyle; save(); }
+}
+$('#coach-styles').addEventListener('click', (e) => { const b = e.target.closest('[data-style]'); if (b) setCoachStyle(b.dataset.style); });
+
+const sourceLinks = (sources = []) => sources.map((s) =>
+  `<a href="${esc(s.url)}" target="_blank" rel="noopener" title="${esc(s.title)}">${esc(s.label || 'video')}</a>`).join(' · ');
+
+function openLessons() {
+  const lib = styleLib();
+  if (!lib) return;
+  $('#lessons-title').textContent = `Lessons from ${lib.short}'s videos`;
+  $('#lessons-source').textContent = lib.source || '';
+  $('#lessons-body').innerHTML = !lib.themes.length ? '<p class="empty">No lessons distilled yet.</p>'
+    : lib.themes.map((t) => `<section><h3>${esc(t.name)}</h3>${t.lessons.map((l) =>
+      `<div class="lesson-item"><b>${esc(l.title)}</b><p>${esc(l.text)}</p><span class="small">${sourceLinks(l.sources)}</span></div>`).join('')}</section>`).join('');
+  $('#lessons-dlg').showModal();
+}
+$('#btn-lessons').addEventListener('click', openLessons);
+$('#lessons-close').addEventListener('click', () => $('#lessons-dlg').close());
+$('#lessons-dlg').addEventListener('click', (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });   // click outside closes
 
 // --------------------------------------------------------- sound + theme ---
 
@@ -1608,6 +1896,8 @@ async function boot() {
   applySound();
   applyTheme();
   setCoachOpen(P.data.settings.coachOpen);
+  S.coachStyle = P.data.settings.coachStyle;
+  applyCoachStyle();
   S.colorPref = P.data.settings.color;
   document.querySelectorAll('[data-color]').forEach((x) => x.classList.toggle('active', x.dataset.color === S.colorPref));
   S.coachOn = P.data.settings.coach;
@@ -1649,8 +1939,10 @@ async function boot() {
   // Land on what's most worth doing: due reviews first.
   const due = dueOpenings(OPENINGS);
   if (due.length) S.opening = due[0];
+  S.family = familyOf(S.opening);
+  setRepOpen(P.data.settings.repOpen);
   fillOpeningList();
-  startOpening();
+  setOpeningMode(S.omode);
 }
 
 boot();

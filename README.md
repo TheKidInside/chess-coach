@@ -36,7 +36,8 @@ Every push to `main` publishes `static/` to GitHub Pages (`.github/workflows/pag
 - **Pieces**: cburnett set from Lichess, by Colin M.L. Burnett, CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/).
 - **Puzzles**: Lichess puzzle API (`/api/puzzle/next`, anonymous), proxied by `server.py` on the laptop, called directly online.
 - **Opening names**: Lichess chess-openings dataset (CC0), ~3,900 named positions in `static/eco.json`. Rebuild: `node tools/build_eco.mjs tools/eco-data`.
-- **Training repertoire**: 28 hand-written lines in `static/openings.js` (12 as White, 16 as Black).
+- **Training repertoire**: 26 openings, 87 lines (main line, variations, transpositions) in `static/openings.js`, with Study-mode commentary in `static/study.js`. Both are generated from `tools/tree/drafts/` by `tools/tree/build_tree.mjs` (check with `validate_study.mjs`).
+- **Coach styles**: `static/coaches.json`; a grandmaster style reads its paraphrased lesson library from `static/lessons/<slug>.json`.
 - **Fonts**: Bricolage Grotesque, IBM Plex Sans, IBM Plex Mono (SIL Open Font License), self-hosted in `static/fonts/` via Fontsource.
 - **Coach AI**: Claude if a key is set, else the local Qwen at `127.0.0.1:8080`. Every question carries fresh Stockfish lines so the AI explains the engine's verdict instead of guessing.
 

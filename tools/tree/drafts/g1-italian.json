@@ -1,0 +1,222 @@
+{
+  "families": [
+    {
+      "id": "italian", "name": "Italian Game", "side": "w",
+      "idea": "Develop fast with the bishop aimed at f7, castle, then build the centre with c3 and d3 or d4. You choose between slow manoeuvring (the Pianissimo) and a sharp gambit (the Evans).",
+      "masters": [
+        "The Giuoco Piano (Italian for quiet game) is one of the oldest recorded openings: Greco's games from the early 1600s already show the c3 and d4 plan.",
+        "Adolf Anderssen's Evergreen Game against Dufresne (Berlin, 1852) began as an Evans Gambit, and Kasparov revived the gambit at the top level against Anand in Riga in 1995.",
+        "In the 2010s the slow d3 Italian became a main top-level alternative to the Ruy Lopez, partly because it sidesteps the Berlin Defence. Magnus Carlsen is among the many elite players who use it regularly."
+      ],
+      "lines": ["italian", "italian-twoknights", "evans", "italian-classical", "italian-twoknights-bc5"]
+    }
+  ],
+  "lines": {
+    "italian": {
+      "branch": "Giuoco Pianissimo (main line)", "kind": "main",
+      "why": [
+        "You put a pawn in the centre and open diagonals for your queen and the f1-bishop at once. The e4 pawn also controls d5 and f5, and it makes room for the quick kingside development the Italian depends on.",
+        "Black claims an equal share of the centre and frees the f8-bishop and queen. The e5 pawn is now your target: your next moves attack it with pieces while developing, which is the cleanest way to gain time.",
+        "You develop the knight to its best square with a threat: the e5 pawn is attacked. Black must spend a move defending it, so you keep the initiative. The knight also guards d4 and h4 and prepares quick castling.",
+        "Black defends e5 with a developing move, the most natural reply. The c6-knight also eyes d4, so whenever you push d4 later this knight will be hitting it. Keep that in mind for the c3 and d4 plan that follows.",
+        "The bishop takes the a2-g8 diagonal and points at f7, which only Black's king defends. It also clears the way to castle next move. Compared with 3.Bb5 you put less pressure on e5 but aim straight at the king.",
+        "Black mirrors you: the bishop aims at f2, your own weak point, and guards d4 against an easy push. This is the Giuoco Piano. Keep f2 covered and watch for ...Ng4 tricks that combine with this bishop.",
+        "You prepare d4, which would gain space and hit the c5-bishop with tempo. The c3 pawn also takes d4 away from the c6-knight. Without c3, an early d4 just trades pawns and lets Black free the position easily.",
+        "Black develops and attacks e4, which is now a real target because c3 took the natural c3 square from your knight. You must decide at once: defend e4 quietly with d3, or counter with d4 for open play.",
+        "The Pianissimo: you protect e4 with a pawn and keep the centre closed for now. You give up the sharp d4 lines but get a solid structure where d3-d4 can come later, with more pieces ready to support it.",
+        "Black supports e5 and opens the c8-bishop toward g4, where it could pin your f3-knight. With pawns on d6 and e5 Black has a solid centre too, so the game becomes a slow manoeuvring battle decided by piece placement.",
+        "Your king goes to safety and the f1-rook comes toward the centre. Before any central action with d4, you want the king tucked away, because opening lines with your king on e1 only helps Black's active bishops.",
+        "Black also castles. Both kings are safe and the centre is stable, so neither side can rush. Now watch for ...Bg4 pinning your knight to the queen and for ...Na5 trying to trade off your strong c4-bishop.",
+        "The rook backs up e4, freeing your d2-knight to start the classic Nbd2-f1-g3 tour toward the kingside. With e4 protected twice, you can later play d4 without worrying about the pawn in front of it.",
+        "Black makes a retreat square for the bishop on a7. Without it, a later d4 or b4 would hit the c5-bishop and force it backwards with tempo. The move also prepares ...b5 to gain space on the queenside.",
+        "On c4 the bishop could be hit by ...b5 or ...Na5 with tempo. On b3 it keeps its aim at f7, and if ...Na5 comes you simply retreat to c2 and keep it, since this bishop is your best attacking piece.",
+        "Black tucks the bishop onto a7, where d4 or b4 can no longer hit it with tempo. It still aims at f2 along the diagonal and will press on d4 once you push it, so your d4 break will need careful support.",
+        "A key prophylactic move: it stops ...Bg4 pinning your knight and ...Ng4 hitting f2. Now your plan is Nbd2-f1-g3, then d4 or a kingside build-up, while Black tries ...Be6 or ...Ne7-g6 to mirror your manoeuvres."
+      ],
+      "gm": {
+        "6": "The c3 and d4 plan goes back to Greco's games in the early 1600s: c3 was played so that d4 would arrive with tempo against the c5-bishop.",
+        "12": "The Nbd2-f1-g3 knight tour was borrowed from the Closed Ruy Lopez, where it is a standard way to bring a knight toward the enemy king behind a closed centre.",
+        "16": "This h3 is a textbook case of Nimzowitsch's prophylaxis: before carrying out your own plan, take away the opponent's most useful move (here ...Bg4 or ...Ng4)."
+      },
+      "show": { "4": ["c4f7"], "5": ["c5f2"], "6": ["c3d4"], "12": ["e1e4", "b1d2"], "16": ["b1d2", "d3d4"] },
+      "gambitPlies": []
+    },
+    "evans": {
+      "branch": "Evans Gambit (4.b4)", "kind": "variation",
+      "why": [
+        "Same start as the main line: a centre pawn that frees your queen and f1-bishop. In the Evans you will need every developing tempo, because the whole idea is to trade a pawn for speed and a strong centre.",
+        "Black takes the same central share. Remember that e5 is the pawn you will later hit with d4; when it disappears, the centre opens and your faster development turns into direct pressure on Black's king.",
+        "You develop with an attack on e5, forcing Black to answer. Each move that comes with a threat buys you time, which matters even more in a gambit where you give material for activity.",
+        "Black defends e5 and develops. The c6-knight covers d4, so your later d4 push will be met by exchanges there; the gambit makes sure you recapture or develop with gain of time.",
+        "The bishop aims at f7 and clears the way to castle. In the Evans this bishop is the spearhead: once the centre opens, the a2-g8 diagonal combined with Qb3 puts heavy pressure on f7.",
+        "Black chooses the Giuoco Piano setup. The bishop on c5 is the target you are about to hit with a pawn: it stands undefended on a square your b-pawn can reach, which is what makes the gambit possible.",
+        "The Evans Gambit: you offer the b-pawn to deflect the bishop from c5. If Black takes, c3 comes with tempo and d4 follows, building the centre you wanted in the Giuoco Piano but faster. This is a real pawn sacrifice for time.",
+        "Black accepts, the most testing reply. Declining with 4...Bb6 is safe but gives you a free a4-a5 advance against the bishop. Now the bishop on b4 is loose and your next move hits it.",
+        "You gain a tempo on the b4-bishop and prepare d4. Compared with the quiet Giuoco Piano, you get c3 and d4 in with tempo: that is what the pawn bought you. The bishop now has to choose a square.",
+        "On a5 the bishop stays on the diagonal toward your king: once your d-pawn leaves d2, the c3 pawn is pinned against e1. This is the main line; 5...Be7 is the safer alternative that avoids those pins.",
+        "You strike the centre while Black has only two pieces out. If Black allows dxe5, your pawns roll forward; if ...exd4, the centre opens toward the uncastled black king. Note that c3 is now pinned, so cxd4 is not yet possible.",
+        "Black takes, keeping the extra pawn and opening the e-file. The danger for you is ...dxc3 grabbing more material; the danger for Black is that every capture costs time. The d4 pawn attacks c3, which is pinned.",
+        "You castle, which unpins the c3 pawn and brings the rook toward the centre. You are a pawn down but far ahead in development. Next come Qb3 hitting f7, Ba3 stopping Black from castling, or cxd4 to rebuild the centre."
+      ],
+      "gm": {
+        "6": "Captain William Evans introduced the gambit in the 1820s and it became a favourite of the romantic era: Anderssen's Evergreen Game against Dufresne (Berlin, 1852) began with it.",
+        "12": "Kasparov revived the Evans against Anand at Riga in 1995 and won in 25 moves, a reminder that development plus open lines can outweigh a pawn."
+      },
+      "show": { "6": ["b4c5"], "8": ["c3b4", "d2d4"], "10": ["c4f7"], "12": ["d1b3", "c1a3"] },
+      "gambitPlies": [6]
+    },
+    "italian-twoknights": {
+      "branch": "Two Knights, quiet 4.d3 (3...Nf6)", "kind": "variation",
+      "name": "Italian Game: Two Knights, 4.d3", "eco": "C55", "level": 1,
+      "idea": "Meet the Two Knights calmly with d3 so e4 is protected and there is no theory battle. Against ...Be7 the game becomes a slow Ruy Lopez-style structure where you manoeuvre and prepare d4.",
+      "moves": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Nf6", "d3", "Be7", "O-O", "O-O", "Re1", "d6", "c3", "Na5", "Bb5", "a6", "Ba4", "b5", "Bc2", "c5"],
+      "notes": [
+        "Centre pawn: open lines for the queen and bishop.",
+        "Black matches in the centre.",
+        "Develop with a threat on e5.",
+        "Black defends e5.",
+        "The bishop aims at f7.",
+        "The Two Knights: Black hits e4 instead of playing ...Bc5.",
+        "Protect e4 calmly and skip the sharp Ng5 lines.",
+        "A modest setup: Black avoids ...Bc5 and prepares to castle.",
+        "King to safety.",
+        "Black castles too.",
+        "Rook backs up e4 and frees d2 for the knight.",
+        "Black supports e5.",
+        "Prepare d4 and make room for the bishop.",
+        "Black chases your best bishop.",
+        "Dodge the trade: the bishop heads for a4 and c2.",
+        "Black kicks the bishop.",
+        "Retreat, still on the a4-e8 diagonal.",
+        "Black gains space and kicks again.",
+        "The bishop lands safely on c2.",
+        "Black grabs queenside space: a Closed Ruy structure."
+      ],
+      "why": [
+        "You claim the centre and free your queen and f1-bishop. Against 1...e5 this pawn is the one Black attacks most, so a lot of the Italian is about keeping e4 secure while you develop.",
+        "Black takes the same central share and frees the f8-bishop. The e5 pawn becomes your first target, and you attack it with developing moves rather than pawn moves so that each one gains time.",
+        "You develop with a threat on e5, so Black must answer. The knight on f3 also covers d4 and prepares castling. This is the move order of every line in the family, so Black's real choices start next.",
+        "Black protects e5 with a developing move. The knight on c6 eyes d4, which means your d4 break later will usually need c3 first. It is the most common reply and keeps all of Black's options open.",
+        "The bishop targets f7, the square only Black's king protects, and clears f1 so you can castle. Against this bishop, Black must decide between mirroring with ...Bc5 and counterattacking with ...Nf6.",
+        "The Two Knights Defence: instead of copying you, Black develops and attacks e4 straight away. Nothing defends e4, so you must either protect it or start a fight with the sharp 4.Ng5 or 4.d4.",
+        "You defend e4 with a pawn and keep things calm. The sharp 4.Ng5 attacks f7, but after 4...d5 5.exd5 Na5 you are in heavy theory. With d3 you aim for c3, O-O and Re1, then a later d4 when your pieces are ready.",
+        "Black develops modestly and gets ready to castle. With the bishop on e7 rather than c5, a later d4 or b4 will not hit it, so the game will be slow. Watch for ...d5: if Black frees the centre with it safely, Black equalises easily.",
+        "Your king goes to safety before anything opens. Castling also brings the f1-rook toward the centre, where it will soon go to e1. In quiet Italian positions there is no hurry, so finish development before you push pawns.",
+        "Black castles too, so both kings are safe and the fight becomes positional. Look out for ...Bg4 pinning your f3-knight and for ...Na5 hitting your c4-bishop. You will have answers ready for both.",
+        "The rook backs up e4 so it no longer depends on the d3 pawn alone. It also frees d2 and f1 for your knight to begin the Nbd2-f1-g3 route. With e4 safe, you can play c3 and later d4 without leaving the pawn hanging.",
+        "Black supports e5 and opens the c8-bishop. With ...d6 and ...e5 Black has a solid, compact centre. Black's next ideas are ...Na5 to win your bishop and ...c5 to gain queenside space, just like in a Ruy Lopez.",
+        "You prepare d4 and also free c2 as a future home for the bishop. The pawn takes d4 and b4 away from Black's knight. Without c3, the bishop would have no safe long-term retreat from ...Na5 and ...b5.",
+        "Black attacks your c4-bishop to trade it off, since it is your most dangerous minor piece. If you retreat to b3, ...Nxb3 gives Black the bishop pair. Look for a square that keeps the bishop alive.",
+        "You sidestep the trade: the bishop goes to b5 now and will reach c2 via a4. Black has to spend a move kicking it with ...a6 or ...c6. Retreating to b3 instead allows ...Nxb3, handing Black the bishop pair for free.",
+        "Black kicks the bishop and makes room for ...b5, the standard way to gain queenside space with tempo. Every pawn Black pushes forward gains room but also leaves squares behind it, which a later a4 can exploit.",
+        "The bishop stays on the a4-e8 diagonal for a moment and is heading for c2. You cannot stay on b5 because ...axb5 would win it. Expect ...b5 next, chasing it once more.",
+        "Black gains queenside space with tempo. The pawns on a6 and b5 prepare ...c5 and give Black's pieces room. The cost is that a later a4 from you can attack this pawn chain and open the a-file.",
+        "On c2 the bishop is safe from further kicks. It sits behind your d3 and e4 pawns on the b1-h7 diagonal, so if the centre opens later it will aim straight at Black's king. Your c3 pawn made this square available.",
+        "Black grabs queenside space and covers d4: the position is now a Closed Ruy Lopez structure. Your plan: Nbd2-f1-g3 and h3, then d4 at the right moment, or a4 to probe Black's queenside. Black aims for ...Nc6 and ...Re8."
+      ],
+      "gm": {
+        "6": "In the 2010s many top players switched to this quiet d3 approach against both 3...Nf6 and 3...Bc5, valuing a rich middlegame over long forced lines.",
+        "14": "Steinitz was among the first to treat the bishop pair as a lasting advantage; dodging ...Nxb3 keeps you from handing it to Black for nothing.",
+        "19": "A classic case of the same structure arising from different openings: the Italian has turned into a Closed Ruy Lopez, where the Nbd2-f1-g3 manoeuvre is the long-standing standard plan."
+      },
+      "show": { "5": ["f6e4"], "10": ["e1e4", "b1d2"], "13": ["a5c4"], "14": ["b5a4"], "18": ["c2h7"], "19": ["b1d2", "d3d4"] },
+      "gambitPlies": []
+    },
+    "italian-classical": {
+      "branch": "Classical 5.d4 (instead of 5.d3)", "kind": "variation",
+      "name": "Italian Game: Giuoco Piano, Classical 5.d4", "eco": "C54", "level": 2,
+      "idea": "Play the direct 5.d4 to take the centre at once. After the exchanges you get an isolated d-pawn with open lines and active pieces, while Black gets a solid blockade square on d5.",
+      "moves": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Bc5", "c3", "Nf6", "d4", "exd4", "cxd4", "Bb4+", "Bd2", "Bxd2+", "Nbxd2", "d5", "exd5", "Nxd5", "Qb3", "Nce7"],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "Develop and attack e5.",
+        "Black defends.",
+        "The bishop aims at f7.",
+        "The Giuoco Piano: Black's bishop aims at f2.",
+        "Prepare d4.",
+        "Black hits e4.",
+        "The direct approach: break in the centre now.",
+        "Black must take.",
+        "Recapture: a pawn duo on d4 and e4.",
+        "Check: Black gains time against the centre.",
+        "Block calmly and offer a bishop trade.",
+        "Black trades bishops.",
+        "Recapture with the knight, keeping e4 defended.",
+        "Black's freeing break hits e4.",
+        "Take and open the position.",
+        "Black's knight lands on the blockade square.",
+        "Queen and bishop line up on d5 and f7.",
+        "Black guards d5 with the other knight."
+      ],
+      "why": [
+        "You take central space and free your queen and f1-bishop. In this classical line you build a full pawn centre with c3 and d4, so every move until then is about getting there before Black can break it.",
+        "Black claims equal central space. The e5 pawn is the one your d4 push will challenge; once it is exchanged, the open centre favours whoever has developed faster, which should be you.",
+        "You develop with a threat on e5, so Black has to respond rather than develop freely. The knight on f3 also covers d4, which you need for the central push you are planning a few moves from now.",
+        "Black defends e5 and develops. The c6-knight also attacks d4, so your d4 push needs c3 behind it; otherwise the pawn is simply traded off and your centre disappears.",
+        "The bishop points at f7 and lets you castle quickly. In open positions this diagonal becomes very strong, especially once a queen on b3 adds to the pressure on f7 and b7.",
+        "Black mirrors with the bishop aimed at f2, also guarding d4 against your push. This bishop is the reason c3 is needed: with d4 you want to hit it with tempo, not just trade pawns.",
+        "You prepare d4, which will hit the c5-bishop and build a two-pawn centre. The cost is that the b1-knight loses its natural c3 square, so e4 will need other protection later.",
+        "Black counterattacks e4 straight away. It cannot be defended by Nc3 any more, so you choose: protect it slowly with d3, or play d4 now and accept a more open game. This line goes for d4.",
+        "You strike the centre at once: the d4 pawn attacks both e5 and the c5-bishop. Black has no time to keep the tension and must capture. The quieter 5.d3 keeps the centre closed; 5.d4 is the direct, open test.",
+        "Black takes, the only good way to meet the double attack. Retreating the bishop instead lets you play dxe5, gaining space and kicking the f6-knight. Now you recapture on d4 with a pawn.",
+        "You recapture toward the centre and get the classic pawn duo on d4 and e4. If Black lets them stand, e5 or d5 will push the knights back, so Black must hit this centre quickly. The next check does exactly that.",
+        "The check gains time and is the main move. The sharper reply 7.Nc3, the Moller Attack, gives up the e4 pawn for a big initiative. Here you choose the safe route and block with the bishop.",
+        "You block with the bishop, offering a trade that removes Black's active b4-bishop. Your centre and material stay safe, and the middlegame that follows is clearer than the gambit lines after 7.Nc3.",
+        "Black trades bishops, the usual choice. Taking on e4 instead opens the e-file while Black's king is still in the centre. After the trade the game becomes more about pawn structure than tactics.",
+        "Recapture with the knight so that e4 stays protected and your queen stays flexible. Qxd2 would leave e4 hanging to ...Nxe4. The knight on d2 can later go to b3 or e4.",
+        "Black hits your centre with the freeing break ...d5. If you ignore it, ...dxe4 leaves you with a weak d4 pawn and nothing in exchange. This is the critical moment: you must take and open the position.",
+        "You take, which will leave you with an isolated d-pawn on d4. In return your pieces get open lines: the c4-bishop's diagonal toward f7, the e-file for a rook, and the e5 square for a knight.",
+        "Black recaptures with the knight, which now sits on d5, the classic blockade square in front of your isolated pawn. A blockader like this is hard to remove, so you must create threats before Black consolidates.",
+        "The queen lines up behind the bishop, so d5 is attacked twice, and it also hits the b7 pawn. If the d5-knight ever moves, the battery points straight at f7. This is the active way to handle the isolated pawn.",
+        "Black covers d5 a second time with the other knight, keeping the blockade. Your plan: castle, put a rook on e1, and use e5 and the pressure on d5 to tie Black down. Push d5 only when it opens lines for your pieces."
+      ],
+      "gm": {
+        "8": "This direct c3 and d4 plan is the oldest Italian of all: Greco's games from the early 1600s already featured it.",
+        "16": "Tarrasch was the great defender of the isolated queen's pawn, arguing that the open lines and active pieces it brings outweigh its long-term weakness.",
+        "17": "Nimzowitsch taught that the square in front of an isolated pawn is the ideal blockade post: a knight there stops the pawn and radiates influence in every direction."
+      },
+      "show": { "6": ["c3d4"], "8": ["d4c5", "d4e5"], "17": ["d4d5"], "18": ["b3d5", "b3b7"], "19": ["f3e5"] },
+      "gambitPlies": []
+    },
+    "italian-twoknights-bc5": {
+      "branch": "Two Knights 4.d3 Bc5 (joins the main line)", "kind": "transposition", "joins": "italian",
+      "name": "Italian Game: Two Knights 4.d3 Bc5, into the Pianissimo", "eco": "C54", "level": 1,
+      "idea": "Against the Two Knights, 4.d3 and c3 lead back to the Giuoco Pianissimo if Black plays ...Bc5. You avoid the sharp 4.Ng5 theory and stay on familiar ground.",
+      "moves": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Nf6", "d3", "Bc5", "c3", "d6", "O-O", "O-O"],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "Develop with a threat on e5.",
+        "Black defends.",
+        "The bishop aims at f7.",
+        "The Two Knights: Black hits e4 first.",
+        "Defend e4 calmly.",
+        "Black's bishop goes to c5 after all.",
+        "Now it is the Giuoco Pianissimo main line.",
+        "Black supports e5.",
+        "King to safety.",
+        "Black castles; continue with Re1, Bb3 and h3."
+      ],
+      "why": [
+        "You claim the centre and open lines for your queen and bishop. This line shows how a different Black move order leads back to your Pianissimo, so the opening moves are the same as in the main line.",
+        "Black takes equal central space. Everything is still in the main line; the difference comes on move three, when Black develops the king's knight before the bishop.",
+        "You develop with a threat on e5, the same as always. Every gain of time matters, because it is easier to choose a quiet setup when you are the one setting the pace.",
+        "Black defends e5 with the knight, the most common reply. The c6-knight eyes d4 and e5 as usual, so your later d4 push still needs preparation with c3.",
+        "Your bishop aims at f7 and clears f1 for castling. From here Black chooses between the Giuoco Piano (...Bc5) and the Two Knights (...Nf6); in this line it is the knight.",
+        "Black plays the Two Knights and attacks e4 before committing the bishop. You could go for the sharp 4.Ng5, but that leads to forced lines where Black gets plenty of play for a pawn.",
+        "You protect e4 with a pawn and keep things calm. The idea is to reach your normal Pianissimo setup with c3, O-O, Re1 and Bb3. Black's bishop placement decides whether you transpose exactly.",
+        "Black puts the bishop on c5 after all, the same active diagonal toward f2 as in your main line. If Black chose ...Be7 instead, you would follow the same plan against a more passive bishop.",
+        "The position is now identical to the main line after 4.c3 Nf6 5.d3. Your 4.d3 move order meant you never needed the sharp 4.Ng5 theory against the Two Knights: one setup covers both of Black's third moves.",
+        "Black supports e5 and opens the c8-bishop, exactly as in the main line. The ...Bg4 pin on your f3-knight is now possible, which is why h3 will come soon.",
+        "Your king goes to safety, still following the main line. You have played the same moves in a different order, so every plan you know from the Pianissimo applies here.",
+        "Black castles and you are on familiar ground. Continue as in the main line: Re1 to support e4, Bb3 before ...Na5 can hit the bishop, h3 against ...Bg4, then Nbd2-f1-g3 and d4."
+      ],
+      "gm": {
+        "8": "Strong players often use this 4.d3 move order against the Two Knights precisely because it steers both 3...Nf6 and 3...Bc5 into the same quiet structure."
+      },
+      "show": { "5": ["f6e4"], "8": ["c3d4"], "11": ["f1e1", "h2h3"] },
+      "gambitPlies": []
+    }
+  }
+}

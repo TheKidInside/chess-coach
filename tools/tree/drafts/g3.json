@@ -1,0 +1,1474 @@
+{
+ "families": [
+  {
+   "id": "catalan",
+   "name": "Catalan",
+   "side": "w",
+   "idea": "Pair the Queen's Gambit pawns on d4 and c4 with a bishop on g2. Whether Black grabs c4 or holds d5, your bishop and queenside pressure set the agenda for the whole game.",
+   "masters": [
+    "The opening takes its name from a 1929 tournament in Barcelona, where Savielly Tartakower brought the g3 fianchetto into the Queen's Gambit.",
+    "Vladimir Kramnik made the Catalan one of his main weapons with White, and Magnus Carlsen has used it often too.",
+    "Anand chose the Catalan against Topalov in the 2010 World Championship match and won games with it.",
+    "The Catalan rewards patience: White often leaves a pawn hanging for a while, trusting the g2-bishop and queenside pressure to win it back with interest."
+   ],
+   "lines": [
+    "catalan",
+    "catalan-bb4",
+    "catalan-closed",
+    "catalan-via-nf3"
+   ]
+  },
+  {
+   "id": "english",
+   "name": "English Opening",
+   "side": "w",
+   "idea": "Start with 1.c4, control d5 from the wing and fianchetto your king's bishop. You often play a Black opening with an extra tempo, and queenside expansion with Rb1, a3 and b4 is a recurring plan.",
+   "masters": [
+    "The English takes its name from Howard Staunton, who played 1.c4 in his 1843 match against Saint-Amant.",
+    "Mikhail Botvinnik played the English often, and the set-up with pawns on c4 and e4 plus a g2-bishop is named after him.",
+    "Magnus Carlsen often opens with 1.c4 or 1.Nf3 to steer the game into strategic positions with less forcing theory.",
+    "A recurring idea: against 1...e5 you are the Sicilian player with an extra move, so Black's sharpest Open Sicilian plans lose much of their bite."
+   ],
+   "lines": [
+    "english",
+    "english-symmetrical",
+    "english-kid",
+    "english-g3"
+   ]
+  },
+  {
+   "id": "najdorf",
+   "name": "Sicilian Najdorf",
+   "side": "b",
+   "idea": "Answer 1.e4 with ...c5 and 5...a6: a flexible, fighting Sicilian. The a6 pawn keeps White's pieces off b5 and prepares ...e5 or ...e6 with queenside play built on ...b5.",
+   "masters": [
+    "The opening is named after Miguel Najdorf, the Polish-Argentine grandmaster who developed it.",
+    "Bobby Fischer and Garry Kasparov both made the Najdorf their main answer to 1.e4.",
+    "Against 6.Bg5 Fischer liked to grab the b2 pawn with 7...Qb6 (the Poisoned Pawn), and Spassky won a famous game against it in their 1972 World Championship match.",
+    "The English Attack (Be3, f3, Qd2, g4) owes its name to English grandmasters such as John Nunn and Nigel Short, who sharpened it in the 1980s."
+   ],
+   "lines": [
+    "najdorf",
+    "najdorf-bb5",
+    "najdorf-bg5",
+    "najdorf-be2",
+    "najdorf-nc3"
+   ]
+  },
+  {
+   "id": "dragon",
+   "name": "Sicilian Dragon",
+   "side": "b",
+   "idea": "Fianchetto your king's bishop on g7 so it aims down the long diagonal at d4 and b2. Against the Yugoslav Attack the game becomes a race; against quieter systems you get easy development and pressure on the c-file.",
+   "masters": [
+    "The name is usually credited to Fyodor Dus-Chotimirsky around 1901, who thought Black's pawn shape looked like the Draco constellation.",
+    "Bobby Fischer won famous attacking games against the Dragon with the Yugoslav Attack, opening the h-file and sacrificing to break through.",
+    "English grandmaster Gawain Jones is one of the leading modern Dragon specialists and has written a two-volume work on it.",
+    "A Dragon principle: the g7-bishop is your best piece, so avoid trading it cheaply, and be ready to give the exchange on c3 to keep your attack going."
+   ],
+   "lines": [
+    "dragon",
+    "dragon-classical",
+    "dragon-d5",
+    "dragon-accelerated"
+   ]
+  }
+ ],
+ "lines": {
+  "catalan": {
+   "branch": "Open Catalan (main line)",
+   "kind": "main",
+   "why": [
+    "You claim the centre with the queen's pawn. The plan is a Queen's Gambit pawn pair on d4 and c4, then a kingside fianchetto, so your king is safe early and the g2-bishop can lean on Black's queenside for the whole middlegame.",
+    "Black develops and keeps options open: ...d5 for a Queen's Gambit type game, ...g6 for the King's Indian, or ...e6 for the Nimzo or Queen's Indian. The knight also stops you from playing e4 straight away.",
+    "You grab more space and put pressure on d5 before Black can settle a pawn there. The c4 pawn often becomes a temporary gambit pawn in the Catalan: if Black takes it, you aim to win it back while your pieces get active.",
+    "Black opens the f8-bishop and prepares ...d5 or a ...Bb4 check. The c8-bishop is now shut in behind e6, and keeping that bishop passive is a theme for you all game.",
+    "This is the Catalan move. It sidesteps the Nimzo-Indian pin, since your knight is not on c3, and prepares Bg2 to aim through d5 at b7 and a8. Your king also gets a safe home quickly.",
+    "Black builds the classical centre and blocks your future bishop's diagonal at d5. The c4 pawn is now attacked, and Black can take it whenever it suits; that choice is what the whole opening revolves around.",
+    "The bishop takes up its long-term post. It already presses on d5, and if Black ever releases the tension with ...dxc4, the diagonal opens towards b7 and the a8-rook.",
+    "A solid choice: Black gets ready to castle and avoids early commitments. Watch for ...dxc4 on any move from now on. Black's other main try here is the check 4...Bb4+, covered in its own branch.",
+    "Develop, guard d4 and clear the way to castle. You are not worried about the c4 pawn yet, because winning it back with Qa4+ or Qc2 is usually easy while Black is still developing.",
+    "Black castles and the tension on c4 stays. Black is now choosing between the Open Catalan (...dxc4) and the Closed Catalan (...Nbd7 and ...c6), so expect either plan on the next move.",
+    "You castle and calmly leave c4 hanging. Defending it with Qc2 straight away is also fine, but castling first keeps your options and invites ...dxc4, after which your g2-bishop gets an open road.",
+    "The Open Catalan. Black grabs the pawn and will try to hold it with ...a6 and ...b5. The diagonal behind your f3-knight is now open up to b7, so any knight jump (Ne5 or Nd2) would unmask the g2-bishop against Black's queenside.",
+    "You prepare to take back on c4 with the queen. Qc2 also watches e4, supporting a later e4 push, and lines up on the c-file. The pawn usually comes back unless Black spends more time defending it.",
+    "Black prepares ...b5, so that when your queen takes on c4 it can be kicked away with tempo and Black gains queenside space. If you let ...b5 in before taking, the c4 pawn becomes much harder to win back.",
+    "Win the pawn back now. Material is level, and although Black gains a tempo with ...b5, the advanced queenside pawns can become targets later when you play a4.",
+    "Black kicks the queen and gains queenside space, preparing ...Bb7 to oppose your g2-bishop. The downside is that c6 and c5 become weak squares, and the b5 pawn can be challenged by a4.",
+    "Retreat to the queen's best square. From c2 it covers c5 and the c-file, and it still supports an e4 push. Your queen will stay here for a long time while the minor pieces and rooks join in.",
+    "Black challenges the long diagonal and completes queenside development. Your plan is Bd2 or Bg5, Rd1 and a4 to undermine b5, with c5 as a target square. Watch for Black's freeing ...c5 break and keep enough pieces on it to make it costly."
+   ],
+   "gm": {
+    "4": "Kramnik and Carlsen have both played the Catalan for years, often leaving c4 hanging and trusting the g2-bishop for long-term pressure.",
+    "11": "In the 2010 World Championship, Anand used the Catalan against Topalov and won with it, which made the opening fashionable again at the top."
+   },
+   "show": {
+    "6": [
+     "g2d5"
+    ],
+    "12": [
+     "c2c4"
+    ],
+    "13": [
+     "b7b5"
+    ],
+    "17": [
+     "a2a4",
+     "b7f3"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "catalan-bb4": {
+   "branch": "4...Bb4+ check",
+   "kind": "variation",
+   "name": "Catalan (4...Bb4+ 5.Bd2 Be7)",
+   "eco": "E01",
+   "level": 2,
+   "idea": "Black checks to lure your bishop to d2, then drops back to e7, where it leaves your bishop blocking the b1-knight's best square. You re-route the bishop to f4, free d2 for the knight and keep the usual Catalan pressure.",
+   "moves": [
+    "d4",
+    "Nf6",
+    "c4",
+    "e6",
+    "g3",
+    "d5",
+    "Bg2",
+    "Bb4+",
+    "Bd2",
+    "Be7",
+    "Nf3",
+    "O-O",
+    "O-O",
+    "c6",
+    "Qc2",
+    "b6",
+    "Bf4",
+    "Ba6",
+    "Nbd2",
+    "Nbd7"
+   ],
+   "notes": [
+    "Queen's pawn.",
+    "Flexible.",
+    "Gain space.",
+    "Black prepares ...d5 or ...Bb4.",
+    "The Catalan: the bishop will go to g2.",
+    "Classical centre.",
+    "The bishop eyes d5 and the queenside behind it.",
+    "A check to disturb your development.",
+    "Block with the bishop: it develops with no loss of time.",
+    "Black retreats; your d2-bishop now stands in the knight's way.",
+    "Develop and guard d4.",
+    "Black castles.",
+    "Castle; c4 is still a gambit pawn.",
+    "Black chooses a solid Closed set-up.",
+    "Protect c4 and support a later e4.",
+    "Prepare ...Ba6 to hit c4.",
+    "Re-route the bishop and free d2 for the knight.",
+    "Black pressures c4 again.",
+    "The knight finally uses d2 and guards c4.",
+    "Black completes development. Plan: Rfd1, Rac1 and e4 when ready."
+   ],
+   "why": [
+    "You claim the centre with the queen's pawn. The plan is a Queen's Gambit pawn pair on d4 and c4, then a kingside fianchetto, so your king is safe early and the g2-bishop can lean on Black's queenside for the whole middlegame.",
+    "Black develops and keeps options open: ...d5 for a Queen's Gambit type game, ...g6 for the King's Indian, or ...e6 for the Nimzo or Queen's Indian. The knight also stops you from playing e4 straight away.",
+    "You grab more space and put pressure on d5 before Black can settle a pawn there. The c4 pawn often becomes a temporary gambit pawn in the Catalan: if Black takes it, you aim to win it back while your pieces get active.",
+    "Black opens the f8-bishop and prepares ...d5 or a ...Bb4 check. The c8-bishop is now shut in behind e6, and keeping that bishop passive is a theme for you all game.",
+    "This is the Catalan move. It sidesteps the Nimzo-Indian pin, since your knight is not on c3, and prepares Bg2 to aim through d5 at b7 and a8. Your king also gets a safe home quickly.",
+    "Black builds the classical centre and blocks your future bishop's diagonal at d5. The c4 pawn is now attacked, and Black can take it whenever it suits; that choice is what the whole opening revolves around.",
+    "The bishop takes up its long-term post. It already presses on d5, and if Black ever releases the tension with ...dxc4, the diagonal opens towards b7 and the a8-rook.",
+    "Black gives a check to pull one of your pieces onto d2. The idea is clever: whatever blocks on d2 gets in the way, because d2 is the natural square for your b1-knight. Watch for Black dropping back to e7 next.",
+    "Block with the bishop. It develops a piece without losing time and offers a trade of Black's good bishop. Nd2 is also played, but then the knight blocks your queen's view of d4 and the c1-bishop stays at home.",
+    "Black refuses the trade and retreats. Now your bishop on d2 sits on the square your queen's knight wants. Black has spent two moves getting the bishop to e7, so you can afford one more bishop move later (Bf4) to put things right.",
+    "Develop the knight, guard d4 and prepare to castle. You still do not need to defend c4: if Black takes it, Qc2 or Qa4 wins it back, and your pieces will be more active than Black's.",
+    "Black castles and keeps the tension on c4. Black's set-up is solid but slightly passive, and the c8-bishop still has no good diagonal, which is the theme to keep in mind.",
+    "You castle too. The c4 pawn is still hanging in principle, but taking it would open your g2-bishop's diagonal, so Black usually prefers to hold the centre with ...c6.",
+    "Black chooses a Closed Catalan structure with pawns on c6, d5 and e6. This blocks your bishop's diagonal at d5 and prepares ...b6 with ...Ba6 or ...Bb7, the way Black develops the problem c8-bishop.",
+    "Your queen protects c4 and supports a later e4 break. From c2 it also eyes h7 along the b1-h7 diagonal, which matters if the f6-knight is ever chased away.",
+    "Black prepares to develop the c8-bishop on a6, where it hits c4. With the b-pawn gone from b7, the c6 pawn has lost a defender, so opening the position later with cxd5 or e4 can leave it loose on your bishop's diagonal.",
+    "The key manoeuvre. The bishop leaves d2 for a better diagonal, where it eyes c7 and b8 and controls e5, and d2 is now free for your b1-knight. Black's check has cost Black time and gained little.",
+    "Black hits c4 a second time: the d5 pawn and the a6-bishop now attack it, and only your queen defends it. You must cover it before doing anything else.",
+    "The knight covers c4 and finally reaches its natural square, the one Black's check tried to take away. From d2 it also supports e4, the central break that frees your position and opens the long diagonal.",
+    "Black completes development. Your plan is Rfd1 and Rac1 to pressure the c- and d-files, then e4 when the timing is right. Watch for ...Nh5, which hits your f4-bishop; Be3 or Bg5 keeps it out of trouble."
+   ],
+   "gm": {
+    "7": "From the masters: a bishop check answered by Bd2, followed by a retreat to e7, is a well-known device in d4 openings. Black spends a tempo to leave your bishop on a square where it blocks your other pieces.",
+    "16": "Re-routing a misplaced piece, even at the cost of a tempo, is a classic positional principle: a piece doing nothing on a natural-looking square is worth moving again."
+   },
+   "show": {
+    "7": [
+     "b4e1"
+    ],
+    "9": [
+     "b1d2"
+    ],
+    "16": [
+     "f4c7",
+     "b1d2"
+    ],
+    "17": [
+     "a6c4"
+    ],
+    "19": [
+     "e2e4",
+     "f1d1"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "catalan-closed": {
+   "branch": "6...Nbd7 Closed Catalan",
+   "kind": "variation",
+   "name": "Closed Catalan (main line)",
+   "eco": "E09",
+   "level": 2,
+   "idea": "Black keeps the pawn on d5 and builds a solid wall with ...Nbd7 and ...c6. You prepare e4 to open the centre for your pieces, while Black aims for ...b6, ...Bb7 and an eventual ...c5.",
+   "moves": [
+    "d4",
+    "Nf6",
+    "c4",
+    "e6",
+    "g3",
+    "d5",
+    "Bg2",
+    "Be7",
+    "Nf3",
+    "O-O",
+    "O-O",
+    "Nbd7",
+    "Qc2",
+    "c6",
+    "Nbd2",
+    "b6",
+    "e4",
+    "Bb7",
+    "b3",
+    "Rc8"
+   ],
+   "notes": [
+    "Queen's pawn.",
+    "Flexible.",
+    "Gain space.",
+    "Black prepares ...d5 or ...Bb4.",
+    "The Catalan: the bishop will go to g2.",
+    "Classical centre.",
+    "The bishop eyes d5 and the queenside behind it.",
+    "Solid development.",
+    "Develop.",
+    "Black castles.",
+    "Castle; c4 is a gambit pawn for now.",
+    "The Closed Catalan: Black keeps the d5 pawn.",
+    "Guard c4 and prepare e4.",
+    "Black builds a solid c6-d5-e6 wall.",
+    "Support e4 with the knight.",
+    "Prepare ...Bb7 or ...Ba6.",
+    "The central break: open the position for your pieces.",
+    "Black develops the problem bishop.",
+    "Secure c4 and prepare Bb2.",
+    "Black eyes the c-file and ...c5. Plan: Bb2, Rad1 or Rfe1, then e5 or exd5."
+   ],
+   "why": [
+    "You claim the centre with the queen's pawn. The plan is a Queen's Gambit pawn pair on d4 and c4, then a kingside fianchetto, so your king is safe early and the g2-bishop can lean on Black's queenside for the whole middlegame.",
+    "Black develops and keeps options open: ...d5 for a Queen's Gambit type game, ...g6 for the King's Indian, or ...e6 for the Nimzo or Queen's Indian. The knight also stops you from playing e4 straight away.",
+    "You grab more space and put pressure on d5 before Black can settle a pawn there. The c4 pawn often becomes a temporary gambit pawn in the Catalan: if Black takes it, you aim to win it back while your pieces get active.",
+    "Black opens the f8-bishop and prepares ...d5 or a ...Bb4 check. The c8-bishop is now shut in behind e6, and keeping that bishop passive is a theme for you all game.",
+    "This is the Catalan move. It sidesteps the Nimzo-Indian pin, since your knight is not on c3, and prepares Bg2 to aim through d5 at b7 and a8. Your king also gets a safe home quickly.",
+    "Black builds the classical centre and blocks your future bishop's diagonal at d5. The c4 pawn is now attacked, and Black can take it whenever it suits; that choice is what the whole opening revolves around.",
+    "The bishop takes up its long-term post. It already presses on d5, and if Black ever releases the tension with ...dxc4, the diagonal opens towards b7 and the a8-rook.",
+    "A solid choice: Black gets ready to castle and avoids early commitments. Watch for ...dxc4 on any move from now on. Black's other main try here is the check 4...Bb4+, covered in its own branch.",
+    "Develop, guard d4 and clear the way to castle. You are not worried about the c4 pawn yet, because winning it back with Qa4+ or Qc2 is usually easy while Black is still developing.",
+    "Black castles and the tension on c4 stays. Black is now choosing between the Open Catalan (...dxc4) and the Closed Catalan (...Nbd7 and ...c6), so expect either plan on the next move.",
+    "You castle and calmly leave c4 hanging. Defending it with Qc2 straight away is also fine, but castling first keeps your options and invites ...dxc4, after which your g2-bishop gets an open road.",
+    "Black keeps the pawn on d5, choosing the Closed Catalan. The knight supports later ...c5 or ...e5 breaks, and it brings a threat: ...dxc4 followed by ...Nb6 would hold the extra pawn. Black's c8-bishop is still buried, and your job is to keep it that way.",
+    "Your queen guards c4 in advance, so ...dxc4 and ...Nb6 no longer wins a pawn. From c2 it also supports the e4 break and eyes h7 along the b1-h7 diagonal.",
+    "Black reinforces d5 and builds the solid c6-d5-e6 wall. It blocks your bishop's diagonal at d5, so you will need a pawn break (e4) to bring the bishop back to life.",
+    "The knight supports e4 and covers c4 from d2. This is the classical main line; b3 with Bb2 is the other popular plan. Either way the goal is to prepare e4 without losing the c4 pawn.",
+    "Black prepares to develop the c8-bishop on b7 (or a6, hitting c4). With ...b6 played, Black is also getting ready for ...c5 to challenge your centre from the side.",
+    "The central break that makes the Closed Catalan work for White. It challenges d5, gains space and threatens e5, which would drive the f6-knight from its best defensive square. Black must decide whether to take on e4 or hold d5.",
+    "Black develops the bishop and keeps d5 supported. Now ...dxe4 followed by ...c5 is a real idea, opening the long diagonal for Black's bishop towards your king. For now your c6 and d5 targets block it.",
+    "You secure c4 with a pawn, so the queen and knight are free for other jobs, and prepare Bb2 for your last minor piece. If Black ever takes on c4, you recapture with the b-pawn and keep a broad centre.",
+    "Black puts the rook on the c-file, preparing ...c5 to hit d4. Your plan: Bb2, a rook to d1 or e1, then choose between e5 (kingside space) and exd5 (open lines for your pieces). Keep d4 well protected before ...c5 arrives."
+   ],
+   "gm": {
+    "16": "From the masters: in closed positions, find the pawn break first and then arrange the pieces behind it. Here the break is e4, and your moves before it all support it."
+   },
+   "show": {
+    "11": [
+     "d5c4",
+     "d7b6"
+    ],
+    "14": [
+     "e2e4"
+    ],
+    "16": [
+     "e4e5"
+    ],
+    "17": [
+     "c6c5"
+    ],
+    "19": [
+     "c1b2",
+     "f1e1"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "catalan-via-nf3": {
+   "branch": "Via 1.Nf3 move order",
+   "kind": "transposition",
+   "joins": "catalan",
+   "name": "Catalan via 1.Nf3 (Reti move order)",
+   "eco": "E05",
+   "level": 2,
+   "idea": "Start with 1.Nf3 and 2.c4, fianchetto, and push d4 only once Black has committed to ...e6, ...d5 and ...Be7. You reach the main Open Catalan while denying Black the ...Bb4+ check.",
+   "moves": [
+    "Nf3",
+    "Nf6",
+    "c4",
+    "e6",
+    "g3",
+    "d5",
+    "Bg2",
+    "Be7",
+    "O-O",
+    "O-O",
+    "d4",
+    "dxc4",
+    "Qc2",
+    "a6",
+    "Qxc4"
+   ],
+   "notes": [
+    "Flexible knight first: no pawn commitment yet.",
+    "Black mirrors.",
+    "English-style space on the queenside.",
+    "Black heads for a Queen's Gambit set-up.",
+    "Fianchetto first.",
+    "Black takes the centre.",
+    "The bishop lines up behind the f3-knight.",
+    "With no pawn on d4, ...Bb4 would not be check.",
+    "Castle; d4 can wait one more move.",
+    "Black castles.",
+    "Now d4: the main Open Catalan position, Black to move.",
+    "Black takes the pawn, as in the main line.",
+    "Win it back with the queen.",
+    "Prepare ...b5.",
+    "Regain the pawn: same plans as the main line."
+   ],
+   "why": [
+    "The knight covers e5 and d4 and keeps your pawn moves flexible. It also rules out replies that only work against 1.d4, such as the Budapest Gambit with ...e5, because your knight already guards e5.",
+    "Black develops and waits to see your plan. A King's Indian, a Queen's Indian or a ...d5 set-up are all still possible, so you keep the Catalan as your target and watch what Black commits to.",
+    "You take space and pressure d5 from the side, as in the English. Your d-pawn stays on d2 for now; that detail matters later, because it means a black bishop on b4 would not give check.",
+    "Black prepares ...d5 and a Queen's Gambit type centre. The c8-bishop is shut in behind e6, the same long-term problem Black has in the main line.",
+    "Fianchetto before committing the d-pawn. If Black plays ...d5 and ...Be7, you can push d4 and reach the Catalan; if Black does something else, you keep Reti and English options.",
+    "Black takes the centre and attacks c4. Taking on c4 at once is possible too; then Qa4+ (a check, since the d7 pawn has moved) or Na3 wins it back.",
+    "The bishop takes its Catalan post, lined up behind your f3-knight towards d5 and b7. You are now one move (d4) away from the main line, and you choose the moment.",
+    "Black develops solidly. Notice the difference from the 1.d4 move order: with your pawn still on d2, a bishop on b4 would not give check, so the 4...Bb4+ branch of this family is not available to Black here.",
+    "Castle first and keep d4 in reserve for one more move. Black's natural reply is to castle as well, after which d4 lands you straight in the main line.",
+    "Black castles. Black could instead try ...c5 or ...dxc4 against your delayed d4; that is the price of this move order, because you also need to know some Reti and English positions.",
+    "This position is identical to the main Catalan line after 6.O-O, with Black to move. You got here without allowing the ...Bb4+ check or Budapest and Benko replies to 1.d4, at the cost of giving Black some extra choices on moves 1 to 5.",
+    "Black takes the pawn, as in the main Open Catalan. Everything from the main line applies now: win the pawn back with the queen and use the opened diagonal behind your f3-knight.",
+    "Prepare to take back on c4. The queen also controls e4 and the c-file, and you gain time if Black spends moves trying to hold the extra pawn.",
+    "Black prepares ...b5, aiming to gain a tempo on your queen once it takes on c4. This is the same position as the main line, so the same plan follows.",
+    "Win the pawn back. Black will play ...b5 and ...Bb7, and you continue with Qc2, a bishop move and a4 to attack the advanced queenside pawns, just as in the main line."
+   ],
+   "gm": {
+    "0": "Starting with 1.Nf3 and choosing the pawn structure later is a classic hypermodern approach, associated with Richard Reti in the 1920s.",
+    "10": "Strong players often reach the Catalan through 1.Nf3 or 1.c4, picking the move order that narrows the opponent's options."
+   },
+   "show": {
+    "2": [
+     "c4d5"
+    ],
+    "7": [
+     "d2d4"
+    ],
+    "10": [
+     "g2d5"
+    ],
+    "12": [
+     "c2c4"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "english": {
+   "branch": "Four Knights, Reversed Dragon (main line)",
+   "kind": "main",
+   "notes": [
+    "The English: control d5 from the side.",
+    "Black takes the centre (a Sicilian with colours reversed).",
+    "More control of d5.",
+    "Develop.",
+    "Develop and pressure e5.",
+    "Defend.",
+    "Prepare the fianchetto: the bishop will rake the long diagonal.",
+    "Black grabs space in the centre.",
+    "Trade a wing pawn for a centre pawn.",
+    "Recapture.",
+    "The bishop x-rays d5 behind the f3-knight; Nxe5 is now a threat.",
+    "The knight steps away from the diagonal.",
+    "Castle.",
+    "Black develops.",
+    "Keep e4 covered and open the c1-bishop.",
+    "Black castles. Plan: a3, b4 and Rb1 for a queenside pawn advance."
+   ],
+   "why": [
+    "You control d5 from the side and keep your centre pawns flexible. The English often leads to a Sicilian with colours reversed, where your extra tempo lets you play the Sicilian's ideas with more force.",
+    "Black takes the centre at once. This is the Reversed Sicilian: Black plays like White in an Open Sicilian, and you play like Black with a move in hand. Watch the d4 square, which the e5 pawn now controls.",
+    "The knight adds control of d5 and e4, the key light squares in this structure. It also means Black cannot push ...d5 without a fight.",
+    "Black develops and prepares ...d5 to claim the centre. The knight also keeps an eye on e4, where you are not planning to put a pawn soon.",
+    "Develop with an attack on e5. This leads to the Four Knights English, one of the main lines. It also gives Black the option ...e4, kicking your knight, which is why some players prefer 3.g3 first (see the transposition branch).",
+    "Black defends e5 and completes the Four Knights set-up. Black's main choices now are ...Bb4, pinning your c3-knight, and ...d5, the Reversed Dragon approach chosen in this line.",
+    "Prepare the fianchetto. Your bishop on g2 will line up on the long diagonal through d5 and c6 towards b7, the heart of the English plan.",
+    "Black grabs the centre, as in an Open Sicilian with colours reversed. It looks active, but in the resulting structure your c-file and long diagonal give you the easier play, with an extra tempo compared with the Dragon.",
+    "Trade your wing pawn for Black's centre pawn, the same exchange Black makes in the Sicilian with ...cxd4. You get a half-open c-file and pressure against Black's centre.",
+    "Black recaptures with the knight. It looks good on d5 for now, but it is exposed to your c3-knight and soon to your g2-bishop.",
+    "The bishop lines up behind your f3-knight on the long diagonal. The threat is Nxe5: the knight grabs a pawn and unmasks the bishop against the d5-knight and the c6-knight behind it, so Black must act now.",
+    "The knight steps back to b6, out of the bishop's line and away from exchanges on d5. From b6 it watches c4 and d5, but it is a long way from the kingside.",
+    "Castle and get your king safe before starting play. Your position is compact and your pieces point at the queenside, where Black's c6-knight and b7 pawn sit on your bishop's diagonal.",
+    "Black develops and prepares to castle. Black's set-up is the White side of a Dragon a tempo short, so Black usually avoids sharp attacking plans.",
+    "Cover e4 and open the c1-bishop. You keep the centre compact and prepare either a3, b4 and Rb1 for a queenside pawn advance, or Be3 and Rc1 for play on the c-file.",
+    "Black castles. Your plan is queenside expansion with a3, b4 and Rb1, then b5 to chase the c6-knight away from e5 and d4. Also keep Be3 and Rc1 in mind to use the half-open c-file."
+   ],
+   "gm": {
+    "7": "The structure after ...d5 is called the Reversed Dragon: Black plays the White side of a Sicilian Dragon, and you play the Dragon with an extra tempo. Compare it with the Sicilian Dragon family in this app.",
+    "15": "This queenside pawn advance (a3, b4, b5) mirrors Black's ...a6, ...b5, ...b4 plan in the Sicilian, and in the English you play it with an extra tempo."
+   },
+   "show": {
+    "0": [
+     "c4d5"
+    ],
+    "6": [
+     "f1g2"
+    ],
+    "10": [
+     "f3e5"
+    ],
+    "15": [
+     "b2b4",
+     "c1e3"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "english-symmetrical": {
+   "branch": "1...c5 Symmetrical",
+   "kind": "variation",
+   "name": "English: Symmetrical Variation",
+   "eco": "A39",
+   "level": 2,
+   "idea": "Black copies your set-up move for move. You break the symmetry with d4, trade on d4 and use the open long diagonal and the half-open d-file against Black's d6 pawn and queenside.",
+   "moves": [
+    "c4",
+    "c5",
+    "Nc3",
+    "Nc6",
+    "g3",
+    "g6",
+    "Bg2",
+    "Bg7",
+    "Nf3",
+    "Nf6",
+    "O-O",
+    "O-O",
+    "d4",
+    "cxd4",
+    "Nxd4",
+    "Nxd4",
+    "Qxd4",
+    "d6",
+    "Qd3"
+   ],
+   "notes": [
+    "The English: control d5 from the side.",
+    "Black mirrors: the Symmetrical English.",
+    "Control d5.",
+    "Black mirrors again.",
+    "Prepare the fianchetto.",
+    "Black fianchettoes too.",
+    "The bishop takes the long diagonal.",
+    "Full symmetry on both wings.",
+    "Develop and prepare to castle.",
+    "Black develops.",
+    "Castle.",
+    "Black castles.",
+    "Break the symmetry in the centre.",
+    "Black trades the c-pawn for your d-pawn.",
+    "Recapture with the knight.",
+    "Black trades knights.",
+    "Recapture; the queen is centralised for now.",
+    "Black frees the c8-bishop.",
+    "Step off the long diagonal. Plan: Bd2, Rac1 and pressure on d6 and b7."
+   ],
+   "why": [
+    "You control d5 from the side and keep your centre pawns flexible. The English often leads to a Sicilian with colours reversed, where your extra tempo lets you play the Sicilian's ideas with more force.",
+    "Black answers with a symmetrical set-up. Symmetry is solid for Black, but the side to move usually gets to break it first, and that is you. Your job is to find the right moment to open the centre with d4.",
+    "Develop and add control of d5 and e4. In symmetrical positions d5 is a key outpost, and a knight landing there later can be very strong.",
+    "Black copies you, covering d4 and e5. Black wants to keep the symmetry as long as possible and match every plan you show.",
+    "Prepare to fianchetto. The bishop on g2 will aim down the long diagonal at Black's queenside, and that diagonal opens fully once the centre pawns are traded.",
+    "Black fianchettoes too, so both bishops will aim at the other side's queenside (b7 and b2). Whoever opens the long diagonals on their terms usually gets the better game.",
+    "Your bishop takes the long diagonal. It eyes the c6-knight and, behind it, b7, and in many lines that queenside pressure decides the middlegame.",
+    "Black mirrors with the bishop, which now hits your c3-knight and the b2 pawn behind it. Keep this in mind whenever your c3-knight moves.",
+    "Develop and prepare to castle. The knight also supports the d4 break, your main way to take the initiative in this structure.",
+    "Black keeps copying. Other options here are ...e5 or ...e6 with ...Nge7, which change the pawn structure, but full symmetry is the most solid choice.",
+    "Castle first so your king is safe before the centre opens. With the king tucked away, d4 comes next.",
+    "Black castles too. The position is still fully symmetrical, and now the move d4 decides who gets the more active pieces.",
+    "You break the symmetry and open the centre. After the trade on d4 your knight or queen gets a central post, the long diagonal opens for your g2-bishop, and Black's d-pawn can become a target on the half-open d-file.",
+    "Black trades the c-pawn for your d-pawn, as in a Sicilian. Black accepts a slightly passive position but removes your centre pawn.",
+    "Recapture with the knight, centralising it and clearing the long diagonal. Your g2-bishop now sees all the way to the c6-knight and b7.",
+    "Black trades knights to reduce your central control. Black also plans ...d6 and ...Bf5 or ...Be6 to develop with tempo against your queen.",
+    "Recapture with the queen. It is active in the centre, but it stands on the long diagonal in front of Black's g7-bishop, so any move of the f6-knight would unmask an attack on it.",
+    "Black opens the c8-bishop and prepares ...Be6 or ...Bf5 with tempo. A knight jump from f6, such as ...Ng4, would now discover the g7-bishop's attack on your queen.",
+    "The queen steps off the long diagonal before Black can gain time on it, and still eyes d6 down the d-file. Your plan: Bd2 or Bg5, Rac1 and pressure on d6 and b7. Watch for ...Bf5 hitting your queen and ...a6 with ...Rb8 and ...b5."
+   ],
+   "gm": {
+    "1": "The Symmetrical English is a favourite of solid players with Black, because copying White's set-up offers few targets. Breaking the symmetry at the right moment is the skill White needs.",
+    "12": "From the masters: in symmetrical positions the first player to make a useful pawn break usually takes the initiative. Here d4 is that break."
+   },
+   "show": {
+    "6": [
+     "g2c6"
+    ],
+    "7": [
+     "g7c3"
+    ],
+    "12": [
+     "d4c5"
+    ],
+    "14": [
+     "g2c6"
+    ],
+    "16": [
+     "g7d4"
+    ],
+    "18": [
+     "d3d6",
+     "g2b7"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "english-kid": {
+   "branch": "1...Nf6 and ...g6 (King's Indian set-up)",
+   "kind": "variation",
+   "name": "English vs King's Indian set-up",
+   "eco": "A26",
+   "level": 2,
+   "idea": "Black sets up like a King's Indian with ...g6, ...d6 and ...e5. You keep the d-pawn on d3 and expand on the queenside with Rb1, a3 and b4 while Black looks for ...f5 on the other wing.",
+   "moves": [
+    "c4",
+    "Nf6",
+    "Nc3",
+    "g6",
+    "g3",
+    "Bg7",
+    "Bg2",
+    "O-O",
+    "Nf3",
+    "d6",
+    "O-O",
+    "e5",
+    "d3",
+    "Nc6",
+    "Rb1",
+    "a5",
+    "a3"
+   ],
+   "notes": [
+    "The English: control d5 from the side.",
+    "Black develops; the set-up is still open.",
+    "Control d5 and e4.",
+    "Black heads for a King's Indian set-up.",
+    "Fianchetto as well.",
+    "The bishop takes the long dark diagonal.",
+    "Your bishop eyes b7 down the open diagonal.",
+    "Black castles.",
+    "Develop and castle next.",
+    "Black prepares ...e5.",
+    "Castle.",
+    "Black claims the dark squares in the centre.",
+    "Keep the centre compact.",
+    "Black develops and covers d4.",
+    "Prepare b4 on the queenside.",
+    "Black slows down b4.",
+    "Support b4. Plan: b4, b5 and queenside pressure."
+   ],
+   "why": [
+    "You control d5 from the side and keep your centre pawns flexible. The English often leads to a Sicilian with colours reversed, where your extra tempo lets you play the Sicilian's ideas with more force.",
+    "Black develops and keeps options open: ...e5, ...c5, ...e6 or a King's Indian set-up with ...g6 are all possible. The knight also stops e4 for the moment.",
+    "Develop and add control of d5 and e4. You keep your d-pawn back for now, so you can later choose between d3, d4 or an e4 push depending on Black's set-up.",
+    "Black heads for a King's Indian set-up with ...Bg7, ...O-O, ...d6 and ...e5. Black's later play usually comes on the kingside with ...f5.",
+    "You fianchetto too. Against a King's Indian set-up the g2-bishop is a strong piece: it controls the light squares d5 and e4, which Black's dark-square strategy leaves behind.",
+    "The bishop takes the long dark diagonal. Your c3-knight and b2 pawn sit on it, behind Black's own f6-knight, so a knight jump from f6 can suddenly unmask the bishop.",
+    "Your bishop takes the long light diagonal and aims all the way to b7, because the squares in between are empty. Together with c4 and Nc3 you hold a firm grip on d5.",
+    "Black castles early, a typical King's Indian approach. Black will choose ...d6 with ...e5 or ...c5 depending on your set-up.",
+    "Develop and prepare to castle. The knight blocks your g2-bishop's diagonal for now, but it can later drop back to e1 or d2 when you want the bishop working again.",
+    "Black supports ...e5 and opens the c8-bishop. If you now played d4 and e4 you would be in a real King's Indian; staying in the English means keeping the d-pawn short and playing on the queenside.",
+    "Castle and complete kingside development. Your king is safe behind the fianchetto, and you can start queenside operations.",
+    "Black claims central space and the d4 square, a reversed version of the Closed Sicilian structure. Black's typical plans are ...Nc6, ...h6 and ...Be6, or ...Nh5 with ...f5 on the kingside.",
+    "Cover e4 and open the c1-bishop. Keeping the pawn on d3 gives Black no target on d4 and keeps your structure compact for the queenside expansion.",
+    "Black develops and watches d4 and b4. The c6-knight can jump to d4, where it is hard to dislodge, so at some point you may trade it with Nxd4 or play e3 to keep it out.",
+    "The rook supports the b4 push before it happens, so that after b4 and b5 the b-file opens with your rook already on it. It also steps off the long diagonal of Black's g7-bishop.",
+    "Black slows down your b4 push: now b4 needs a3 first, and after ...axb4 axb4 the a-file opens for both sides. Black hopes this buys time for kingside play.",
+    "Support b4. After b4 axb4 axb4 your queenside space grows, and b5 can chase the c6-knight. Watch for ...Nd4, which aims to trade your f3-knight, and for ...h6 with ...Be6, or ...Nh5 and ...f5 on the kingside."
+   ],
+   "gm": {
+    "14": "From the masters: in reversed Sicilian structures, Rb1, a3 and b4 is the mirror image of Black's queenside expansion in the Closed Sicilian, and you get to play it a tempo faster."
+   },
+   "show": {
+    "5": [
+     "g7c3"
+    ],
+    "6": [
+     "g2b7"
+    ],
+    "11": [
+     "f7f5"
+    ],
+    "14": [
+     "b2b4"
+    ],
+    "16": [
+     "b2b4",
+     "c6d4"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "english-g3": {
+   "branch": "3.g3 move order",
+   "kind": "transposition",
+   "joins": "english",
+   "name": "Reversed Dragon via 3.g3",
+   "eco": "A29",
+   "level": 2,
+   "idea": "Fianchetto before playing Nf3. You reach the same Reversed Dragon as the main line, but Black never gets the chance to hit a knight on f3 with ...e4.",
+   "moves": [
+    "c4",
+    "e5",
+    "Nc3",
+    "Nf6",
+    "g3",
+    "d5",
+    "cxd5",
+    "Nxd5",
+    "Bg2",
+    "Nb6",
+    "Nf3",
+    "Nc6",
+    "O-O",
+    "Be7",
+    "d3"
+   ],
+   "notes": [
+    "The English: control d5 from the side.",
+    "Black takes the centre.",
+    "More control of d5.",
+    "Develop.",
+    "Fianchetto first; Nf3 can wait.",
+    "Black grabs the centre: a Reversed Dragon.",
+    "Trade a wing pawn for a centre pawn.",
+    "Recapture.",
+    "The bishop hits the d5-knight directly.",
+    "The knight steps away from the diagonal.",
+    "Now develop the knight with a hit on e5.",
+    "Black defends e5: the main line position.",
+    "Castle.",
+    "Black develops.",
+    "Keep e4 covered. Plan: a3, b4, Rb1 or Be3, Rc1."
+   ],
+   "why": [
+    "You control d5 from the side and keep your centre pawns flexible. The English often leads to a Sicilian with colours reversed, where your extra tempo lets you play the Sicilian's ideas with more force.",
+    "Black takes the centre at once. This is the Reversed Sicilian: Black plays like White in an Open Sicilian, and you play like Black with a move in hand. Watch the d4 square, which the e5 pawn now controls.",
+    "The knight adds control of d5 and e4, the key light squares in this structure. It also means Black cannot push ...d5 without a fight.",
+    "Black develops and prepares ...d5 to claim the centre. The knight also keeps an eye on e4, where you are not planning to put a pawn soon.",
+    "You fianchetto before developing the g1-knight. With no knight on f3, Black's ...e4 push has no target, and you keep the choice between Nf3 later or e3 with Nge2.",
+    "Black grabs the centre: the Reversed Dragon. In the 3.Nf3 move order Black could also have played ...e4 to kick your knight; here that option is gone.",
+    "Trade your c-pawn for Black's centre pawn, the same exchange Black makes in a Sicilian with ...cxd4. You get the half-open c-file and pressure on d5.",
+    "Black recaptures with the knight. On d5 it is attacked by your c3-knight, and after Bg2 by your bishop as well.",
+    "The bishop hits the d5-knight straight away, because no knight on f3 blocks the diagonal yet. The d5-knight is now attacked twice and defended only by the queen, so Black must move it or defend it again.",
+    "The knight drops back to b6, out of the bishop's line. ...Nxc3 is the other common choice, but ...Nb6 keeps more pieces on and leads to the main line.",
+    "Now the knight develops with an attack on e5, forcing Black to defend it. Black no longer has a useful ...e4 against it, because Black has spent the time on knight moves.",
+    "This position is identical to the English main line after 6...Nb6, with you to move. Your 3.g3 order meant Black never had ...e4 against a knight on f3; in return Black had other options at move 3, such as ...Bb4 or ...c6.",
+    "Castle and get your king safe before starting play. Your position is compact and your pieces point at the queenside, where Black's c6-knight and b7 pawn sit on your bishop's diagonal.",
+    "Black develops and prepares to castle. Black's set-up is the White side of a Dragon a tempo short, so Black usually avoids sharp attacking plans.",
+    "Cover e4 and open the c1-bishop. You keep the centre compact and prepare either a3, b4 and Rb1 for a queenside pawn advance, or Be3 and Rc1 for play on the c-file."
+   ],
+   "gm": {
+    "5": "This structure is a Sicilian Dragon with colours reversed, and you are the Dragon player with a full extra tempo. That extra move is why Black's sharp attacking plans work less well here."
+   },
+   "show": {
+    "4": [
+     "f1g2"
+    ],
+    "8": [
+     "g2d5"
+    ],
+    "10": [
+     "f3e5"
+    ],
+    "14": [
+     "a2a3",
+     "c1e3"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "najdorf": {
+   "branch": "English Attack (main line)",
+   "kind": "main",
+   "why": [
+    "White opens with the king's pawn, taking the centre and freeing the queen and f1-bishop. You will fight for d4 from the side with your c-pawn.",
+    "The Sicilian. You control d4 from the wing and create an unbalanced position from move one. If White opens the centre with d4, you trade your c-pawn for White's d-pawn and keep an extra central pawn for the middlegame.",
+    "White develops and prepares d4 to open the position. This is the most common move; anti-Sicilians such as 2.c3, 2.Nc3 or 3.Bb5+ are the other systems you need to know.",
+    "You control e5, open the c8-bishop and keep the move order that leads to the Najdorf. It also prepares ...Nf6 without allowing e5 to kick the knight, since the d6 pawn covers e5.",
+    "White opens the centre: the Open Sicilian. White gets a lead in development and space; you get the half-open c-file and the extra centre pawn once you take.",
+    "Take. You trade a wing pawn (c5) for a centre pawn (d4), leaving two central pawns (d6 and e7) against White's one (e4). In the long run that extra centre pawn is one of your main trumps.",
+    "White recaptures with the knight, centralising it. Now you need to develop with tempo before White builds up with Nc3, Be3 and either kingside castling or a queenside castle and pawn storm.",
+    "Develop with an attack on e4. White must defend it, usually with Nc3, which blocks the c-pawn and rules out the c4 Maroczy Bind set-up.",
+    "White defends e4 with the knight. This is the standard Open Sicilian position, and your fifth move decides which Sicilian you play: ...a6 for the Najdorf, ...g6 for the Dragon, ...e6 for the Scheveningen or ...Nc6 for the Classical.",
+    "The Najdorf. The modest pawn move controls b5, so White's knights and bishop cannot use that square, and it prepares ...e5 or ...e6 with ...b5 later. You keep your plans flexible while White has to commit first.",
+    "The English Attack begins: Be3, f3, Qd2, castle long and storm the kingside with g4 and g5. It is one of White's most dangerous tries and leads to opposite-side castling races.",
+    "Kick the d4-knight and claim central space. The price is a hole on d5 and a backward pawn on d6, so from now on you must control d5 with ...Be6, ...Nbd7-b6 and your f6-knight to keep White's pieces out.",
+    "The knight retreats to b3, where it still watches d4 and c5 and can support a4. It also keeps f3 free for the pawn push that is central to White's set-up.",
+    "Develop the bishop to fight for d5, the hole you created. If White ever lands a knight there you can take it, and the bishop also supports a later ...d5 break, your dream move in this structure.",
+    "White supports e4 and prepares g4 and Qd2. This is the core of the English Attack: the f3 pawn stops ...Ng4 tricks against the e3-bishop and protects e4, so White's pieces are free to attack.",
+    "Develop and prepare to castle. The bishop on e7 guards the kingside dark squares and supports a later ...d5. Castle soon, before White's g-pawn arrives.",
+    "White connects the rooks and gets ready to castle queenside. The queen and e3-bishop now share the c1-h6 diagonal, and g4-g5 to chase your f6-knight comes next.",
+    "Castle kingside. White will castle the other way, so this becomes a pure race: White storms with g4-g5 and h4, and you storm with ...b5-b4 and open lines on the queenside.",
+    "White castles opposite. Now every tempo counts: White wants g4 and g5 to chase your f6-knight and win control of d5. Your counterplay must be fast and aimed straight at the c1-king.",
+    "The knight heads for b6 or c5 and stays ready to support the kingside if g5 kicks your f6-knight. Next comes ...b5 and ...b4 to hit the c3-knight; in the main line, after g4-g5 you often play ...b4 first and drop the f6-knight back."
+   ],
+   "gm": {
+    "9": "Miguel Najdorf gave the line its name, and both Fischer and Kasparov made it their main answer to 1.e4. It has been the most respected Sicilian at the top level for decades.",
+    "17": "From the masters: in opposite-side castling races, counting tempi matters more than material. A pawn sacrifice that opens a file against the king is often worth it."
+   },
+   "show": {
+    "1": [
+     "c5d4"
+    ],
+    "9": [
+     "a6b5"
+    ],
+    "11": [
+     "e5d4"
+    ],
+    "13": [
+     "e6d5"
+    ],
+    "18": [
+     "g2g4"
+    ],
+    "19": [
+     "b7b5"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "najdorf-bb5": {
+   "branch": "3.Bb5+ Moscow Variation",
+   "kind": "variation",
+   "name": "Sicilian: Moscow Variation (3.Bb5+)",
+   "eco": "B52",
+   "level": 2,
+   "idea": "White avoids the Open Sicilian with a check and trades light-squared bishops. You recapture with the queen, develop smoothly and meet White's c3-d4 centre with ...e6, ...d5 and a strong knight on e4.",
+   "moves": [
+    "e4",
+    "c5",
+    "Nf3",
+    "d6",
+    "Bb5+",
+    "Bd7",
+    "Bxd7+",
+    "Qxd7",
+    "O-O",
+    "Nc6",
+    "c3",
+    "Nf6",
+    "Re1",
+    "e6",
+    "d4",
+    "cxd4",
+    "cxd4",
+    "d5",
+    "e5",
+    "Ne4"
+   ],
+   "notes": [
+    "White opens with the king's pawn.",
+    "The Sicilian.",
+    "White develops.",
+    "Control e5; the Najdorf move order.",
+    "The Moscow Variation: a check to avoid main lines.",
+    "Block and offer a bishop trade.",
+    "White trades bishops.",
+    "Recapture with the queen; c6 stays free for the knight.",
+    "White castles.",
+    "Develop and watch d4.",
+    "White prepares d4 with a pawn.",
+    "Develop with pressure on e4.",
+    "White guards e4 with the rook.",
+    "Prepare ...d5 to hit e4.",
+    "White builds the centre.",
+    "Trade on d4.",
+    "White keeps two centre pawns.",
+    "Strike at the centre.",
+    "White gains space.",
+    "The knight lands on a strong central square. Plan: ...Be7, ...O-O, ...Rc8."
+   ],
+   "why": [
+    "White opens with the king's pawn, taking the centre and freeing the queen and f1-bishop. You will fight for d4 from the side with your c-pawn.",
+    "The Sicilian. You control d4 from the wing and create an unbalanced position from move one. If White opens the centre with d4, you trade your c-pawn for White's d-pawn and keep an extra central pawn for the middlegame.",
+    "White develops and prepares d4 to open the position. This is the most common move; anti-Sicilians such as 2.c3, 2.Nc3 or 3.Bb5+ are the other systems you need to know.",
+    "You control e5, open the c8-bishop and keep the move order that leads to the Najdorf. It also prepares ...Nf6 without allowing e5 to kick the knight, since the d6 pawn covers e5.",
+    "White checks to avoid the heavy Open Sicilian theory. Club players use it a lot because the plan is simple: trade bishops, castle and build a c3-d4 centre. You need a calm, solid reply.",
+    "Block with the bishop and offer a trade. Your c8-bishop is often the least useful minor piece in the Sicilian, so swapping it for White's good bishop costs you nothing. ...Nd7 and ...Nc6 are also playable.",
+    "White takes and gives up the bishop pair to speed up development. White's plan is now O-O, c3 and d4 to set up a classical pawn centre.",
+    "Recapture with the queen. Taking with the b8-knight is also playable, but the queen recapture keeps c6 free for the knight and develops a piece at the same time.",
+    "White castles and gets ready for c3 and d4. White's other plan is c4 with a Maroczy-style bind, which you meet with ...Nc6, ...g6 and ...Bg7.",
+    "Develop and add control of d4 and e5. With the queen on d7 and the knight on c6, you are ready to answer d4 with ...cxd4 and pressure the centre.",
+    "White prepares d4 so that a recapture on d4 can be made with a pawn, keeping a full centre. This is the main idea of the whole variation.",
+    "Develop with pressure on e4. White must spend a move defending it, which slows down d4 and gives you time to finish development.",
+    "The rook defends e4 and supports a later e5 push. White is now ready for d4 with a comfortable centre.",
+    "Open the f8-bishop and prepare ...d5, which strikes at e4 directly. The e6 pawn also covers d5 and f5, so White's pieces have fewer entry squares.",
+    "White builds the centre with the c3 pawn supporting d4. If you do nothing, d5 or e5 will cramp you, so release the tension now.",
+    "Trade on d4. After cxd4 White has two centre pawns, but both can be targeted: ...d5 hits e4 at once, and your rooks can use the c-file that this trade opens.",
+    "White recaptures with the pawn and keeps pawns on d4 and e4. The c-file is now open, and that is where your rooks will go.",
+    "Strike at e4. White usually pushes e5 to gain space; taking on d5 instead tends to leave White with an isolated d-pawn.",
+    "White gains space and kicks your knight. The downside is that e4 becomes a fine outpost for your knight, and the d4 pawn will need permanent protection.",
+    "The knight lands on e4, where no white pawn can attack it. Your plan: ...Be7, ...O-O and ...Rc8 on the open c-file. White usually answers Nbd2 to trade off your strong knight, and after ...Nxd2 Bxd2 the game is level."
+   ],
+   "gm": {
+    "4": "The 3.Bb5+ line is known as the Moscow Variation. Strong players use it as a practical way to sidestep Najdorf theory, so expect it often."
+   },
+   "show": {
+    "5": [
+     "d7b5"
+    ],
+    "9": [
+     "c6d4"
+    ],
+    "13": [
+     "d6d5"
+    ],
+    "17": [
+     "d5e4"
+    ],
+    "19": [
+     "a8c8"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "najdorf-bg5": {
+   "branch": "6.Bg5 (main line)",
+   "kind": "variation",
+   "name": "Sicilian Najdorf: 6.Bg5 main line",
+   "eco": "B99",
+   "level": 3,
+   "idea": "White hits your f6-knight and prepares f4 and e5. You play ...e6, ...Be7, ...Qc7 and ...Nbd7, then race with ...b5-b4 while White castles long and storms with g4-g5.",
+   "moves": [
+    "e4",
+    "c5",
+    "Nf3",
+    "d6",
+    "d4",
+    "cxd4",
+    "Nxd4",
+    "Nf6",
+    "Nc3",
+    "a6",
+    "Bg5",
+    "e6",
+    "f4",
+    "Be7",
+    "Qf3",
+    "Qc7",
+    "O-O-O",
+    "Nbd7",
+    "g4",
+    "b5"
+   ],
+   "notes": [
+    "White opens with the king's pawn.",
+    "The Sicilian: fight for d4 from the side.",
+    "White develops and prepares d4.",
+    "Control e5, open the c8-bishop.",
+    "White opens the centre.",
+    "Take: a wing pawn for a centre pawn.",
+    "White recaptures.",
+    "Develop with a hit on e4.",
+    "White defends e4.",
+    "The Najdorf: control b5.",
+    "The bishop eyes f6: White aims for f4 and e5.",
+    "Solid: the queen now guards f6.",
+    "White prepares e5.",
+    "Break the pin and prepare to castle.",
+    "The queen supports e5 and g4.",
+    "Watch e5 and clear d8.",
+    "White castles long: an attack is coming.",
+    "Cover e5 and f6 and support ...b5.",
+    "White threatens g5.",
+    "Counter-attack: ...b4 is next. Watch for Bxf6 and g5."
+   ],
+   "why": [
+    "White opens with the king's pawn, taking the centre and freeing the queen and f1-bishop. You will fight for d4 from the side with your c-pawn.",
+    "The Sicilian. You control d4 from the wing and create an unbalanced position from move one. If White opens the centre with d4, you trade your c-pawn for White's d-pawn and keep an extra central pawn for the middlegame.",
+    "White develops and prepares d4 to open the position. This is the most common move; anti-Sicilians such as 2.c3, 2.Nc3 or 3.Bb5+ are the other systems you need to know.",
+    "You control e5, open the c8-bishop and keep the move order that leads to the Najdorf. It also prepares ...Nf6 without allowing e5 to kick the knight, since the d6 pawn covers e5.",
+    "White opens the centre: the Open Sicilian. White gets a lead in development and space; you get the half-open c-file and the extra centre pawn once you take.",
+    "Take. You trade a wing pawn (c5) for a centre pawn (d4), leaving two central pawns (d6 and e7) against White's one (e4). In the long run that extra centre pawn is one of your main trumps.",
+    "White recaptures with the knight, centralising it. Now you need to develop with tempo before White builds up with Nc3, Be3 and either kingside castling or a queenside castle and pawn storm.",
+    "Develop with an attack on e4. White must defend it, usually with Nc3, which blocks the c-pawn and rules out the c4 Maroczy Bind set-up.",
+    "White defends e4 with the knight. This is the standard Open Sicilian position, and your fifth move decides which Sicilian you play: ...a6 for the Najdorf, ...g6 for the Dragon, ...e6 for the Scheveningen or ...Nc6 for the Classical.",
+    "The Najdorf. The modest pawn move controls b5, so White's knights and bishop cannot use that square, and it prepares ...e5 or ...e6 with ...b5 later. You keep your plans flexible while White has to commit first.",
+    "The most classical answer to the Najdorf. The bishop attacks your f6-knight, threatening Bxf6 to damage your pawns, and prepares f4 and e5 to drive the knight away. You must keep e5 and the f6-knight under control.",
+    "The main move. It protects d5 and opens the line from your queen to f6, so Bxf6 can be met by ...Qxf6. Note that your knight is now pinned to the queen, which is why f4 and e5 become White's main threats.",
+    "White prepares e5, which would hit the pinned knight, and opens the f-file for a later f5 against your e6 pawn. This is the sharpest set-up you will meet against the Najdorf.",
+    "Break the pin by putting the bishop between the knight and the queen. Now e5 is less dangerous because the knight is no longer pinned to the queen, and you are one move from castling.",
+    "White's queen supports e5 and a later g4, and gets out of the way so White can castle long. From f3 it can also swing to g3 or h3 to join a kingside attack.",
+    "The queen slows down White's e5 break (after an exchange on e5 it hits that square), clears d8 for a rook and looks down the c-file at c3, where your counterplay will start.",
+    "White castles long and puts the rook on d1, behind the d4-knight and facing your d6 pawn. White's plan is g4-g5 to drive your f6-knight away, followed by f5 or e5 against your king and centre.",
+    "The knight covers e5 and f6, so that if g5 kicks the f6-knight, the d7-knight is ready to take its place. It also eyes c5 and b6 for later queenside play.",
+    "White threatens g5, kicking your f6-knight away from the defence of h7, d5 and e4. This is the key moment: answer with immediate counterplay instead of waiting.",
+    "Counter-attack. You threaten ...b4, kicking the c3-knight so that e4 loses a defender, and the b- and c-files are ready for your rooks. The main line goes 11.Bxf6 Nxf6 12.g5 Nd7 13.f5, a race on both wings; watch for White's sacrifices on e6 and d5."
+   ],
+   "gm": {
+    "12": "Fischer met this position with 7...Qb6, grabbing the b2 pawn (the Poisoned Pawn). In their 1972 World Championship match Spassky won a famous game against it.",
+    "19": "From the masters: in the Najdorf, ...b5-b4 is usually your fastest counterplay, because it removes the c3-knight from the defence of e4 and d5."
+   },
+   "show": {
+    "10": [
+     "g5f6"
+    ],
+    "11": [
+     "d8f6"
+    ],
+    "12": [
+     "e4e5"
+    ],
+    "15": [
+     "c7c3"
+    ],
+    "18": [
+     "g4g5"
+    ],
+    "19": [
+     "b5b4"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "najdorf-be2": {
+   "branch": "6.Be2 (Classical)",
+   "kind": "variation",
+   "name": "Sicilian Najdorf: 6.Be2 (Classical)",
+   "eco": "B92",
+   "level": 2,
+   "idea": "White chooses a calm set-up with Be2, Nb3 and kingside castling. You play ...e5, ...Be7 and ...Be6, control d5 and aim for the freeing ...d5 break or queenside play with ...Rc8 and ...b5.",
+   "moves": [
+    "e4",
+    "c5",
+    "Nf3",
+    "d6",
+    "d4",
+    "cxd4",
+    "Nxd4",
+    "Nf6",
+    "Nc3",
+    "a6",
+    "Be2",
+    "e5",
+    "Nb3",
+    "Be7",
+    "O-O",
+    "O-O",
+    "Be3",
+    "Be6",
+    "Qd2",
+    "Nbd7"
+   ],
+   "notes": [
+    "White opens with the king's pawn.",
+    "The Sicilian: fight for d4 from the side.",
+    "White develops and prepares d4.",
+    "Control e5, open the c8-bishop.",
+    "White opens the centre.",
+    "Take: a wing pawn for a centre pawn.",
+    "White recaptures.",
+    "Develop with a hit on e4.",
+    "White defends e4.",
+    "The Najdorf: control b5.",
+    "A quieter system: White castles short.",
+    "Kick the knight and take space.",
+    "The knight retreats.",
+    "Develop and prepare to castle.",
+    "White castles.",
+    "Castle.",
+    "White develops and covers b6.",
+    "Fight for d5.",
+    "White connects the rooks.",
+    "Head for b6 to cover d5. Plan: ...Rc8, ...Qc7, ...b5 or ...d5."
+   ],
+   "why": [
+    "White opens with the king's pawn, taking the centre and freeing the queen and f1-bishop. You will fight for d4 from the side with your c-pawn.",
+    "The Sicilian. You control d4 from the wing and create an unbalanced position from move one. If White opens the centre with d4, you trade your c-pawn for White's d-pawn and keep an extra central pawn for the middlegame.",
+    "White develops and prepares d4 to open the position. This is the most common move; anti-Sicilians such as 2.c3, 2.Nc3 or 3.Bb5+ are the other systems you need to know.",
+    "You control e5, open the c8-bishop and keep the move order that leads to the Najdorf. It also prepares ...Nf6 without allowing e5 to kick the knight, since the d6 pawn covers e5.",
+    "White opens the centre: the Open Sicilian. White gets a lead in development and space; you get the half-open c-file and the extra centre pawn once you take.",
+    "Take. You trade a wing pawn (c5) for a centre pawn (d4), leaving two central pawns (d6 and e7) against White's one (e4). In the long run that extra centre pawn is one of your main trumps.",
+    "White recaptures with the knight, centralising it. Now you need to develop with tempo before White builds up with Nc3, Be3 and either kingside castling or a queenside castle and pawn storm.",
+    "Develop with an attack on e4. White must defend it, usually with Nc3, which blocks the c-pawn and rules out the c4 Maroczy Bind set-up.",
+    "White defends e4 with the knight. This is the standard Open Sicilian position, and your fifth move decides which Sicilian you play: ...a6 for the Najdorf, ...g6 for the Dragon, ...e6 for the Scheveningen or ...Nc6 for the Classical.",
+    "The Najdorf. The modest pawn move controls b5, so White's knights and bishop cannot use that square, and it prepares ...e5 or ...e6 with ...b5 later. You keep your plans flexible while White has to commit first.",
+    "A calmer system. White develops quietly, castles kingside and hopes to use the d5 square later. There is no immediate attack, so you have time to set up your ideal structure.",
+    "Kick the knight and claim central space. With White castling short, the d5 hole matters more than any attack, so from now on everything revolves around who controls d5.",
+    "The knight retreats to b3. Nf3 is also possible, but from b3 it watches c5 and d4 and can support a4 to stop your ...b5.",
+    "Develop and get ready to castle. You keep the c8-bishop flexible for now; it will usually go to e6 to fight for d5.",
+    "White castles kingside. There is no pawn race here, so the fight is positional: d5, the c-file and the queenside.",
+    "Castle. Your king is safe, and your next moves aim at d5: ...Be6, ...Nbd7-b6 and possibly ...d5 to free your game completely.",
+    "White develops the bishop, which covers b6 and c5 and can support Nd5 later. White often follows with a4 to stop your ...b5 expansion.",
+    "The bishop fights for d5. If White plays Nd5, you can trade with ...Bxd5 or ...Nxd5, and the bishop also prepares ...d5, which would leave you with an active, fully free position.",
+    "White connects the rooks and prepares a4 and Rfd1, keeping an eye on d5 and your d6 pawn. Your next moves must keep d5 under control.",
+    "The knight can go to b6, hitting d5 and c4, while keeping the f6-knight supported. Your plan: ...Rc8, ...Qc7 and either ...b5 or the ...d5 break. White's main idea is a4-a5 to fix your queenside and take b6 away from your knight."
+   ],
+   "gm": {
+    "11": "From the masters: in ...e5 Najdorf structures, d5 decides the game. If White plants a knight there that you cannot trade, you suffer; if you achieve ...d5 safely, you usually stand well."
+   },
+   "show": {
+    "11": [
+     "e5d4"
+    ],
+    "13": [
+     "c8e6"
+    ],
+    "17": [
+     "e6d5"
+    ],
+    "19": [
+     "d7b6",
+     "d6d5"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "najdorf-nc3": {
+   "branch": "2.Nc3 then Nf3 and d4",
+   "kind": "transposition",
+   "joins": "najdorf",
+   "name": "Najdorf via 2.Nc3",
+   "eco": "B90",
+   "level": 2,
+   "idea": "White starts with 2.Nc3, which often means a Closed Sicilian or Grand Prix Attack. Keep 2...d6; if White follows with Nf3 and d4, you are back in the Open Sicilian and play the Najdorf as usual.",
+   "moves": [
+    "e4",
+    "c5",
+    "Nc3",
+    "d6",
+    "Nf3",
+    "Nf6",
+    "d4",
+    "cxd4",
+    "Nxd4",
+    "a6",
+    "Be3",
+    "e5",
+    "Nb3",
+    "Be6"
+   ],
+   "notes": [
+    "White opens with the king's pawn.",
+    "The Sicilian.",
+    "White keeps options: Closed, Grand Prix or Open.",
+    "Keep your Najdorf move order.",
+    "White develops; d4 may follow.",
+    "Develop and keep e4 under fire.",
+    "White opens the centre after all.",
+    "Take on d4.",
+    "Now the main-line Open Sicilian, Black to move.",
+    "The Najdorf.",
+    "The English Attack.",
+    "Kick the knight.",
+    "The knight retreats.",
+    "Fight for d5, as in the main line."
+   ],
+   "why": [
+    "White opens with the king's pawn, taking the centre and freeing the queen and f1-bishop. You will fight for d4 from the side with your c-pawn.",
+    "The Sicilian. You control d4 from the wing and create an unbalanced position from move one. If White opens the centre with d4, you trade your c-pawn for White's d-pawn and keep an extra central pawn for the middlegame.",
+    "White develops the knight first and keeps several plans in reserve: g3 and Bg2 (the Closed Sicilian), f4 (the Grand Prix Attack) or Nf3 and d4 to reach an Open Sicilian. You do not need to change your own plans yet.",
+    "Keep the same move as in the main line. It controls e5, which matters if White goes for f4, and keeps the Najdorf available. After 3.f4 or 3.g3 you are in an anti-Sicilian; after 3.Nf3 and d4 you are back home.",
+    "White develops the second knight. A d4 push is now possible, which would give you an Open Sicilian by a different road.",
+    "Develop with pressure on e4, already defended by the c3-knight. ...a6 at once is also possible, but ...Nf6 is the most natural and keeps you close to the main line.",
+    "White opens the centre after all. With the knight already on c3, White's c-pawn is blocked, exactly as in the main line.",
+    "Take on d4, trading your wing pawn for White's centre pawn. As in the main line, the extra central pawn (d6 and e7 against e4) is a long-term asset.",
+    "This position is identical to the main Najdorf line after 5.Nc3, with you to move. White's order kept the Closed and Grand Prix options open until move 3; your ...d6 and ...Nf6 made sure you reached the Najdorf anyway.",
+    "The Najdorf, exactly as in the main line. The a6 pawn controls b5 and prepares ...e5 or ...e6 with ...b5.",
+    "The English Attack, as in the main line: Be3, f3, Qd2, castle long and storm with g4.",
+    "Kick the d4-knight and claim central space. The price is a hole on d5 and a backward pawn on d6, so from now on you must control d5 with ...Be6, ...Nbd7-b6 and your f6-knight to keep White's pieces out.",
+    "The knight retreats to b3, where it still watches d4 and c5 and can support a4. It also keeps f3 free for the pawn push that is central to White's set-up.",
+    "Develop the bishop to fight for d5, the hole created by ...e5. From here follow the main line: ...Be7, ...O-O, ...Nbd7 and fast queenside play with ...b5."
+   ],
+   "gm": {
+    "3": "From the masters: a move order trick only works if you change your plan in response to it. Keep your standard moves and let White decide whether to transpose."
+   },
+   "show": {
+    "3": [
+     "d6e5"
+    ],
+    "6": [
+     "c5d4"
+    ],
+    "8": [
+     "f6e4"
+    ],
+    "13": [
+     "e6d5"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "dragon": {
+   "branch": "Yugoslav Attack, 9.Bc4 (main line)",
+   "kind": "main",
+   "why": [
+    "White opens with the king's pawn, taking central space. You will answer with the Sicilian and fight for d4 from the side.",
+    "The Sicilian. You control d4 with a wing pawn and keep the position unbalanced. If White plays d4, you trade your c-pawn for White's d-pawn and get the half-open c-file, the backbone of all Dragon counterplay.",
+    "White develops and prepares d4. You now set up the Dragon move order with ...d6 and ...Nf6 before ...g6.",
+    "Control e5 and prepare ...Nf6 without allowing e5 to kick the knight. This is the classical Dragon move order; 2...Nc6 with an early ...g6 is the Accelerated Dragon, covered in the transposition branch.",
+    "White opens the centre: the Open Sicilian. White gets space and quick development; you get the c-file and an extra centre pawn after the trade.",
+    "Trade your wing pawn for White's centre pawn. Your d6 and e7 pawns now outnumber White's single e4 pawn in the centre.",
+    "White recaptures and centralises the knight. Your Dragon bishop will soon be aimed at this d4-knight from g7.",
+    "Develop with an attack on e4. White must defend it, usually with Nc3, so White cannot easily set up c4 (the Maroczy Bind) any more.",
+    "White defends e4. Your fifth move chooses the Sicilian, and ...g6 is the Dragon.",
+    "The Dragon. Your bishop goes to g7 and aims down the long diagonal at d4, c3 and b2. The g6 pawn keeps your king position compact, but it also gives White a target for h4-h5.",
+    "White chooses the Yugoslav Attack set-up: Be3, f3, Qd2, castle long, then h4-h5 and Bh6 to trade your Dragon bishop. It is White's most dangerous plan against the Dragon.",
+    "Fianchetto. The diagonal is blocked by your own f6-knight for now, but once that knight moves the bishop hits d4, c3 and b2 at once. It is your best piece, so look after it.",
+    "White supports e4 and stops ...Ng4, which would otherwise hit the e3-bishop. The f3 pawn also prepares g4 and h4 to open lines against your king.",
+    "Castle into the attack. It looks risky, but your king is reasonably safe for now, and you need it out of the centre before the c-file and the centre open up.",
+    "White prepares O-O-O and Bh6, which would trade off your Dragon bishop and leave your king's dark squares weak. Keep that plan in mind: Bh6 is White's key idea.",
+    "Develop and add pressure on d4. The c6-knight hits it directly and the g7-bishop x-rays it behind your f6-knight, so ...Nxd4 or a knight jump from f6 can open the long diagonal at the right moment.",
+    "The bishop aims at f7 and, more importantly, stops ...d5, your thematic central break. White wants to castle long next and then attack.",
+    "Develop and connect the rooks. The a8-rook is heading to c8 to use the half-open c-file against White's king and the c4-bishop.",
+    "White castles long and the race is on. White plans h4-h5 and Bh6; you must open lines on the queenside as quickly as possible.",
+    "The rook takes the half-open c-file, lining up against the c4-bishop and c2 behind your c6-knight. Exchange sacrifices with ...Rxc3 become a real idea from here.",
+    "The bishop steps back to b3, out of ...Rxc4 or ...Nxe4 tricks, and keeps its aim on f7. It also guards c2 and a4, squares your pieces want to use.",
+    "The knight heads for c4, where it will hit the queen and the e3-bishop and challenge the b3-bishop. Typical follow-ups are ...Nc4, ...Rxc3 exchange sacrifices and ...b5-b4, racing against White's h4-h5 and Bh6."
+   ],
+   "gm": {
+    "13": "From the masters: in opposite-side castling races, the side that opens a file against the enemy king first usually wins. Tempo often matters more than material.",
+    "19": "The exchange sacrifice ...Rxc3 is the classic Dragon resource: it wrecks White's queenside pawns, removes a defender and frees the g7-bishop's diagonal. Strong Dragon players treat it as a normal positional move."
+   },
+   "show": {
+    "9": [
+     "f8g7"
+    ],
+    "11": [
+     "g7b2"
+    ],
+    "14": [
+     "e3h6"
+    ],
+    "16": [
+     "c4f7"
+    ],
+    "21": [
+     "e5c4",
+     "c8c3"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "dragon-classical": {
+   "branch": "6.Be2 Classical",
+   "kind": "variation",
+   "name": "Sicilian Dragon: Classical (6.Be2)",
+   "eco": "B74",
+   "level": 2,
+   "idea": "White develops quietly with Be2, castles short and plays f4. Your king is safer than in the Yugoslav, and you play for ...d5 or pressure on the c-file while White aims for f5 or e5.",
+   "moves": [
+    "e4",
+    "c5",
+    "Nf3",
+    "d6",
+    "d4",
+    "cxd4",
+    "Nxd4",
+    "Nf6",
+    "Nc3",
+    "g6",
+    "Be2",
+    "Bg7",
+    "O-O",
+    "O-O",
+    "Be3",
+    "Nc6",
+    "Nb3",
+    "Be6",
+    "f4",
+    "Qc8"
+   ],
+   "notes": [
+    "King's pawn.",
+    "The Sicilian.",
+    "White develops.",
+    "Control e5.",
+    "White opens the centre.",
+    "Trade a wing pawn for a centre pawn.",
+    "Recapture.",
+    "Develop with a hit on e4.",
+    "White defends.",
+    "The Dragon: the bishop goes to g7.",
+    "The Classical: White castles short.",
+    "Fianchetto.",
+    "White castles.",
+    "Castle; no pawn storm is coming yet.",
+    "White develops the bishop.",
+    "Develop and hit d4.",
+    "The knight avoids trades.",
+    "Develop with an eye on b3 and c4.",
+    "White gains space; f5 is the threat.",
+    "Connect and prepare ...Rd8 and ...d5. Watch for f5."
+   ],
+   "why": [
+    "White opens with the king's pawn, taking central space. You will answer with the Sicilian and fight for d4 from the side.",
+    "The Sicilian. You control d4 with a wing pawn and keep the position unbalanced. If White plays d4, you trade your c-pawn for White's d-pawn and get the half-open c-file, the backbone of all Dragon counterplay.",
+    "White develops and prepares d4. You now set up the Dragon move order with ...d6 and ...Nf6 before ...g6.",
+    "Control e5 and prepare ...Nf6 without allowing e5 to kick the knight. This is the classical Dragon move order; 2...Nc6 with an early ...g6 is the Accelerated Dragon, covered in the transposition branch.",
+    "White opens the centre: the Open Sicilian. White gets space and quick development; you get the c-file and an extra centre pawn after the trade.",
+    "Trade your wing pawn for White's centre pawn. Your d6 and e7 pawns now outnumber White's single e4 pawn in the centre.",
+    "White recaptures and centralises the knight. Your Dragon bishop will soon be aimed at this d4-knight from g7.",
+    "Develop with an attack on e4. White must defend it, usually with Nc3, so White cannot easily set up c4 (the Maroczy Bind) any more.",
+    "White defends e4. Your fifth move chooses the Sicilian, and ...g6 is the Dragon.",
+    "The Dragon. Your bishop goes to g7 and aims down the long diagonal at d4, c3 and b2. The g6 pawn keeps your king position compact, but it also gives White a target for h4-h5.",
+    "The Classical system. White develops calmly and castles short, so there is no immediate pawn storm. The Dragon is usually comfortable for you against this set-up, which is why most attacking players choose the Yugoslav instead.",
+    "Fianchetto. The diagonal is blocked by your f6-knight for now, but once it moves the bishop hits d4 and b2. With kings on the same side, it is a key piece in both defence and counterplay.",
+    "White castles kingside. Both kings will be on the same side, so the game is more positional: control of d5, the c-file and well-timed pawn breaks matter more than speed.",
+    "Castle. Your king is safe behind the fianchetto, and with no white pawn storm coming yet, you can calmly complete development.",
+    "White develops the bishop, guarding d4 and preparing Qd2 or f4. The Qd2 and Bh6 idea exists here too, but with kings on the same side it is far less dangerous.",
+    "Develop with pressure on d4: the c6-knight hits it directly and the g7-bishop x-rays it behind your f6-knight. White must protect it or move it away.",
+    "The knight avoids trades and retreats to b3, where it controls c5 and d4. In return it is a little offside, and later ...a5-a4 can harass it.",
+    "Develop the bishop: from e6 it eyes the b3-knight and c4, and supports the ...d5 break. ...Bc4 to trade White's e2-bishop is a common follow-up.",
+    "White gains kingside space and threatens f5, which would hit your e6-bishop and push it back. White may also play e5 later to kick your f6-knight.",
+    "The queen connects the rooks, protects the e6-bishop and supports ...Bg4 to trade White's e2-bishop. Your plan: ...Rd8 and the ...d5 break, often met by e5 and ...Ne4. If White pushes f5, the bishop drops back to d7 or c4."
+   ],
+   "gm": {
+    "12": "From the masters: with kings on the same side, the Dragon becomes a positional battle. The ...d5 break, if you can play it safely, usually solves your opening problems at once."
+   },
+   "show": {
+    "9": [
+     "f8g7"
+    ],
+    "15": [
+     "c6d4"
+    ],
+    "17": [
+     "e6c4"
+    ],
+    "18": [
+     "f4f5"
+    ],
+    "19": [
+     "d6d5",
+     "f8d8"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "dragon-d5": {
+   "branch": "9.O-O-O (...d5 break)",
+   "kind": "variation",
+   "name": "Sicilian Dragon: Yugoslav 9.O-O-O d5",
+   "eco": "B76",
+   "level": 3,
+   "idea": "If White castles long before playing Bc4, you strike at once with ...d5. You open the centre before White's attack starts, and your pieces become very active, sometimes for a pawn.",
+   "moves": [
+    "e4",
+    "c5",
+    "Nf3",
+    "d6",
+    "d4",
+    "cxd4",
+    "Nxd4",
+    "Nf6",
+    "Nc3",
+    "g6",
+    "Be3",
+    "Bg7",
+    "f3",
+    "O-O",
+    "Qd2",
+    "Nc6",
+    "O-O-O",
+    "d5",
+    "exd5",
+    "Nxd5"
+   ],
+   "notes": [
+    "King's pawn.",
+    "The Sicilian.",
+    "White develops.",
+    "Control e5.",
+    "White opens the centre.",
+    "Trade a wing pawn for a centre pawn.",
+    "Recapture.",
+    "Develop with a hit on e4.",
+    "White defends.",
+    "The Dragon: the bishop goes to g7.",
+    "White sets up the Yugoslav Attack.",
+    "Fianchetto.",
+    "Supports e4 and prepares g4 and h4.",
+    "Castle into the attack: you have counterplay ready.",
+    "White prepares O-O-O and Bh6 to trade your Dragon bishop.",
+    "Develop and hit d4.",
+    "White castles at once, skipping Bc4.",
+    "Strike now: the thematic central break.",
+    "White takes.",
+    "Recapture. Main line: 11.Nxc6 bxc6 12.Bd4 e5."
+   ],
+   "why": [
+    "White opens with the king's pawn, taking central space. You will answer with the Sicilian and fight for d4 from the side.",
+    "The Sicilian. You control d4 with a wing pawn and keep the position unbalanced. If White plays d4, you trade your c-pawn for White's d-pawn and get the half-open c-file, the backbone of all Dragon counterplay.",
+    "White develops and prepares d4. You now set up the Dragon move order with ...d6 and ...Nf6 before ...g6.",
+    "Control e5 and prepare ...Nf6 without allowing e5 to kick the knight. This is the classical Dragon move order; 2...Nc6 with an early ...g6 is the Accelerated Dragon, covered in the transposition branch.",
+    "White opens the centre: the Open Sicilian. White gets space and quick development; you get the c-file and an extra centre pawn after the trade.",
+    "Trade your wing pawn for White's centre pawn. Your d6 and e7 pawns now outnumber White's single e4 pawn in the centre.",
+    "White recaptures and centralises the knight. Your Dragon bishop will soon be aimed at this d4-knight from g7.",
+    "Develop with an attack on e4. White must defend it, usually with Nc3, so White cannot easily set up c4 (the Maroczy Bind) any more.",
+    "White defends e4. Your fifth move chooses the Sicilian, and ...g6 is the Dragon.",
+    "The Dragon. Your bishop goes to g7 and aims down the long diagonal at d4, c3 and b2. The g6 pawn keeps your king position compact, but it also gives White a target for h4-h5.",
+    "White chooses the Yugoslav Attack set-up: Be3, f3, Qd2, castle long, then h4-h5 and Bh6 to trade your Dragon bishop. It is White's most dangerous plan against the Dragon.",
+    "Fianchetto. The diagonal is blocked by your own f6-knight for now, but once that knight moves the bishop hits d4, c3 and b2 at once. It is your best piece, so look after it.",
+    "White supports e4 and stops ...Ng4, which would otherwise hit the e3-bishop. The f3 pawn also prepares g4 and h4 to open lines against your king.",
+    "Castle into the attack. It looks risky, but your king is reasonably safe for now, and you need it out of the centre before the c-file and the centre open up.",
+    "White prepares O-O-O and Bh6, which would trade off your Dragon bishop and leave your king's dark squares weak. Keep that plan in mind: Bh6 is White's key idea.",
+    "Develop and add pressure on d4. The c6-knight hits it directly and the g7-bishop x-rays it behind your f6-knight, so ...Nxd4 or a knight jump from f6 can open the long diagonal at the right moment.",
+    "White castles long straight away instead of first playing Bc4. That saves a tempo for the attack, but it leaves the d5 square uncovered, and that is exactly what you exploit.",
+    "The thematic break. You open the centre right where White's king has just castled, and the c6-knight, g7-bishop and queen all join in. If White ignores it, ...dxe4 opens the d-file, where your queen faces White's queen and king.",
+    "White takes, the most natural reply. Quieter options such as Kb1 or Qe1 keep more tension, but after exd5 the game opens quickly and your pieces become very active.",
+    "Recapture with the knight. Now the d4-knight is hit by your c6-knight and, through the cleared f6 and e5 squares, by the g7-bishop. The main line is 11.Nxc6 bxc6 12.Bd4 e5 with active bishops and open files; 12.Nxd5 cxd5 13.Qxd5 grabs a pawn but ...Qc7, hitting c2, gives you the initiative."
+   ],
+   "gm": {
+    "17": "From the masters: a flank attack is best met by a counter-strike in the centre. ...d5 against a king that has just castled long is a textbook example.",
+    "19": "The 9...d5 line is the main modern answer to 9.O-O-O, and it is the reason many White players prefer 9.Bc4 first to stop the break."
+   },
+   "show": {
+    "16": [
+     "d6d5"
+    ],
+    "17": [
+     "d5e4"
+    ],
+    "19": [
+     "g7d4",
+     "c6d4"
+    ]
+   },
+   "gambitPlies": []
+  },
+  "dragon-accelerated": {
+   "branch": "Accelerated move order (2...Nc6, 4...g6)",
+   "kind": "transposition",
+   "joins": "dragon",
+   "name": "Accelerated Dragon into the Yugoslav",
+   "eco": "B35",
+   "level": 3,
+   "idea": "Play ...Nc6 and ...g6 before ...d6, keeping a one-move ...d5 in reserve. If White answers with Bc4, Bb3, f3, Qd2 and O-O-O, you land in the Yugoslav main line; the price is having to know the Maroczy Bind.",
+   "moves": [
+    "e4",
+    "c5",
+    "Nf3",
+    "Nc6",
+    "d4",
+    "cxd4",
+    "Nxd4",
+    "g6",
+    "Nc3",
+    "Bg7",
+    "Be3",
+    "Nf6",
+    "Bc4",
+    "O-O",
+    "Bb3",
+    "d6",
+    "f3",
+    "Bd7",
+    "Qd2",
+    "Rc8",
+    "O-O-O"
+   ],
+   "notes": [
+    "King's pawn.",
+    "The Sicilian.",
+    "White develops.",
+    "The Accelerated move order: ...d6 waits.",
+    "White opens the centre.",
+    "Trade a wing pawn for a centre pawn.",
+    "Recapture.",
+    "Fianchetto before ...Nf6 and ...d6.",
+    "White chooses Nc3, not the Maroczy c4.",
+    "The Dragon bishop.",
+    "Develop and guard d4.",
+    "Develop; a one-move ...d5 is in the air.",
+    "Stop ...d5 and aim at f7.",
+    "Castle.",
+    "Step out of ...Nxe4 and ...d5 fork tricks.",
+    "Now ...d6, as in the Dragon.",
+    "Support e4 and stop ...Ng4.",
+    "Develop and connect.",
+    "White prepares to castle long.",
+    "The rook takes the c-file.",
+    "Now the Yugoslav main line after 11.Bb3, Black to move."
+   ],
+   "why": [
+    "White opens with the king's pawn, taking central space. You will answer with the Sicilian and fight for d4 from the side.",
+    "The Sicilian. You control d4 with a wing pawn and keep the position unbalanced. If White plays d4, you trade your c-pawn for White's d-pawn and get the half-open c-file.",
+    "White develops and prepares d4. This time you play ...Nc6 instead of ...d6, keeping the d-pawn at home so it can later go to d5 in one step.",
+    "Develop and control d4 and e5. Delaying ...d6 is the point of the Accelerated Dragon, but it allows 3.Bb5 (the Rossolimo), which you must be ready for.",
+    "White opens the centre: the Open Sicilian. White gets space and time; you get the half-open c-file and the extra centre pawn once you take.",
+    "Take, trading a wing pawn for White's centre pawn. Your central pawns (d7 and e7) now outnumber White's single e4 pawn.",
+    "White recaptures and centralises the knight. Now you fianchetto at once, before committing the d-pawn or the g8-knight.",
+    "The Accelerated Dragon. Your bishop goes to g7 without ...d6 first, so you save a tempo if you later play ...d5. The cost is that White can play c4, the Maroczy Bind, clamping down on d5 with pawns on c4 and e4.",
+    "White chooses the open approach instead of the Maroczy Bind. With the knight on c3, White's c-pawn is blocked and your ...d5 break becomes realistic.",
+    "The Dragon bishop takes the long diagonal, aiming straight at d4 because the f6 square is still empty. Together with the c6-knight it already puts two pieces on d4.",
+    "White defends d4 and heads for the Yugoslav set-up with f3, Qd2 and O-O-O. Here, though, your d-pawn is still on d7, and that changes the picture.",
+    "Develop and pressure e4. If White now plays f3 and Qd2 as in the Yugoslav, you castle and strike with ...d5 in one move, opening the centre before White's attack begins. That saved tempo is the main gain of your move order.",
+    "White puts the bishop on c4 to stop ...d5 and aim at f7. This is the main try against the Accelerated move order, because the plain f3 and Qd2 set-up runs into ...d5.",
+    "Castle. Your pieces now set a small trap: if White castles short at once, ...Nxe4 followed by ...d5 regains the piece with a fork of the c4-bishop and the e4-knight, and frees your game.",
+    "The bishop steps back to b3 before you can use ...Nxe4 and ...d5 tricks, or ...Qb6 against b2 and d4. It keeps its aim on f7 and the a2-g8 diagonal towards your king.",
+    "Now you play ...d6, the normal Dragon structure. You give up the quick ...d5 for now, but your pieces are developed and d4 stays under pressure from the c6-knight and the g7-bishop behind your f6-knight.",
+    "White supports e4 and stops ...Ng4, which would otherwise hit the e3-bishop. White is heading for the Yugoslav set-up with Qd2 and O-O-O.",
+    "Develop and connect the rooks; the a8-rook is going to c8. This is the same plan as in the main Dragon line.",
+    "White prepares to castle long and to play Bh6 against your Dragon bishop. In the main line White played Qd2 before Bc4; the order differs here, but the pieces are heading to the same squares.",
+    "The rook takes the half-open c-file, lining up against c3 and c2 behind your c6-knight. Exchange sacrifices on c3 become a key resource once White's king is on the queenside.",
+    "This position is identical to the Dragon main line after 11.Bb3, with you to move. Your Accelerated order threatened a quick ...d5 against the plain f3 and Qd2 set-up, which pushed White into Bc4 and Bb3; the cost was allowing the Maroczy Bind and the Rossolimo. Continue with 11...Ne5, as in the main line."
+   ],
+   "gm": {
+    "7": "The Maroczy Bind, pawns on c4 and e4 against the Accelerated Dragon, is named after Geza Maroczy. It gives White a lasting grip on d5, so Accelerated Dragon players must know it well.",
+    "13": "From the masters: the ...Nxe4 and ...d5 fork is one of the oldest Sicilian tactics. Whenever White's bishop sits on c4 and a knight can recapture on e4, check whether ...d5 forks them."
+   },
+   "show": {
+    "7": [
+     "f8g7"
+    ],
+    "11": [
+     "d7d5"
+    ],
+    "12": [
+     "c4f7"
+    ],
+    "13": [
+     "f6e4"
+    ],
+    "14": [
+     "b3f7"
+    ],
+    "20": [
+     "c6e5"
+    ]
+   },
+   "gambitPlies": []
+  }
+ }
+}

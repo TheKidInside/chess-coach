@@ -7,15 +7,21 @@ import { browserStatus, browserAnalyse, browserMove } from './engine.js';
 
 const LOCAL_LLM = 'http://127.0.0.1:8080/v1';
 
-const COACH_SYSTEM = `You are a friendly, sharp chess coach helping an adult improver (roughly club beginner to intermediate).
-
-Ground rules:
-- Each question arrives with a POSITION CONTEXT block: the FEN, the game so far, which side the student plays, and Stockfish's top lines with evaluations. Stockfish is the source of truth for what is good or bad. Never contradict its evaluation, and never recommend a move that is not legal in the given position. If you are unsure whether a move is legal, stick to the engine lines.
-- Translate engine output into human ideas: plans, piece placement, pawn structure, tactics, king safety. Say WHY a move works, not just that it does.
-- Evaluations are in pawns from White's point of view (+1.0 = White is a pawn better; M3 = mate in 3).
-- Use concrete comparisons and analogies where they help an idea stick.
-- Be direct and compact: short paragraphs or tight bullets, no fluff, no emojis. Use standard algebraic notation (SAN).
-- If the student asks about opening theory, name the opening and the typical plans for both sides.`;
+// The coach's instructions are shared with server.py: coaches.json holds a base prompt and
+// styles; a style with "lessons": "<slug>" also gets that GM's notes from lessons/<slug>.json.
+const getJson = (f) => fetch(f).then((r) => { if (!r.ok) throw new Error(`${f}: HTTP ${r.status}`); return r.json(); });
+async function coachSystem(style) {
+  const coaches = await getJson('coaches.json');
+  const st = coaches.styles[style] || coaches.styles.standard;
+  const parts = [coaches.base];
+  if (st.prompt) parts.push(st.prompt);
+  if (/^[a-z0-9-]{1,40}$/.test(st.lessons || '')) {
+    const lib = await getJson(`lessons/${st.lessons}.json`);
+    parts.push([`LESSON NOTES (paraphrased from ${lib.short}'s videos)`, ...lib.themes.flatMap((t) =>
+      [`## ${t.name}`, ...t.lessons.map((l) => `- ${l.title}: ${l.text}`)])].join('\n'));
+  }
+  return parts.join('\n\n');
+}
 
 async function serverApi(path, body) {
   const opts = body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : undefined;
@@ -85,7 +91,8 @@ function buildMessages(history, question, context) {
   return msgs;
 }
 
-async function askLocal({ question, history, context }) {
+async function askLocal({ question, history, context, style }) {
+  const system = await coachSystem(style);
   let r;
   try {
     r = await fetch(`${LOCAL_LLM}/chat/completions`, {
@@ -93,7 +100,7 @@ async function askLocal({ question, history, context }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'local',
-        messages: [{ role: 'system', content: COACH_SYSTEM }, ...buildMessages(history, question, context)],
+        messages: [{ role: 'system', content: system }, ...buildMessages(history, question, context)],
         max_tokens: 900,
         temperature: 0.5,
       }),

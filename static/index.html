@@ -84,25 +84,45 @@
   <section class="side-col">
     <div id="banner" class="banner hidden" role="status"></div>
 
-    <!-- Openings -->
-    <div class="panel" id="panel-openings">
-      <div id="review-strip" class="review-strip"></div>
-      <div class="olist-head">
-        <span class="eyebrow">Repertoire</span>
-        <span class="muted small" id="mastery-count"></span>
-      </div>
-      <div id="opening-list" class="olist"></div>
-      <div class="odetail">
-        <div class="otitle"><b id="opening-title"></b></div>
-        <div id="opening-level" class="muted small"></div>
-        <p id="opening-idea" class="idea"></p>
-        <div class="seg" role="radiogroup" aria-label="Training mode">
-          <button class="seg-btn active" data-omode="learn">Learn</button>
-          <button class="seg-btn" data-omode="drill">Drill</button>
+    <!-- Openings: the repertoire (collapses once you pick an opening) and the lesson -->
+    <div class="panel-stack" id="panel-openings">
+      <div class="panel repertoire" id="repertoire">
+        <button class="fold-head" id="rep-toggle" aria-expanded="true" aria-controls="rep-body">
+          <span class="eyebrow">Repertoire</span>
+          <span class="muted small" id="mastery-count"></span>
+          <svg viewBox="0 0 24 24" class="chev" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none"/></svg>
+        </button>
+        <div class="rep-body" id="rep-body">
+          <div id="review-strip" class="review-strip"></div>
+          <div id="opening-list" class="olist"></div>
         </div>
-        <div id="omode-hint" class="muted small">Arrows show every move. Read the note, then play it.</div>
       </div>
-      <div id="opening-note" class="note"></div>
+
+      <div class="panel lesson">
+        <div class="fam">
+          <div class="otitle"><b id="family-title"></b></div>
+          <p id="family-idea" class="idea"></p>
+          <details class="masters" id="masters">
+            <summary>From the masters</summary>
+            <ul id="masters-list"></ul>
+          </details>
+        </div>
+        <div class="branches-head"><span class="eyebrow">Branches</span><span class="muted small" id="branch-count"></span></div>
+        <div id="branches" class="branches"></div>
+        <div class="odetail">
+          <div class="line-title"><b id="opening-title"></b></div>
+          <div id="opening-level" class="muted small"></div>
+          <p id="opening-idea" class="idea"></p>
+          <div class="seg" role="radiogroup" aria-label="Training mode">
+            <button class="seg-btn active" data-omode="study">Study</button>
+            <button class="seg-btn" data-omode="learn">Learn</button>
+            <button class="seg-btn" data-omode="drill">Drill</button>
+          </div>
+          <div id="omode-hint" class="muted small"></div>
+        </div>
+        <div id="study" class="study hidden" aria-live="polite"></div>
+        <div id="opening-note" class="note"></div>
+      </div>
     </div>
 
     <!-- Puzzles -->
@@ -190,6 +210,10 @@
         <svg viewBox="0 0 24 24" class="chev" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none"/></svg>
       </button>
       <div class="coach-body">
+        <div class="style-row">
+          <div class="seg" id="coach-styles" role="radiogroup" aria-label="Coach style"></div>
+          <button id="btn-lessons" class="hidden" title="Browse the lessons this coach style draws on">Lessons</button>
+        </div>
         <div id="chat" class="chat"></div>
         <div class="chips" id="chips"></div>
         <form id="ask-form" class="ask">
@@ -201,6 +225,15 @@
     </div>
   </section>
 </main>
+
+<dialog id="lessons-dlg" class="lessons-dlg" aria-labelledby="lessons-title">
+  <div class="dlg-head">
+    <b id="lessons-title">Lessons</b>
+    <button class="icon-btn" id="lessons-close" aria-label="Close" title="Close (Esc)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none"/></svg></button>
+  </div>
+  <p class="muted small" id="lessons-source"></p>
+  <div id="lessons-body" class="lessons-body"></div>
+</dialog>
 
 <div id="toasts" class="toasts" aria-live="polite"></div>
 

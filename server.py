@@ -51,15 +51,31 @@ CLAUDE_MODEL = os.environ.get("CHESS_CLAUDE_MODEL", "claude-opus-5-5")
 
 FEN_RE = re.compile(r"^[pnbrqkPNBRQK1-8/]+ [wb] (-|[KQkq]+) (-|[a-h][36]) \d+ \d+$")
 
-COACH_SYSTEM = """You are a friendly, sharp chess coach helping an adult improver (roughly club beginner to intermediate).
+# The coach's instructions live in static/coaches.json (shared with the hosted version's
+# backend.js): a base prompt plus optional styles. A style with "lessons": "<slug>" also gets
+# that grandmaster's distilled lesson notes from static/lessons/<slug>.json.
+SLUG_RE = re.compile(r"^[a-z0-9-]{1,40}$")
 
-Ground rules:
-- Each question arrives with a POSITION CONTEXT block: the FEN, the game so far, which side the student plays, and Stockfish's top lines with evaluations. Stockfish is the source of truth for what is good or bad. Never contradict its evaluation, and never recommend a move that is not legal in the given position. If you are unsure whether a move is legal, stick to the engine lines.
-- Translate engine output into human ideas: plans, piece placement, pawn structure, tactics, king safety. Say WHY a move works, not just that it does.
-- Evaluations are in pawns from White's point of view (+1.0 = White is a pawn better; M3 = mate in 3).
-- Use concrete comparisons and analogies where they help an idea stick.
-- Be direct and compact: short paragraphs or tight bullets, no fluff, no emojis. Use standard algebraic notation (SAN).
-- If the student asks about opening theory, name the opening and the typical plans for both sides."""
+
+def coach_system(style):
+    coaches = json.loads((STATIC / "coaches.json").read_text(encoding="utf-8"))
+    st = coaches["styles"].get(style) or coaches["styles"]["standard"]
+    parts = [coaches["base"]]
+    if st.get("prompt"):
+        parts.append(st["prompt"])
+    if SLUG_RE.match(str(st.get("lessons", ""))):
+        parts.append(lesson_notes(st["lessons"]))
+    return "\n\n".join(parts)
+
+
+def lesson_notes(slug):
+    """A GM's lesson library as plain text for the system prompt (titles + text, no links)."""
+    data = json.loads((STATIC / "lessons" / f"{slug}.json").read_text(encoding="utf-8"))
+    out = [f"LESSON NOTES (paraphrased from {data['short']}'s videos)"]
+    for theme in data.get("themes", []):
+        out.append(f"## {theme['name']}")
+        out += [f"- {l['title']}: {l['text']}" for l in theme.get("lessons", [])]
+    return "\n".join(out)
 
 
 # ---------------------------------------------------------------- Stockfish ---
@@ -198,7 +214,7 @@ def local_available():
         return False
 
 
-def ask_claude(messages):
+def ask_claude(messages, system):
     import anthropic
     client = anthropic.Anthropic()
     resp = client.beta.messages.create(
@@ -207,7 +223,7 @@ def ask_claude(messages):
         betas=["server-side-fallback-2026-07-01"],
         fallbacks="default",
         output_config={"effort": "low"},
-        system=COACH_SYSTEM,
+        system=system,
         messages=messages,
     )
     if resp.stop_reason == "refusal":
@@ -215,10 +231,10 @@ def ask_claude(messages):
     return "".join(b.text for b in resp.content if b.type == "text").strip()
 
 
-def ask_local(messages):
+def ask_local(messages, system):
     body = json.dumps({
         "model": "local",
-        "messages": [{"role": "system", "content": COACH_SYSTEM}] + messages,
+        "messages": [{"role": "system", "content": system}] + messages,
         "max_tokens": 900,
         "temperature": 0.5,
     }).encode()
@@ -395,17 +411,18 @@ class Handler(SimpleHTTPRequestHandler):
                 if not question:
                     return self._json(400, {"error": "empty question"})
                 msgs = build_messages(body.get("history") or [], question, str(body.get("context", "")))
+                system = coach_system(str(body.get("style", "standard")))
                 provider = body.get("provider", "auto")
                 if provider == "auto":
                     provider = "claude" if claude_available() else "local"
                 if provider == "claude":
                     if not claude_available():
                         return self._json(503, {"error": "Claude is not set up: pip install anthropic and set ANTHROPIC_API_KEY, then restart."})
-                    answer = ask_claude(msgs)
+                    answer = ask_claude(msgs, system)
                     label = CLAUDE_MODEL
                 else:
                     try:
-                        answer = ask_local(msgs)
+                        answer = ask_local(msgs, system)
                     except urllib.error.HTTPError as e:
                         return self._json(502, {"error": f"Local model returned HTTP {e.code}. Check the llama.cpp window."})
                     except urllib.error.URLError:

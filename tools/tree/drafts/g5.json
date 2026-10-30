@@ -1,0 +1,1375 @@
+{
+  "families": [
+    {
+      "id": "twoknights",
+      "name": "Two Knights Defence",
+      "side": "b",
+      "idea": "Against the Italian bishop on c4, develop your second knight at once and hit e4 instead of copying with ...Bc5. You accept sharp play after 4.Ng5 in return for fast development and the initiative.",
+      "masters": [
+        "The main line with 5...Na5 is known as the Polerio Defence, after the Italian analyst Giulio Polerio of the late 1500s, and it still holds up under modern engine scrutiny.",
+        "Siegbert Tarrasch dismissed 4.Ng5 as a beginner's move because it moves the same piece twice to win a pawn. Engines disagree and rate it as White's most testing try, so you need to know the answer.",
+        "At top level White usually avoids the forcing lines with the quiet 4.d3, which turns the game into a slow manoeuvring battle. That is why this family also covers the quiet line and the Italian move order that reaches it."
+      ],
+      "lines": [
+        "twoknights",
+        "twoknights-d3",
+        "twoknights-d4",
+        "twoknights-nxd5",
+        "twoknights-bc5-order"
+      ]
+    },
+    {
+      "id": "petrov",
+      "name": "Petrov Defence",
+      "side": "b",
+      "idea": "Answer 2.Nf3 by counter-attacking e4 instead of defending e5. The symmetrical structure is very solid: you aim to equalise first and outplay a planless opponent later.",
+      "masters": [
+        "The opening is named after Alexander Petrov, the leading Russian player of the 19th century, and is often spelt Petroff.",
+        "Fabiano Caruana trusts the Petrov as a main defence against 1.e4 at elite level, because White finds it very hard to get a real advantage against it.",
+        "Its drawish reputation is unfair at club level: the positions are sound for Black, and there are plenty of chances to outplay an opponent who plays without a plan."
+      ],
+      "lines": [
+        "petrov",
+        "petrov-d4",
+        "petrov-nxe4-trap",
+        "petrov-nc3"
+      ]
+    },
+    {
+      "id": "berlin",
+      "name": "Berlin Defence",
+      "side": "b",
+      "idea": "Against the Ruy Lopez, hit e4 with 3...Nf6. If White castles you take the pawn and head for the famous queenless Berlin endgame; against the quiet 4.d3 you develop solidly and manoeuvre like a Ruy Lopez expert.",
+      "masters": [
+        "Vladimir Kramnik used the Berlin to neutralise Garry Kasparov in their 2000 World Championship match in London. Kasparov could not win a single game, and the defence earned the nickname the Berlin Wall.",
+        "Magnus Carlsen has played the Berlin often at the top level. Its solidity is a big reason why many elite players switched to 4.d3 or the Italian as White.",
+        "The Berlin endgame looks dull, but it is full of subtle play: your bishop pair and solid structure against White's kingside majority."
+      ],
+      "lines": [
+        "berlin",
+        "berlin-anti-d3",
+        "berlin-re1"
+      ]
+    },
+    {
+      "id": "dutch",
+      "name": "Dutch Defence",
+      "side": "b",
+      "idea": "Answer 1.d4 with ...f5 to fight for e4 from the side, then fianchetto on g7 in the Leningrad set-up. You aim for ...e5 and kingside play, and you must know how to meet early anti-Dutch tries such as 2.Bg5 and 2.e4.",
+      "masters": [
+        "The Leningrad set-up with ...g6 and ...Bg7 was developed by players from Leningrad in the mid-20th century. It combines the Dutch pawn on f5 with a King's Indian bishop.",
+        "The Staunton Gambit 2.e4 is named after Howard Staunton, the leading English player of the 1840s, and it is still the sharpest way to test an unprepared Dutch player.",
+        "Engines rate the Dutch as slightly riskier than 1...d5 or 1...Nf6, so it rewards players who know the typical plans: ...d6 and ...e5, ...Qe8-f7, and play on the kingside."
+      ],
+      "lines": [
+        "dutch",
+        "dutch-bg5",
+        "dutch-staunton",
+        "dutch-english"
+      ]
+    }
+  ],
+  "lines": {
+    "twoknights": {
+      "branch": "4.Ng5 d5 5.exd5 Na5 (main line)",
+      "kind": "main",
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat: the knight attacks your e5-pawn. Deal with it before anything else. Defending with a knight develops a piece at the same time, which is why 2...Nc6 is the standard reply.",
+        "The knight defends e5 and develops towards the centre, where it also eyes d4. Unlike 2...d6, it keeps the f8-bishop's diagonal open. White now chooses between the Italian with Bc4, the Ruy Lopez with Bb5 and the Scotch with d4.",
+        "The Italian bishop aims straight at f7, the weakest point in your camp because only your king defends it. White can follow up with Ng5, with a quick d4, or with a slow d3. Keep that diagonal in mind: most tactics in this opening revolve around f7.",
+        "The Two Knights: instead of copying with 3...Bc5, you develop the second knight and hit e4 at once. It is more combative because White has to look after e4 straight away, but it also allows 4.Ng5, which you must know well.",
+        "White's knight moves a second time to double up on f7 with the c4-bishop. The threat is Nxf7, forking your queen and h8-rook. Defending f7 passively leaves you tied up, so you hit back in the centre and block the bishop's diagonal instead.",
+        "The counter-strike: the pawn cuts the c4-bishop off from f7 and opens your c8-bishop. White will take, and the key decision comes on the next move: you will not recapture with the knight, because that piece would become a target on d5.",
+        "White grabs the pawn. The d5-pawn now blocks White's own bishop, but if you recapture with the knight, it becomes a pinned target for Nxf7 and Qf3+ (the Fried Liver). That is why the main line leaves the pawn alone and counter-attacks instead.",
+        "The key move: you leave the pawn and chase the c4-bishop off its diagonal towards f7. You are a pawn down, but you win time to develop and your pieces become very active. The natural 5...Nxd5 allows 6.Nxf7 or 6.d4 with a dangerous attack (see the warning line).",
+        "White checks rather than retreat, keeping the bishop active and the extra pawn. You could block with ...Bd7, but ...c6 is the main line: it hits the bishop and the d5-pawn at once and opens lines for your pieces.",
+        "Block with the pawn: it gains a tempo on the bishop and, after the exchanges, opens the b- and d-files for your rooks and queen. You are happy to give the d5-pawn up for open lines while White's queenside pieces are still at home.",
+        "White takes again, removing the pawn from d5 before you can win it back. After your recapture, the b5-bishop is attacked once more, so White has to spend yet another move retreating it.",
+        "Recapture towards the centre: the c6-pawn now attacks the b5-bishop and covers d5. You are a pawn down, but you lead in development, have the half-open b-file for a rook and a strong pawn on e5. That is the Two Knights bargain.",
+        "The bishop retreats to safety. Be2 is the main retreat, keeping the bishop out of harm's way and covering the kingside. Count the moves: White has spent three on this bishop and two on the knight, while you are ready to develop with tempo.",
+        "Kick the g5-knight before developing: it has no good square. On f3 it will be hit by ...e4, and on h3 it is offside. Every move White spends on knight moves is a move you use for development.",
+        "The knight returns to its natural square, but it will not stay long. White hopes to settle the position and later play d3 or d4 to free the game. Now your e-pawn advances with tempo.",
+        "Gain space with tempo: the pawn attacks the f3-knight and cramps White's kingside, taking d3 and f3 away from White's pieces. Your queen and bishops now have open lines, while White's development is still behind.",
+        "The knight jumps to e5, its best square, and blocks your e-pawn. Your plan is clear: ...Bd6 or ...Bc5, ...O-O and ...Qc7 to challenge the e5-knight. You are a pawn down, but your pieces are faster and more active."
+      ],
+      "gm": {
+        "6": "Siegbert Tarrasch famously dismissed 4.Ng5 as a beginner's move because it breaks the rule of not moving a piece twice in the opening. Engines disagree: it is White's most testing try, so treat it with respect.",
+        "9": "5...Na5 is the Polerio Defence, analysed in the late 1500s. More than four centuries later it is still the main line: development and the initiative outweigh a pawn.",
+        "17": "A lead in development is a temporary advantage: use it before White catches up. Pushing ...e4 with tempo is the classic way to keep the initiative alive."
+      },
+      "show": {
+        "6": [
+          "g5f7",
+          "c4f7"
+        ],
+        "9": [
+          "a5c4"
+        ],
+        "13": [
+          "c6b5"
+        ],
+        "17": [
+          "e4f3"
+        ],
+        "18": [
+          "f8d6",
+          "d8c7"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "twoknights-d3": {
+      "branch": "4.d3 (quiet Italian)",
+      "kind": "variation",
+      "name": "Two Knights Defence: Quiet 4.d3",
+      "eco": "C55",
+      "level": 1,
+      "idea": "White declines the fight over f7 and plays slowly with d3 and c3. You develop with ...Bc5, ...d6 and ...O-O, tuck the bishop on a7, and prepare ...Be6 or ...d5.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "Bc4",
+        "Nf6",
+        "d3",
+        "Bc5",
+        "c3",
+        "d6",
+        "O-O",
+        "a6",
+        "Bb3",
+        "Ba7",
+        "Re1",
+        "O-O",
+        "h3",
+        "h6",
+        "Nbd2",
+        "Re8"
+      ],
+      "notes": [
+        "King's pawn.",
+        "Match.",
+        "White attacks e5.",
+        "Defend.",
+        "White aims at f7.",
+        "The Two Knights: hit e4 at once.",
+        "White protects e4 quietly.",
+        "Bishop to its most active diagonal.",
+        "White prepares d4.",
+        "Support e5 and open your c8-bishop.",
+        "White castles.",
+        "Make room for the bishop on a7.",
+        "White steps back before ...Na5 or ...b5.",
+        "Tuck the bishop away from d4 and b4.",
+        "White backs up e4.",
+        "Castle.",
+        "White rules out ...Bg4 and ...Ng4.",
+        "Same idea for you: no Bg5 pin.",
+        "White's knight heads for f1 and g3.",
+        "Back up e5. Plan: ...Be6 to swap the b3-bishop, or ...d5."
+      ],
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat: the knight attacks your e5-pawn. Deal with it before anything else. Defending with a knight develops a piece at the same time, which is why 2...Nc6 is the standard reply.",
+        "The knight defends e5 and develops towards the centre, where it also eyes d4. Unlike 2...d6, it keeps the f8-bishop's diagonal open. White now chooses between the Italian with Bc4, the Ruy Lopez with Bb5 and the Scotch with d4.",
+        "The Italian bishop aims straight at f7, the weakest point in your camp because only your king defends it. White can follow up with Ng5, with a quick d4, or with a slow d3. Keep that diagonal in mind: most tactics in this opening revolve around f7.",
+        "The Two Knights: instead of copying with 3...Bc5, you develop the second knight and hit e4 at once. It is more combative because White has to look after e4 straight away, but it also allows 4.Ng5, which you must know well.",
+        "White simply protects e4 and avoids the sharp 4.Ng5 and 4.d4 lines. The plan is slow: c3, O-O, Re1, Nbd2-f1-g3 and a later d4. There is no direct threat, so you can develop freely and choose the best squares.",
+        "The bishop takes the active a7-g1 diagonal, eyeing f2 and the d4-square. With e4 protected there are no tactics yet, so active development is the priority. 4...Be7 is the solid alternative, but ...Bc5 makes White's d4 harder to achieve.",
+        "White prepares d4 to hit your bishop and centre, and gives the c4-bishop a later retreat via b3 to c2. The pawn also takes d4 and b4 away from your knight. Watch for b4-b5 ideas later, gaining space against your bishop and knight.",
+        "Support e5 so that a future d4 does not win it, and open the c8-bishop's diagonal. Your structure is now solid, with the e5-pawn as its anchor. Castling first is fine too, but ...d6 keeps your options flexible.",
+        "White castles and gets the rook ready for e1 to back up e4. There are no threats: White is still building. The b1-knight usually goes d2-f1-g3 in this system, so expect a slow, manoeuvring game.",
+        "A useful waiting move: it gives your bishop a safe retreat on a7 and stops Bb5 or Nb5 ideas. If White plays b4 or d4 later, your bishop is not hit with gain of time. Castling first is also fine; the plans are the same.",
+        "White retreats in advance, keeping the bishop on the a2-g8 diagonal aimed at f7 and out of reach of ...Na5 or ...b5. It also clears the way for Nbd2 without blocking anything.",
+        "Tuck the bishop on a7: from there it still eyes f2 and d4, and White's d4 or b4 can no longer hit it with gain of time. This is a standard move in the slow Italian structure.",
+        "The rook backs up e4, so Nbd2 no longer leaves the pawn short of defenders and a later d4 is better prepared. Your king is the last thing to sort out before you start your own plans.",
+        "Castle into safety. Your pieces are well placed: knights on c6 and f6, bishop on a7, pawns on e5 and d6. The remaining questions are where your c8-bishop goes and when to strike with ...d5.",
+        "White rules out ...Bg4 pinning the f3-knight and ...Ng4 hitting f2. It looks slow, but in these quiet lines small prophylactic moves matter. White is getting ready for Nbd2-f1-g3.",
+        "The mirror idea: you prevent Bg5 pinning your f6-knight against the queen, and give your king some air. 9...Re8 at once is also good; the point is not to allow a pin that damages your structure.",
+        "The knight heads for f1 and then g3 or e3, the standard Italian manoeuvre. It also supports a later d4. For now it blocks the c1-bishop, so White is not ready to open the centre yet.",
+        "Support e5 so that d4 never wins a pawn, and prepare ...Be6. Your plan is ...Be6 to trade off the b3-bishop, which eases the pressure on f7, followed by ...d5 to free your game. Stay patient: this is a manoeuvring fight."
+      ],
+      "gm": {
+        "6": "At top level the quiet d3 Italian became one of the most played systems in the 2010s, partly because the Berlin made the Ruy Lopez so hard to crack. Expect it from well-prepared opponents.",
+        "19": "A classic principle in slow positions: trade off your opponent's best piece. Here that is the b3-bishop aimed at f7, and ...Be6 offers to exchange it."
+      },
+      "show": {
+        "7": [
+          "c5f2"
+        ],
+        "8": [
+          "d3d4"
+        ],
+        "12": [
+          "b3f7"
+        ],
+        "13": [
+          "a7f2"
+        ],
+        "19": [
+          "c8e6",
+          "d6d5"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "twoknights-d4": {
+      "branch": "4.d4 exd4 5.e5",
+      "kind": "variation",
+      "name": "Two Knights Defence: 4.d4 exd4 5.e5",
+      "eco": "C55",
+      "level": 2,
+      "idea": "White opens the centre at once. You take on d4, answer 5.e5 with the counter-strike ...d5, plant your knight on e4 and develop fast. Later the knight drops to g5 and heads for e6.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "Bc4",
+        "Nf6",
+        "d4",
+        "exd4",
+        "e5",
+        "d5",
+        "Bb5",
+        "Ne4",
+        "Nxd4",
+        "Bd7",
+        "Bxc6",
+        "bxc6",
+        "O-O",
+        "Bc5",
+        "f3",
+        "Ng5"
+      ],
+      "notes": [
+        "King's pawn.",
+        "Match.",
+        "White attacks e5.",
+        "Defend.",
+        "White aims at f7.",
+        "The Two Knights: hit e4 at once.",
+        "White opens the centre.",
+        "Take: the centre pawn goes.",
+        "White kicks your knight.",
+        "Counter-strike: hit the bishop, don't retreat.",
+        "White pins the c6-knight.",
+        "The knight jumps to a strong central post.",
+        "White regains the pawn.",
+        "Unpin and develop.",
+        "White gives up the bishop to double your pawns.",
+        "Recapture towards the centre.",
+        "White castles.",
+        "Develop and hit the d4-knight.",
+        "White kicks the e4-knight.",
+        "Retreat. Plan: ...Ne6, ...O-O and ...c5."
+      ],
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat: the knight attacks your e5-pawn. Deal with it before anything else. Defending with a knight develops a piece at the same time, which is why 2...Nc6 is the standard reply.",
+        "The knight defends e5 and develops towards the centre, where it also eyes d4. Unlike 2...d6, it keeps the f8-bishop's diagonal open. White now chooses between the Italian with Bc4, the Ruy Lopez with Bb5 and the Scotch with d4.",
+        "The Italian bishop aims straight at f7, the weakest point in your camp because only your king defends it. White can follow up with Ng5, with a quick d4, or with a slow d3. Keep that diagonal in mind: most tactics in this opening revolve around f7.",
+        "The Two Knights: instead of copying with 3...Bc5, you develop the second knight and hit e4 at once. It is more combative because White has to look after e4 straight away, but it also allows 4.Ng5, which you must know well.",
+        "White strikes in the centre at once, opening lines while your king is still on e8. If you play passively, White gets a big centre for free. The principled answer is to capture and use your quick development; watch for e5 kicking your f6-knight.",
+        "Take the pawn: it removes White's centre pawn and opens lines for your pieces. White now has to spend time winning it back, with 5.O-O, 5.e5 or 5.Nxd4, and that time is yours for development.",
+        "White gains space and kicks your f6-knight. Retreating the knight is playable but passive; the strongest answer is a counter-attack on the c4-bishop. 5.O-O is White's other main try, leading to the very sharp Max Lange Attack after 5...Bc5 6.e5.",
+        "The key counter-strike: you attack the c4-bishop and stake a claim in the centre. If 6.exf6 dxc4, you trade a knight for a bishop and get open lines. The bishop has to move, and then your knight finds a great square on e4.",
+        "The best square: the bishop pins your c6-knight against the king, so it can no longer defend d4. White plans Nxd4 to regain the pawn. Retreating to e2 or d3 instead would let you keep the extra pawn comfortably.",
+        "The knight jumps to a strong central post where the d5-pawn defends it. From e4 it eyes f2, c3 and g5. White can only kick it with f3, which loosens the king, so for now you keep the initiative.",
+        "White regains the pawn and now threatens Nxc6 followed by Bxc6+, forking your king and a8-rook. Material is level. Deal with the pin on c6 before you do anything else.",
+        "Unpin by developing the bishop: now the c6-knight is defended twice and the Nxc6 trick no longer works. 7...Bc5 is the other main move. Your pieces are active and your king can castle soon.",
+        "White gives up the bishop pair to double your pawns on the c-file. In return White's structure is healthy and the e5-pawn cramps you. Your compensation is the two bishops and the half-open b-file.",
+        "Recapture towards the centre. The c6-pawn supports d5, and the b-file opens for your rook. 8...Bxc6 is playable, but the pawn capture keeps d5 rock solid and your bishop on its useful d7-square.",
+        "White castles and prepares f3 to kick your e4-knight, or f4-f5 to gain space on the kingside. Your king is still in the centre, so finish your development quickly.",
+        "Develop with a threat: the bishop attacks the d4-knight and lines up on the diagonal towards f2 and the castled king. 9...Be7 is the solid alternative. Watch out for f3 next: your e4-knight needs a good square ready.",
+        "White kicks your knight and opens the f-file for White's rook, with f4-f5 in mind. Do not grab 10...Bxd4+?: giving up your dark-squared bishop leaves the dark squares around your king weak, and engines rate it clearly worse.",
+        "The only good retreat. From g5 the knight heads for e6, where it hits d4 and blocks the e-file. Your plan is ...Ne6, ...O-O and later ...c5 to challenge the centre. The two bishops give you good long-term chances."
+      ],
+      "gm": {
+        "8": "If White plays 5.O-O instead, 5...Bc5 6.e5 leads to the Max Lange Attack, named after the 19th-century German player Max Lange. It is very sharp and worth studying separately.",
+        "9": "A general rule in open games: when White pushes e5 to kick your knight, a quick ...d5 counter-attack often solves your problems.",
+        "15": "Doubled c-pawns are not always a weakness: here they control d5 and b5, and the b-file becomes a highway for your rook. Classical players were happy to accept them for the bishop pair."
+      },
+      "show": {
+        "9": [
+          "d5c4"
+        ],
+        "11": [
+          "e4f2"
+        ],
+        "12": [
+          "d4c6",
+          "b5c6"
+        ],
+        "17": [
+          "c5d4"
+        ],
+        "19": [
+          "g5e6"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "twoknights-nxd5": {
+      "branch": "5...Nxd5? (Fried Liver warning)",
+      "kind": "variation",
+      "name": "Two Knights Defence: Fried Liver Attack (warning line)",
+      "eco": "C57",
+      "level": 1,
+      "idea": "A warning line: after 4.Ng5 d5 5.exd5, the natural 5...Nxd5? lets White sacrifice on f7 and drag your king into the open. Learn the pattern so that you play 5...Na5 instead.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "Bc4",
+        "Nf6",
+        "Ng5",
+        "d5",
+        "exd5",
+        "Nxd5",
+        "Nxf7",
+        "Kxf7",
+        "Qf3+",
+        "Ke6",
+        "Nc3",
+        "Nb4",
+        "O-O",
+        "c6",
+        "d4"
+      ],
+      "notes": [
+        "King's pawn.",
+        "Match.",
+        "White attacks e5.",
+        "Defend.",
+        "White aims at f7.",
+        "The Two Knights: hit e4 at once.",
+        "White attacks f7 twice.",
+        "Block the bishop's diagonal with a counter-strike.",
+        "White takes.",
+        "Mistake: the natural recapture walks into Nxf7.",
+        "The Fried Liver sacrifice on f7.",
+        "Forced: otherwise you lose your queen or rook.",
+        "Check, and the pinned d5-knight is attacked twice.",
+        "The king defends d5 itself.",
+        "White piles up on the pinned knight.",
+        "Defend d5 and eye c2.",
+        "White castles and brings the rook.",
+        "Hold d5 with a pawn.",
+        "White opens the centre against your king."
+      ],
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat: the knight attacks your e5-pawn. Deal with it before anything else. Defending with a knight develops a piece at the same time, which is why 2...Nc6 is the standard reply.",
+        "The knight defends e5 and develops towards the centre, where it also eyes d4. Unlike 2...d6, it keeps the f8-bishop's diagonal open. White now chooses between the Italian with Bc4, the Ruy Lopez with Bb5 and the Scotch with d4.",
+        "The Italian bishop aims straight at f7, the weakest point in your camp because only your king defends it. White can follow up with Ng5, with a quick d4, or with a slow d3. Keep that diagonal in mind: most tactics in this opening revolve around f7.",
+        "The Two Knights: instead of copying with 3...Bc5, you develop the second knight and hit e4 at once. It is more combative because White has to look after e4 straight away, but it also allows 4.Ng5, which you must know well.",
+        "White's knight moves a second time to double up on f7 with the c4-bishop. The threat is Nxf7, forking your queen and h8-rook. Defending f7 passively leaves you tied up, so you hit back in the centre and block the bishop's diagonal instead.",
+        "The counter-strike: the pawn cuts the c4-bishop off from f7 and opens your c8-bishop. White will take, and the key decision comes on the next move: you will not recapture with the knight, because that piece would become a target on d5.",
+        "White grabs the pawn. The d5-pawn now blocks White's own bishop, but if you recapture with the knight, it becomes a pinned target for Nxf7 and Qf3+ (the Fried Liver). That is why the main line leaves the pawn alone and counter-attacks instead.",
+        "This natural recapture is a mistake. Your knight on d5 becomes a target: White can sacrifice on f7 and then attack the d5-knight while it is pinned to your king. Engines rate it clearly worse than 5...Na5, which is why the main line avoids it.",
+        "The Fried Liver: White gives up the knight to drag your king out. The knight forks your queen and h8-rook, so you have to take it. 6.d4, the Lolli Attack, is also strong, but this sacrifice is the version you will meet most often at club level.",
+        "Forced: otherwise the knight takes your queen or rook. You are now a piece up, but your king stands on f7 and the d5-knight is pinned against it by the c4-bishop. Everything now depends on holding that knight.",
+        "Check, and a second attacker on the pinned d5-knight. White threatens to win it with Bxd5+ or Qxd5+. Your king has to step forward to defend the knight, because losing it would leave you with a wrecked king and no extra material.",
+        "The best move: the king itself defends d5, adding a second defender next to the queen. Retreating with Ke7 or Kg8 drops the knight. But your king on e6 is exposed in the middle of the board, and White will now bring every piece to attack it.",
+        "Develop with a third attacker on d5: the knight is now hit by bishop, queen and knight. White's plan is O-O, d4 and Re1, opening lines towards your king while your pieces are still at home.",
+        "The c6-knight comes round to defend d5 from b4 and threatens ...Nxc2+, forking king and rook. This is the standard defence. Your king has lost the right to castle, so it will take you many moves to bring it to safety.",
+        "White castles, so ...Nxc2 no longer comes with check, and the rook can go to e1 to open the e-file towards your king. White is a piece down but every white piece is joining the attack.",
+        "Reinforce d5 with a pawn so the knights are free to move. You are still a piece up, but the king on e6 is a lasting problem: every open line in the centre points at it. This is the best you can do, and engines still prefer White.",
+        "White opens the centre: dxe5 will open more lines, and the c1-bishop joins with Bg5 or Bf4. White is a piece down but has a strong, lasting attack, and in practice Black is very hard to defend. The lesson: after 5.exd5, play 5...Na5, not 5...Nxd5."
+      ],
+      "gm": {
+        "10": "The name comes from the Italian Fegatello, a dish of liver cooked over a fire: your king is the liver. The sacrifice has been known for centuries and still claims victims in club play every day.",
+        "18": "A king stuck in the centre with open files is often worth more than a piece to the attacker. When your king cannot castle, every tempo matters more than material."
+      },
+      "show": {
+        "10": [
+          "f7d8",
+          "f7h8"
+        ],
+        "12": [
+          "f3d5",
+          "c4d5"
+        ],
+        "15": [
+          "b4c2",
+          "b4d5"
+        ],
+        "18": [
+          "d4e5",
+          "c1g5"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "twoknights-bc5-order": {
+      "branch": "3...Bc5 4.d3 Nf6 (Italian move order)",
+      "kind": "transposition",
+      "joins": "twoknights-d3",
+      "name": "Giuoco Pianissimo: transposition to the Two Knights 4.d3",
+      "eco": "C50",
+      "level": 2,
+      "idea": "Playing 3...Bc5 first and ...Nf6 next reaches exactly the same quiet 4.d3 position. It avoids 4.Ng5, but in return allows White the Evans Gambit and the c3-d4 Giuoco Piano.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "Bc4",
+        "Bc5",
+        "d3",
+        "Nf6",
+        "c3",
+        "d6",
+        "O-O",
+        "a6",
+        "Bb3",
+        "Ba7"
+      ],
+      "notes": [
+        "King's pawn.",
+        "Match.",
+        "White attacks e5.",
+        "Defend.",
+        "White aims at f7.",
+        "Italian move order: bishop first.",
+        "White chooses the quiet d3.",
+        "Same position as the Two Knights with 4.d3.",
+        "White prepares d4.",
+        "Support e5 and open your c8-bishop.",
+        "White castles.",
+        "Make room for the bishop on a7.",
+        "White steps back before ...Na5 or ...b5.",
+        "Tuck the bishop on a7. Plan: ...O-O, ...h6, ...Re8, ...Be6."
+      ],
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat: the knight attacks your e5-pawn. Deal with it before anything else. Defending with a knight develops a piece at the same time, which is why 2...Nc6 is the standard reply.",
+        "The knight defends e5 and develops towards the centre, where it also eyes d4. Unlike 2...d6, it keeps the f8-bishop's diagonal open. White now chooses between the Italian with Bc4, the Ruy Lopez with Bb5 and the Scotch with d4.",
+        "The Italian bishop aims straight at f7, the weakest point in your camp because only your king defends it. White can follow up with Ng5, with a quick d4, or with a slow d3. Keep that diagonal in mind: most tactics in this opening revolve around f7.",
+        "Bishop first: the Giuoco Piano. Without your knight on f6 there is nothing for Ng5 to attack (4.Ng5? even drops the knight to ...Qxg5), so the sharp Two Knights lines vanish. The price is that White gets 4.b4, the Evans Gambit, and 4.c3 with d4.",
+        "White chooses the quiet set-up: protect e4 and build slowly with c3, O-O, Re1 and Nbd2. It is the most popular choice at all levels because it keeps the position rich without forcing lines.",
+        "Develop the knight and hit e4. The position is now identical to the Two Knights after 4.d3 Bc5, with the same pieces on the same squares. This order kept you safe from 4.Ng5; the Two Knights order avoids the Evans Gambit. Pick the one that suits your repertoire.",
+        "White prepares d4 to hit your bishop and centre, and gives the c4-bishop a later retreat via b3 to c2. The pawn also takes d4 and b4 away from your knight. Watch for b4-b5 ideas later, gaining space against your bishop and knight.",
+        "Support e5 so that a future d4 does not win it, and open the c8-bishop's diagonal. Your structure is now solid, with the e5-pawn as its anchor. Castling first is fine too, but ...d6 keeps your options flexible.",
+        "White castles and gets the rook ready for e1 to back up e4. There are no threats: White is still building. The b1-knight usually goes d2-f1-g3 in this system, so expect a slow, manoeuvring game.",
+        "A useful waiting move: it gives your bishop a safe retreat on a7 and stops Bb5 or Nb5 ideas. If White plays b4 or d4 later, your bishop is not hit with gain of time. Castling first is also fine; the plans are the same.",
+        "White retreats in advance, keeping the bishop on the a2-g8 diagonal aimed at f7 and out of reach of ...Na5 or ...b5. It also clears the way for Nbd2 without blocking anything.",
+        "Tuck the bishop on a7, out of reach of d4 and b4 but still aiming at f2. From here you play exactly as in the 4.d3 line: ...O-O, ...h6, ...Re8 and ...Be6 to challenge the b3-bishop, with ...d5 when the moment is right."
+      ],
+      "gm": {
+        "7": "Transpositions like this are why strong players learn plans rather than move orders: the slow Italian can arise from the Two Knights, the Giuoco Piano or even the Bishop's Opening."
+      },
+      "show": {
+        "5": [
+          "c5f2"
+        ],
+        "7": [
+          "f6e4"
+        ],
+        "13": [
+          "a7f2",
+          "c8e6"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "petrov": {
+      "branch": "3.Nxe5 d6 4.Nf3 Nxe4 5.d4 (main line)",
+      "kind": "main",
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat on your e5-pawn. Instead of defending it with ...Nc6, the Petrov hits back at e4. Whatever White takes, you aim to take back, and the symmetry makes it hard for White to keep the initiative.",
+        "The Petrov: you counter-attack e4 instead of defending e5. If White takes on e5, you win the e4-pawn back. The position stays very balanced, but the exact move order on the next move matters a lot, so learn it precisely.",
+        "White takes the pawn, and the knight on e5 now eyes f7 and d7. Do not copy straight away: 3...Nxe4? runs into 4.Qe2, which attacks your knight along the e-file (see the warning line). Kick the knight first.",
+        "Kick the knight first. Once it retreats, you win back the e4-pawn safely. Taking at once with 3...Nxe4? lets 4.Qe2 pin your knight on the e-file, with discovered-check tricks such as Nc6+ that win your queen.",
+        "The knight retreats to its best square. 4.Nxf7, the Cochrane Gambit, is a rare piece sacrifice that engines do not trust, so this is the normal move. Now the e4-pawn is attacked and nothing defends it.",
+        "Now take the pawn back: material is level and your knight is active on e4. It looks exposed, but it is not easy to kick: d3 or Bd3 hit it, and you can support it with ...d5. The fight now revolves around this knight.",
+        "White builds a classical centre and prepares Bd3 to challenge your knight. This is the main line. 5.Nc3, offering a knight trade so White can castle queenside, is the modern alternative (see the 5.Nc3 line).",
+        "Secure the knight with the d-pawn. Now the e4-knight is well protected and blocks the e-file. The position is symmetrical, but your knight on e4 is more active than White's on f3.",
+        "White develops and challenges your e4-knight. The plan is O-O, c4 and Re1 to undermine d5 and drive the knight away. If the knight leaves e4 without a good reason, White gets the easier game.",
+        "Develop with pressure on d4. The knight is ready to jump to b4 to hit the d3-bishop. 6...Bd6 is the solid alternative; ...Nc6 is more active and keeps the f8-bishop flexible.",
+        "White castles. The next moves will be c4 to attack d5 and Re1 to add pressure along the e-file against your e4-knight.",
+        "Develop and prepare to castle. The bishop on e7 is modest but safe, and it covers the e-file. 7...Bd6 and 7...Bg4 are also played; Be7 is the most solid choice.",
+        "White attacks d5, the pawn that holds your e4-knight. If d5 falls, the knight loses its support. White also gains queenside space and opens the c-file.",
+        "Hit the d3-bishop, the piece that most attacks your knight. White usually retreats it to e2, and then you castle, play ...Bf5 and keep the knight on e4 as long as possible. Taking on c4 is also possible but gives up your strong central post."
+      ],
+      "gm": {
+        "3": "Fabiano Caruana has relied on the Petrov at elite level because it is one of the hardest defences for White to crack.",
+        "5": "The classic lesson of symmetrical openings: copying works until it does not. Here 3...Nxe4? 4.Qe2 shows why you kick the knight first."
+      },
+      "show": {
+        "3": [
+          "f6e4"
+        ],
+        "5": [
+          "d6e5"
+        ],
+        "9": [
+          "d5e4"
+        ],
+        "14": [
+          "c4d5"
+        ],
+        "15": [
+          "b4d3"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "petrov-d4": {
+      "branch": "3.d4 Nxe4 4.Bd3",
+      "kind": "variation",
+      "name": "Petrov Defence: 3.d4",
+      "eco": "C43",
+      "level": 2,
+      "idea": "White opens the centre instead of taking on e5. You take on e4, support the knight with ...d5, swap off White's e5-knight and develop. After 10.Qh5 the d5-pawn can be offered for active piece play.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nf6",
+        "d4",
+        "Nxe4",
+        "Bd3",
+        "d5",
+        "Nxe5",
+        "Nd7",
+        "Nxd7",
+        "Bxd7",
+        "O-O",
+        "Bd6",
+        "c4",
+        "c6",
+        "cxd5",
+        "cxd5",
+        "Qh5",
+        "O-O"
+      ],
+      "notes": [
+        "King's pawn.",
+        "Match.",
+        "White attacks e5.",
+        "The Petrov: attack e4 right back.",
+        "White opens the centre.",
+        "Take e4: winning back e5 will cost White time.",
+        "White hits your knight.",
+        "Support the knight.",
+        "White wins the pawn back.",
+        "Challenge the strong e5-knight.",
+        "White trades.",
+        "Recapture and develop.",
+        "White castles.",
+        "Develop, aiming at h2.",
+        "White attacks d5.",
+        "Hold d5 with a pawn.",
+        "White exchanges.",
+        "Recapture and keep the centre.",
+        "White hits d5.",
+        "Castle and offer d5: ...Bc6 follows if Qxd5."
+      ],
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat on your e5-pawn. Instead of defending it with ...Nc6, the Petrov hits back at e4. Whatever White takes, you aim to take back, and the symmetry makes it hard for White to keep the initiative.",
+        "The Petrov: you counter-attack e4 instead of defending e5. If White takes on e5, you win the e4-pawn back. The position stays very balanced, but the exact move order on the next move matters a lot, so learn it precisely.",
+        "White strikes in the centre instead of taking on e5, aiming to open lines while your knight sits on f6. You have two good answers, 3...exd4 and 3...Nxe4. Taking on e4 keeps the game close to typical Petrov structures.",
+        "Take the e4-pawn. White will win your e5-pawn back, but you keep active pieces. Your knight on e4 is the key piece: you will support it with ...d5 and keep it there as long as you can.",
+        "White develops and attacks your knight, which has no defender, so Bxe4 is a real threat. The bishop also eyes h7 for later. Support the knight before doing anything else.",
+        "Support the knight with the d-pawn. Your e5-pawn is now undefended, but in return you have a strong knight on e4 and a solid centre. White will take on e5, and you will challenge that knight at once.",
+        "White wins the pawn back and the knight lands on a strong central square, eyeing f7 and d7. Material is level. You want to exchange this knight before it supports a kingside attack.",
+        "Challenge the e5-knight at once. Trading it removes White's most active piece, and the recapture develops your c8-bishop. 5...Bd6 is also played, but ...Nd7 is the most direct.",
+        "White exchanges. Keeping the knight with 6.Qe2 or 6.O-O is possible, but the trade is the main line. Your recapture will develop the c8-bishop for free.",
+        "Recapture with the bishop to develop it. On d7 the bishop is a little passive, but it defends well and can later come to c6 or e6 depending on White's play.",
+        "White castles and gets ready for c4 or Re1 to pressure d5 and e4. The fight is over your e4-knight and the d5-pawn that holds it.",
+        "Develop the bishop to its most active square, where it eyes h2 and the white king. 7...Be7 is the safer choice. With the bishop on d6, your pieces point at White's kingside.",
+        "White attacks d5 to undermine the e4-knight. If the pawn is lost, the knight loses its support and White's pieces take over the centre. Support d5 with a pawn.",
+        "Hold d5 with the c-pawn. After cxd5 cxd5 the structure is symmetrical and your pieces are active. Castling first is also fine; the point is to keep the e4-knight supported.",
+        "White releases the tension so the c-file opens and the d5-pawn becomes a target. Once your c-pawn recaptures, d5 is supported only by your pieces, which is what White's next move exploits.",
+        "Recapture and keep your centre. Your d5-pawn is now isolated from the other pawns, but it holds the e4-knight. Expect White's queen to come to h5 to attack it.",
+        "White's queen attacks the d5-pawn along the fifth rank, and none of your pieces defends it. You could protect it with ...Bc6 or ...Be6, but the main line castles and lets White take: your pieces become very active in return.",
+        "Castle and offer the d5-pawn. After 11.Qxd5 Bc6 your bishop hits the queen and then guards e4, and your pieces swarm towards White's king while White's queenside is undeveloped. This is a sound, well-known pawn offer."
+      ],
+      "gm": {
+        "9": "A general rule when your opponent has a powerful centralised knight: challenge it with a lesser piece as soon as possible. Here ...Nd7 does exactly that.",
+        "19": "Offering a central pawn for activity is a recurring Petrov theme. Strong players often prefer active pieces to a passive pawn that has to be babysat."
+      },
+      "show": {
+        "6": [
+          "d3e4"
+        ],
+        "9": [
+          "d7e5"
+        ],
+        "13": [
+          "d6h2"
+        ],
+        "18": [
+          "h5d5"
+        ],
+        "19": [
+          "d7c6"
+        ]
+      },
+      "gambitPlies": [
+        19
+      ]
+    },
+    "petrov-nxe4-trap": {
+      "branch": "3...Nxe4? 4.Qe2 (warning line)",
+      "kind": "variation",
+      "name": "Petrov Defence: 3...Nxe4? (warning line)",
+      "eco": "C42",
+      "level": 1,
+      "idea": "A warning line: copying with 3...Nxe4? lets 4.Qe2 attack your knight on the e-file. 4...Nf6?? loses the queen to 5.Nc6+, and even the best defence leaves you a pawn down.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nf6",
+        "Nxe5",
+        "Nxe4",
+        "Qe2",
+        "Qe7",
+        "Qxe4",
+        "d6",
+        "d4",
+        "dxe5",
+        "dxe5",
+        "Nc6",
+        "Bb5",
+        "Bd7",
+        "Nc3",
+        "O-O-O"
+      ],
+      "notes": [
+        "King's pawn.",
+        "Match.",
+        "White attacks e5.",
+        "The Petrov: attack e4 right back.",
+        "White takes on e5.",
+        "Mistake: copying too early.",
+        "The queen hits your knight on the e-file.",
+        "The only good defence.",
+        "White takes your knight.",
+        "Hit the pinned e5-knight.",
+        "White defends it with a pawn.",
+        "Win the piece back.",
+        "White recaptures: now a pawn up.",
+        "Develop and hit e5.",
+        "White pins the c6-knight.",
+        "Unpin.",
+        "White develops.",
+        "Castle long: some activity, but still a pawn down."
+      ],
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat on your e5-pawn. Instead of defending it with ...Nc6, the Petrov hits back at e4. Whatever White takes, you aim to take back, and the symmetry makes it hard for White to keep the initiative.",
+        "The Petrov: you counter-attack e4 instead of defending e5. If White takes on e5, you win the e4-pawn back. The position stays very balanced, but the exact move order on the next move matters a lot, so learn it precisely.",
+        "White takes the pawn, and the knight on e5 now eyes f7 and d7. Do not copy straight away: 3...Nxe4? runs into 4.Qe2, which attacks your knight along the e-file (see the warning line). Kick the knight first.",
+        "This copycat move is a mistake. White's knight is still on e5, so the e-file is about to open against your knight and king. Always kick the knight with 3...d6 first, then take on e4.",
+        "The queen attacks your knight and lines up on the e-file against your king. If the knight moves away, White's e5-knight can jump off with a discovered check. That is the whole trap.",
+        "The only good defence: block the e-file with your queen. 4...Nf6?? walks into 5.Nc6+, a discovered check that also attacks your queen on d8. After 4...Qe7 you lose the knight for now but avoid disaster.",
+        "White takes your knight, so you are a piece down for the moment. But White's e5-knight is now pinned against the e4-queen by your queen on e7, so you can win it back by attacking it.",
+        "Attack the pinned knight. It cannot move without letting your queen take White's queen on e4. White has to defend it, and you will win the piece back, but not the pawn.",
+        "White props up the knight with a pawn. When you take on e5, White recaptures with the d-pawn and stays a pawn up, with smoother development as well.",
+        "Win the piece back. There is nothing better: material is now a knight each, and the only question is how much White's extra pawn will matter.",
+        "White recaptures and is a clean pawn up. The e5-pawn is a target, though: your queen already attacks it, and you can add ...Nc6 and then ...Bd7 with ...O-O-O to pile up. That is your only source of counterplay.",
+        "Develop with a second attacker on e5. White must keep defending it, which ties the queen down. Your plan is ...Bd7 and ...O-O-O to bring a rook to the centre quickly.",
+        "White pins your c6-knight against the king, so it can no longer take on e5. White also develops and prepares to castle. Break the pin quickly.",
+        "Unpin and prepare to castle long. Now the c6-knight is free again, and e5 is under real pressure. Your active pieces are your compensation for the missing pawn.",
+        "White develops and gets ready to castle. White is happy to hold on to the e5-pawn with moves like Bf4, keeping the extra material.",
+        "Castle long so your rook reaches the d-file at once and your king leaves the e-file. You have some activity, but engines still prefer White, who is a pawn up. The lesson: in the Petrov, kick the knight with 3...d6 before taking on e4."
+      ],
+      "gm": {
+        "7": "The 4...Nf6?? 5.Nc6+ trick is one of the oldest traps in the Petrov, and it still catches club players every week.",
+        "17": "The general lesson of symmetrical openings: check what changes when you copy. Here White's knight on e5 and queen on e2 create a discovered attack that you never get."
+      },
+      "show": {
+        "6": [
+          "e2e4",
+          "e5c6"
+        ],
+        "8": [
+          "e7e5"
+        ],
+        "9": [
+          "d6e5"
+        ],
+        "14": [
+          "b5e8"
+        ],
+        "17": [
+          "c6e5",
+          "e7e5"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "petrov-nc3": {
+      "branch": "5.Nc3 (opposite-side castling)",
+      "kind": "variation",
+      "name": "Petrov Defence: 5.Nc3",
+      "eco": "C42",
+      "level": 2,
+      "idea": "White offers a knight trade to develop quickly and castle queenside. You take on c3, castle short and meet White's kingside pawn storm with ...c6 and ...d5 in the centre, then counter-attack on the queenside.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nf6",
+        "Nxe5",
+        "d6",
+        "Nf3",
+        "Nxe4",
+        "Nc3",
+        "Nxc3",
+        "dxc3",
+        "Be7",
+        "Be3",
+        "O-O",
+        "Qd2",
+        "Nd7",
+        "O-O-O",
+        "c6",
+        "h4",
+        "d5"
+      ],
+      "notes": [
+        "King's pawn.",
+        "Match.",
+        "White attacks e5.",
+        "The Petrov: attack e4 right back.",
+        "White takes.",
+        "Kick the knight first.",
+        "White retreats.",
+        "Now take the pawn back.",
+        "White offers a knight trade.",
+        "Take: no reason to retreat.",
+        "Recapture to open lines for quick development.",
+        "Develop and prepare to castle.",
+        "White aims for Qd2 and O-O-O.",
+        "Castle short.",
+        "White prepares long castling.",
+        "The knight heads for f6.",
+        "White castles long: opposite-side castling.",
+        "Prepare ...d5.",
+        "White starts the kingside pawn storm.",
+        "Claim the centre. Plan: ...Nf6, ...Qa5, ...b5."
+      ],
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat on your e5-pawn. Instead of defending it with ...Nc6, the Petrov hits back at e4. Whatever White takes, you aim to take back, and the symmetry makes it hard for White to keep the initiative.",
+        "The Petrov: you counter-attack e4 instead of defending e5. If White takes on e5, you win the e4-pawn back. The position stays very balanced, but the exact move order on the next move matters a lot, so learn it precisely.",
+        "White takes the pawn, and the knight on e5 now eyes f7 and d7. Do not copy straight away: 3...Nxe4? runs into 4.Qe2, which attacks your knight along the e-file (see the warning line). Kick the knight first.",
+        "Kick the knight first. Once it retreats, you win back the e4-pawn safely. Taking at once with 3...Nxe4? lets 4.Qe2 pin your knight on the e-file, with discovered-check tricks such as Nc6+ that win your queen.",
+        "The knight retreats to its best square. 4.Nxf7, the Cochrane Gambit, is a rare piece sacrifice that engines do not trust, so this is the normal move. Now the e4-pawn is attacked and nothing defends it.",
+        "Now take the pawn back: material is level and your knight is active on e4. It looks exposed, but it is not easy to kick: d3 or Bd3 hit it, and you can support it with ...d5. The fight now revolves around this knight.",
+        "Instead of 5.d4, White invites a knight trade. The point is speed, not material: after Nxc3 and dxc3, White's c1-bishop and queen come out quickly and long castling becomes possible. It is the most popular modern try against the Petrov.",
+        "Take the knight. Retreating wastes time, and after the trade White's doubled c-pawns give you the slightly healthier structure for any endgame. The cost is that White's pieces develop fast.",
+        "White takes with the d-pawn to open the d-file and free the c1-bishop. The doubled pawns hardly matter while many pieces remain, and White plans Be3, Qd2 and O-O-O.",
+        "Develop and prepare to castle. On e7 the bishop is safe and covers your kingside; on d6 or c5 it could be hit. Your king should go short, behind pawns that have not moved.",
+        "White develops the bishop and prepares Qd2 and O-O-O. The bishop also controls d4 and c5, squares your knight and bishop might want.",
+        "Castle short. Your king is safe behind untouched pawns, while White's king is heading for the queenside. The game becomes a race: White attacks on the kingside, so you need play on the queenside and in the centre.",
+        "White connects the rooks and prepares O-O-O. The queen also supports a later Bh6 and h4-h5 against your king.",
+        "The knight heads for f6, where it guards your king and h7, or for c5 or e5 if White allows it. It also clears the way for ...c6 and ...d5.",
+        "White castles long. With the kings on opposite sides, both players can throw pawns at the enemy king without weakening their own. White's h4-h5 and g4-g5 is the main danger.",
+        "Prepare ...d5 to take central space, and later ...Qa5 or ...b5 to go after White's king. The c6-pawn also takes b5 and d5 away from White's pieces. Do not wait passively: in opposite-side castling races, tempo is everything.",
+        "White starts the pawn storm: h5 and g4-g5 aim to open lines against your king. The h-pawn also supports Ng5 ideas against h7. Your counterplay has to come fast.",
+        "Take central space: the d5-pawn keeps White's pieces off c4 and e4 and frees your c8-bishop. Next comes ...Nf6 to guard your king, then ...Qa5 and ...b5-b4 to open lines on the queenside. A central counter-strike is the best answer to a wing attack."
+      ],
+      "gm": {
+        "16": "A classic principle: with kings castled on opposite sides, the attack that arrives first usually wins, so every tempo counts more than material.",
+        "19": "Another classic rule: meet an attack on the wing with a counter-strike in the centre. ...d5 is the first step."
+      },
+      "show": {
+        "8": [
+          "c3e4"
+        ],
+        "10": [
+          "c1g5"
+        ],
+        "16": [
+          "h2h4",
+          "g2g4"
+        ],
+        "18": [
+          "h4h5"
+        ],
+        "19": [
+          "d7f6",
+          "d8a5"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "berlin": {
+      "branch": "4.O-O Nxe4 5.d4 (Berlin endgame)",
+      "kind": "main",
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat: the knight attacks your e5-pawn. Deal with it before anything else. Defending with a knight develops a piece at the same time, which is why 2...Nc6 is the standard reply.",
+        "The knight defends e5 and develops towards the centre, where it also eyes d4. Unlike 2...d6, it keeps the f8-bishop's diagonal open. White now chooses between the Italian with Bc4, the Ruy Lopez with Bb5 and the Scotch with d4.",
+        "The Ruy Lopez: the bishop attacks the c6-knight, the defender of e5. There is no immediate threat, because after Bxc6 dxc6 Nxe5 your ...Qd4 forks the knight and e4 and wins the pawn back. Long term, White wants to undermine your centre.",
+        "The Berlin: you counter-attack e4 instead of playing 3...a6. It leads either to a quiet queenless endgame or, if White avoids it, to slow manoeuvring positions where your development is easy. It is one of the most solid answers to the Ruy Lopez.",
+        "White castles and leaves e4 hanging on purpose, because d4 or Re1 will open the e-file and win the pawn back. Taking is still the best answer, and it leads to the Berlin endgame.",
+        "Take it. White will win the pawn back, but the forced sequence that follows trades queens and gives you a very solid position. Declining with 4...Be7 is playable but more passive.",
+        "White strikes in the centre to open the e-file against your king and knight. The knight on e4 is now in the way and has to find a safe square, and dxe5 is coming.",
+        "The knight retreats and attacks the b5-bishop, forcing White to decide at once. From d6 it also covers c4 and f5. 5...Be7 is the other main move, but ...Nd6 is the gateway to the Berlin endgame.",
+        "White trades so your knight cannot take the bishop with tempo. The capture also forces a decision about your pawn structure, and White plans dxe5 next to kick your knight again.",
+        "Recapture away from the centre with the d-pawn. It opens the d-file and the diagonals for your queen and c8-bishop, and you keep the bishop pair. The price is doubled c-pawns and a White pawn majority on the kingside.",
+        "White takes the pawn back and kicks your d6-knight. Material is equal. White's e5-pawn gains space, and the queens are about to come off on the open d-file.",
+        "The knight's best square: it eyes d4 and e3, and can later go to e7 or h4. Now the queens face each other on the open d-file, and White's best is to trade them.",
+        "White trades queens with check, which forces your king to recapture. Without queens on the board, your king in the centre is safe and White's attacking chances are greatly reduced.",
+        "Recapture with the king. This is the Berlin endgame: White has the healthier kingside majority, but you have the bishop pair and a very solid position. Your plan: bring the king to e8 or c8, play ...h6, develop the light-squared bishop and connect the rooks."
+      ],
+      "gm": {
+        "5": "Magnus Carlsen has played the Berlin often at the top level; its reputation for solidity pushed many 1.e4 players towards 4.d3 or the Italian.",
+        "14": "Without queens, a king in the centre is often a strength rather than a weakness: it is close to the action and can step to c8 or e8 when needed.",
+        "15": "Kramnik used this endgame to neutralise Kasparov in their 2000 World Championship match; Kasparov failed to win a single game, and the line earned the name Berlin Wall."
+      },
+      "show": {
+        "5": [
+          "f6e4"
+        ],
+        "9": [
+          "d6b5"
+        ],
+        "11": [
+          "c8g4"
+        ],
+        "13": [
+          "f5d4",
+          "f5e3"
+        ],
+        "15": [
+          "h7h6"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "berlin-anti-d3": {
+      "branch": "4.d3 (Anti-Berlin)",
+      "kind": "variation",
+      "name": "Berlin Defence: Anti-Berlin 4.d3",
+      "eco": "C65",
+      "level": 2,
+      "idea": "White avoids the Berlin endgame by protecting e4 with d3. You develop with ...Bc5, ...O-O and ...d6, tuck the bishop on a7 and reroute the c6-knight via e7 to g6.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "Bb5",
+        "Nf6",
+        "d3",
+        "Bc5",
+        "c3",
+        "O-O",
+        "O-O",
+        "d6",
+        "Nbd2",
+        "a6",
+        "Ba4",
+        "Ba7",
+        "h3",
+        "Ne7",
+        "Re1",
+        "Ng6"
+      ],
+      "notes": [
+        "King's pawn.",
+        "Match.",
+        "White attacks e5.",
+        "Defend.",
+        "The Ruy Lopez.",
+        "The Berlin: counterattack e4.",
+        "White protects e4 quietly.",
+        "Bishop to its active diagonal.",
+        "White prepares d4.",
+        "Castle.",
+        "White castles.",
+        "Support e5.",
+        "The knight heads for f1 or c4.",
+        "Ask the bishop what it wants.",
+        "White keeps the bishop.",
+        "Tuck the bishop on a7.",
+        "White rules out ...Bg4.",
+        "Reroute the knight to the kingside.",
+        "White backs up e4.",
+        "The knight eyes f4. Plan: ...c6, ...h6 or ...Nh5-f4."
+      ],
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat: the knight attacks your e5-pawn. Deal with it before anything else. Defending with a knight develops a piece at the same time, which is why 2...Nc6 is the standard reply.",
+        "The knight defends e5 and develops towards the centre, where it also eyes d4. Unlike 2...d6, it keeps the f8-bishop's diagonal open. White now chooses between the Italian with Bc4, the Ruy Lopez with Bb5 and the Scotch with d4.",
+        "The Ruy Lopez: the bishop attacks the c6-knight, the defender of e5. There is no immediate threat, because after Bxc6 dxc6 Nxe5 your ...Qd4 forks the knight and e4 and wins the pawn back. Long term, White wants to undermine your centre.",
+        "The Berlin: you counter-attack e4 instead of playing 3...a6. It leads either to a quiet queenless endgame or, if White avoids it, to slow manoeuvring positions where your development is easy. It is one of the most solid answers to the Ruy Lopez.",
+        "White protects e4 and sidesteps the Berlin endgame entirely. The game becomes a slow Ruy Lopez where White builds with c3, O-O, Re1 and Nbd2. There is no real threat to e5 yet, so you can develop freely.",
+        "Put the bishop on its most active diagonal, pointing at f2. With e4 protected there are no tactics, so active development is the priority. 4...d6 with ...g6 is a quieter alternative.",
+        "White prepares d4 to gain the centre with tempo on your bishop, and gives the b5-bishop a retreat path via a4 to c2. Check for d4 every move: your bishop and e5-pawn must be ready for it.",
+        "Castle. Your king is safe and your rooks are connected sooner. A quick ...d5 is possible in some lines, but keeping things flexible with ...d6 next is the most reliable plan.",
+        "White castles. The plan is Nbd2, Re1, h3 and later d4, or a quick Bxc6 and Nxe5 if your e5-pawn ever loses its support.",
+        "Support e5 and open your c8-bishop. Now Bxc6 and Nxe5 no longer wins a pawn, because e5 is protected. Your structure is solid, and you can manoeuvre behind it.",
+        "The knight heads for f1 and g3, or for c4 to hit your bishop and the d6-pawn. It keeps the c3 and d4 ideas supported.",
+        "Ask the bishop to declare itself. If 8.Bxc6 bxc6, you get the bishop pair and an open b-file. If it retreats to a4, the b5-square is yours and ...b5 can come with tempo later.",
+        "White keeps the bishop, which usually drops back to c2 or b3 to keep pressure on the centre. Now ...b5 is always an option to gain space with tempo.",
+        "Tuck the bishop on a7, out of reach of d4 and b4 but still aiming at f2. It is the same idea as in the slow Italian: your best bishop should not be a target for White's pawns.",
+        "White rules out ...Bg4 pinning the f3-knight and ...Ng4 hitting f2. It is a useful waiting move before White commits to Re1 and Nf1.",
+        "Reroute the c6-knight towards g6, where it covers f4 and h4 and supports kingside play. It also clears the c-pawn for ...c6 and a later ...d5. There is no b5-pin to worry about with your king on g8.",
+        "The rook protects e4 and prepares Nf1-g3, the classic Ruy Lopez manoeuvre. White may also go for d4 in one move now that e4 is secure.",
+        "The knight arrives on g6, eyeing f4 and h4. Your plans: ...c6 and ...d5 in the centre, ...h6 to stop Bg5, or ...Nh5 to bring a knight to f4. You have a solid, flexible Ruy Lopez position with no weaknesses."
+      ],
+      "gm": {
+        "6": "The Berlin became so solid at elite level that many top players switched to 4.d3 as White, simply to keep the queens on the board.",
+        "17": "The ...Ne7-g6 manoeuvre is a standard idea in quiet Ruy Lopez positions: it brings an idle piece towards the kingside, where most of the play happens."
+      },
+      "show": {
+        "7": [
+          "c5f2"
+        ],
+        "8": [
+          "d3d4"
+        ],
+        "13": [
+          "a6b5"
+        ],
+        "15": [
+          "a7f2"
+        ],
+        "17": [
+          "e7g6"
+        ],
+        "19": [
+          "g6f4",
+          "c7c6"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "berlin-re1": {
+      "branch": "4.O-O Nxe4 5.Re1",
+      "kind": "variation",
+      "name": "Berlin Defence: 5.Re1",
+      "eco": "C67",
+      "level": 3,
+      "idea": "White wins the pawn back with the rook instead of heading for the endgame. You retreat the knight to d6, develop with ...Be7 and ...O-O, and swap rooks on the e-file to reach a solid, level position.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "Bb5",
+        "Nf6",
+        "O-O",
+        "Nxe4",
+        "Re1",
+        "Nd6",
+        "Nxe5",
+        "Be7",
+        "Bf1",
+        "Nxe5",
+        "Rxe5",
+        "O-O",
+        "d4",
+        "Bf6",
+        "Re1",
+        "Re8"
+      ],
+      "notes": [
+        "King's pawn.",
+        "Match.",
+        "White attacks e5.",
+        "Defend.",
+        "The Ruy Lopez.",
+        "The Berlin: counterattack e4.",
+        "White castles, offering e4.",
+        "Take it.",
+        "The rook attacks your knight.",
+        "Retreat to d6, hitting the bishop.",
+        "White wins the pawn back.",
+        "Block the e-file and develop.",
+        "White keeps the bishop.",
+        "Trade the strong knight.",
+        "White recaptures with the rook.",
+        "Castle.",
+        "White takes the centre.",
+        "Hit the e5-rook.",
+        "The rook drops back.",
+        "Challenge the e-file. Plan: ...Rxe1, ...Ne8 and ...d5."
+      ],
+      "why": [
+        "White takes the centre with the king's pawn and opens diagonals for the queen and the f1-bishop. You meet it head on with 1...e5, claiming an equal share of the centre and keeping free, classical development for both your bishops.",
+        "You stake an equal claim to the centre and open lines for your queen and f8-bishop. The e5-pawn also stops White from simply playing d4 and e5 to cramp you. From here everything is about quick development and the fight for d4 and e4.",
+        "White develops with a threat: the knight attacks your e5-pawn. Deal with it before anything else. Defending with a knight develops a piece at the same time, which is why 2...Nc6 is the standard reply.",
+        "The knight defends e5 and develops towards the centre, where it also eyes d4. Unlike 2...d6, it keeps the f8-bishop's diagonal open. White now chooses between the Italian with Bc4, the Ruy Lopez with Bb5 and the Scotch with d4.",
+        "The Ruy Lopez: the bishop attacks the c6-knight, the defender of e5. There is no immediate threat, because after Bxc6 dxc6 Nxe5 your ...Qd4 forks the knight and e4 and wins the pawn back. Long term, White wants to undermine your centre.",
+        "The Berlin: you counter-attack e4 instead of playing 3...a6. It leads either to a quiet queenless endgame or, if White avoids it, to slow manoeuvring positions where your development is easy. It is one of the most solid answers to the Ruy Lopez.",
+        "White castles and leaves e4 hanging on purpose, because d4 or Re1 will open the e-file and win the pawn back. Taking is still the best answer.",
+        "Take it. White will win the pawn back, but you get easy development and a solid position. Declining with 4...Be7 is playable but more passive.",
+        "Instead of 5.d4, White attacks your e4-knight with the rook. The knight has to move, and the rook on the e-file makes your e5-pawn and king the targets. This is White's main way to avoid the queenless endgame.",
+        "Retreat with tempo: the knight hits the b5-bishop and covers c4 and f5. 5...Nf6 is weaker, because Nxe5 then hits your c6-knight and the e-file opens before you can castle.",
+        "White wins the pawn back. Now the knight on e5 and the rook on e1 are both aimed at your king, still on e8. You need to cover the e-file at once.",
+        "Block the e-file and prepare to castle. 6...Nxe5 7.Rxe5+ Be7 is a different order of the same idea. The bishop on e7 is modest but solid.",
+        "White keeps the bishop by retreating it to cover the king, rather than trading it for your knight. 7.Bd3 is also played. The e5-knight is now White's only active minor piece, so you can trade it.",
+        "Trade White's most active piece. After the rook recaptures, it stands exposed on e5, where your pieces can hit it with tempo.",
+        "White recaptures with the rook. It is active but a target: ...O-O and ...Bf6 will chase it. Material is equal and the pawn structure is completely symmetrical.",
+        "Castle. Your king is safe, and a rook will come to e8 soon. The only small issue is that your d6-knight blocks the d-pawn; it usually goes to e8 or f5 later to free ...d5.",
+        "White takes central space and frees the c1-bishop. The rook on e5 is now supported by the d4-pawn, but it still stands on a square you can attack. White's extra space is the only edge.",
+        "Hit the rook anyway. From f6 the bishop also presses on d4 along the long diagonal. The rook has to leave e5, and you gain time.",
+        "The rook drops back to the e-file, its natural home. White now wants Bf4 and Nc3 or c3 to finish developing.",
+        "Challenge the e-file. After 11.c3 Rxe1 12.Qxe1, ...Ne8 reroutes your knight and frees ...d5. With rooks traded the position is very solid and close to equal."
+      ],
+      "gm": {
+        "9": "The ...Nd6 retreat is the same idea as in the main Berlin: hit the b5-bishop at once so White has no time to build pressure.",
+        "19": "A classic defensive principle: when you have less space, exchange pieces. Trading rooks on the e-file removes White's most active piece and kills the initiative."
+      },
+      "show": {
+        "8": [
+          "e1e4"
+        ],
+        "9": [
+          "d6b5"
+        ],
+        "10": [
+          "e5c6"
+        ],
+        "17": [
+          "f6e5"
+        ],
+        "19": [
+          "e8e1",
+          "d6e8"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "dutch": {
+      "branch": "Leningrad 7.Nc3 Qe8 (main line)",
+      "kind": "main",
+      "why": [
+        "White takes the centre with the queen's pawn, controlling e5 and c5. Many players answer with ...d5 or ...Nf6; the Dutch takes a more combative route and fights for the e4-square with the f-pawn instead.",
+        "The Dutch: the f-pawn controls e4 from the side and claims kingside space. It loosens the e8-h5 diagonal and the e6-square, so be ready for early tries like Bg5 or e4, but it gives you an unbalanced game from move one.",
+        "White fianchettoes to fight for e4 along the long diagonal. This is the most respected set-up against the Dutch: the g2-bishop restrains both your ...e5 and ...d5 plans.",
+        "Develop and add another guard on e4. The knight also covers d5 and h5. Keep your options open: the Leningrad with ...g6 comes next.",
+        "The bishop takes the long diagonal towards e4 and your queenside. White will castle quickly and then play c4 and Nc3 to fight for e4 and d5.",
+        "The Leningrad: you fianchetto too, so your bishop on g7 matches White's on g2. Your structure resembles a King's Indian with the f-pawn already on f5, ready for ...e5 and kingside play.",
+        "White develops and covers e5, making your ...e5 break harder to achieve. White will castle next and play c4.",
+        "Complete the fianchetto. The g7-bishop eyes the long diagonal towards d4 and the queenside, and it becomes very strong once you play ...e5 or once the centre opens.",
+        "White castles. Now c4 and Nc3 follow, with the idea of d5 to cramp you or e4 to open the centre.",
+        "Castle and get your king safe before the centre opens. Your rook on f8 will support the f-pawn in any kingside push.",
+        "White grabs queenside space and supports a later d5. This is the main plan: White expands on the queenside while you aim for ...e5 and the kingside.",
+        "Prepare ...e5, the key break in the Leningrad. The pawn on d6 also controls e5 and c5. Without ...e5 your position can become passive, so most of your next moves aim at it.",
+        "White develops and adds control of e4 and d5. Now e4 becomes a real idea in some positions, and d5 can come to cramp your knights.",
+        "The queen supports ...e5 and steps off the d-file, so a later dxe5 dxe5 does not leave it facing a white rook. From e8 it can also go to f7 to hit c4. Next comes ...e5, often prepared with ...Nc6 or ...Na6."
+      ],
+      "gm": {
+        "5": "The Leningrad combines the Dutch f-pawn with a King's Indian bishop: you get a safe king and real attacking chances on the kingside.",
+        "13": "...Qe8 is the classical Leningrad move: the queen leaves the d-file, supports ...e5 and can swing to f7 to put pressure on c4."
+      },
+      "show": {
+        "1": [
+          "f5e4"
+        ],
+        "4": [
+          "g2e4"
+        ],
+        "10": [
+          "d4d5"
+        ],
+        "11": [
+          "e7e5"
+        ],
+        "13": [
+          "e8f7",
+          "e7e5"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "dutch-bg5": {
+      "branch": "2.Bg5 (anti-Dutch)",
+      "kind": "variation",
+      "name": "Dutch Defence: 2.Bg5",
+      "eco": "A80",
+      "level": 2,
+      "idea": "White develops the bishop before you play ...Nf6, hoping for e4 or to double your pawns. You fianchetto at once, meet e4 with ...d5 and ...c5, and end up with central pawns and the strong g7-bishop.",
+      "moves": [
+        "d4",
+        "f5",
+        "Bg5",
+        "g6",
+        "Nc3",
+        "Bg7",
+        "e4",
+        "fxe4",
+        "Nxe4",
+        "d5",
+        "Ng3",
+        "c5",
+        "Nf3",
+        "cxd4",
+        "Bb5+",
+        "Bd7",
+        "Bxd7+",
+        "Qxd7",
+        "O-O",
+        "Nc6"
+      ],
+      "notes": [
+        "Queen's pawn.",
+        "The Dutch: control e4 from the side.",
+        "Anti-Dutch: the bishop eyes e7.",
+        "Fianchetto at once.",
+        "White prepares e4.",
+        "Bishop to the long diagonal.",
+        "White strikes at your f-pawn.",
+        "Take.",
+        "White recaptures in the centre.",
+        "Kick the knight and claim the centre.",
+        "The knight retreats.",
+        "Hit d4 with the c-pawn.",
+        "White develops.",
+        "Take on d4.",
+        "Check to trade the light bishops.",
+        "Block and offer the trade.",
+        "White trades.",
+        "Recapture with the queen.",
+        "White castles.",
+        "Develop. Plan: ...Nf6 to cover e7, then ...O-O."
+      ],
+      "why": [
+        "White takes the centre with the queen's pawn, controlling e5 and c5. Many players answer with ...d5 or ...Nf6; the Dutch takes a more combative route and fights for the e4-square with the f-pawn instead.",
+        "The Dutch: the f-pawn controls e4 from the side and claims kingside space. It loosens the e8-h5 diagonal and the e6-square, so be ready for early tries like Bg5 or e4, but it gives you an unbalanced game from move one.",
+        "An anti-Dutch: the bishop comes out before you play ...Nf6, so ...Nf6 can be met by Bxf6, damaging your pawns. It also eyes e7, a square that ...f5 has loosened. White's main idea is a quick e4 to open lines.",
+        "Stay with the Leningrad: fianchetto at once and keep the knight on g8 for now, so Bxf6 is not available. The g7-bishop will also cover e5 and d4. 2...h6 3.Bh4 g5 is a sharper alternative.",
+        "White develops and prepares e4. With the bishop on g5 and the knight on c3, White wants to open the centre before your king has castled.",
+        "Complete the fianchetto. The bishop pressures d4 and will do even more once the centre opens. Your king will castle behind it soon.",
+        "White strikes at f5 at once. If you allow exf5, your kingside is exposed and White's pieces flood in. Taking is the principled answer.",
+        "Take the pawn. Your f-pawn has done its job, and the f-file is now half-open for your rook. White recaptures with the knight, but you can kick it with ...d5.",
+        "White recaptures and the knight stands strongly in the centre, eyeing d6 and f6, the squares around your king. Material is level. Watch the g5-bishop as well: e7 is a sore point.",
+        "Kick the knight with a central pawn. The d5-pawn takes e4 and c4 away from White's pieces, gives you a share of the centre and opens your c8-bishop.",
+        "The knight retreats to g3, where it still covers e4 and eyes h5. White's lead in development is small, so you can strike at the centre again.",
+        "Hit d4 with the c-pawn. Together with the g7-bishop, it puts heavy pressure on White's centre. If 7.dxc5, ...Bxb2 wins the pawn back and hits the a1-rook; if White ignores it, you take on d4 and get two central pawns.",
+        "White develops and defends d4 for now. White's pieces are active, but the d4-pawn is about to come under fire.",
+        "Take on d4. Now you have two central pawns on d5 and d4, and the g7-bishop supports them. White will try to win d4 back and target your e7- and e6-weaknesses.",
+        "White checks to trade off your c8-bishop, which guards the light squares around your king. 8.Nxd4 is the other main move.",
+        "Block with the bishop and offer the trade. 8...Nc6 is possible, but then Nxd4 hits the pinned knight. Trading the light-squared bishops reduces White's attacking material.",
+        "White trades bishops. Your recapture decides which piece covers e6 and e7 from now on.",
+        "Recapture with the queen. On d7 it defends e7 and covers the light squares e6 and f5. 9...Nxd7 is playable, but it blocks the queen's defence of your centre.",
+        "White castles and prepares Re1, adding pressure on e7 together with the g5-bishop. White also plans Nxd4 to regain the pawn.",
+        "Develop and defend d4. Next comes ...Nf6, which blocks the g5-bishop's attack on e7 and lets you castle. You have a big centre and the g7-bishop; White has slightly better development and targets on e6 and e7."
+      ],
+      "gm": {
+        "3": "Against an early Bg5, a sound principle is not to give the bishop a target: delay ...Nf6 until Bxf6 would no longer damage your structure.",
+        "11": "Hitting a centre pawn from the side with the c-pawn is a recurring theme in fianchetto openings: the g7-bishop and the c-pawn work together against d4."
+      },
+      "show": {
+        "2": [
+          "g5e7"
+        ],
+        "9": [
+          "d5e4"
+        ],
+        "11": [
+          "c5d4",
+          "g7d4"
+        ],
+        "14": [
+          "b5e8"
+        ],
+        "19": [
+          "g8f6"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "dutch-staunton": {
+      "branch": "2.e4 (Staunton Gambit)",
+      "kind": "variation",
+      "name": "Dutch Defence: Staunton Gambit",
+      "eco": "A83",
+      "level": 2,
+      "idea": "White gives up the e-pawn for rapid development. You take it, develop with ...Nf6 and ...g6, and hold the extra pawn with ...d5. When White wins it back, ...f5 and pressure on d4 give you active play.",
+      "moves": [
+        "d4",
+        "f5",
+        "e4",
+        "fxe4",
+        "Nc3",
+        "Nf6",
+        "Bg5",
+        "g6",
+        "f3",
+        "d5",
+        "Qd2",
+        "Bg7",
+        "O-O-O",
+        "Nc6",
+        "Bxf6",
+        "exf6",
+        "fxe4",
+        "dxe4",
+        "Nxe4",
+        "f5"
+      ],
+      "notes": [
+        "Queen's pawn.",
+        "The Dutch: control e4 from the side.",
+        "The Staunton Gambit: White offers the e-pawn.",
+        "Take it.",
+        "White develops and attacks e4.",
+        "Defend e4 with the knight.",
+        "White attacks the defender of e4.",
+        "Fianchetto, Leningrad style.",
+        "White offers a second pawn to open the f-file.",
+        "Support e4 with the d-pawn.",
+        "White prepares long castling.",
+        "Complete the fianchetto.",
+        "White castles long.",
+        "Develop and hit d4.",
+        "White removes your knight.",
+        "Recapture with the e-pawn.",
+        "White breaks open the centre.",
+        "Take back.",
+        "White regains the pawn.",
+        "Kick the knight. Next ...Qxd4 or ...Nxd4."
+      ],
+      "why": [
+        "White takes the centre with the queen's pawn, controlling e5 and c5. Many players answer with ...d5 or ...Nf6; the Dutch takes a more combative route and fights for the e4-square with the f-pawn instead.",
+        "The Dutch: the f-pawn controls e4 from the side and claims kingside space. It loosens the e8-h5 diagonal and the e6-square, so be ready for early tries like Bg5 or e4, but it gives you an unbalanced game from move one.",
+        "The Staunton Gambit: White offers the e-pawn to open lines and develop fast, exploiting your loosened e8-h5 diagonal. It is White's sharpest answer to the Dutch. Engines rate it as roughly equal, so it is sound but not dangerous if you know the plan.",
+        "Take the pawn. Declining with 2...d6 or 2...e6 gives White a free hand in the centre, and engines rate both clearly worse. Now White must spend time winning the pawn back, and you use that time to develop.",
+        "White develops and attacks the e4-pawn. 3.f3 at once is another try. Next White wants Bg5 to remove the knight that will defend e4.",
+        "Defend e4 with the knight and develop. Other moves let White win the pawn back with a lead in development. White's main plan now is Bg5 to remove your knight.",
+        "White attacks the defender of e4: if Bxf6 comes, the pawn on e4 loses its guard. The bishop also eyes e7. White hopes you weaken yourself while clinging to the extra pawn.",
+        "Fianchetto in Leningrad style. Your king will be safe on g8, and the g7-bishop will press on d4. You are not trying to keep the pawn at all costs: quick development matters more.",
+        "White offers a second pawn to open the f-file and get lines towards your king. After 5...exf3 6.Nxf3, White has a big lead in development, so supporting e4 is safer.",
+        "Support e4 with the d-pawn. Now if 6.fxe4 dxe4, you keep the extra pawn and your c8-bishop is free. The d5-pawn also controls c4 and e4.",
+        "White prepares O-O-O and Bh6 to trade off your g7-bishop, the key defender of your king. White keeps the f3-pawn tension so the f-file can open later.",
+        "Complete the fianchetto. The bishop on g7 shields your king and also eyes d4, which will matter when the centre opens.",
+        "White castles long and brings the rook to d1, behind the d4-pawn. The plan is fxe4 to open lines, then a kingside attack with Bh6 and h4.",
+        "Develop with pressure on d4. Your knight, and soon your queen and g7-bishop, all aim at d4, which only White's queen and rook defend. Engines prefer this to castling at once.",
+        "White removes your f6-knight, the defender of e4. Your recapture decides the pawn structure, so choose carefully.",
+        "Recapture with the e-pawn: it keeps the g7-bishop's diagonal open towards d4 and opens the e-file. Your structure is a bit loose, but your pieces become very active. 8...Bxf6 is also playable.",
+        "White opens the centre to win back the pawn. The f-file is open for White's rook as well, so keep an eye on f6 and your king.",
+        "Recapture and keep material level. Your queen now looks straight down the d-file at d4, and with the knight on c6 and bishop on g7, d4 is under heavy pressure.",
+        "White wins the pawn back. Material is level, but the knight is about to be kicked, and the d4-pawn is weak.",
+        "Kick the knight with tempo. Once it moves, ...Qxd4 or ...Nxd4 wins a pawn, and your bishops aim at White's queenside king. Castle soon: your own king is still in the centre with the e-file open."
+      ],
+      "gm": {
+        "2": "The gambit is named after Howard Staunton, the leading English player of the 1840s. It is still the sharpest way to test a Dutch player.",
+        "19": "A general rule against gambits: develop, give material back when it activates your pieces, and strike at the centre. Here you returned the pawn and now win one in the centre."
+      },
+      "show": {
+        "2": [
+          "e4f5"
+        ],
+        "6": [
+          "g5f6"
+        ],
+        "9": [
+          "d5e4"
+        ],
+        "13": [
+          "c6d4"
+        ],
+        "17": [
+          "d8d4",
+          "c6d4"
+        ],
+        "19": [
+          "f5e4",
+          "g7d4"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "dutch-english": {
+      "branch": "1.c4 f5 (English move order)",
+      "kind": "transposition",
+      "joins": "dutch",
+      "name": "Dutch Defence: Leningrad via 1.c4",
+      "eco": "A87",
+      "level": 2,
+      "idea": "Against the English, 1...f5 lets you play your Leningrad set-up. If White plays d4 later, you reach exactly the main line, having sidestepped 2.Bg5 and the Staunton Gambit.",
+      "moves": [
+        "c4",
+        "f5",
+        "Nf3",
+        "Nf6",
+        "g3",
+        "g6",
+        "Bg2",
+        "Bg7",
+        "O-O",
+        "O-O",
+        "d4",
+        "d6",
+        "Nc3",
+        "Qe8"
+      ],
+      "notes": [
+        "English Opening.",
+        "Dutch-style reply: control e4.",
+        "White develops.",
+        "Develop and cover e4.",
+        "White prepares the fianchetto.",
+        "The Leningrad set-up.",
+        "White's bishop on the long diagonal.",
+        "Fianchetto.",
+        "White castles.",
+        "Castle.",
+        "White plays d4 after all.",
+        "Same position as the main Leningrad line.",
+        "White develops.",
+        "The queen supports ...e5 as usual."
+      ],
+      "why": [
+        "The English Opening: White controls d5 and keeps the d-pawn in reserve. Many 1.d4 players start this way to dodge certain defences. As a Dutch player you can meet it with the same ...f5 plan.",
+        "Answer the English Dutch-style, controlling e4 from the side. This avoids the anti-Dutch tries 2.Bg5 and 2.e4 that you face after 1.d4. White can still aim for e4 later with Nc3 and d3, so stay alert.",
+        "White develops and covers e5 and d4. The d-pawn is still at home, so the game can stay an English or turn into a Dutch once White plays d4.",
+        "Develop and add control of e4. Nothing changes in your Leningrad plan: ...g6, ...Bg7, ...O-O and ...d6.",
+        "White prepares the fianchetto, the most common set-up against the Leningrad structure.",
+        "The Leningrad set-up. Your bishop on g7 will face White's on g2, and your pawn on f5 keeps restraining e4.",
+        "White's bishop takes the long diagonal towards your queenside. Now complete your own fianchetto.",
+        "Complete the fianchetto. Your bishop covers e5 and d4, key squares whether White plays d4 or goes for d3 and e4.",
+        "White castles and still keeps a choice between d4 and a set-up with d3, Nc3 and e4.",
+        "Castle. Your king is safe, and you are ready for ...d6 followed by ...Qe8 or ...c6, depending on White's set-up.",
+        "White plays d4 after all, steering towards the main Leningrad lines. If White plays d3 instead, keep the same plan: ...d6 and ...e5.",
+        "Prepare ...e5. The position is now identical to the main Leningrad line after 6.c4 d6: same pieces, same squares. This move order spared you 2.Bg5 and the Staunton Gambit, which is exactly what it gains.",
+        "White develops and adds control of e4 and d5, exactly as in the main line.",
+        "Same plan as in the main line: the queen supports ...e5, steps off the d-file and can go to f7 to hit c4. Next comes ...e5, often prepared with ...Nc6 or ...Na6."
+      ],
+      "gm": {
+        "11": "Strong players often pick their first moves to avoid an opponent's favourite sidelines. Reaching your main line via 1.c4 f5 is a practical way to dodge the Staunton Gambit."
+      },
+      "show": {
+        "1": [
+          "f5e4"
+        ],
+        "11": [
+          "e7e5"
+        ],
+        "13": [
+          "e8f7",
+          "e7e5"
+        ]
+      },
+      "gambitPlies": []
+    }
+  }
+}

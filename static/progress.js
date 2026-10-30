@@ -27,7 +27,7 @@ export function renderProgress(el, openings, onGoalChange, onOpenGame) {
     <div class="tiles">
       <div class="stat"><span class="eyebrow">Day streak</span><b>${streakNow()}</b><span class="muted small">best ${d.streak.best}</span></div>
       <div class="stat"><span class="eyebrow">Puzzle rating</span><b>${pz.rating}</b><span class="muted small">${pz.solved} solved · best run ${pz.bestRun}</span></div>
-      <div class="stat"><span class="eyebrow">Openings mastered</span><b>${mastered}<span class="muted small"> / ${openings.length}</span></b><span class="muted small">${started} in your review cycle</span></div>
+      <div class="stat"><span class="eyebrow">Opening lines mastered</span><b>${mastered}<span class="muted small"> / ${openings.length}</span></b><span class="muted small">${started} in your review cycle</span></div>
       <div class="stat"><span class="eyebrow">Games</span><b>${d.games.length}</b><span class="muted small">${avgAcc === null ? 'no games yet' : `avg accuracy ${avgAcc}% (last ${recent.length})`}</span></div>
     </div>
     <div class="card-head"><span class="eyebrow">Activity · last 16 weeks</span><span class="muted small">XP per day</span></div>
