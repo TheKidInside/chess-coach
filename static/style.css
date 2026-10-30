@@ -427,3 +427,25 @@ textarea { font-family: var(--f-mono); font-size: 13px; resize: vertical; }
   .evaltext { display: none; }
   .ask select { display: none; }
 }
+
+/* ------------------------------------------------- phone: studying an opening */
+/* Once an opening is picked (repertoire folded), the board sticks to the top of the screen and the
+   lesson text scrolls underneath it: the move's explanation sits right under the board, Back/Next
+   stay pinned to the bottom edge, and tapping the board's right/left half steps forward/back. */
+@media (max-width: 960px) {
+  body[data-tab="openings"][data-rep="closed"] { --sq: min(calc((100vw - 58px) / 8), 76px, calc(42svh / 8)); }
+  body[data-tab="openings"][data-rep="closed"] .board-col { position: sticky; top: 0; z-index: 6; background: var(--bg); padding: 6px 0 4px; width: 100%; align-items: center; box-shadow: 0 8px 12px -10px rgba(0, 0, 0, .35); }
+  body[data-tab="openings"][data-rep="closed"] .board-head { display: none; }
+  body[data-tab="openings"][data-omode="study"][data-rep="closed"] .board-tools { display: none; }
+  body[data-tab="openings"][data-rep="closed"] .board-tools { padding-top: 6px; }
+  body[data-tab="openings"][data-rep="closed"] .navgroup { display: none; }   /* the move list below still browses */
+  .panel.lesson #study { order: -2; }
+  .panel.lesson #opening-note { order: -1; }
+  .panel.lesson .odetail { padding-top: 0; border-top: 0; }
+  .panel.lesson .fam { order: 1; padding-top: 12px; border-top: 1px solid var(--line); }
+  .panel.lesson .branches-head { order: 2; }
+  .panel.lesson .branches { order: 3; }
+  .study-nav { position: sticky; bottom: 0; z-index: 2; margin: 0 -14px -14px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: var(--surface-2); border-radius: 0 0 10px 10px; box-shadow: 0 -8px 12px -10px rgba(0, 0, 0, .3); }
+  .study-nav button { padding-top: 11px; padding-bottom: 11px; }
+  .study-nav button[data-act="back"] { min-width: 84px; }
+}

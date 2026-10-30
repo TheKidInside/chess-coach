@@ -380,6 +380,11 @@ function inputLocked() {
 }
 
 boardEl.addEventListener('pointerdown', (e) => {
+  if (studying()) {   // the board is read-only in Study: tap its right half for Next, left half for Back
+    const r = boardEl.getBoundingClientRect();
+    const fwd = e.clientX > r.left + r.width / 2;
+    return studyGo(S.game.history().length + (fwd ? 1 : -1));
+  }
   const sq = squareAt(e.clientX, e.clientY);
   if (!sq) return;
   if (S.viewPly !== null) { setView(S.game.history().length); return; }   // clicking the board returns to live
@@ -605,6 +610,7 @@ function setRepOpen(open) {   // fold the repertoire away while you study one op
   $('#repertoire').classList.toggle('closed', !open);
   $('#rep-toggle').setAttribute('aria-expanded', String(open));
   if (P.data.settings.repOpen !== open) { P.data.settings.repOpen = open; save(); }
+  syncPage();
   renderRepHead();
   if (open) $('#opening-list .orow.active')?.scrollIntoView({ block: 'nearest' });
 }
@@ -730,6 +736,24 @@ function startOpening(atPly = 0) {
 // all step the same way (navTo), so there is one pointer: the moves on the board.
 
 const studying = () => S.tab === 'openings' && S.omode === 'study';
+
+// The phone layout (style.css) keys off these: the board sticks while an opening is open.
+function syncPage() {
+  const d = document.body.dataset;
+  d.tab = S.tab; d.omode = S.omode;
+  d.rep = $('#repertoire').classList.contains('closed') ? 'closed' : 'open';
+}
+const narrow = matchMedia('(max-width: 960px)');
+
+// Phone: keep the explanation (Study card, or the Learn/Drill note) right under the sticky board.
+function keepStudyInView() {
+  if (!narrow.matches || S.tab !== 'openings' || document.body.dataset.rep !== 'closed') return;
+  const el = studying() ? $('#study') : $('#opening-note');
+  if (!el.innerHTML) return;
+  const top = document.querySelector('.board-col').getBoundingClientRect().bottom;
+  const r = el.getBoundingClientRect();
+  if (r.top < top || r.top > innerHeight - 160) scrollBy({ top: r.top - top - 8, behavior: 'smooth' });
+}
 const posKey = (fen) => fen.split(' ').slice(0, 4).join(' ');
 
 let POSITIONS = null;   // position -> [{ o, ply }] for every line, built on first use
@@ -829,6 +853,7 @@ function studyShow() {
   }
   $('#study').innerHTML = html + '</div>';
   refreshChips();
+  keepStudyInView();
 }
 
 $('#study').addEventListener('click', (e) => {
@@ -858,6 +883,7 @@ function openingNote() {
       : `<p>Your move. Play the book move from memory.</p>`;
   }
   $('#opening-note').innerHTML = html;
+  keepStudyInView();
 }
 
 function openingStep() {
@@ -979,7 +1005,7 @@ function continueOpeningInPlay() {
 }
 
 const OMODE_HINTS = {
-  study: 'Step through the line with Next. Every move comes with the reasoning behind it; blue arrows show the idea.',
+  study: 'Step through the line with Next, or tap the right (forward) or left (back) half of the board. Every move comes with its reasoning; blue arrows show the idea.',
   learn: 'Arrows show every move. Read the note, then play it.',
   drill: 'No arrows. Play the line from memory; a clean run moves it up a review box.',
 };
@@ -988,6 +1014,7 @@ function setOpeningMode(mode) {
   S.omode = mode;
   document.querySelectorAll('[data-omode]').forEach((b) => b.classList.toggle('active', b.dataset.omode === mode));
   $('#omode-hint').textContent = OMODE_HINTS[mode];
+  syncPage();
   syncToolButtons();
   startOpening();
 }
@@ -1631,6 +1658,7 @@ function switchTab(tab, reset = true) {
     S.tags = { ...S.tags }; S.lossByPly = {};
   }
   S.tab = tab;
+  syncPage();
   document.querySelectorAll('.tab').forEach((b) => b.classList.toggle('active', b.dataset.tab === tab));
   for (const t of ['openings', 'puzzles', 'play', 'analyze', 'progress']) $(`#panel-${t}`).classList.toggle('hidden', t !== tab);
   S.epoch++;
