@@ -38,7 +38,11 @@ server.py  (Python standard library only; the anthropic SDK is optional)
 | `static/profile.js` | XP + levels, daily goal + streak, spaced repetition, puzzle rating, game log, saving |
 | `static/progress.js` | The Progress tab: level card, stat tiles, activity heatmap, rating chart, games table |
 | `static/sound.js` | Move/capture/check/reward sounds, synthesised with Web Audio (no audio files) |
-| `static/openings.js` | The training repertoire: 28 lines (12 White, 16 Black) with a note for every move and a difficulty `level` |
+| `static/openings.js` | The training repertoire: `FAMILIES` (26 main openings) and `OPENINGS` (114 lines: each opening's main line, variations, transpositions and trap lines), a short note for every move and a difficulty `level`. Generated, see "Changing things" |
+| `static/study.js` | Study-mode commentary per line: `why` (the reasoning for every move), `gm` (master callouts on key moves), `show` (idea arrows). Generated with `openings.js` |
+| `static/coaches.json` | The coach's base instructions and the coach styles (Standard, Danya's lessons); shared by `server.py` and `backend.js` |
+| `static/lessons/<slug>.json` | A grandmaster's lesson library (paraphrased lessons by theme + advice per opening, with video links). Copied from `C:\Artificial\chess\<slug>\lessons.json` |
+| `tools/tree/` | The opening-tree pipeline: `drafts/*.json` (the content), `build_tree.mjs`, `validate_study.mjs`, `check_engine.mjs` (Stockfish soundness check), `print_line.mjs`, `base_openings.js` (the original 28 lines the drafts build on) |
 | `static/eco.json` | Opening-name lookup: ~3,900 positions → ECO code + name (built by `tools/build_eco.mjs`, Lichess, CC0) |
 | `static/fonts/` | Bricolage Grotesque (headings, numbers), IBM Plex Sans (text), IBM Plex Mono (notation). SIL OFL, self-hosted so it works offline |
 
@@ -67,7 +71,7 @@ Each engine has a lock, because the HTTP server is threaded and a UCI process ca
 
 ### The AI bridge
 
-`build_messages()` cleans the chat history (alternating user/assistant, last 10 turns) and appends the new question with the POSITION CONTEXT block. `COACH_SYSTEM` tells the model that Stockfish is the source of truth, to explain plans in human terms, and to avoid illegal moves.
+`build_messages()` cleans the chat history (alternating user/assistant, last 10 turns) and appends the new question with the POSITION CONTEXT block. The system prompt comes from `coach_system(style)`: the `base` text in `static/coaches.json` (Stockfish is the source of truth, explain plans in human terms, never suggest illegal moves) plus the chosen style's `prompt`. A style with `"lessons": "<slug>"` also appends that grandmaster's lessons from `static/lessons/<slug>.json` as plain text (titles and lessons, no links). The files are read on every question, so editing them needs no restart. The slug is checked against `^[a-z0-9-]+$` before it becomes a path.
 
 - **Claude**: used when `ANTHROPIC_API_KEY` (or `ANTHROPIC_AUTH_TOKEN`) is set and the `anthropic` package is installed. Model `claude-opus-5-5`, effort `low`, with server-side refusal fallback enabled.
 - **Local Qwen**: llama.cpp's OpenAI-compatible endpoint at `127.0.0.1:8080/v1/chat/completions`. Free, private, weaker; the engine lines in the context are what keep it honest.
@@ -149,7 +153,16 @@ The dictionary is keyed by **position**, not move order (the first four FEN fiel
 
 ### Openings tab
 
-The strip at the top is the hook: **"N lines due for review → Review now"** runs every due line in Drill mode back to back. The list shows each line's difficulty (or a **Due** flag) and five dots for its box. The current step is simply `game.history().length`, so there is no separate pointer to keep in sync.
+Two cards. **Repertoire** lists the main openings (`FAMILIES`), grouped as White 1.e4 / White 1.d4-1.c4 / Black vs 1.e4 / Black vs 1.d4, each with its line count, a **Due** flag and a bar for how well its lines are known. Picking one folds the card to a single "change opening" row (`setRepOpen()`, remembered in settings) so the lesson gets the room. Its strip is the hook: **"N lines due for review → Review now"** runs every due line in Drill mode back to back.
+
+The **lesson** card shows the opening's idea, "From the masters" (historical notes, plus each grandmaster library's advice on this opening with video links), and **Branches**: every line in the family, labelled by the move where it leaves the main line (`divergence()`), or "Order" for a transposition. Each line keeps its own review box, so a family is like a book with chapters: you can know chapter one cold and still be due on chapter three.
+
+The current step is simply `game.history().length`, so there is no separate pointer to keep in sync. Three modes:
+- **Study** (default): the board is read-only. Next (or →, Space, the board nav buttons, clicking a move, or on a phone tapping the board's right half) plays the next move of the line for either side; Back undoes. `studyGo()` animates a single step and replays from the start for jumps. `studyShow()` then renders the move, its short note, the `why` paragraph, a master callout if there is one, and the idea arrows (`show`, drawn blue). Two links are computed, never authored:
+  - **Branches here** (`branchesAt(n)`): lines with the same first n moves and a different next move. Your own opening's branches first, then (from move 2 on) your other openings of the same colour, so the Ruy Lopez shows 3.Bc4 into your Italian.
+  - **Transpositions** (`transpositionsHere()`): a position index over every line (`positionIndex()`, keyed like the ECO dictionary on the first four FEN fields) finds lines that reach the board position by a different move order. Clicking one switches line and keeps the position.
+  Study pays no XP and doesn't touch the review schedule; the end card offers Learn it, Drill it, Next branch, or Play on.
+  On a phone (960 px or narrower), once an opening is open the board sticks to the top of the screen at a smaller size, the Study card sits right under it, and Back/Next stay pinned to the bottom. `syncPage()` mirrors the tab, mode and repertoire state onto `<body data-…>` for the CSS, and `keepStudyInView()` scrolls the explanation back under the board after each step.
 - **Learn**: a green arrow shows your next book move; the opponent's book replies are played after a short pause; notes explain each move. Finishing a new line puts it in box 0, due tomorrow.
 - **Drill**: no arrows. A wrong move is taken back, the book move is shown, and Stockfish says whether your move was actually bad or just a playable sideline. A clean run moves the line up a box.
 - "Play on vs Stockfish" carries the position into the Play tab.
@@ -170,11 +183,13 @@ Keeps whatever position you were in and lets you move both sides. Shows Stockfis
 
 ### Ask the coach
 
-`buildContext()` assembles: FEN, side to move, the mode (and the line being taught), the moves so far, the last coach verdict (flagged if you took it back), and fresh Stockfish top-3 lines. During an unsolved puzzle it leaves the engine lines out and tells the model not to reveal the answer. The suggestion chips change with the tab and situation. `mdToHtml()` escapes the answer before adding bold/bullets, so model output can't inject HTML.
+`buildContext()` assembles: FEN, side to move, the mode (and the line being taught, its branch, the other branches of the opening, and in Study the commentary on the last move), the moves so far, the last coach verdict (flagged if you took it back), and fresh Stockfish top-3 lines. During an unsolved puzzle it leaves the engine lines out and tells the model not to reveal the answer. The suggestion chips change with the tab and situation. `mdToHtml()` escapes the answer before adding bold/bullets, so model output can't inject HTML.
+
+**Coach styles.** The buttons above the chat are built from `coaches.json`, so adding a style is a data change. The style goes with each question (`style` in the `/api/ask` body). A grandmaster style (Danya's lessons) gets that GM's lesson library in its system prompt, adds the GM's advice on the current opening to the context, and shows a **Lessons** button that opens the library with links to the video moments. The style prompt says the coach teaches the GM's lessons and credits them, and never speaks as the GM or invents quotes.
 
 ### Keyboard
 
-← → step through moves, Home/End jump to the start/live position, F flips the board, Esc clears a selection, Enter loads the next puzzle once one is done.
+← → step through moves, Home/End jump to the start/live position, F flips the board, Esc clears a selection, Enter loads the next puzzle once one is done. In Study the same keys (and Space) step through the line itself, and End jumps to the end of the line (`navTo()` decides).
 
 ## The hosted version (GitHub Pages)
 
@@ -186,7 +201,7 @@ The switch is one file, `static/backend.js`. Everything in `app.js` calls `api('
 |---|---|---|
 | `/api/analyse`, `/api/move` | native Stockfish 19 | `engine.js`: Stockfish 19 **lite** as a WASM web worker |
 | `/api/puzzle` | server proxies Lichess | browser calls `lichess.org/api/puzzle/next` directly (Lichess allows it) |
-| `/api/ask` | Claude or local Qwen | local Qwen at `127.0.0.1:8080`, straight from the browser |
+| `/api/ask` | Claude or local Qwen | local Qwen at `127.0.0.1:8080`, straight from the browser; `coachSystem()` builds the same prompt from `coaches.json` + `lessons/<slug>.json` |
 | `/api/profile` | `data/profile.json` | skipped — the localStorage copy is the only copy |
 | `/api/status`, `/api/ping` | server | answered in the browser / no-op |
 
@@ -200,9 +215,17 @@ Why the *lite, single-threaded* build: the full engine is ~94 MB (slow to load, 
 
 ## Changing things
 
-- **Add an opening**: append an object to `OPENINGS` in `openings.js` (`moves` and `notes` must be the same length; set `level` 1-3). It lands in the right list group automatically. Validate the SAN by playing it through chess.js; an illegal move would break the drill.
+- **Add an opening or a branch**: don't edit `openings.js` / `study.js` by hand; they are generated. Add or edit a draft in `tools/tree/drafts/` (shape documented at the top of `validate_study.mjs`: families, then per line `branch`, `kind`, `moves`, `notes`, `why`, optional `gm`, `show`, `joins` for a transposition). Then, from the project folder:
+  1. `node tools/tree/print_line.mjs --file tools/tree/drafts/<file>.json <id>` to see the board after every move while writing.
+  2. `node tools/tree/validate_study.mjs tools/tree/drafts/*.json` until "all good" (legal moves, matching lengths, arrows start on a piece, transpositions really join).
+  3. `node tools/tree/check_engine.mjs tools/tree/drafts/<file>.json` (Stockfish flags any move that throws away 1+ pawn; a real gambit goes in `gambitPlies`).
+  4. `node tools/tree/build_tree.mjs --write tools/tree/drafts/*.json`.
+  Keep existing line ids: review progress is stored by id.
+  Shortcut for new branches: `node tools/tree/add_lines.mjs <new-lines.json> --write` puts lines into the draft that owns their family. Its `prefix: { from, plies }` copies the notes and reasoning for the shared opening moves from an existing line, so you only write the moves where the new line leaves the tree. Then run steps 2-4.
+- **Trap lines**: a branch whose name says `(trap: ...)` or `?!` teaches a common mistake. Either the student plays the correct move and the notes warn about the natural blunder (for example 5...Ndf6 instead of 5...Ngf6?? 6.Nd6 mate), or the opponent errs and the line shows how to punish it. Check every claimed trap with Stockfish before writing it up.
+- **Add a grandmaster coach**: build their library in `C:\Artificial\chess\<slug>\` (see that folder's README), run `node ../tools/render_lessons.mjs --app` there to copy it to `static/lessons/<slug>.json`, then add a style to `coaches.json` with `"lessons": "<slug>"`.
 - **Rewards**: the XP numbers live at the call sites of `addXp()` in `app.js`; the level curve is `levelStart()` and the review spacing is `INTERVALS` in `profile.js`. The default daily goal is set in `fresh()` and can be changed from the Progress tab.
 - **Mistake thresholds**: the `30 / 20 / 10` numbers in `judge()`.
 - **Engine thinking time**: `analyse(fen, movetime, multipv)` calls in `app.js`; opponent time in `engineReply()`.
-- **Coach personality**: `COACH_SYSTEM` in `server.py`.
+- **Coach personality**: `base` and the style prompts in `static/coaches.json`.
 - **Colours**: the tokens at the top of `style.css` (light block, then the dark block twice: once for "system dark", once for the dark theme button).

@@ -1,4 +1,0 @@
-{ "lines": {
-  "carokann-twoknights": { "moves": ["e4","c6","Nc3","d5","Nf3","Bg4","h3","Bxf3","Qxf3","e6","d3","Nf6","Be2","Nbd7","O-O","Bc5","Qg3","O-O"] },
-  "carokann-nd2": { "moves": ["e4","c6","d4","d5","Nd2","dxe4","Nxe4","Bf5","Ng3","Bg6","h4","h6","Nf3","Nd7"] }
-} }

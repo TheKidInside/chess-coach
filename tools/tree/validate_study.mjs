@@ -1,16 +1,19 @@
-// Usage: node validate_study.mjs <agent-output.json> [...]
+// Usage: node tools/tree/validate_study.mjs <agent-output.json> [...]
 // Validates opening-tree content against openings.js. File shape:
 // { families: [{ id, name, side, idea, masters: [str], lines: [lineId, ...] }],
 //   lines: { <lineId>: { branch, kind: main|variation|transposition, why: [str per ply], gm: {ply: str},
 //            show: {ply: ["e2e4"]}, gambitPlies?: [ply],
 //            // existing ids (already in openings.js) may also carry notes: [...] to replace weak notes
 //            // new ids also need: name, eco, level, idea, moves, notes; transpositions need joins } } }
+// Training lines are read from the original 28-line repertoire (base_openings.js), not static/openings.js,
+// which already holds the merged drafts; that keeps a rebuild from drafts repeatable.
+const BASE = fileURLToPath(new URL('./base_openings.js', import.meta.url));
 import { readFileSync } from 'node:fs';
-import { pathToFileURL } from 'node:url';
+import { pathToFileURL, fileURLToPath } from 'node:url';
 
-const root = 'C:/Artificial/projects/chess-coach/static/';
+const root = fileURLToPath(new URL('../../static/', import.meta.url));
 const { Chess } = await import(pathToFileURL(root + 'vendor/chess.js').href);
-const { OPENINGS } = await import(pathToFileURL(root + 'openings.js').href);
+const { OPENINGS } = await import(pathToFileURL(BASE).href);
 
 let errors = 0;
 const err = (m) => { errors++; console.log('ERROR ' + m); };

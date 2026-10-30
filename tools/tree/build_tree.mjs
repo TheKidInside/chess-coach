@@ -1,13 +1,16 @@
-// Usage: node build_tree.mjs [--write] tree/g1.json tree/g2.json ...
+// Usage: node tools/tree/build_tree.mjs [--write] tools/tree/drafts/g1.json tools/tree/drafts/g2.json ...
 // Merges the opening-tree drafts into the app's data files:
 //   static/openings.js  FAMILIES + OPENINGS (existing lines keep their ids, so progress carries over)
 //   static/study.js     STUDY commentary per line (why / gm / show)
 // Without --write it prints a summary only. Lines not covered by any draft stay as one-line families.
+// Training lines are read from the original 28-line repertoire (base_openings.js), not static/openings.js,
+// which already holds the merged drafts; that keeps a rebuild from drafts repeatable.
+const BASE = fileURLToPath(new URL('./base_openings.js', import.meta.url));
 import { readFileSync, writeFileSync } from 'node:fs';
-import { pathToFileURL } from 'node:url';
+import { pathToFileURL, fileURLToPath } from 'node:url';
 
-const root = 'C:/Artificial/projects/chess-coach/static/';
-const { OPENINGS: OLD } = await import(pathToFileURL(root + 'openings.js').href + '?' + Date.now());
+const root = fileURLToPath(new URL('../../static/', import.meta.url));
+const { OPENINGS: OLD } = await import(pathToFileURL(BASE).href + '?' + Date.now());
 // --out <dir>: write the two files there instead of the repo's static/ (for a test copy)
 const args = process.argv.slice(2);
 const outAt = args.indexOf('--out');

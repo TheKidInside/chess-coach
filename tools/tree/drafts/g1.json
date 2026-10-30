@@ -1,0 +1,1351 @@
+{
+  "families": [
+    {
+      "id": "ruy",
+      "name": "Ruy Lopez",
+      "side": "w",
+      "idea": "Put pressure on the c6-knight, the defender of e5, and build a c3 and d4 centre over many moves. It is a long positional fight where small advantages add up.",
+      "masters": [
+        "The opening is named after Ruy Lopez de Segura, a Spanish priest whose 1561 book analysed 3.Bb5.",
+        "Lasker beat Capablanca at St Petersburg 1914 with the Exchange Variation, and Fischer revived the same line with 5.O-O in the 1960s.",
+        "Kramnik used the Berlin Defence to neutralise Kasparov in their 2000 World Championship match, which pushed many top players toward 4.d3 against it.",
+        "Marshall unveiled his gambit against Capablanca in New York in 1918. Capablanca defended and won, but the Marshall Attack is still a top-level weapon, which is why anti-Marshall moves like 8.h3 exist."
+      ],
+      "lines": [
+        "ruy",
+        "ruy-berlin",
+        "ruy-exch",
+        "ruy-open",
+        "ruy-antimarshall"
+      ]
+    },
+    {
+      "id": "scotch",
+      "name": "Scotch Game",
+      "side": "w",
+      "idea": "Open the centre on move three with d4 and recapture with the knight. You get free piece play and clear plans, with fewer slow manoeuvres than in the Ruy Lopez.",
+      "masters": [
+        "The Scotch takes its name from a correspondence match between Edinburgh and London that began in 1824, in which the opening was played.",
+        "Kasparov brought the Scotch back to the top level when he used it against Karpov in their 1990 World Championship match, and many elite players followed.",
+        "The 5.Nxc6 and 6.e5 plan is the Mieses Variation, named after Jacques Mieses, while the early queen raid 4...Qh4 carries the name of Wilhelm Steinitz."
+      ],
+      "lines": [
+        "scotch",
+        "scotch-classical",
+        "scotch-steinitz"
+      ]
+    },
+    {
+      "id": "vienna",
+      "name": "Vienna Game",
+      "side": "w",
+      "idea": "Develop the queen's knight first so e4 is protected, then strike with f4 when it hurts most. It is a King's Gambit with better preparation, with Bc4 setups as the calmer option.",
+      "masters": [
+        "The Vienna takes its name from the city where 19th-century players, Carl Hamppe among them, analysed it in depth.",
+        "The point of 2.Nc3 is to prepare f4 in conditions where Black cannot simply grab the pawn and keep it, so it suits players who like the King's Gambit's open f-file but want less risk.",
+        "Several Vienna positions also arise from the King's Gambit Declined, which is why the two openings are usually studied together."
+      ],
+      "lines": [
+        "vienna",
+        "vienna-nc6",
+        "vienna-accepted",
+        "vienna-kgd"
+      ]
+    },
+    {
+      "id": "kingsgambit",
+      "name": "King's Gambit",
+      "side": "w",
+      "idea": "Offer the f-pawn on move two to open the f-file and build a big centre with d4. It is sharp and romantic: you trade material for time, open lines and attacking chances.",
+      "masters": [
+        "The King's Gambit dominated 19th-century chess; the Immortal Game, Anderssen against Kieseritzky in London in 1851, began with it.",
+        "Spassky beat Fischer with the King's Gambit at Mar del Plata in 1960. Fischer answered with his article A Bust to the King's Gambit, recommending 3...d6.",
+        "The Kieseritzky line (4.h4 g4 5.Ne5) is named after Lionel Kieseritzky, and the Falkbeer Countergambit (2...d5) after the Austrian master Ernst Falkbeer."
+      ],
+      "lines": [
+        "kingsgambit",
+        "kingsgambit-declined",
+        "kingsgambit-modern",
+        "kingsgambit-falkbeer"
+      ]
+    }
+  ],
+  "lines": {
+    "ruy": {
+      "branch": "Closed Ruy Lopez (main line)",
+      "kind": "main",
+      "why": [
+        "You take central space and open lines for the queen and f1-bishop. In the Ruy Lopez this e4 pawn is the anchor of your position: much of the middlegame is about keeping it strong while you prepare d4.",
+        "Black stakes an equal claim in the centre. The e5 pawn is the target of the whole opening, but you will not attack it head-on. Instead you will undermine its defender, the knight Black is about to put on c6.",
+        "You develop with a threat on e5, forcing Black to react. The knight on f3 is also the piece that will collect e5 if the c6-knight is ever exchanged off, so it is central to the whole idea.",
+        "Black defends e5 with the knight. This knight is now the only defender of e5, so pressuring or exchanging it is the strategic point of your next move.",
+        "The bishop attacks the c6-knight, the only defender of e5. Bxc6 and Nxe5 is not yet a real threat, since ...Qd4 regains the pawn, but this pressure stays for the whole game and shapes both sides' plans.",
+        "The Morphy Defence: Black asks the bishop to decide at once. Having ...a6 in also gives Black ...b5 later with tempo. You can trade on c6 (the Exchange Variation) or keep the bishop with Ba4.",
+        "You keep the bishop and the pressure on c6. Taking on c6 is fine too, but Ba4 keeps the tension, and the bishop will later settle on b3, aiming at f7 from a safe distance.",
+        "Black develops and attacks e4. Because your bishop left the centre, nothing guards e4 directly, so you must choose between defending it and castling with tactics in reserve.",
+        "You castle and leave e4 en prise on purpose. If 5...Nxe4, Re1 and d4 open the centre against Black's uncastled king. That is the Open Ruy, playable for Black, but your pieces become very active.",
+        "Black chooses the solid Closed Ruy and prepares to castle. The e4 pawn is still attacked by the f6-knight, so you need to protect it before carrying out your own plans.",
+        "The rook defends e4, which turns Bxc6 and Nxe5 into a real threat: with e4 protected, ...Qd4 no longer wins the pawn back. Black has to respond, usually with ...b5 or ...d6.",
+        "Black gains queenside space and ends the pressure on c6 by kicking the bishop. It also prepares ...Bb7 or ...Na5. The cost is a slightly loose queenside that you can later hit with a4.",
+        "The bishop retreats to its best diagonal, aiming at f7 from behind. On b3 it is safe from ...b4 and will drop back to c2 when ...Na5 attacks it. It also watches d5, the square Black needs for freeing breaks.",
+        "Black supports e5 and opens the c8-bishop. If Black castles first instead, 8.c3 allows the Marshall Attack with 8...d5. With ...d6 Black chooses the slow, classical path, and the fight will be long and positional.",
+        "You prepare d4 and give the bishop a retreat square on c2. In the Closed Ruy, d4 must be properly supported, because the c6-knight and a bishop on g4 would otherwise attack it.",
+        "Black castles, completing kingside development. The usual plans now are ...Na5 and ...c5 for queenside space, or ...Bb7 and ...Re8 for central pressure. Watch for ...Bg4 pinning your f3-knight before you play d4.",
+        "A quiet but important move: it stops ...Bg4, which would pin the knight and pressure d4. Now d4 can follow with full support, and the knight can later travel Nbd2-f1-g3. This is the main tabiya of the Closed Ruy."
+      ],
+      "gm": {
+        "4": "Ruy Lopez de Segura analysed this bishop move in his 1561 book, which is why the opening carries his name.",
+        "13": "If Black castles before ...d6, 8.c3 allows the Marshall Attack (8...d5), first played by Frank Marshall against Capablanca in New York in 1918.",
+        "16": "Steinitz's idea of accumulating small advantages fits the Closed Ruy perfectly: quiet moves like h3 prepare d4 calmly instead of forcing matters."
+      },
+      "show": {
+        "4": [
+          "b5c6"
+        ],
+        "10": [
+          "e1e4"
+        ],
+        "12": [
+          "b3f7"
+        ],
+        "14": [
+          "d2d4"
+        ],
+        "16": [
+          "d2d4",
+          "b1d2"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "ruy-berlin": {
+      "branch": "Berlin Defence, anti-Berlin 4.d3 (3...Nf6)",
+      "kind": "variation",
+      "name": "Ruy Lopez: Berlin Defence, 4.d3",
+      "eco": "C65",
+      "level": 2,
+      "idea": "Against the Berlin, protect e4 with d3 and avoid the drawish Berlin endgame. You keep queens on and play a slow c3, h3 and Re1 setup with d4 later.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "Bb5",
+        "Nf6",
+        "d3",
+        "Bc5",
+        "c3",
+        "O-O",
+        "O-O",
+        "d6",
+        "h3",
+        "a6",
+        "Ba4",
+        "Ba7",
+        "Re1"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "Attack e5.",
+        "Defend e5.",
+        "Pressure the defender of e5.",
+        "The Berlin: Black hits e4 instead of playing ...a6.",
+        "Protect e4 and avoid the Berlin endgame.",
+        "Black's bishop takes the active c5 square.",
+        "Prepare d4 and make room for the bishop.",
+        "Black castles.",
+        "King to safety.",
+        "Black supports e5.",
+        "Rule out ...Bg4 and ...Ng4 for good.",
+        "Black asks the bishop to decide.",
+        "Keep the bishop; it can later drop back to c2.",
+        "The bishop hides from d4 and b4.",
+        "Rook supports e4; next Nbd2-f1-g3."
+      ],
+      "why": [
+        "You claim central space and open lines for the queen and f1-bishop. In this line the e4 pawn is exactly what Black's knight will attack, so the opening is partly about choosing the right way to protect it.",
+        "Black mirrors and claims equal central space. The e5 pawn will be defended by the c6-knight, which is what your bishop targets in the Ruy Lopez. Nothing has deviated from your main line yet.",
+        "You develop with a threat on e5 and prepare castling. As in every Ruy line, the knight on f3 is the piece that would collect e5 if the c6-knight is ever exchanged off.",
+        "Black defends e5 with the knight, the standard reply. This knight is the only defender of e5, which is why your bishop will go to b5 next to pressure it.",
+        "The bishop pressures the c6-knight, the defender of e5. It is a slow threat rather than an immediate one, but it shapes Black's choices. Usually Black answers with ...a6; here Black has another plan.",
+        "The Berlin Defence: Black skips ...a6 and attacks e4 at once. After 4.O-O Nxe4 5.d4 the queens usually come off in the famous Berlin endgame, which is very solid for Black. You choose a different route.",
+        "You protect e4 with a pawn and keep queens on the board. This avoids the Berlin endgame and leads to a slow middlegame. The cost is that d4 will take an extra move later, but Black has no quick way to punish that.",
+        "Black puts the bishop on its most active square, aiming at f2. It also discourages d4 for now. Watch f2 closely: with ...Ng4 ideas and this bishop, Black can create tricks if you get careless.",
+        "You prepare d4, which would hit the c5-bishop with tempo, and make c2 available for your bishop later. The pawn also takes d4 away from Black's c6-knight, so ...Nd4 tricks against your f3-knight disappear.",
+        "Black castles, finishing kingside development. Black's ideas now are ...d6, ...a6 and ...Ba7 to keep the bishop safe, or a ...d5 break if you give it the chance.",
+        "Your king goes to safety. With the centre closed there is no hurry: castle, put the rook on e1, and only then think about d4 or the Nbd2-f1-g3 knight tour.",
+        "Black supports e5 and opens the c8-bishop. Black's most natural active idea now is ...Bg4, pinning your f3-knight and adding pressure to d4 and to your kingside, so your next move deals with it in advance.",
+        "You rule out ...Bg4 and ...Ng4 for the rest of the game. This small move lets your knight leave f3 and your d4 push come later without a pin. It is typical of slow d3 Ruy and Italian positions.",
+        "Black asks your bishop to decide. If you take on c6, Black gets the bishop pair; if you retreat, the bishop needs a safe long-term home. Expect ...b5 soon if you retreat.",
+        "You keep the bishop and its pressure on c6. Later it can go to c2, thanks to your c3 pawn, and point at the kingside. Taking on c6 is playable, but it hands Black the two bishops for little gain.",
+        "Black tucks the bishop onto a7, where your d4 or b4 cannot hit it with tempo. It still aims at f2, so remember this diagonal whenever you open the centre.",
+        "The rook supports e4 and frees f1 for the knight. Your plan: Nbd2-f1-g3 and Bc2, then d4 at the right moment. Black will aim for ...Ne7-g6, or ...b5 and ...Na5 to chase your bishop."
+      ],
+      "gm": {
+        "5": "Kramnik used the Berlin against Kasparov in the 2000 World Championship; Kasparov could not break it, and the defence became a fixture at the top.",
+        "6": "Since then, 4.d3 has become the main practical way to keep a full middlegame against the Berlin, and elite players use it constantly.",
+        "12": "A classic piece of Nimzowitsch-style prophylaxis: before carrying out your plan, remove the opponent's best active idea, here ...Bg4."
+      },
+      "show": {
+        "5": [
+          "f6e4"
+        ],
+        "7": [
+          "c5f2"
+        ],
+        "8": [
+          "c3d4"
+        ],
+        "12": [
+          "h3g4"
+        ],
+        "16": [
+          "b1d2",
+          "d3d4"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "ruy-exch": {
+      "branch": "Exchange Variation (4.Bxc6)",
+      "kind": "variation",
+      "name": "Ruy Lopez: Exchange Variation",
+      "eco": "C69",
+      "level": 1,
+      "idea": "Give up the bishop for the c6-knight to damage Black's pawns. Once the centre opens, your four kingside pawns against three can make a passed pawn, while Black relies on the bishop pair.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "Bb5",
+        "a6",
+        "Bxc6",
+        "dxc6",
+        "O-O",
+        "f6",
+        "d4",
+        "exd4",
+        "Nxd4",
+        "c5",
+        "Nb3",
+        "Qxd1",
+        "Rxd1",
+        "Bg4",
+        "f3",
+        "Be6"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "Attack e5.",
+        "Defend e5.",
+        "Pressure the defender of e5.",
+        "Black asks the bishop to decide.",
+        "The Exchange: bishop for knight, damaging Black's pawns.",
+        "Recapture toward the centre, freeing the c8-bishop.",
+        "Castle; now Nxe5 is a real threat.",
+        "Black protects e5 with a pawn.",
+        "Open the centre.",
+        "Black takes.",
+        "Recapture: your structure is now the healthier one.",
+        "Black kicks the knight from its central post.",
+        "Retreat, still eyeing c5.",
+        "Black trades queens.",
+        "Recapture onto the open d-file.",
+        "Black develops with a hit on your rook.",
+        "Kick the bishop and block its diagonal.",
+        "The bishop settles on e6."
+      ],
+      "why": [
+        "You take central space and free your queen and bishop. In the Exchange Variation your long-term asset is the pawn structure, and this e4 pawn will become part of your kingside pawn majority.",
+        "Black claims equal central space and frees the f8-bishop. The e5 pawn will be defended only by the knight Black is about to develop, and that knight is exactly what the Ruy Lopez targets.",
+        "You develop with a threat on e5 and prepare to castle. Later this knight will use d4 as a central post once the pawns are exchanged, which is the heart of the Exchange Variation plan.",
+        "Black defends with the knight, the standard reply. In this variation you are going to remove this knight altogether, giving Black doubled c-pawns but handing over the two bishops in return.",
+        "The bishop pressures the knight that defends e5. In most Ruy lines this is slow, lasting pressure, but in the Exchange Variation you intend to cash it in with Bxc6 to change the pawn structure.",
+        "Black asks the bishop's intentions with the Morphy Defence. Black is not afraid of Bxc6, because after ...dxc6 an early Nxe5 is met by ...Qd4, winning the pawn back.",
+        "You trade bishop for knight. Black's pawns are doubled on the c-file, so once the centre opens your four kingside pawns against three can make a passed pawn, while Black's crippled queenside majority cannot. The price is the bishop pair.",
+        "Black recaptures with the d-pawn, opening the d-file and the c8-bishop's diagonal. Recapturing with the b-pawn keeps a healthier structure but develops nothing. Taking on e5 now would run into ...Qd4.",
+        "You castle, which makes Nxe5 a real threat: with your king off the e-file, the ...Qd4 and ...Qxe4 trick no longer comes with check, and Re1 would then hit Black's queen. Black must spend a move protecting e5.",
+        "Black protects e5 with a pawn, the main line. The f6 pawn makes the structure solid but takes the knight's natural square. Black plans ...Bg4 or ...Be6 and often long castling.",
+        "You open the centre to exchange pawns and reach your favourable structure. With fewer pawns on the board, your kingside majority becomes the most important factor in the position.",
+        "Black takes, the main reply. Now the d-file is open and both queens face each other on it, so a queen trade is in the air, which suits your structure.",
+        "You recapture with the knight and centralise it. The structure is now clear: four pawns against three on the kingside for you, four against three on the queenside for Black but doubled. Only your majority can easily make a passed pawn.",
+        "Black kicks your knight from its central post and takes control of d4 and b4. The cost is that the c5 pawn fixes Black's queenside, making the doubled pawns even less mobile.",
+        "Retreating to b3 keeps the knight attacking c5 and out of Black's way. From b3 it can later support a4 or jump to a5 against Black's queenside pawns.",
+        "Black trades queens now because otherwise you would take on d8 and Black would have to recapture with the king. After the trade the game is an endgame-like middlegame where your pawn majority counts for more.",
+        "You recapture with the rook and take the open d-file at once. With queens off, the game is about structure and activity: activate your pieces, then advance the kingside majority to create a passed pawn.",
+        "Black develops with a direct hit on your d1-rook. The bishop pair is Black's main asset, so Black wants these bishops active before you can play Be3, Nc3 and Kf2.",
+        "You kick the bishop and block its diagonal at the same time. The f3 pawn also protects e4, and later your kingside pawns can advance with g4 or f4 to make a passed pawn.",
+        "The bishop settles on e6, eyeing your b3-knight and the c4 square. Your plan: Be3 and Nc3, then Kf2 and a slow advance of the kingside majority. Black aims for ...Bd6, active rooks and ...Kf7 or ...O-O-O."
+      ],
+      "gm": {
+        "6": "Lasker used the Exchange Variation to beat Capablanca at St Petersburg 1914, one of the most famous strategic wins of its era.",
+        "8": "Fischer revived the Exchange Variation in the 1960s with this 5.O-O and scored important wins with it, showing the line is far from drawish."
+      },
+      "show": {
+        "8": [
+          "f3e5"
+        ],
+        "10": [
+          "d4e5"
+        ],
+        "12": [
+          "e4e5",
+          "f2f4"
+        ],
+        "17": [
+          "g4d1"
+        ],
+        "19": [
+          "c1e3",
+          "b1c3"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "ruy-open": {
+      "branch": "Open Variation (5...Nxe4)",
+      "kind": "variation",
+      "name": "Ruy Lopez: Open Variation",
+      "eco": "C83",
+      "level": 3,
+      "idea": "When Black grabs e4, open the centre with d4 at once. Black gets free piece play; you aim at the e4-knight, use your e5 pawn for space and later attack on the kingside.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "Bb5",
+        "a6",
+        "Ba4",
+        "Nf6",
+        "O-O",
+        "Nxe4",
+        "d4",
+        "b5",
+        "Bb3",
+        "d5",
+        "dxe5",
+        "Be6",
+        "c3",
+        "Be7",
+        "Nbd2",
+        "O-O"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "Attack e5.",
+        "Defend e5.",
+        "Pressure the defender of e5.",
+        "Morphy Defence.",
+        "Keep the bishop.",
+        "Black attacks e4.",
+        "Castle: e4 is indirectly defended.",
+        "The Open Ruy: Black takes the pawn.",
+        "Open the centre against the uncastled king.",
+        "Black kicks the bishop to free the c6-knight.",
+        "Retreat to the best diagonal, aiming at d5.",
+        "Black supports the e4-knight with a pawn.",
+        "Win back the pawn and gain space on e5.",
+        "Black protects d5 and develops.",
+        "Give the bishop c2 and cover d4.",
+        "Black develops and prepares to castle.",
+        "Challenge the e4-knight.",
+        "Black castles; next Bc2 and Nb3."
+      ],
+      "why": [
+        "You claim central space and free your queen and bishop. In this line Black will capture this pawn on move five, and regaining it with the more active pieces is the theme of the whole variation.",
+        "Black stakes an equal claim in the centre and frees the f8-bishop. As in every Ruy Lopez, the e5 pawn's only defender will be the c6-knight, which your bishop is about to pressure.",
+        "You develop with a threat on e5 and prepare to castle. The knight on f3 is also the piece that will go after e5 if Black ever loosens its defence.",
+        "Black defends e5 with the knight. This knight will come under pressure from your bishop, which is why Black later plays ...a6 and ...b5 to push the bishop away.",
+        "The bishop pressures the c6-knight, the only defender of e5. It is a slow threat rather than an immediate one, but it shapes every Black choice in the opening, including the decision to grab e4 later.",
+        "The Morphy Defence: Black asks the bishop to decide straight away. The ...a6 pawn also prepares ...b5, which in this line comes with tempo to break the pressure on the c6-knight.",
+        "You keep the bishop and the pressure on c6. The bishop will settle on b3, where it aims at d5 and f7, two key squares in the Open Ruy.",
+        "Black develops and attacks e4. Your bishop no longer guards anything in the centre, so e4 is loose. You must decide whether to defend it or castle and let Black take.",
+        "You castle and leave e4 hanging on purpose. If Black takes, d4 and Re1 open lines toward the black king while it is still in the centre. This is why the e4 pawn is said to be indirectly defended.",
+        "The Open Variation: Black takes the pawn and keeps the knight active in the centre. It is fully sound, but Black's king is still on e8 and the e4-knight can become a target. Expect a lively, open game.",
+        "You open the centre at once, before Black can castle. The d4 pawn hits e5, and Re1 pinning the e4-knight is in the air. Re1 first is also playable, but d4 is the most direct way to use your lead in development.",
+        "Black kicks the bishop to end the pressure on c6, so that ...d5 can follow and hold the e4-knight. Taking on d4 instead opens the e-file while Black's king is still in the centre, which is risky.",
+        "The bishop goes to its best diagonal, hitting d5 and, behind it, f7. Black must now support the e4-knight with a pawn, and that pawn will itself become a target for your bishop.",
+        "Black supports the e4-knight with a pawn and takes a big share of the centre. The d5 pawn is now the key point: it is already attacked by your b3-bishop, so Black must keep it defended.",
+        "You win the pawn back and gain space with a pawn on e5. This pawn cramps Black by taking d6 and f6 from Black's pieces. It can also become a target, so support it with pieces rather than pawns.",
+        "Black protects d5 and develops the bishop. The e6-bishop also blocks your b3-bishop's diagonal, but it is a little exposed to a knight landing on d4 or g5 later.",
+        "You give your bishop the c2 square, so it can retreat from ...Na5 or ...Nc5 and later aim at the kingside. The c3 pawn also covers d4 and b4, supporting a future knight on d4.",
+        "Black develops and gets ready to castle. The bishop on e7 is solid but less active than on c5, where it would aim at f2. Either way, Black's knight on e4 is the piece you want to challenge.",
+        "You develop and challenge the e4-knight at once. If Black trades on d2, you recapture and your pieces flow toward the kingside. This knight can also go to b3 and then d4, the ideal central post.",
+        "Black castles and the opening phase is over. Your plan: Bc2, Nb3 and Nfd4 to plant a knight on d4, then Qe2 or Re1 to push back the e4-knight. Black looks for ...f5 or ...Nc5 to keep the knight active."
+      ],
+      "gm": {
+        "9": "Viktor Korchnoi was the great champion of the Open Variation and used it repeatedly against Karpov in their 1978 world championship match.",
+        "14": "Nimzowitsch taught that you should attack in the direction your pawn chain points: with a pawn on e5, that means the kingside."
+      },
+      "show": {
+        "8": [
+          "f1e1"
+        ],
+        "10": [
+          "d4e5"
+        ],
+        "12": [
+          "b3d5"
+        ],
+        "14": [
+          "e5f6",
+          "e5d6"
+        ],
+        "18": [
+          "d2e4"
+        ],
+        "19": [
+          "b3c2",
+          "f3d4"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "ruy-antimarshall": {
+      "branch": "Anti-Marshall 8.h3 (joins the main line)",
+      "kind": "transposition",
+      "joins": "ruy",
+      "name": "Ruy Lopez: Anti-Marshall 8.h3",
+      "eco": "C88",
+      "level": 2,
+      "idea": "When Black castles early, aiming for the Marshall Attack after 8.c3 d5, play 8.h3 instead. If Black answers ...d6, you are back in the main Closed Ruy without allowing the gambit.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "Bb5",
+        "a6",
+        "Ba4",
+        "Nf6",
+        "O-O",
+        "Be7",
+        "Re1",
+        "b5",
+        "Bb3",
+        "O-O",
+        "h3",
+        "d6",
+        "c3"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "Attack e5.",
+        "Defend e5.",
+        "Pressure the defender of e5.",
+        "Morphy Defence.",
+        "Keep the bishop.",
+        "Black attacks e4.",
+        "Castle: e4 is indirectly defended.",
+        "Closed Ruy: Black prepares to castle.",
+        "Defend e4; Bxc6 and Nxe5 is now a threat.",
+        "Black kicks the bishop.",
+        "Bishop to its best diagonal.",
+        "Castling first: Black hopes for 8.c3 d5, the Marshall.",
+        "Anti-Marshall: a useful move that keeps c3 back.",
+        "Black returns to the classical ...d6.",
+        "Main-line Closed Ruy, reached without the Marshall."
+      ],
+      "why": [
+        "You take central space and open lines for your queen and bishop. This line follows the Closed Ruy Lopez but shows a move-order trick you need when Black castles early.",
+        "Black claims equal space in the centre and frees the f8-bishop. The e5 pawn's defender will be the c6-knight, the piece your bishop pressures throughout the Ruy Lopez.",
+        "You develop with a threat on e5 and prepare castling. The f3-knight is the piece that would win e5 if the c6-knight ever stopped defending it, so it is central to the Ruy Lopez idea.",
+        "Black defends e5 with the knight, the standard reply. Your next move puts pressure on this knight, the only defender of e5, and that pressure is the thread running through every Ruy Lopez line.",
+        "The bishop pressures the c6-knight. Bxc6 and Nxe5 is not yet a real threat, because ...Qd4 wins the pawn back, but the pressure lasts all game and makes Black's freeing moves harder.",
+        "Black asks the bishop to decide at once and prepares ...b5. This is the Morphy Defence, by far the most common reply at every level, and it keeps all of Black's main systems available.",
+        "You keep the bishop and its pressure on c6. Later it will settle on b3, aimed at f7 and d5, where it watches the squares Black needs for freeing breaks.",
+        "Black develops and attacks e4. Because your bishop has left the centre, the pawn has no direct defender. You answer by castling and relying on tactics, since grabbing e4 opens lines toward Black's king.",
+        "You castle, leaving e4 defended only by tactics: after ...Nxe4, Re1 and d4 open the centre against Black's king. That is the Open Ruy; here Black goes for the closed lines.",
+        "Black chooses the Closed Ruy and prepares to castle. The e4 pawn is still attacked by the f6-knight, so you need to defend it before carrying on with your own plans on either wing.",
+        "The rook defends e4 and makes Bxc6 followed by Nxe5 a genuine threat, because ...Qd4 no longer wins the pawn back. Black usually answers with ...b5 to push the bishop away from c6.",
+        "Black gains queenside space and kicks the bishop, ending the pressure on c6. Black now chooses between ...d6, the classical path, and ...O-O, aiming for the Marshall Attack.",
+        "The bishop goes to b3, its best diagonal, aimed at f7 and d5. From here it watches d5, the square Black needs for both the Marshall and other freeing breaks.",
+        "Black castles before playing ...d6. This keeps ...d5 available: after 8.c3 d5 Black offers a pawn in the Marshall Attack for a dangerous kingside initiative. You have to decide whether to allow it.",
+        "Anti-Marshall: you make a useful move and keep c3 in reserve. Many strong players prefer moves like h3 or a4 here because the pawn sacrifice is less attractive for Black before c3 is played. The h3 pawn also rules out ...Bg4.",
+        "Black returns to the classical setup with ...d6, supporting e5. Black could also keep ...d5 ideas alive with 8...Bb7, so be ready for an independent game; with ...d6 the transposition is on.",
+        "This position is identical to the main Closed Ruy after 9.h3. Your 8.h3 move order reached it without ever allowing 8.c3 d5, so the Marshall was avoided at no cost. Continue with d4, Nbd2-f1-g3 and the usual Closed Ruy plans."
+      ],
+      "gm": {
+        "13": "Frank Marshall first unveiled 8...d5 against Capablanca in New York in 1918. Capablanca survived the attack and won, but the gambit is still a serious top-level weapon.",
+        "14": "Because the Marshall is so deeply analysed, many elite players choose quiet anti-Marshall moves like 8.h3 or 8.a4 rather than walk into Black's preparation."
+      },
+      "show": {
+        "4": [
+          "b5c6"
+        ],
+        "10": [
+          "e1e4"
+        ],
+        "13": [
+          "d7d5"
+        ],
+        "14": [
+          "h3g4"
+        ],
+        "16": [
+          "d2d4"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "scotch": {
+      "branch": "Mieses Variation (main line)",
+      "kind": "main",
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "Attack e5.",
+        "Defend.",
+        "Strike the centre straight away.",
+        "Black takes; holding e5 with ...d6 is passive.",
+        "Recapture; your knight now dominates the centre.",
+        "Develop with a hit on e4.",
+        "The Mieses Variation: trade, then push e5 to gain space with tempo.",
+        "Black recaptures toward the centre but gets doubled c-pawns.",
+        "Gain space and kick the knight.",
+        "Attack e5 down the e-file; ...Qxe5 would come with check.",
+        "Defend e5 and unpin ideas. The queens face each other on the e-file.",
+        "The knight's only good square.",
+        "Kick it again. White has space; Black has the bishop pair-to-be and a solid but loose structure."
+      ],
+      "why": [
+        "You claim central space and free your queen and f1-bishop. In the Scotch you open the centre on move three, so this e4 pawn is the spearhead of a direct, open game rather than a slow build-up.",
+        "Black takes equal central space and frees the f8-bishop. Your plan is to challenge this e5 pawn with d4 on move three, opening the centre while you are a move ahead in development.",
+        "You develop with a threat on e5, and the knight on f3 supports the d4 push that is coming next. In the Scotch this knight will recapture on d4 and become your most central piece.",
+        "Black defends e5 with the knight, the normal reply. The c6-knight will also attack d4 after the pawns are exchanged, so watch how Black uses it to challenge your central knight.",
+        "The Scotch: you strike the centre at once instead of playing Bb5 or Bc4. Black cannot keep the e5 pawn comfortably, because ...d6 is passive and leaves Black cramped. The centre will be open by next move.",
+        "Black takes, which is the main move. Holding e5 with ...d6 gives you a free space advantage. Now d4 is Black's pawn, and you recapture with the knight to keep a piece in the middle of the board.",
+        "You recapture and get a knight on d4 plus a pawn on e4 against nothing in Black's centre. The knight is a little exposed: Black's c6-knight, ...Bc5 or ...Qf6 can all hit it.",
+        "Black develops and attacks e4, which has no pawn defender. Watch out for ...Nxe4 if you get careless, and for ...Bb4+ ideas pinning a knight on c3. The main alternatives here are ...Bc5 and ...Qh4.",
+        "The Mieses Variation: you trade knights to double Black's pawns and prepare e5 with tempo. Nc3 is the quieter option, but Nxc6 gives you a clear plan of space against a weakened black pawn structure.",
+        "Black recaptures toward the centre, keeping the d-pawn free to support ...d5 later. The doubled c-pawns are a long-term weakness, but they also control d5 and b5, and the b-file half-opens for Black's rook.",
+        "You gain space and kick the f6-knight, which has no comfortable retreat. The e5 pawn also takes d6 and f6 from Black's pieces. Its weakness is that it can be attacked down the e-file.",
+        "Black attacks e5 down the e-file, and since your king is still on e1, ...Qxe5 would even come with check. This is the most testing reply, forcing you to defend the pawn with a piece.",
+        "You defend e5 with the queen and block the e-file. The queens now face each other, so be careful about discovered attacks. The downside is that the queen blocks your f1-bishop, which you will develop later via g3 or after the queen moves.",
+        "The knight jumps to d5, its only good square: from here it eyes b4, c3, e3 and f4. Black also has ...Ba6 in mind, hitting your queen on e2 along the a6-f1 diagonal.",
+        "You kick the knight again and gain more space. Black must choose between ...Ba6, pinning the c4 pawn to your queen, and ...Nb6. Your plan: b3 or g3 to develop the bishops, then castle and press with your space."
+      ],
+      "gm": {
+        "4": "Kasparov's use of the Scotch against Karpov in the 1990 World Championship turned a largely forgotten 19th-century opening into an elite main line.",
+        "8": "This knight trade followed by e5 is the Mieses Variation, named after Jacques Mieses.",
+        "14": "Steinitz's accumulation of small advantages applies here: your space on e5 and c4 is a lasting plus as long as you keep the e5 pawn secure."
+      },
+      "show": {
+        "4": [
+          "d4e5"
+        ],
+        "6": [
+          "d4c6"
+        ],
+        "10": [
+          "e5f6"
+        ],
+        "11": [
+          "e7e5"
+        ],
+        "14": [
+          "c4d5"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "scotch-classical": {
+      "branch": "Classical Variation (4...Bc5)",
+      "kind": "variation",
+      "name": "Scotch Game: Classical Variation, 6.Qd2",
+      "eco": "C45",
+      "level": 2,
+      "idea": "Against 4...Bc5, trade on c6 and defend f2 with Qd2. Then Nc3-a4 chases Black's best bishop, and you castle into a safe position with the healthier pawns.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "d4",
+        "exd4",
+        "Nxd4",
+        "Bc5",
+        "Nxc6",
+        "Qf6",
+        "Qd2",
+        "dxc6",
+        "Nc3",
+        "Be6",
+        "Na4",
+        "Rd8",
+        "Bd3",
+        "Bd4",
+        "O-O"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "Attack e5.",
+        "Defend e5.",
+        "Strike the centre at once.",
+        "Black takes.",
+        "Recapture with a central knight.",
+        "The Classical: Black's bishop hits your d4-knight.",
+        "Trade first, before Black gains time on the knight.",
+        "Black threatens mate on f2.",
+        "Guard f2 along the second rank.",
+        "Black recaptures, opening the d-file.",
+        "Develop and prepare Na4.",
+        "Black develops and prepares long castling.",
+        "Chase Black's strong bishop.",
+        "Black hits your queen down the d-file.",
+        "Block the file with a developing move.",
+        "The bishop jumps to the centre, out of the knight's reach.",
+        "Castle; next c3 to kick the bishop."
+      ],
+      "why": [
+        "You claim central space and free your queen and f1-bishop. As in every Scotch line, you will open the centre with d4 on move three and aim for quick, active development rather than slow manoeuvres.",
+        "Black takes an equal share of the centre. Your d4 push will exchange this pawn, so after move four the game will be about piece activity, not pawn chains.",
+        "You develop with a threat on e5. The f3-knight also supports d4 and will recapture there, becoming a strong central piece that Black will try to hit with the c6-knight, the bishop and the queen.",
+        "Black defends e5 with the knight, the most common move. This knight will challenge your d4-knight after the central exchange, so watch the d4 square closely: a trade there is one of Black's main ideas.",
+        "You open the centre at once. Black cannot hold e5 comfortably, so the position opens while you are slightly ahead in development, and you avoid the long manoeuvring battles of the Ruy Lopez.",
+        "Black takes, the normal reply. The d4 pawn cannot be held, so you recapture with the knight. Holding e5 with ...d6 instead would leave Black passive and give you a free space advantage.",
+        "You recapture with the knight, leaving it on a strong central square. Its downside is that it can be hit: Black's c6-knight can trade it off, and ...Bc5 or ...Qf6 attack it.",
+        "The Classical Variation: the bishop attacks your d4-knight and aims at f2. It is as natural as ...Nf6 and very common at club level. Watch the f2 square, because ...Qf6 or ...Qh4 can join the bishop there.",
+        "You trade on c6 before Black can gain time on the d4-knight. Nb3 and Be3 are good too, but Nxc6 forces Black to decide how to recapture, and the main reply is a counterattack with the queen.",
+        "Black does not recapture yet: ...Qxf2 would be mate, and the queen also attacks your c6-knight. Black will win the knight back next move, so your only job now is to stop the mate.",
+        "The queen guards f2 along the second rank and keeps watch on d4. Qf3 is also good, but Qd2 avoids an early queen trade and lets you develop with Nc3 next. Black now recaptures on c6.",
+        "Black recaptures toward the centre, opening the d-file and the c8-bishop's diagonal. The d-file now points at your queen on d2, so watch for ...Rd8 and ...Bd4 ideas along it.",
+        "You develop and prepare Na4 against the c5-bishop. Your structure is the healthier one: Black's doubled c-pawns and lack of any central pawn are lasting weaknesses that grow in importance as pieces come off.",
+        "Black develops the bishop and prepares long castling. The bishop also covers c4 and d5. Black's pieces are active, but the c5-bishop is exposed to a knight on a4.",
+        "The knight attacks the c5-bishop, Black's best piece. If Black lets you take it, the bishop pair is gone and the doubled pawns remain. Black has to find a square that keeps the bishop active.",
+        "Black uses the d-file to hit your queen, gaining a tempo before deciding where the bishop goes. Be careful: with your queen on d2 facing a rook, discovered attacks and pins are in the air.",
+        "You block the d-file with a developing move, protect e4 and prepare castling. Taking the bishop with Nxc5 would let Black's rook take your queen, so always check the d-file first.",
+        "The bishop jumps to the centre, out of reach of your a4-knight, and eyes b2 and f2. From d4 it is strong but can be attacked by c3. Watch for ...Ne7 and ...Ng6 adding pressure on your kingside.",
+        "You castle into safety. Next comes c3 to drive the bishop back, then Qe2 and f4 to use your kingside pawn majority. Black's piece activity balances your better structure, so play patiently."
+      ],
+      "gm": {
+        "12": "A classic principle: the side with the better pawn structure welcomes trades, because weaknesses like doubled pawns count for more as the board empties.",
+        "18": "Steinitz's accumulation of small advantages: healthier pawns and a safe king do not win by force, but they add up over a long game."
+      },
+      "show": {
+        "7": [
+          "c5d4",
+          "c5f2"
+        ],
+        "9": [
+          "f6f2"
+        ],
+        "10": [
+          "d2f2"
+        ],
+        "14": [
+          "a4c5"
+        ],
+        "15": [
+          "d8d2"
+        ],
+        "18": [
+          "c2c3"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "scotch-steinitz": {
+      "branch": "Steinitz Variation (4...Qh4)",
+      "kind": "variation",
+      "name": "Scotch Game: Steinitz Variation",
+      "eco": "C45",
+      "level": 2,
+      "idea": "Black's early queen raid wins the e4 pawn but costs time. Give the pawn, develop with tempo, and use Nb5 against c7 so Black's king is stuck in the centre.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "d4",
+        "exd4",
+        "Nxd4",
+        "Qh4",
+        "Nc3",
+        "Bb4",
+        "Be2",
+        "Qxe4",
+        "Ndb5",
+        "Bxc3+",
+        "bxc3",
+        "Kd8",
+        "O-O"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "Attack e5.",
+        "Defend e5.",
+        "Strike the centre.",
+        "Black takes.",
+        "Recapture in the centre.",
+        "The Steinitz: the queen attacks e4 at once.",
+        "Develop and defend e4.",
+        "Pin the knight, hitting e4 again.",
+        "Develop and give up e4 for time.",
+        "Black grabs the pawn.",
+        "Threaten Nxc7+, forking king and rook.",
+        "Black trades with check before ...Kd8.",
+        "Recapture: the open b-file matters more than the pawns.",
+        "The king steps up to guard c7.",
+        "Castle; Black's king is stuck in the centre."
+      ],
+      "why": [
+        "You take central space and free your queen and f1-bishop. The Scotch opens the centre early, which favours whoever develops faster, and in this line Black spends time with the queen, so you will be well ahead.",
+        "Black takes an equal share of the centre. After your d4 push the centre will open, and any Black move that does not develop a piece will cost more than usual.",
+        "You develop with a threat on e5 and support the d4 push. The knight will recapture on d4 and later jump to b5, where it can hit c7.",
+        "Black defends e5 with the knight, developing at the same time. The c6-knight also watches d4, so after the central exchange it will keep pressing your knight there.",
+        "You strike the centre on move three. Black has to take or accept a cramped position after ...d6, and the open lines that follow favour the side that develops first, which you intend to be.",
+        "Black takes, the normal reply. You will recapture with the knight, which looks exposed on d4 but is well placed: it has b5, f5 and c6 to jump to if Black attacks it.",
+        "You recapture and get a central knight plus the e4 pawn. The e4 pawn has no pawn defender, which is exactly what Black's next move targets, so think about how you will cover it before it happens.",
+        "The Steinitz Variation: the queen attacks e4 at once, and ...Qxe4+ would come with check. Early queen moves usually cost development time, but you must meet the threat accurately.",
+        "You develop and defend e4 with the knight. Nb5, hitting c7, is also strong, but Nc3 develops a piece and keeps things simple. Black's bishop can now pin this knight, so watch b4.",
+        "Black pins your c3-knight against the king, so e4 is attacked twice and defended only by a pinned piece. Black is threatening to win the pawn. Your answer is to develop rather than defend passively.",
+        "You develop and allow ...Qxe4, giving up the pawn on purpose. In return you get Nb5 ideas against c7 and a big lead in development while Black's queen and king stay exposed. This is a deliberate pawn sacrifice.",
+        "Black grabs the pawn and also eyes g2. This is greedy: Black's king is still on e8, only one minor piece is developed, and the queen will be a target for your pieces. Now you must act quickly.",
+        "The knight heads for b5, threatening Nxc7+, forking the king and the a8-rook. It also opens the d-file for your queen. Black must deal with c7 at once, so you gain more time.",
+        "Black gives up the bishop for your c3-knight with check before defending c7. Keeping the pin would let you break it with tempo. Now Black has no dark-squared bishop, a long-term weakness around the king.",
+        "You recapture with the pawn. The doubled c-pawns look ugly, but the b-file opens for your rook and your dark-squared bishop gets strong diagonals, with Ba3 or Bf4 aimed at Black's king.",
+        "The king steps up to guard c7, the only way to stop Nxc7+. Black is a pawn up but can no longer castle, and the queen on e4 will be harassed by your rooks and bishops.",
+        "You castle and bring the rook toward the centre. Your plan: Bd3 or Bf3 to chase the queen with tempo, then Re1, Ba3 or Bf4 against d6 and c7, and Qd2 to add pressure. Black's stuck king is worth more than the extra pawn."
+      ],
+      "gm": {
+        "7": "This early queen sortie is named after Wilhelm Steinitz, the first official world champion, who liked to grab material and then defend.",
+        "16": "Morphy's games are the classic lesson here: open lines plus faster development beat extra material when the enemy king is stuck in the centre."
+      },
+      "show": {
+        "7": [
+          "h4e4"
+        ],
+        "9": [
+          "b4c3"
+        ],
+        "12": [
+          "b5c7"
+        ],
+        "15": [
+          "d8c7"
+        ],
+        "16": [
+          "e2d3",
+          "c1a3"
+        ]
+      },
+      "gambitPlies": [
+        10
+      ]
+    },
+    "vienna": {
+      "branch": "Vienna Gambit, 3...d5 (main line)",
+      "kind": "main",
+      "why": [
+        "You claim central space and free your queen and f1-bishop. In the Vienna you protect this pawn with the queen's knight next, keeping your f-pawn free for a later f4 push.",
+        "Black takes an equal share of the centre. In the Vienna the e5 pawn is your main target, and you plan to hit it with the f-pawn rather than only with pieces, just as in the King's Gambit.",
+        "The Vienna: the knight defends e4 and covers d5, and leaving f3 empty means the f-pawn can advance to f4. It also sidesteps the Petroff Defence (2.Nf3 Nf6), a solid line many club players rely on.",
+        "Black develops and hits e4, the most common reply. Your knight defends it, so there is no real threat yet, but Black is preparing ...d5 or ...Bb4 to add pressure.",
+        "The Vienna Gambit: you hit e5 with the f-pawn and aim to open the f-file. If Black takes on f4, e5 drives the f6-knight away; if Black ignores it, fxe5 gains central space.",
+        "Black's best: a counter-strike in the centre instead of grabbing f4. Black wants to open lines while your king is still in the centre and the f-pawn has left it exposed. Watch the e1-h4 diagonal for checks.",
+        "You take on e5 and gain space; the pawn cramps Black by taking f6 and d6 from Black's pieces. Taking on d5 instead lets ...e4 hit your knight. Your king is a little airy, so develop quickly.",
+        "The knight jumps into the centre, attacking your c3-knight and eyeing f2 and g3. It looks strong, but it can be challenged by d3 or Bd3 and has few retreat squares.",
+        "You develop the knight, protect e5 and cover h4 against ...Qh4+ ideas. It also prepares d4 to build a big centre. Black's knight on e4 is still annoying, so your next moves should aim to challenge it.",
+        "Black prepares to castle with the solid ...Be7. The alternatives ...Bc5 and ...Nc6 are more active, but this keeps things safe. Black's main asset is still the e4-knight, so your plan is d4 and then to challenge it.",
+        "You build a big pawn centre with d4 and e5. These pawns give you space and a ready-made kingside attack, but they need protection: Black will try ...c5 or ...f6 to break them up.",
+        "Black castles kingside, where your half-open f-file and e5 pawn already point. That carries some risk for Black but gets the king safe. Watch for ...f6 or ...c5 breaks against your centre.",
+        "You challenge the e4-knight with the bishop and prepare to castle. Your plan: O-O, Qe1 or Qe2, and a kingside attack using the f-file and the e5 pawn, which keeps Black's knight away from f6."
+      ],
+      "gm": {
+        "6": "Nimzowitsch taught that you should attack in the direction your pawn chain points: with a pawn on e5, that means the kingside.",
+        "10": "A classic principle: a pawn centre is only strong if pieces stand behind it. Support d4 and e5 before Black can break them with ...c5 or ...f6."
+      },
+      "show": {
+        "2": [
+          "f2f4"
+        ],
+        "4": [
+          "f4e5"
+        ],
+        "6": [
+          "e5f6",
+          "e5d6"
+        ],
+        "7": [
+          "e4c3"
+        ],
+        "12": [
+          "d3e4"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "vienna-nc6": {
+      "branch": "2...Nc6 with Bc4 and f4",
+      "kind": "variation",
+      "name": "Vienna Game: 2...Nc6 3.Bc4",
+      "eco": "C28",
+      "level": 1,
+      "idea": "Against 2...Nc6, develop Bc4 and d3 first, then play f4 once Black has committed. Na4 trades off Black's best bishop, and you keep the f-file and a solid centre.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nc3",
+        "Nc6",
+        "Bc4",
+        "Nf6",
+        "d3",
+        "Bc5",
+        "f4",
+        "d6",
+        "Nf3",
+        "Bg4",
+        "Na4",
+        "Bb6",
+        "Nxb6",
+        "axb6",
+        "c3"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "The Vienna: protect e4, keep the f-pawn free.",
+        "Black develops the queen's knight.",
+        "The bishop aims at f7.",
+        "Black hits e4.",
+        "Protect e4 solidly.",
+        "Black's bishop aims at f2 and g1.",
+        "Now f4: e5 is hit and the f-file opens.",
+        "Black holds e5 with a pawn.",
+        "Develop; this position also arises from the King's Gambit Declined.",
+        "Black pins your knight.",
+        "Chase the c5-bishop.",
+        "Black keeps the bishop on the diagonal.",
+        "Trade it off: Black's best minor piece is gone.",
+        "Black recaptures toward the centre.",
+        "Take d4 from the c6-knight."
+      ],
+      "why": [
+        "You claim central space and free your queen and f1-bishop. In the Vienna you will protect this pawn with the queen's knight, keeping the f-pawn free for a well-timed f4.",
+        "Black takes an equal share of the centre. The e5 pawn is the target your later f4 push will hit, so watch how Black chooses to support it over the next few moves.",
+        "The knight protects e4 and covers d5, while f3 stays empty so the f-pawn can advance. It also sidesteps the Petroff Defence. Black's reply now decides which kind of Vienna you play.",
+        "Black develops the queen's knight and supports e5, keeping ...Nf6 and ...Bc5 in reserve. Playing 3.f4 at once leads to sharp gambits where Black can grab the pawn, so you prepare first.",
+        "The bishop takes the a2-g8 diagonal toward f7 and helps control d5. With your knight on c3 and bishop on c4, Black's freeing ...d5 break becomes much harder to achieve.",
+        "Black develops and attacks e4. Your knight defends it, but the defence is thin: if you play f4 now, Black has the fork trick ...Nxe4 followed by ...d5. One more quiet move first makes everything safe.",
+        "You protect e4 with a pawn so it is completely safe. Now f4 can follow without tactical problems. The d3 pawn also opens the c1-bishop's diagonal toward g5 and the kingside.",
+        "Black puts the bishop on its most active diagonal, aiming at f2 and g1. This matters once you play f4: the a7-g1 diagonal leads to your king, so keep an eye on g1 before castling short.",
+        "Now f4 strikes e5 at the right moment: e4 is solid and your pieces are out. If ...exf4, Bxf4 gives you the f-file and free development. Black usually supports e5 instead.",
+        "Black supports e5 with a pawn. Taking on e5 now would be a mistake: after fxe5 Black replies ...Ng4, hitting e5 and f2, and Black's pieces flood in. Keep the tension; the position has a closed, King's Gambit Declined character.",
+        "You develop the knight and cover g5 and h4. This exact position also arises from the King's Gambit Declined (1.e4 e5 2.f4 Bc5 3.Nf3 d6 4.Nc3 Nf6 5.Bc4 Nc6 6.d3), so you will meet it from both openings.",
+        "Black pins your f3-knight to the queen, adding pressure to e5 and to your kingside. The natural h3 is less accurate here, because after ...Bxf3 and ...exf4 Black gets comfortable play. You have a better idea.",
+        "The knight attacks the c5-bishop, Black's best minor piece, and offers to trade it. Once it is gone, the a7-g1 diagonal stops being a danger to your king and you can castle short in peace.",
+        "Black keeps the bishop on the a7-g1 diagonal. Black could also castle and let you take on c5, but most players want the bishop to stay active. Either way, the trade is coming.",
+        "You take the bishop. Black recaptures with a pawn, getting the a-file but losing the piece that eyed your king. Now you can castle short without worrying about the a7-g1 diagonal, and you own the bishop pair.",
+        "Black recaptures toward the centre and opens the a-file for the a8-rook. The doubled b-pawns are not a big weakness, but Black has given up the bishop pair in a position that may open later.",
+        "You take d4 away from Black's c6-knight; otherwise ...Nd4 would pile up on your pinned f3-knight. The pawn also prepares a later d4. Your plan: O-O, h3 to question the g4-bishop, then f5 or Qe1-g3 on the kingside."
+      ],
+      "gm": {
+        "12": "Na4 to trade off the c5-bishop is a standard idea in these King's Gambit Declined structures: remove the piece aimed at your king before you castle short.",
+        "14": "Steinitz valued the bishop pair as a lasting asset; here you take it from Black in a closed position that you can open later with f5 or d4."
+      },
+      "show": {
+        "4": [
+          "c4f7"
+        ],
+        "7": [
+          "c5g1"
+        ],
+        "8": [
+          "f4e5"
+        ],
+        "11": [
+          "g4d1"
+        ],
+        "12": [
+          "a4c5"
+        ],
+        "16": [
+          "h2h3",
+          "f4f5"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "vienna-accepted": {
+      "branch": "Vienna Gambit accepted (3...exf4)",
+      "kind": "variation",
+      "name": "Vienna Gambit Accepted, 4.e5",
+      "eco": "C29",
+      "level": 2,
+      "idea": "When Black takes on f4, kick the f6-knight with e5, build the centre with Nf3 and d4, then win both pawns back. Long castling and the open centre give you the more active game.",
+      "moves": [
+        "e4",
+        "e5",
+        "Nc3",
+        "Nf6",
+        "f4",
+        "exf4",
+        "e5",
+        "Ng8",
+        "Nf3",
+        "d6",
+        "d4",
+        "dxe5",
+        "Qe2",
+        "Be7",
+        "Qxe5",
+        "Nf6",
+        "Bxf4",
+        "c6",
+        "O-O-O"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "The Vienna: protect e4, keep the f-pawn free.",
+        "Black hits e4.",
+        "The Vienna Gambit.",
+        "Black grabs the pawn.",
+        "Kick the knight with tempo.",
+        "Back home: Black has lost time.",
+        "Develop, cover h4 and support e5.",
+        "Black attacks e5 at once.",
+        "Build the centre.",
+        "Black takes.",
+        "Hit e5 down the e-file toward Black's king.",
+        "Black blocks the e-file.",
+        "Regain a pawn; the queen eyes c7 and g7.",
+        "Black develops and prepares to castle.",
+        "Regain the second pawn: material is level.",
+        "Black moves the c-pawn out of reach.",
+        "Castle long: rook to the open d-file."
+      ],
+      "why": [
+        "You claim central space and free your queen and f1-bishop. The Vienna protects this pawn with a knight first, so your later f4 strike comes with better preparation than in the King's Gambit.",
+        "Black takes an equal share of the centre and frees the f8-bishop. Your plan is to hit e5 with the f-pawn soon, and how Black reacts to that push decides the whole character of the game.",
+        "The knight defends e4 and covers d5 while keeping f3 free so your f-pawn can advance. It also sidesteps the Petroff Defence. The most common reply is ...Nf6, attacking e4 at once.",
+        "Black develops and attacks e4, which your knight defends. Now f4 is possible because the f6-knight is a target: if Black captures on f4, your e-pawn advances and pushes the knight back.",
+        "The Vienna Gambit: you hit e5 and offer the f-pawn. The point is that ...exf4 allows e5, kicking the f6-knight with tempo. You intend to win the pawn back later, so this is a temporary pawn sacrifice.",
+        "Black accepts the pawn. It is playable, but now your e-pawn can advance with tempo and you get the more pleasant game. The main alternative is 3...d5, so be ready for both.",
+        "You kick the knight from f6 with tempo. Its best retreat is back to g8, which undoes Black's development, while 4...Qe7 blocks the f8-bishop and runs into Qe2. Gaining time like this is the reward for your gambit.",
+        "The knight goes home, the most solid reply. Black has spent two moves on this knight for nothing, but your e5 pawn is now a little overextended, and Black wants ...d6 to attack it.",
+        "You develop, cover h4 against ...Qh4+ and protect e5. This knight also supports d4 next. With your f-pawn gone, guarding the e1-h4 diagonal matters a lot, because a check there could cost you castling rights.",
+        "Black attacks e5 at once, before you can consolidate. Black wants to open lines toward your king while still holding the extra pawn on f4. Watch for ...dxe5 followed by ...Bb4 or ...Bg4 pins.",
+        "You build the centre and support e5 with the d-pawn. The c1-bishop now eyes the f4 pawn, which you plan to collect later. If ...dxe5, you have a strong follow-up down the e-file.",
+        "Black takes, opening the e-file toward both kings. Black is two pawns up for the moment, but the e5 and f4 pawns are both loose, and your pieces are ready to round them up.",
+        "The queen hits e5 down the e-file, pointed straight at Black's king on e8. The threat is Qxe5+ or Nxe5, regaining the pawn with tempo. Black must cover the e-file before anything else.",
+        "Black blocks the e-file with the bishop and prepares ...Nf6. The alternatives ...Bb4 and ...Be6 also allow you to win the e5 pawn back, so Black chooses the most solid one.",
+        "You regain one pawn and centralise the queen, which now eyes c7 and g7. Black must be careful about Nb5 ideas against c7. Next you collect the f4 pawn too.",
+        "Black develops the knight back to f6 and prepares to castle. But once you take on f4, your queen and bishop will line up against c7, so Black needs care before castling.",
+        "You win back the second pawn, so material is level again. Your bishop and queen line up against c7, your pieces are active, and Black's king is still in the centre. That is a typical good outcome of the Vienna Gambit.",
+        "Black moves the c-pawn out of the reach of your queen and bishop and prepares ...Nbd7 or ...Qa5. Castling at once would have dropped c7 to Qxc7. Black is solid but a little passive.",
+        "You castle long, putting the rook on the open d-file at once and keeping your king away from Black's kingside pieces. Plan: Bc4 or Bd3, Rhe1 and pressure down the central files while Black is still untangling."
+      ],
+      "gm": {
+        "6": "A classic principle: when your opponent's piece has to retreat to its starting square, you have gained the time a gambit needs to pay off.",
+        "18": "Morphy's games are the classic lesson here: when the centre is open, the side with more pieces in play and the safer king takes the initiative."
+      },
+      "show": {
+        "4": [
+          "f4e5"
+        ],
+        "6": [
+          "e5f6"
+        ],
+        "12": [
+          "e2e5"
+        ],
+        "16": [
+          "f4c7"
+        ],
+        "18": [
+          "d1d8"
+        ]
+      },
+      "gambitPlies": [
+        4
+      ]
+    },
+    "vienna-kgd": {
+      "branch": "King's Gambit Declined move order (joins 2...Nc6)",
+      "kind": "transposition",
+      "joins": "vienna-nc6",
+      "name": "King's Gambit Declined, Classical: into the Vienna",
+      "eco": "C30",
+      "level": 2,
+      "idea": "The same middlegame as the Vienna 2...Nc6 line can come from 1.e4 e5 2.f4 Bc5. Knowing the transposition means one set of plans covers both openings.",
+      "moves": [
+        "e4",
+        "e5",
+        "f4",
+        "Bc5",
+        "Nf3",
+        "d6",
+        "Nc3",
+        "Nf6",
+        "Bc4",
+        "Nc6",
+        "d3",
+        "Bg4",
+        "Na4"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "The King's Gambit: f4 at once.",
+        "Black declines with the bishop to c5.",
+        "Develop and attack e5.",
+        "Black holds e5 with a pawn.",
+        "Develop toward the centre.",
+        "Black develops and hits e4.",
+        "The bishop aims at f7.",
+        "Black adds the queen's knight.",
+        "Protect e4: now it is the Vienna 2...Nc6 line.",
+        "Black pins the f3-knight.",
+        "Chase the c5-bishop, as in the Vienna line."
+      ],
+      "why": [
+        "You claim central space and free your queen and f1-bishop. This line uses the King's Gambit move order, but the game will land in a Vienna position you already know, which is the point of studying it.",
+        "Black takes an equal share of the centre. This time you push the f-pawn at once instead of preparing it with Nc3, which gives Black different options on the next move.",
+        "The King's Gambit: you offer the f-pawn straight away. Compared with the Vienna, Black can now accept with 2...exf4 or counter with 2...d5, so this move order is only for players who know those lines too.",
+        "Black declines with the classical ...Bc5, aiming at g1 so you cannot castle short easily. Careful: 3.fxe5 loses to ...Qh4+, winning the e4 pawn and the h1-rook. Develop first.",
+        "You develop with a threat on e5 and cover h4, so fxe5 is now a real threat because ...Qh4+ no longer works. The knight also speeds up your kingside development.",
+        "Black supports e5 with a pawn, the most solid reply. Taking on e5 is possible but releases the tension early, so most players develop first and keep fxe5 in reserve for later.",
+        "You develop the queen's knight to its natural square, protecting e4 and covering d5. The alternative 4.c3 aims for d4 and leads to a different, more central fight.",
+        "Black develops and attacks e4, which your knight already defends. The pieces are heading for the same squares as in the Vienna, just in a different order, so start comparing the two positions now.",
+        "The bishop aims at f7 and controls d5. Compare this with the Vienna: you have the same pieces out, and Black's next move brings the queen's knight to its Vienna square.",
+        "Black develops the queen's knight, supporting e5 and eyeing d4. Black's setup is now exactly the one from the Vienna line, and your next move completes the transposition.",
+        "The position is now identical to the Vienna line 1.e4 e5 2.Nc3 Nc6 3.Bc4 Nf6 4.d3 Bc5 5.f4 d6 6.Nf3. Starting with 2.f4 let Black choose between accepting and declining; the Vienna order delays f4 until Black has committed.",
+        "Black pins the f3-knight, exactly as in the Vienna line, adding pressure to e5 and to your kingside. The natural h3 is less accurate here than the trade idea you already know.",
+        "Same idea as in the Vienna line: the knight attacks the c5-bishop to trade off Black's best minor piece. Once it goes, you can castle short without worrying about the a7-g1 diagonal."
+      ],
+      "gm": {
+        "10": "Transpositions are a practical weapon: knowing that two openings reach the same position halves your study and lets you pick the move order your opponent likes least."
+      },
+      "show": {
+        "3": [
+          "c5g1"
+        ],
+        "4": [
+          "f4e5"
+        ],
+        "10": [
+          "c4f7"
+        ],
+        "12": [
+          "a4c5"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "kingsgambit": {
+      "branch": "Kieseritzky Gambit (main line)",
+      "kind": "main",
+      "why": [
+        "You claim central space and free your queen and bishop. In the King's Gambit this e4 pawn is the base of a big centre you hope to build with d4 once Black's e5 pawn has been deflected.",
+        "Black takes an equal share of the centre and frees the f8-bishop. The e5 pawn is the target of your gambit: you want to deflect it so your e- and d-pawns can take over the middle of the board.",
+        "The King's Gambit: you offer the f-pawn to deflect e5 and open the f-file for your rook. It also weakens your own king, especially the e1-h4 diagonal, so ...Qh4+ ideas must always be on your radar. A deliberate pawn sacrifice.",
+        "Black accepts, and the pawn on f4 now cramps your c1-bishop and controls e3 and g3. Black will often try to hold it with ...g5. Your centre is free, so you aim for d4 and quick development.",
+        "You develop and stop ...Qh4+, the most dangerous check against your weakened king. The knight also covers g5 and h4, which matters because Black's natural way to keep the f4 pawn is ...g5.",
+        "Black defends the f4 pawn with ...g5, the most ambitious way to keep the extra pawn. The cost is a weakened kingside: the pawns on f4 and g5 can be attacked, especially by h4.",
+        "You undermine the g5 pawn straight away. If Black supports it with ...h6, hxg5 opens the h-file for your rook. Black's main answer is ...g4, gaining time on your knight.",
+        "Black pushes on with tempo, attacking your f3-knight. The pawn is safe on g4 for now, but it has gone far from home and leaves the f5 and h5 squares and the long diagonal weak.",
+        "The Kieseritzky: the knight jumps to a strong central square instead of retreating. From e5 it hits g4 and f7, and Black's advanced kingside pawns can no longer kick it easily. Black must react to these threats.",
+        "Black develops with a counterattack on e4, the main reply in this line. Black is not trying to keep everything: the plan is quick development, returning material if needed.",
+        "You build the centre and open the c1-bishop's path toward f4. The d4 pawn also supports your e5-knight. Black must challenge the knight before it causes damage, and ...d6 is the natural way to do it.",
+        "Black kicks the knight from e5. The e4 pawn is attacked by the f6-knight and has no defender, so Black also prepares ...Nxe4. Your knight must retreat to a square where it does useful work.",
+        "The knight retreats to d3, where it attacks the f4 pawn alongside your c1-bishop. You let e4 go for now: regaining f4 and opening lines matters more than holding every pawn.",
+        "Black grabs the e4 pawn with the knight and is now two pawns up for a moment. The knight is centralised and strong, but Black's king is still in the centre and the kingside pawns are loose.",
+        "You win back the f4 pawn and open the bishop's diagonal toward c7 and h6. You are a pawn down but have open lines, a d4 centre and quicker development. Plan: Nc3 to challenge the e4-knight, Be2 to hit the g4 pawn, then castle."
+      ],
+      "gm": {
+        "2": "Spassky beat Fischer with this gambit at Mar del Plata in 1960, a game that helped keep the opening alive at the top level.",
+        "8": "Lionel Kieseritzky gave his name to this knight jump; he is also remembered as the loser of Anderssen's Immortal Game in 1851.",
+        "14": "Your compensation is classic romantic chess: Morphy showed again and again that open lines and quick development can outweigh a pawn when the enemy king is still in the centre."
+      },
+      "show": {
+        "2": [
+          "f4e5"
+        ],
+        "4": [
+          "f3h4"
+        ],
+        "6": [
+          "h4g5"
+        ],
+        "8": [
+          "e5g4",
+          "e5f7"
+        ],
+        "12": [
+          "d3f4",
+          "c1f4"
+        ],
+        "14": [
+          "b1c3",
+          "f1e2"
+        ]
+      },
+      "gambitPlies": [
+        2
+      ]
+    },
+    "kingsgambit-declined": {
+      "branch": "Classical Declined (2...Bc5), 4.c3",
+      "kind": "variation",
+      "name": "King's Gambit Declined: Classical, 4.c3",
+      "eco": "C30",
+      "level": 2,
+      "idea": "Against 2...Bc5, prepare d4 with c3 to take away the bishop's diagonal. After the exchanges you get a big e4 and d4 centre and a half-open f-file.",
+      "moves": [
+        "e4",
+        "e5",
+        "f4",
+        "Bc5",
+        "Nf3",
+        "d6",
+        "c3",
+        "Nf6",
+        "fxe5",
+        "dxe5",
+        "d4",
+        "exd4",
+        "cxd4",
+        "Bb4+",
+        "Bd2",
+        "Bxd2+",
+        "Nbxd2",
+        "O-O",
+        "Bd3"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "The King's Gambit.",
+        "Black declines and makes castling short awkward.",
+        "Develop; now fxe5 is a threat.",
+        "Black supports e5.",
+        "Prepare d4 to blunt the c5-bishop.",
+        "Black hits e4.",
+        "Trade first, opening the f-file.",
+        "Black recaptures.",
+        "Strike with d4, hitting e5 and the bishop.",
+        "Black takes.",
+        "Recapture: a two-pawn centre.",
+        "Check to gain time.",
+        "Block and offer a trade.",
+        "Black trades bishops.",
+        "Recapture, keeping e4 protected.",
+        "Black castles.",
+        "Develop; next O-O and the f-file."
+      ],
+      "why": [
+        "You claim central space and free your queen and f1-bishop. In the King's Gambit this pawn is the base of the big centre you hope to build once Black's e5 pawn has been deflected or exchanged.",
+        "Black takes an equal share of the centre and frees the f8-bishop. Your next move offers a pawn to deflect it, and Black will decide whether to accept, decline or counterattack in the centre.",
+        "The King's Gambit: you hit e5 with the f-pawn to open the f-file and build a centre. It also loosens your king, so Black's checks on the e1-h4 diagonal are always something to watch.",
+        "Black declines with the classical ...Bc5, pointing at g1 so you cannot castle short comfortably. Careful: 3.fxe5 loses to ...Qh4+, winning the e4 pawn and the h1-rook. Develop first.",
+        "You develop and cover h4, so fxe5 is now a real threat. The knight also prepares quick kingside development, although castling short must wait while the c5-bishop watches g1.",
+        "Black supports e5 with a pawn, the classical reply. Taking on e5 right now is possible but releases the tension early, so you first prepare d4 to fight the c5-bishop.",
+        "You prepare d4, which would hit the c5-bishop and win the centre. The quieter 4.Nc3 leads to positions that also arise from the Vienna; 4.c3 is more ambitious and aims for a big pawn centre.",
+        "Black develops and attacks e4, which has no defender because your knight is not on c3. Keep this in mind: e4 can drop if you push d4 carelessly.",
+        "You trade on e5 first, opening the f-file for your rook and removing the pawn that blocks your centre. After ...dxe5, d4 hits both e5 and the c5-bishop.",
+        "Black recaptures with the d-pawn. Now the d-file is open, Black has given up any ...exf4 ideas, and the e5 pawn is the only obstacle to your centre.",
+        "You strike with d4, attacking e5 and the c5-bishop at once. Black cannot hold both, and the exchanges will leave you with two central pawns against none, the reward for your c3 preparation.",
+        "Black takes, the main reply. Retreating the bishop instead would let you capture on e5 and keep an even bigger centre. You will recapture with the c-pawn to keep two pawns in the middle.",
+        "You recapture and get the classic e4 and d4 duo. These pawns take c5, d5, e5 and f5 away from Black's pieces. Black must hit the centre quickly, and the next check does exactly that.",
+        "Black checks to gain time before the bishop is pushed around. It also offers a bishop trade, which would ease Black's position. You have to choose how to block.",
+        "You block with the bishop and offer the trade on your terms. Blocking with Nc3 would leave that knight pinned, so ...Nxe4 would win a pawn. The bishop block keeps your centre protected.",
+        "Black trades bishops, removing your dark-squared bishop. With fewer pieces on the board, Black hopes your centre becomes a target rather than a strength, so you must recapture in a way that keeps it protected.",
+        "You recapture with the knight, which protects e4 and keeps your queen on d1, where it covers d4. Qxd2 would leave e4 weaker. Your centre is intact and your development is smooth.",
+        "Black castles and gets the king safe. Black's plan is to pressure d4 and e4 with ...Nc6, ...Bg4 and ...Re8. You must keep your centre well supported, or the pawns become targets instead of assets.",
+        "You develop the bishop where it guards e4 and aims at the kingside. Plan: castle with the rook on the half-open f-file and keep d4 protected; meet ...Nc6 with active moves like Qa4 that also guard d4. Push e5 or d5 only when your pieces support it."
+      ],
+      "gm": {
+        "3": "This ...Bc5 decline has been a standard answer to the King's Gambit since the 19th century, because it keeps Black's structure intact and makes White's short castling awkward.",
+        "12": "A classic principle: a mobile pawn centre is strong while pieces support it, and a well-timed e5 or d5 can push Black's pieces back."
+      },
+      "show": {
+        "3": [
+          "c5g1"
+        ],
+        "6": [
+          "c3d4"
+        ],
+        "10": [
+          "d4c5",
+          "d4e5"
+        ],
+        "12": [
+          "e4e5",
+          "d4d5"
+        ],
+        "18": [
+          "d3h7"
+        ]
+      },
+      "gambitPlies": []
+    },
+    "kingsgambit-modern": {
+      "branch": "Modern Defence (3...d5)",
+      "kind": "variation",
+      "name": "King's Gambit Accepted: Modern Defence",
+      "eco": "C36",
+      "level": 2,
+      "idea": "When Black returns the pawn with ...d5, develop with Bc4, castle and play d4. Then trade on d5 and regain the f4 pawn for free, healthy development.",
+      "moves": [
+        "e4",
+        "e5",
+        "f4",
+        "exf4",
+        "Nf3",
+        "d5",
+        "exd5",
+        "Nf6",
+        "Bc4",
+        "Nxd5",
+        "O-O",
+        "Be7",
+        "d4",
+        "O-O",
+        "Bxd5",
+        "Qxd5",
+        "Bxf4"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "The King's Gambit.",
+        "Black accepts.",
+        "Develop and stop ...Qh4+.",
+        "The Modern Defence: Black strikes back in the centre.",
+        "Take: material is level again.",
+        "Black develops and hits d5.",
+        "Develop with pressure on d5.",
+        "Black recaptures, centralising the knight.",
+        "Castle; the rook eyes the f-file.",
+        "Black prepares to castle.",
+        "Build the centre and free the c1-bishop.",
+        "Black castles.",
+        "Remove the knight that guards f4.",
+        "Black recaptures with the queen.",
+        "Regain the pawn: material is level."
+      ],
+      "why": [
+        "You claim central space and free your queen and f1-bishop. In the King's Gambit you will offer the f-pawn next to deflect Black's e5 pawn and open the f-file for your rook.",
+        "Black takes an equal share of the centre and frees the f8-bishop. Your gambit aims to remove this pawn from e5, so that your e- and d-pawns can take control of the middle.",
+        "The King's Gambit: you offer the f-pawn to open the f-file and gain time for a big centre. Your king's diagonal toward h4 is now weaker, so watch for ...Qh4+. A deliberate pawn sacrifice.",
+        "Black accepts. The f4 pawn cramps your c1-bishop and controls e3 and g3. Black now chooses between holding it with ...g5 or ...d6 and returning it for quick development.",
+        "You develop and stop ...Qh4+, the most dangerous check against your loosened king. The knight also covers g5 and h4, which makes it harder for Black to hold the f4 pawn with ...g5.",
+        "The Modern Defence: Black strikes in the centre instead of clinging to f4. The idea is quick development and open lines while your king is still on e1. It is one of Black's most respected answers.",
+        "You take, which makes material level again. Ignoring the pawn would let ...dxe4 break up your centre. Black will now try to win d5 back with a piece.",
+        "Black develops and attacks d5. There is no rush to recapture, because the knight will take on d5 with a well-centralised piece. Watch for quick ...Bd6 and ...O-O development aimed at your king.",
+        "The bishop develops with pressure on d5 and along the a2-g8 diagonal, and it clears f1 for castling. If Black recaptures with the knight, you can later trade it off with Bxd5.",
+        "Black recaptures with the knight, which is strong on d5: it covers f4, e3 and b4. Black is a pawn up again, thanks to the f4 pawn. Your job is to develop fast and win that pawn back.",
+        "You castle and bring the rook onto the f-file, where it lines up behind your knight toward f4. Your king is safe, and your next moves aim at the f4 pawn.",
+        "Black develops and prepares to castle. The e7-bishop could later support the f4 pawn with ...Bf6 or ...Bg5, so you need to act before Black consolidates the extra pawn.",
+        "You build the centre and open the c1-bishop's diagonal toward f4. Black's f4 pawn is now defended only by the d5-knight, so removing that knight is your next idea.",
+        "Black castles and the king is safe. But the f4 pawn still hangs by a thread, relying entirely on the d5-knight. Black's pieces are developed, but you are about to regain material.",
+        "You trade the bishop for the d5-knight, the only defender of f4. Giving up the bishop is fine because it removes Black's best-placed piece and wins back the pawn next move.",
+        "Black recaptures with the queen, which is active on d5 but can become a target for Nc3. Black's development is fine and the f4 pawn is about to fall, so the position is balanced.",
+        "You regain the pawn and material is level. Your pieces are active, your king is safe and you have the half-open f-file. Plan: Nc3 with tempo on the queen, Qd2, and rooks to e1 and f1."
+      ],
+      "gm": {
+        "5": "Returning the pawn with ...d5 follows a classic principle against gambits: give the material back to catch up in development rather than clinging to it.",
+        "16": "Fischer recommended 3...d6 in his 1961 article on the King's Gambit, but ...d5 lines like this one are a main modern answer because they lead to healthy, balanced positions."
+      },
+      "show": {
+        "5": [
+          "d5e4"
+        ],
+        "8": [
+          "c4d5"
+        ],
+        "10": [
+          "f1f4"
+        ],
+        "12": [
+          "c1f4"
+        ],
+        "16": [
+          "b1c3"
+        ]
+      },
+      "gambitPlies": [
+        2
+      ]
+    },
+    "kingsgambit-falkbeer": {
+      "branch": "2...d5 move order (joins the Modern Defence)",
+      "kind": "transposition",
+      "joins": "kingsgambit-modern",
+      "name": "King's Gambit: 2...d5 3.exd5 exf4, into the Modern Defence",
+      "eco": "C36",
+      "level": 2,
+      "idea": "Black's counter 2...d5 often turns into the Modern Defence after 3.exd5 exf4 4.Nf3 Nf6. Recognise it and use the same plan: Bc4, O-O, d4 and win back f4.",
+      "moves": [
+        "e4",
+        "e5",
+        "f4",
+        "d5",
+        "exd5",
+        "exf4",
+        "Nf3",
+        "Nf6",
+        "Bc4",
+        "Nxd5",
+        "O-O",
+        "Be7"
+      ],
+      "notes": [
+        "Centre pawn.",
+        "Black matches.",
+        "The King's Gambit.",
+        "Black counter-strikes in the centre.",
+        "Take: the safest answer.",
+        "Black takes the f-pawn after all.",
+        "Develop and stop ...Qh4+: now it is the Modern Defence.",
+        "Black develops and hits d5.",
+        "Develop with pressure on d5.",
+        "Black recaptures in the centre.",
+        "Castle; continue with d4 and Bxd5.",
+        "Black prepares to castle."
+      ],
+      "why": [
+        "You claim central space and free your queen and f1-bishop. This line shows how a different Black move order on move two leads back to a King's Gambit position you already know from the Modern Defence.",
+        "Black takes an equal share of the centre. Nothing unusual yet; the difference comes on Black's next move, when Black meets your gambit with a counter-strike instead of capturing.",
+        "The King's Gambit: you offer the f-pawn to open lines and deflect e5. Black can accept, decline with ...Bc5, or counterattack in the centre as in this line.",
+        "Black counterattacks with ...d5, ignoring your f-pawn for now. This is the Falkbeer approach: hit your centre before you can build it. Black keeps the option of ...exf4 or ...e4 next move.",
+        "You take, the most reliable answer. If Black follows with 3...e4, the Falkbeer proper, d3 breaks up that advanced pawn. Here Black prefers to collect your f-pawn instead.",
+        "Black captures on f4 after all, so material is level: you took the d5 pawn and Black took the f-pawn. Watch for ...Qh4+ against your loosened king, which you must stop at once.",
+        "You develop the knight and stop ...Qh4+. The position is now identical to the Modern Defence after 3.Nf3 d5 4.exd5. Your 3.exd5 avoided the sharper Falkbeer lines with ...e4, and one plan (Bc4, O-O, d4) now covers both move orders.",
+        "Black develops and attacks d5, exactly as in the Modern Defence line. There is no hurry to recapture, because the knight will take on d5 next move and land on a well-centralised square.",
+        "As in the Modern Defence, the bishop develops with pressure on d5 and toward f7, and it clears the way to castle. Black's natural reply is to recapture the pawn with the knight.",
+        "Black recaptures with the knight, which is well placed on d5 and protects the f4 pawn. Black is a pawn up for the moment, but castling and d4 are aimed at winning it back.",
+        "You castle and bring the rook toward the f-file. From here the plan is the same as in the Modern Defence: d4 to open the c1-bishop, then Bxd5 to remove f4's defender, and Bxf4.",
+        "Black prepares to castle. Continue exactly as in the Modern Defence line: d4 to open the c1-bishop, then Bxd5 and Bxf4, regaining the pawn with a comfortable and active position."
+      ],
+      "gm": {
+        "3": "Ernst Falkbeer gave his name to the 2...d5 counter-strike, which follows a classic principle: meet a flank attack with a break in the centre."
+      },
+      "show": {
+        "3": [
+          "d5e4"
+        ],
+        "6": [
+          "f3h4"
+        ],
+        "8": [
+          "c4d5"
+        ],
+        "10": [
+          "d2d4"
+        ]
+      },
+      "gambitPlies": []
+    }
+  }
+}
