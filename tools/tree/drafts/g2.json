@@ -1079,6 +1079,7 @@
     "qgd-qga-trap": {
       "branch": "3...b5? (trying to keep the pawn)",
       "kind": "variation",
+      "topic": "trap",
       "name": "Queen's Gambit Accepted: the ...b5 trap",
       "eco": "D20",
       "level": 1,
@@ -1328,6 +1329,7 @@
     "caroadv-b2": {
       "branch": "6...Qb6 and ...Qxb2?! (the poisoned b-pawn)",
       "kind": "variation",
+      "topic": "mistake",
       "name": "Caro-Kann Advance: 6...Qb6, the poisoned b2-pawn",
       "eco": "B12",
       "level": 2,

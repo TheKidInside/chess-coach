@@ -1322,8 +1322,12 @@
    "gambitPlies": []
   },
   "carokann-karpov": {
-   "branch": "Karpov 4...Nd7 with 5.Ng5 (trap: 5...h6??)",
+   "branch": "Karpov 5.Ng5: 5...h6?? 6.Ne6",
    "kind": "variation",
+   "topic": [
+    "line",
+    "trap"
+   ],
    "name": "Caro-Kann: Karpov Variation, 5.Ng5",
    "eco": "B17",
    "level": 2,
@@ -1408,8 +1412,12 @@
    }
   },
   "carokann-karpov-bc4": {
-   "branch": "Karpov 5.Bc4 and Qe2 (trap: 7...h6??)",
+   "branch": "Karpov 5.Bc4: 7...h6?? 8.Nxf7",
    "kind": "variation",
+   "topic": [
+    "line",
+    "trap"
+   ],
    "name": "Caro-Kann: Karpov Variation, 5.Bc4",
    "eco": "B17",
    "level": 2,
@@ -1493,8 +1501,9 @@
    }
   },
   "carokann-qe2-trap": {
-   "branch": "Karpov 5.Qe2: avoid the smothered mate",
+   "branch": "Karpov 5.Qe2: 5...Ngf6?? 6.Nd6#",
    "kind": "variation",
+   "topic": "trap",
    "name": "Caro-Kann: 5.Qe2 smothered-mate trap",
    "eco": "B17",
    "level": 1,
@@ -1578,8 +1587,9 @@
    }
   },
   "carokann-bd3": {
-   "branch": "Classical 5.Bd3?! (take the d4-pawn)",
+   "branch": "Classical 5.Bd3?!: take on d4",
    "kind": "variation",
+   "topic": "mistake",
    "name": "Caro-Kann: Classical, 5.Bd3?!",
    "eco": "B18",
    "level": 1,
@@ -1657,8 +1667,9 @@
    }
   },
   "carokann-g4": {
-   "branch": "Advance 4.g4?! (trap: 6...h6?)",
+   "branch": "Advance 4.g4?!: answer 6...h5!",
    "kind": "variation",
+   "topic": "mistake",
    "name": "Caro-Kann: Advance, 4.g4?!",
    "eco": "B12",
    "level": 2,
@@ -1736,8 +1747,12 @@
    }
   },
   "carokann-bh5": {
-   "branch": "Two Knights 4...Bh5 (trap: 8...e6??)",
+   "branch": "Two Knights 4...Bh5: 8...e6?? 9.Nxc6",
    "kind": "variation",
+   "topic": [
+    "line",
+    "trap"
+   ],
    "name": "Caro-Kann: Two Knights, 4...Bh5",
    "eco": "B11",
    "level": 3,

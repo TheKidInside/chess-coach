@@ -1,6 +1,7 @@
 import { Chess } from './vendor/chess.js';
 import { OPENINGS, FAMILIES } from './openings.js';
 import { STUDY } from './study.js';
+import './studies.js';   // appends the Lichess studies to OPENINGS / FAMILIES / STUDY
 import {
   P, loadProfile, save, onEvent, addXp, levelOf, levelStart, todayXp, streakNow, INTERVALS, MASTERED_BOX,
   openingStat, recordOpening, dueOpenings, addMistake, dueMistakes, recordMistakeReview,
@@ -13,7 +14,9 @@ import { api, isStatic } from './backend.js';
 const $ = (s) => document.querySelector(s);
 const boardEl = $('#board');
 const FILES = 'abcdefgh';
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+// Study links come from a PGN anyone can write: only plain lichess.org paths go into an href.
+const lichessUrl = (u) => (/^https:\/\/lichess\.org\/[\w/-]+$/.test(u || '') ? u : 'https://lichess.org');
 
 const S = {
   game: new Chess(),
@@ -22,7 +25,9 @@ const S = {
   omode: 'study',          // study | learn | drill
   opening: OPENINGS[0],    // the line being trained
   family: FAMILIES[0],     // the main opening it belongs to
-  reviewQueue: [],         // opening ids still due in the current review session
+  reviewQueue: [],         // opening ids still to drill in this session (due review or a whole section)
+  section: 'line',         // which section of the opening's branches is shown: line | trap | mistake
+  sectionLine: null,       // line id the section was last matched to (browsing tabs survives a restart)
   colorPref: 'w',          // w | b | r(andom)
   playColor: 'w',
   elo: 1500,
@@ -50,7 +55,17 @@ const S = {
   takebacks: 0,            // take-backs in the current Play game
   chat: [],
   coachStyle: 'standard',  // standard | danya
+  flip: false,             // practise the opening from the other side: the computer plays it, you answer
+  whatIf: null,            // Study: a move off the line being tried out (see enterWhatIf)
+  repQuery: '',            // repertoire search box
+  expect: null,            // flipped trap line: { ply, san } the move to play instead of the line's error
+  checkedPly: -1,          // flipped trap line: last ply whose book move was engine-checked
+  avoided: false,          // flipped trap line: the student sidestepped the trap
+  pops: [],                // the opening card's most-played lines, as rendered
 };
+
+const other = (c) => (c === 'w' ? 'b' : 'w');
+const mySide = (o = S.opening) => (S.flip ? other(o.side) : o.side);   // the colour the student has on the board
 
 // ------------------------------------------------------------------ server ---
 
@@ -149,6 +164,156 @@ const colorName = (c) => (c === 'w' ? 'White' : 'Black');
 // means transpositions still get the right name.
 let ECO = null;
 fetch('eco.json').then((r) => r.json()).then((j) => { ECO = j; render(); }).catch(() => {});
+
+// ------------------------------------------------------------ real games ---
+
+// stats.json: how the repertoire scores in real Lichess games and how those games end,
+// split by the players' average rating. Built by tools/stats/build_stats.mjs.
+//   pos[key]  = [White wins, draws, Black wins] per rating band, flattened (key as in eco.json)
+//   fam[id]   = per band: res, how (mate/resign/time/draw kinds), end (phase or endgame type), len
+let STATS = null;
+const statsReady = fetch('stats.json').then((r) => r.json()).then((j) => { STATS = j; }).catch(() => {});
+const MIN_GAMES = 30;   // below this a percentage is noise
+const HOW_LABEL = { mate: 'Checkmate', resign: 'Resignation', time: 'Ran out of time' };
+const DRAW_LABEL = { agreed: 'agreed', repetition: 'repetition', stalemate: 'stalemate', insufficient: 'not enough material', fifty: '50-move rule' };
+const PHASE_LABEL = {
+  early: 'Over by move 20', middlegame: 'Middlegame', pawn: 'Pawn endgame', rook: 'Rook endgame', minor: 'Minor-piece endgame',
+  rookMinor: 'Rook + minor endgame', queen: 'Queen endgame', queenOther: 'Queen + piece endgame', mixed: 'Other endgame',
+};
+
+const statsBand = () => P.data.settings.statsBand ?? -1;   // -1 = every rating
+const bandName = (b = statsBand()) => (b < 0 ? 'all ratings' : `${STATS.meta.bands[b]} players`);
+const sum3 = (t) => t[0] + t[1] + t[2];
+const pct = (x, n) => (n ? Math.round((100 * x) / n) : 0);
+// your score from a [White, draw, Black] triple: wins plus half the draws
+const scoreFor = (side, t) => pct(side === 'w' ? t[0] + t[1] / 2 : t[2] + t[1] / 2, sum3(t));
+
+function bandTriple(v) {   // per-band [w, d, b, w, d, b, ...] -> [w, d, b] for the chosen band (summed for "all")
+  const b = statsBand();
+  return b < 0 ? [0, 1, 2].map((i) => v.filter((_, j) => j % 3 === i).reduce((a, x) => a + x, 0)) : v.slice(b * 3, b * 3 + 3);
+}
+
+function posStats(fen) {   // [w, d, b] for the position in the chosen band, or null
+  const v = STATS?.pos[posKey(fen)];
+  return v ? bandTriple(v) : null;
+}
+
+// explorer.json: what real players play next in every common opening position, an offline
+// opening explorer built from the same Lichess sample by tools/stats/build_explorer.mjs.
+//   pos[key] = [[san, then w, d, b per rating band], ...] most played first
+let EXPLORER = null;
+const explorerReady = fetch('explorer.json').then((r) => r.json()).then((j) => { EXPLORER = j; }).catch(() => {});
+
+function explorerMoves(fen) {   // [{ san, t: [w, d, b], n, share }] in the chosen band, most played first
+  const rows = EXPLORER?.pos[posKey(fen)];
+  if (!rows) return [];
+  const out = rows.map(([san, ...c]) => { const t = bandTriple(c); return { san, t, n: sum3(t) }; })
+    .filter((r) => r.n > 0).sort((a, b) => b.n - a.n);
+  const total = out.reduce((a, r) => a + r.n, 0);
+  for (const r of out) r.share = r.n / total;   // of the moves kept (each at least 1% of the games)
+  return out;
+}
+
+function famStats(f) {   // the family block for the chosen band (summed for "all")
+  const bands = STATS?.fam[f.id];
+  if (!bands) return null;
+  const pick = statsBand() < 0 ? bands : [bands[statsBand()]];
+  if (!pick[0]) return null;   // a saved band the current stats.json doesn't have
+  const add = (a, b) => a.map((x, i) => x + (b[i] || 0));
+  const out = { res: [0, 0, 0], how: {}, end: {}, len: [] };
+  for (const b of pick) {
+    out.res = add(out.res, b.res);
+    for (const [k, t] of Object.entries(b.how)) out.how[k] = add(out.how[k] || [0, 0, 0], t);
+    for (const [k, t] of Object.entries(b.end)) out.end[k] = add(out.end[k] || [0, 0, 0], t);
+    out.len = b.len.map((x, i) => x + (out.len[i] || 0)).concat(out.len.slice(b.len.length));
+  }
+  return out;
+}
+
+function wdbBar(t, thin = false) {
+  const n = sum3(t), [w, d, b] = t.map((x) => (100 * x) / n);
+  const lab = (p) => (thin || p < 9 ? '' : `${Math.round(p)}%`);
+  return `<div class="wdb${thin ? ' thin' : ''}" title="White wins ${Math.round(w)}% · draws ${Math.round(d)}% · Black wins ${Math.round(b)}%">` +
+    `<i class="w" style="width:${w}%">${lab(w)}</i><i class="d" style="width:${d}%">${lab(d)}</i><i class="b" style="width:${b}%">${lab(b)}</i></div>`;
+}
+
+function medianMoves(hist) {
+  const n = hist.reduce((a, x) => a + x, 0);
+  let acc = 0;
+  for (let i = 0; i < hist.length; i++) { acc += hist[i]; if (acc >= n / 2) return i; }
+  return 0;
+}
+
+// "In real games" on the opening card: score, then how and where the games end.
+function renderRealGames() {
+  const el = $('#realgames'), f = S.family;
+  const s = f && famStats(f);
+  el.classList.toggle('hidden', !s);
+  if (!s) return;
+  const side = f.side, n = sum3(s.res);
+  const bands = `<div class="seg rg-bands" role="radiogroup" aria-label="Rating">${[-1, ...STATS.meta.bands.keys()].map((b) =>
+    `<button class="seg-btn${b === statsBand() ? ' active' : ''}" data-band="${b}">${b < 0 ? 'All' : esc(STATS.meta.bands[b])}</button>`).join('')}</div>`;
+  if (n < MIN_GAMES) {   // keep the band switch reachable even when this band is too thin
+    $('#rg-sum').textContent = 'In real games: too few games at this rating';
+    $('#rg-body').innerHTML = bands + `<div class="muted small">Only ${n} game${n === 1 ? '' : 's'} from ${esc(bandName())} in the sample. Pick another rating band.</div>`;
+    return;
+  }
+  const row = (label, t, title = '', noScore = false) => {   // a draw always scores 50%: no score column
+    const m = sum3(t);
+    return `<span title="${esc(title)}">${esc(label)}</span><span class="share"><i style="width:${pct(m, n)}%"></i></span>` +
+      `<span class="num">${pct(m, n)}%</span><span class="num">${m >= MIN_GAMES && !noScore ? `${scoreFor(side, t)}%` : '–'}</span>`;
+  };
+  const draws = Object.entries(s.how).filter(([k]) => DRAW_LABEL[k]);
+  const drawT = draws.reduce((a, [, t]) => a.map((x, i) => x + t[i]), [0, 0, 0]);
+  const drawDetail = draws.filter(([, t]) => sum3(t)).sort((a, b) => sum3(b[1]) - sum3(a[1]))
+    .map(([k, t]) => `${DRAW_LABEL[k]} ${pct(sum3(t), sum3(drawT))}%`).join(', ');
+  const how = [...['mate', 'resign', 'time'].map((k) => [HOW_LABEL[k], s.how[k] || [0, 0, 0], '']), ['Draw', drawT, drawDetail]]
+    .sort((a, b) => sum3(b[1]) - sum3(a[1]));
+  $('#rg-sum').textContent = `In real games: you score ${scoreFor(side, s.res)}% · most often ${how[0][0].toLowerCase()} (${pct(sum3(how[0][1]), n)}%)`;
+  const where = Object.entries(s.end).filter(([, t]) => pct(sum3(t), n) >= 2).sort((a, b) => sum3(b[1]) - sum3(a[1]));
+  const anchors = STATS.meta.anchors[f.id].map((a) => moveText(a.moves.split(' '))).join(' or ');
+  $('#rg-sum').title = `Most common ending: ${how[0][0].toLowerCase()}; most common place: ${(PHASE_LABEL[where[0]?.[0]] || '').toLowerCase()}`;
+  $('#rg-body').innerHTML = bands +
+    `<div class="rg-head"><span>${n.toLocaleString()} games from ${esc(anchors)}</span><span class="muted">${medianMoves(s.len)} moves typical</span></div>` +
+    wdbBar(s.res) + `<div class="wdb-key muted small"><span>White wins</span><span>draw</span><span>Black wins</span></div>` +
+    `<div class="rg-rows"><span class="eyebrow">How games end</span><span></span><span class="num muted">Games</span><span class="num muted">You score</span>` +
+    how.map(([l, t, d]) => row(l, t, d, l === 'Draw')).join('') +
+    `<span class="eyebrow wide">Where they end</span>` + where.map(([k, t]) => row(PHASE_LABEL[k] || k, t)).join('') + '</div>' +
+    `<div class="muted small">${draws.length && drawDetail ? `Draws: ${esc(drawDetail)}. ` : ''}` +
+    `"You score" = your wins plus half the draws, as ${colorName(side)}. Source: ${esc(STATS.meta.source)}, rated blitz, rapid and classical games that were played out (abandoned games left out), ${esc(bandName())}.</div>`;
+}
+
+$('#rg-body').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-band]');
+  if (!b) return;
+  P.data.settings.statsBand = +b.dataset.band;
+  save();
+  fillOpeningList();
+  renderRealGames();
+  renderPopular(S.family);
+  if (studying()) studyShow();
+});
+
+function moveText(sans) {   // ['e4','e5','Nf3'] -> "1.e4 e5 2.Nf3"
+  return sans.map((s, i) => (i % 2 ? s : `${i / 2 + 1}.${s}`)).join(' ');
+}
+
+// Study: the position on the board in real games, and each branch's score.
+function studyStatsHtml(o) {
+  const t = posStats(S.game.fen());
+  if (!t || sum3(t) < MIN_GAMES) return '';
+  return `<div class="pos-stats"><div class="rg-head"><span class="eyebrow">This position in real games</span>` +
+    `<span class="muted">${sum3(t).toLocaleString()} games · you score ${scoreFor(mySide(o), t)}%</span></div>${wdbBar(t)}</div>`;
+}
+
+function branchScore(o, x, n) {   // " · 52% of games, you score 49%" for the position after x's move n
+  const here = posStats(S.game.fen());
+  const g = new Chess(S.game.fen());
+  try { g.move(x.moves[n]); } catch { return ''; }
+  const t = posStats(g.fen());
+  if (!t || !here || sum3(t) < MIN_GAMES) return '';
+  return ` <span class="score" title="${pct(sum3(t), sum3(here))}% of games here go on with this move; you score ${scoreFor(mySide(o), t)}% after it">${pct(sum3(t), sum3(here))}% · you ${scoreFor(mySide(o), t)}%</span>`;
+}
 
 // coaches.json lists the coach styles. A style with "lessons": "<slug>" is a grandmaster's
 // teaching, distilled into lessons/<slug>.json; their per-opening advice also shows under
@@ -333,7 +498,10 @@ $('#movelist').addEventListener('click', (e) => {
 });
 
 function navTo(ply) {   // Study steps through its line; everywhere else this browses back through the game
-  if (studying()) studyGo(ply);
+  if (studying() && S.whatIf) {   // forward plays the refutation, back returns to the line
+    if (ply > S.game.history().length) whatIfStep();
+    else studyGo(Math.min(ply, S.whatIf.base));
+  } else if (studying()) studyGo(ply);
   else setView(ply);
 }
 
@@ -368,7 +536,8 @@ function applyMove(move, { animate = true } = {}) {
 function userColorCanMove(color) {
   if (S.tab === 'analyze') return true;
   if (S.tab === 'progress') return false;
-  const mine = S.tab === 'openings' ? S.opening.side : S.tab === 'puzzles' ? S.pz.color : S.playColor;
+  if (studying()) return color === S.game.turn();   // Study: try any move to see what it does
+  const mine = S.tab === 'openings' ? mySide() : S.tab === 'puzzles' ? S.pz.color : S.playColor;
   return color === mine;
 }
 
@@ -380,10 +549,19 @@ function inputLocked() {
 }
 
 boardEl.addEventListener('pointerdown', (e) => {
-  if (studying()) {   // the board is read-only in Study: tap its right half for Next, left half for Back
+  if (studying()) {   // Study: drag a piece to try a move (what-if); tap an empty square's half for Next / Back
+    const sq = squareAt(e.clientX, e.clientY), piece = sq && S.game.get(sq);
+    if (S.selected && sq && tryMove(S.selected, sq, true)) return;
+    if (piece && piece.color === S.game.turn() && !S.game.isGameOver()) {
+      S.selected = sq;
+      render();
+      startDrag(e, sq);
+      return;
+    }
+    if (S.selected) { S.selected = null; render(); return; }
     const r = boardEl.getBoundingClientRect();
     const fwd = e.clientX > r.left + r.width / 2;
-    return studyGo(S.game.history().length + (fwd ? 1 : -1));
+    return navTo(S.game.history().length + (fwd ? 1 : -1));
   }
   const sq = squareAt(e.clientX, e.clientY);
   if (!sq) return;
@@ -491,8 +669,8 @@ function verdictText(v) {
 }
 
 // Compare the position before and after the student's move from their side.
-async function judge(fenBefore, fenAfter, mv) {
-  const [before, after] = await Promise.all([analyse(fenBefore), analyse(fenAfter)]);
+async function judge(fenBefore, fenAfter, mv, multipv = 1) {   // Study passes 5 to share its explorer analysis
+  const [before, after] = await Promise.all([analyse(fenBefore, 700, multipv), analyse(fenAfter, 700, multipv)]);
   const loss = Math.max(0, winPctFor(mv.color, before, fenBefore) - winPctFor(mv.color, after, fenAfter));
   const uci = mv.from + mv.to + (mv.promotion || '');
   const isBest = before.bestmove === uci;
@@ -544,19 +722,37 @@ onEvent((ev) => {
 
 // The repertoire is a list of main openings (FAMILIES); each is a main line plus
 // branches (variations, transpositions). Every line is reviewed on its own schedule.
+// Spell every line's moves the way chess.js does (e.g. Nb5, not Ndb5, when the other knight is
+// pinned), so they match the engine, the explorer and what the student plays on the board.
+for (const o of OPENINGS) {
+  const g = new Chess();
+  try { o.moves = o.moves.map((m) => g.move(m).san); } catch (e) { console.warn(`line ${o.id}: ${e.message}`); }
+}
 const LINE = new Map(OPENINGS.map((o) => [o.id, o]));
 const FAMILY = new Map(FAMILIES.map((f) => [f.id, f]));
 const familyOf = (o) => FAMILY.get(o.family);
 const familyLines = (f) => f.lines.map((id) => LINE.get(id));
 const mainOf = (f) => LINE.get(f.lines[0]);
 
-const OPENING_GROUPS = [
-  ['As White · 1.e4', (o) => o.side === 'w' && o.moves[0] === 'e4'],
-  ['As White · 1.d4 / 1.c4', (o) => o.side === 'w' && o.moves[0] !== 'e4'],
-  ['As Black · vs 1.e4', (o) => o.side === 'b' && o.moves[0] === 'e4'],
-  ['As Black · vs 1.d4', (o) => o.side === 'b' && o.moves[0] !== 'e4'],
-];
 const LEVELS = ['', 'Beginner', 'Intermediate', 'Sharp'];
+
+// Each opening's branches are split into three sections so they can be learned apart.
+const TOPICS = [
+  { id: 'line', label: 'Lines', one: 'line', many: 'lines', next: 'Next line',
+    hint: 'The main line, its variations and other move orders: what you actually play.' },
+  { id: 'trap', label: 'Traps', one: 'trap', many: 'traps', next: 'Next trap',
+    hint: 'Tactics that win on the spot. Learn to set them, and to see them coming.' },
+  { id: 'mistake', label: 'Mistakes', one: 'mistake', many: 'mistakes', next: 'Next mistake',
+    hint: 'Common errors, yours or your opponent\'s, and how to avoid or punish them.' },
+];
+const TOPIC = new Map(TOPICS.map((t) => [t.id, t]));
+// A line's sections: `topic` is one id or a list (a main-theory line that also carries a trap
+// sits in Lines and Traps). Unknown ids fall back to Lines.
+const topicsOf = (o) => { const ts = [].concat(o.topic || 'line').filter((t) => TOPIC.has(t)); return ts.length ? ts : ['line']; };
+const inSection = (o, id) => topicsOf(o).includes(id);
+const countWord = (n, t) => `${n} ${n === 1 ? t.one : t.many}`;
+const topicSummary = (lines) => TOPICS.map((t) => [lines.filter((o) => inSection(o, t.id)).length, t])
+  .filter(([n, t]) => n || t.id === 'line').map(([n, t]) => countWord(n, t)).join(' · ');
 
 function pips(box) {
   return `<span class="pips${box >= MASTERED_BOX ? ' mastered' : ''}" title="Memory strength ${box}/5${box >= MASTERED_BOX ? ' (mastered)' : ''}">` +
@@ -573,21 +769,113 @@ function familyBar(f) {   // how well the whole opening is known: average memory
   return `<span class="fbar${mastered === lines.length ? ' mastered' : ''}" title="${mastered} of ${lines.length} lines mastered"><i style="width:${pct}%"></i></span>`;
 }
 
+// ------------------------------------------------------- repertoire picker ---
+// Filter by your colour, the first move and progress; search by name, ECO code or moves;
+// group by first move, difficulty or progress. Filters persist in settings.repFilter.
+
+const FIRST_LABEL = { e4: '1.e4', d4: '1.d4', other: '1.c4 & others' };
+const firstMove = (f) => { const m = mainOf(f).moves[0]; return m === 'e4' || m === 'd4' ? m : 'other'; };
+
+function famPrefix(f) {   // the moves every line of the opening shares: what defines it
+  const ls = familyLines(f).filter((o) => o.kind !== 'transposition');
+  if (!ls.length) return mainOf(f).moves.slice(0, 1);
+  let p = 0;
+  while (ls.every((o) => o.moves[p] && o.moves[p] === ls[0].moves[p])) p++;
+  return ls[0].moves.slice(0, Math.max(p, 1));
+}
+
+function famStatus(f) {   // due | started | new | mastered
+  const ls = familyLines(f);
+  if (ls.some(isDue)) return 'due';
+  if (ls.every((o) => (openingStat(o.id)?.box || 0) >= MASTERED_BOX)) return 'mastered';
+  return ls.some((o) => openingStat(o.id)) ? 'started' : 'new';
+}
+
+const STATUS = [
+  ['all', 'All', () => true],
+  ['due', 'Due', (s) => s === 'due'],
+  ['started', 'In progress', (s) => s === 'due' || s === 'started'],
+  ['new', 'Not started', (s) => s === 'new'],
+  ['mastered', 'Mastered', (s) => s === 'mastered'],
+];
+
+const GROUPS = {   // group key -> [sort order, heading]
+  first: (f) => {
+    const w = f.side === 'w', m = firstMove(f);
+    return [(w ? 0 : 3) + ['e4', 'd4', 'other'].indexOf(m), w ? `As White · ${FIRST_LABEL[m]}` : `As Black · against ${FIRST_LABEL[m]}`];
+  },
+  level: (f) => [mainOf(f).level, `${LEVELS[mainOf(f).level]} openings`],
+  progress: (f) => {
+    const s = famStatus(f);
+    return [['due', 'started', 'new', 'mastered'].indexOf(s), { due: 'Due for review', started: 'In progress', new: 'Not started', mastered: 'Mastered' }[s]];
+  },
+};
+
+function repFilter() {
+  const d = { side: 'all', first: 'all', status: 'all', group: 'first' };
+  return (P.data.settings.repFilter = { ...d, ...(P.data.settings.repFilter || {}) });
+}
+
+// "Caro", "B12" and "e4 c6" all work: a query made only of moves must start one of the lines.
+const SAN_RE = /^([KQRBN][a-h]?[1-8]?x?[a-h][1-8]|[a-h](x[a-h])?[1-8](=[QRBN])?|O-O(-O)?)[+#]?$/;
+function searchMatch(f, q) {
+  if (!q) return true;
+  const toks = q.replace(/\d+\.+/g, ' ').trim().split(/\s+/).filter(Boolean)
+    .map((t) => t.replace(/[+#!?]+$/, ''))
+    .map((t) => (/^[nrqk][a-h1-8x]/.test(t) || /^b[a-h]?[a-h][1-8]$/.test(t) ? t[0].toUpperCase() + t.slice(1) : t));   // bxc4 stays a pawn capture
+  if (toks.length && toks.every((t) => SAN_RE.test(t))) {
+    return familyLines(f).some((o) => toks.every((t, i) => o.moves[i]?.replace(/[+#]$/, '') === t));
+  }
+  const hay = [f.name, ...familyLines(f).flatMap((o) => [o.name, o.branch, o.eco])].join(' | ').toLowerCase();
+  return q.toLowerCase().split(/\s+/).every((w) => hay.includes(w));
+}
+
 function fillOpeningList() {
   const list = $('#opening-list');
   const scroll = list.scrollTop;
+  const F = repFilter(), q = S.repQuery.trim();
+  // every filter except progress decides the counts on the progress pills
+  const base = FAMILIES.filter((f) => (F.side === 'all' || f.side === F.side) && (F.first === 'all' || firstMove(f) === F.first) && searchMatch(f, q));
+  const test = STATUS.find((s) => s[0] === F.status)?.[2] || (() => true);
+  const shown = base.filter((f) => test(famStatus(f)));
+  for (const [k, v] of [['#f-side', F.side], ['#f-first', F.first]]) {
+    document.querySelectorAll(`${k} [data-v]`).forEach((b) => { const on = b.dataset.v === v; b.classList.toggle('active', on); b.setAttribute('aria-checked', String(on)); });
+  }
+  $('#f-status').innerHTML = STATUS.map(([id, label, t]) => {
+    const n = base.filter((f) => t(famStatus(f))).length;
+    const off = !n && id !== F.status && id !== 'all';   // nothing to show: keep it visible but inert
+    return `<button class="pill${id === F.status ? ' active' : ''}${id === 'due' && n ? ' due' : ''}" data-v="${id}" role="radio" aria-checked="${id === F.status}"${off ? ' disabled' : ''}>${label} <span class="count">${n}</span></button>`;
+  }).join('');
+  $('#f-group').value = F.group;
+  const filtered = F.side !== 'all' || F.first !== 'all' || F.status !== 'all' || q;
+  $('#filter-result').innerHTML = filtered
+    ? `Showing ${shown.length} of ${FAMILIES.length} openings <button class="linkish" id="filter-clear">Clear filters</button>` : '';
+
   list.innerHTML = '';
-  for (const [label, test] of OPENING_GROUPS) {
-    list.insertAdjacentHTML('beforeend', `<div class="olist-group eyebrow">${label}</div>`);
-    for (const f of FAMILIES.filter((x) => test(mainOf(x)))) {
+  if (!shown.length) {
+    list.innerHTML = '<div class="bempty muted small">No opening matches these filters.</div>';
+  }
+  const groups = new Map();
+  for (const f of shown) {
+    const [order, label] = GROUPS[F.group](f);
+    if (!groups.has(label)) groups.set(label, { order, items: [] });
+    groups.get(label).items.push(f);
+  }
+  for (const [label, g] of [...groups].sort((a, b) => a[1].order - b[1].order)) {
+    list.insertAdjacentHTML('beforeend', `<div class="olist-group"><span class="eyebrow">${esc(label)}</span><span class="count">${g.items.length}</span></div>`);
+    for (const f of g.items) {
       const lines = familyLines(f);
       const due = lines.filter(isDue).length;
+      const fs = famStats(f), score = fs && sum3(fs.res) >= MIN_GAMES ? ` · you score ${scoreFor(f.side, fs.res)}%` : '';
       const row = document.createElement('button');
       row.className = 'orow' + (f === S.family ? ' active' : '');
       row.dataset.id = f.id;
-      row.innerHTML = `<span class="oname">${due ? '<span class="due">Due</span>' : ''}${esc(f.name)}` +
-        `<span class="oeco">${lines.length} line${lines.length > 1 ? 's' : ''}</span></span>` +
-        `<span class="olvl l${mainOf(f).level}">${LEVELS[mainOf(f).level]}</span>` + familyBar(f);
+      row.title = `${f.name}: you play ${colorName(f.side)}`;
+      row.innerHTML = `<img class="oside" src="pieces/${f.side}K.svg" alt="${colorName(f.side)}">` +
+        `<span class="omain"><span class="oname">${due ? '<span class="due">Due</span>' : ''}${esc(f.name)}</span>` +
+        `<span class="omoves">${esc(moveText(famPrefix(f)))}</span>` +
+        `<span class="oeco">${topicSummary(lines)}${score}</span></span>` +
+        `<span class="ometa"><span class="olvl l${mainOf(f).level}">${LEVELS[mainOf(f).level]}</span>${familyBar(f)}</span>`;
       row.onclick = () => selectFamily(f);
       list.appendChild(row);
     }
@@ -596,6 +884,27 @@ function fillOpeningList() {
   renderRepHead();
   renderReviewStrip();
 }
+
+function setRepFilter(k, v) {
+  const F = repFilter();
+  if (F[k] === v) return;
+  F[k] = v;
+  save();
+  $('#opening-list').scrollTop = 0;
+  fillOpeningList();
+}
+for (const k of ['side', 'first', 'status']) {
+  $(`#f-${k}`).addEventListener('click', (e) => { const b = e.target.closest('[data-v]'); if (b) setRepFilter(k, b.dataset.v); });
+}
+$('#f-group').addEventListener('change', (e) => setRepFilter('group', e.target.value));
+$('#rep-search').addEventListener('input', (e) => { S.repQuery = e.target.value; $('#opening-list').scrollTop = 0; fillOpeningList(); });
+$('#filter-result').addEventListener('click', (e) => {
+  if (!e.target.closest('#filter-clear')) return;
+  Object.assign(repFilter(), { side: 'all', first: 'all', status: 'all' });
+  S.repQuery = ''; $('#rep-search').value = '';
+  save();
+  fillOpeningList();
+});
 
 function renderRepHead() {
   const open = !$('#repertoire').classList.contains('closed');
@@ -645,15 +954,27 @@ function divergence(a, b) {   // first ply where two lines part ways
 function renderFamily() {
   const f = S.family, main = mainOf(f);
   $('#family-title').textContent = f.name;
+  $('#family-moves').innerHTML = `<img src="pieces/${f.side}K.svg" alt=""><span>Your repertoire as ${colorName(f.side)}</span><span class="mono">${esc(moveText(famPrefix(f)))}</span>`;
   $('#family-idea').textContent = f.idea;
+  renderPopular(f);
   const gm = Object.values(LIBS).flatMap((lib) => (lib.openings[f.topic || f.id] || []).map((d) => ({ ...d, who: lib.short })));
   $('#masters').classList.toggle('hidden', !f.masters.length && !gm.length);
   $('#masters-list').innerHTML = f.masters.map((m) => `<li>${esc(m)}</li>`).join('') +
-    gm.map((d) => `<li class="gm-note"><span class="eyebrow">${esc(d.who)}'s videos</span> ${esc(d.text)} <span class="small">${sourceLinks(d.sources)}</span></li>`).join('');
-  const lines = familyLines(f);
-  $('#branch-count').textContent = `${lines.length} line${lines.length > 1 ? 's' : ''}`;
+    gm.map((d) => `<li class="gm-note"><span class="eyebrow">${esc(d.who)}'s videos</span> ${esc(d.text)} <span class="small">${sourceLinks(d.sources)}</span></li>`).join('') +
+    (f.source ? `<li class="gm-note"><span class="eyebrow">Lichess study</span> <a href="${lichessUrl(f.source.url)}" target="_blank" rel="noopener">${esc(f.source.study)}</a>${f.source.author ? ` by ${esc(f.source.author)}` : ''}</li>` : '');
+  renderRealGames();
+  const all = familyLines(f);
+  $('#branch-count').textContent = `${all.length} in all`;
+  const t = TOPIC.get(S.section);
+  $('#sections').innerHTML = TOPICS.map((x) => {
+    const n = all.filter((o) => inSection(o, x.id)).length;
+    return `<button class="seg-btn${x === t ? ' active' : ''}" data-section="${x.id}" aria-pressed="${x === t}">${x.label} <span class="count">${n}</span></button>`;
+  }).join('');
+  const lines = all.filter((o) => inSection(o, t.id));
+  $('#section-hint').innerHTML = `<span>${esc(t.hint)}</span>` +
+    (lines.length > 1 ? `<button id="drill-section" title="Drill every ${t.one} in this section from memory, one after another">Drill all ${lines.length}</button>` : '');
   const box = $('#branches');
-  box.innerHTML = '';
+  box.innerHTML = lines.length ? '' : `<div class="bempty muted small">No ${t.many} for this opening yet.</div>`;
   for (const o of lines) {
     const d = divergence(o, main);
     const at = o === main ? 'Main' : o.kind === 'transposition' ? 'Order' : d < o.moves.length ? moveLabel(d, o.moves[d]).replace(' ', '') : 'Main';
@@ -667,6 +988,19 @@ function renderFamily() {
     box.appendChild(row);
   }
 }
+
+$('#sections').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-section]');
+  if (!b || b.dataset.section === S.section) return;
+  S.section = b.dataset.section;
+  renderFamily();
+  $(`#sections [data-section="${S.section}"]`).focus();   // the redraw replaced the focused button
+});
+$('#section-hint').addEventListener('click', (e) => {
+  if (!e.target.closest('#drill-section')) return;
+  S.reviewQueue = familyLines(S.family).filter((o) => inSection(o, S.section)).map((o) => o.id);
+  nextReview();
+});
 
 function renderReviewStrip() {
   const el = $('#review-strip');
@@ -691,6 +1025,7 @@ function renderReviewStrip() {
 }
 
 function startReview() {
+  S.flip = false;   // reviews are your repertoire, from your side
   S.reviewQueue = dueOpenings(OPENINGS).map((o) => o.id);
   setRepOpen(false);
   nextReview();
@@ -712,15 +1047,21 @@ function startOpening(atPly = 0) {
   const o = S.opening;
   for (let i = 0; i < Math.min(atPly, o.moves.length); i++) S.game.move(o.moves[i]);
   S.viewPly = null;
-  S.orient = o.side;
+  S.orient = mySide(o);
   S.tags = {}; S.slips = 0; S.busy = false; S.paused = false; S.arrows = []; S.lastVerdict = null; S.lineDone = false;
+  S.whatIf = null; S.selected = null; S.expect = null; S.checkedPly = -1; S.avoided = false;
   const st = openingStat(o.id);
   const joins = o.kind === 'transposition' && LINE.get(o.joins);
+  if (S.sectionLine !== o.id) {   // a new line: show a section it belongs to (keep the current one if it does)
+    if (!inSection(o, S.section)) S.section = topicsOf(o)[0];
+    S.sectionLine = o.id;
+  }
   renderFamily();
   $('#opening-title').textContent = o.name;
-  $('#opening-level').textContent = `${o.eco} · ${LEVELS[o.level]} · you play ${colorName(o.side)} · ${Math.ceil(o.moves.length / 2)} moves` +
+  $('#opening-level').textContent = `${o.eco} · ${LEVELS[o.level]} · ${Math.ceil(o.moves.length / 2)} moves` +
     (st ? ` · practised ${st.runs}×` : '') + (joins ? ` · transposes into ${joins.branch}` : '');
   $('#opening-idea').textContent = o.idea;
+  renderSideSeg();
   $('#study').classList.toggle('hidden', S.omode !== 'study');
   $('#opening-note').innerHTML = '';
   hideBanner();
@@ -773,11 +1114,12 @@ function positionIndex() {
 }
 
 function studyGo(n) {
-  const o = S.opening, cur = S.game.history().length;
+  const o = S.opening, wasWhatIf = !!S.whatIf, cur = S.game.history().length;
   n = Math.max(0, Math.min(o.moves.length, n));
-  if (n === cur) return;
+  if (n === cur && !wasWhatIf) return;
+  S.whatIf = null;
   S.epoch++;
-  if (n === cur + 1) applyMove(o.moves[cur]);
+  if (n === cur + 1 && !wasWhatIf) applyMove(o.moves[cur]);   // leaving a what-if always rebuilds
   else {
     S.game = new Chess();
     for (let i = 0; i < n; i++) S.game.move(o.moves[i]);
@@ -811,7 +1153,8 @@ function transpositionsHere() {
 }
 
 function studyShow() {
-  const o = S.opening, n = S.game.history().length, len = o.moves.length;
+  if (S.whatIf) return whatIfShow();
+  const o = S.opening, n = S.game.history().length, len = o.moves.length, me = mySide(o);
   const st = STUDY[o.id] || {};
   S.arrows = (st.show?.[n - 1] || []).map((a) => ({ from: a.slice(0, 2), to: a.slice(2, 4), kind: 'alt' }));
   S.selected = null;
@@ -819,12 +1162,17 @@ function studyShow() {
   let html = `<div class="study-top"><span class="eyebrow">${n ? `Move ${n} of ${len}` : 'Before move 1'}</span>` +
     `<span class="study-bar"><i style="width:${(n / len) * 100}%"></i></span></div>`;
   if (!n) {
-    html += `<p class="study-why">${esc(o.idea)}</p><p class="muted small">You play ${colorName(o.side)}. Press Next to see each move and the reasoning behind it.</p>`;
+    html += `<p class="study-why">${esc(o.idea)}</p>` + (o.source
+      ? `<p class="muted small">From ${o.source.game ? `the game ${esc(o.source.game)} in ` : ''}<a href="${lichessUrl(o.source.url)}" target="_blank" rel="noopener">${esc(o.source.chapter)}</a>, a chapter of a Lichess study. The notes are the author's.</p>` : '') + (S.flip
+      ? `<p class="muted small">You are facing this line as ${colorName(me)}. The notes are written from the ${colorName(o.side)} player's side: read them as what your opponent is after. The "How to answer" list shows your best replies at every move.</p>`
+      : `<p class="muted small">You play ${colorName(me)}. Press Next to see each move and the reasoning behind it. Drag any piece to ask "what if I play this instead?"</p>`);
   } else {
-    const p = n - 1, yours = (p % 2 === 0 ? 'w' : 'b') === o.side;
-    html += `<div class="study-move"><b>${esc(moveLabel(p, o.moves[p]))}</b><span class="who ${yours ? 'you' : 'them'}">${yours ? 'Your move' : 'Their move'}</span></div>` +
+    const p = n - 1, yours = (p % 2 === 0 ? 'w' : 'b') === me;
+    html += `<div class="study-move"><b>${esc(moveLabel(p, o.moves[p]))}</b><span class="who ${yours ? 'you' : 'them'}">${yours ? 'Your move' : 'Their move'}</span>` +
+      `<span class="eng" id="eng-badge" title="Stockfish's opinion of this move"></span></div>` +
       `<p class="study-note">${esc(o.notes[p])}</p>` +
       (st.why?.[p] ? `<p class="study-why">${esc(st.why[p])}</p>` : '') +
+      '<div id="eng-warn"></div>' +
       (st.gm?.[p] ? `<div class="gm"><span class="eyebrow">From the masters</span>${esc(st.gm[p])}</div>` : '');
     for (const t of transpositionsHere()) {
       html += `<button class="xlink" data-line="${t.o.id}" data-ply="${t.ply}"><span class="eyebrow">Transposition</span>` +
@@ -834,29 +1182,118 @@ function studyShow() {
   if (n === len) {
     html += `<div class="study-end"><b>End of the line.</b> ${esc(o.idea)}</div>`;
   }
-  const alts = n < len ? branchesAt(n) : [];
-  if (alts.length) {
-    html += `<div class="alts"><span class="eyebrow">${S.game.turn() === o.side ? 'Other moves you can play here' : 'Other replies to expect here'}</span>` +
-      alts.map((x) => `<button class="chip alt" data-line="${x.id}" data-ply="${n}"><b>${esc(moveLabel(n, x.moves[n]))}</b> ${esc(x.branch)}` +
-        `${x.family !== o.family ? ` <span class="muted">· ${esc(familyOf(x).name)}</span>` : ''}</button>`).join('') + '</div>';
-  }
+  html += studyStatsHtml(o);
+  html += '<div id="explore" class="explore"></div>';
   html += '<div class="study-nav">';
   if (n === len) {
-    const lines = familyLines(S.family);
+    const sec = inSection(o, S.section) ? S.section : topicsOf(o)[0];   // stay in this section
+    const lines = familyLines(S.family).filter((x) => inSection(x, sec));
     const next = lines[(lines.indexOf(o) + 1) % lines.length];
     html += '<button data-act="learn" class="primary">Learn it</button><button data-act="drill">Drill it</button>' +
-      (next !== o ? `<button data-act="branch" data-line="${next.id}">Next branch: ${esc(next.branch)}</button>` : '') +
+      (next !== o ? `<button data-act="branch" data-line="${next.id}">${TOPIC.get(sec).next}: ${esc(next.branch)}</button>` : '') +
       '<button data-act="play">Play on vs Stockfish</button><button data-act="again">From the start</button>';
   } else {
     html += `<button data-act="back"${n ? '' : ' disabled'}>Back</button><span class="muted small kbd">← → or Space</span>` +
       `<button data-act="next" class="primary">${n ? 'Next' : 'Start'}</button>`;
   }
   $('#study').innerHTML = html + '</div>';
+  fillExplore(o, n);
+  engineBadge(o, n);
   refreshChips();
   keepStudyInView();
 }
 
+// Stockfish's verdict on the move just shown. On trap and mistake lines this is what flags
+// the error the line is about; on theory lines it confirms the book move is sound.
+const ENG_WORD = { best: 'Engine: best', good: 'Engine: good', inaccuracy: 'Engine: ?!', mistake: 'Engine: ?', blunder: 'Engine: ??' };
+async function engineBadge(o, n) {
+  if (!n) return;
+  const ep = S.epoch, g = new Chess();
+  for (let i = 0; i < n - 1; i++) g.move(o.moves[i]);
+  const fenBefore = g.fen(), mv = g.move(o.moves[n - 1]);
+  try {
+    const v = await judge(fenBefore, g.fen(), mv, 5);
+    const el = $('#eng-badge');
+    if (ep !== S.epoch || S.whatIf || !el) return;
+    el.className = `eng ${v.cls}`;
+    el.textContent = ENG_WORD[v.cls];
+    if (v.cls === 'mistake' || v.cls === 'blunder') {
+      const yours = mv.color === mySide(o);
+      $('#eng-warn').innerHTML = `<div class="eng-warn"><span class="eyebrow">${yours ? 'The error to avoid' : 'Their error: punish it'}</span><span>${verdictText(v)}</span></div>`;
+    }
+  } catch { /* the engine is optional here */ }
+}
+
+// ------------------------------------------------------------ explore panel ---
+// At every Study position: what real players choose (explorer.json), your repertoire's branches,
+// and Stockfish's top five, merged into one list. Tapping a move explains it: the book move steps
+// on, one of your lines opens, anything else opens a what-if with the engine's refutation.
+
+const VERDICT = { best: 'Best', good: 'Good', inaccuracy: 'Dubious ?!', mistake: 'Mistake ?', blunder: 'Blunder ??' };
+const lossCls = (loss) => (loss >= 30 ? 'blunder' : loss >= 20 ? 'mistake' : loss >= 10 ? 'inaccuracy' : 'good');
+
+function exploreRows(o, n) {
+  const fen = S.game.fen(), book = n < o.moves.length ? o.moves[n] : null;
+  const rows = explorerMoves(fen).slice(0, 7).map((r) => ({ ...r }));
+  const row = (san) => rows.find((r) => r.san === san) || (rows.push({ san, n: 0, share: 0, t: null }), rows[rows.length - 1]);
+  if (book) row(book).book = true;
+  for (const x of n < o.moves.length ? branchesAt(n) : []) row(x.moves[n]).line = x;
+  return rows;
+}
+
+function exploreHtml(o, n, rows, engine) {
+  const turn = S.game.turn(), mine = turn === mySide(o);
+  const title = mine ? (S.flip ? 'How to answer' : 'Your options') : 'Their options';
+  const anyGames = rows.some((r) => r.n);
+  const body = rows.map((r) => {
+    const tags = (r.book ? '<span class="tag book">Book</span>' : '') +
+      (r.line ? `<span class="tag rep" title="${esc(r.line.name)}">Your line: ${esc(r.line.branch)}</span>` : '') +
+      (r.engineOnly ? '<span class="tag eng-pick">Engine pick</span>' : '');
+    const v = engine === null ? '<span class="muted">…</span>'
+      : r.cls ? `<span class="v ${r.cls}" title="Stockfish: ${esc(r.evalText)} (White's view)">${VERDICT[r.cls]}</span>`
+        : '<span class="v unknown" title="Outside Stockfish\'s top five here: tap to see what it allows">Why not?</span>';
+    return `<button class="ex-row${r.book ? ' book' : ''}" data-san="${esc(r.san)}">` +
+      `<b class="ex-move">${esc(moveLabel(n, r.san))}</b><span class="ex-tags">${tags}</span>` +
+      `<span class="ex-share" title="${r.n ? `${r.n.toLocaleString()} games` : 'Not in the real-game sample'}">${r.n ? `<i style="width:${Math.max(2, r.share * 100)}%"></i>` : ''}</span>` +
+      `<span class="num">${r.n ? `${Math.round(r.share * 100)}%` : '–'}</span>` +
+      `<span class="num" title="Score for ${colorName(turn)} after this move">${r.n >= MIN_GAMES ? `${scoreFor(turn, r.t)}%` : '–'}</span>${v}</button>`;
+  }).join('');
+  return `<div class="ex-hint small">${mine ? 'Tap any move to see why it is, or is not, the move to play.' : 'Tap a reply to see what it does and how to meet it.'}</div>` +
+    `<div class="ex-head"><span class="eyebrow">${title}</span><span class="ex-cols muted"><span>Played</span><span>Score</span><span>Stockfish</span></span></div>` +
+    `<div class="ex-rows">${body}</div>` +
+    `<div class="muted small">${anyGames ? `Played = share of ${esc(bandName())} games (${EXPLORER.meta.games.toLocaleString()} on Lichess); Score = the mover's score after it.` : EXPLORER ? 'No real-game data this deep: Stockfish only.' : ''}</div>`;
+}
+
+async function fillExplore(o, n) {
+  const el = $('#explore');
+  if (!el || S.game.isGameOver()) return;
+  const ep = S.epoch, fen = S.game.fen(), turn = S.game.turn();
+  const rows = exploreRows(o, n);
+  el.innerHTML = rows.length ? exploreHtml(o, n, rows, null) : '';
+  try {
+    const r = await analyse(fen, 700, 5);
+    if (ep !== S.epoch || S.whatIf || !$('#explore')) return;
+    const best = r.lines[0], bestW = best ? winPct(best) : 50;
+    const view = (w) => (turn === 'w' ? w : 100 - w);
+    const bySan = new Map(r.lines.map((l) => [uciToSan(fen, l.pv?.[0]), l]));
+    for (const row of rows) {
+      const l = bySan.get(row.san);
+      if (!l) continue;
+      row.cls = l === best ? 'best' : lossCls(Math.max(0, view(bestW) - view(winPct(l))));
+      row.evalText = evalText(l);
+    }
+    for (const [san, l] of bySan) {   // good engine moves nobody in the sample plays
+      if (rows.length >= 9 || !san || rows.some((x) => x.san === san)) continue;
+      const cls = l === best ? 'best' : lossCls(Math.max(0, view(bestW) - view(winPct(l))));
+      if (cls === 'best' || cls === 'good') rows.push({ san, n: 0, share: 0, t: null, cls, evalText: evalText(l), engineOnly: true });
+    }
+    $('#explore').innerHTML = exploreHtml(o, n, rows, r);
+  } catch { /* keep the real-game list without verdicts */ }
+}
+
 $('#study').addEventListener('click', (e) => {
+  const ex = e.target.closest('.ex-row');
+  if (ex) return exploreMove(ex.dataset.san);
   const b = e.target.closest('button');
   if (!b) return;
   if (b.dataset.line && b.dataset.act !== 'branch') return selectLine(LINE.get(b.dataset.line), +b.dataset.ply);
@@ -869,18 +1306,288 @@ $('#study').addEventListener('click', (e) => {
     drill: () => setOpeningMode('drill'),
     branch: () => selectLine(LINE.get(b.dataset.line), 0),
     play: continueOpeningInPlay,
+    exit: exitWhatIf,
+    refute: whatIfStep,
+    ask: () => ask(b.dataset.q),
   })[b.dataset.act]?.();
 });
+
+function exploreMove(san) {
+  const o = S.opening, n = S.game.history().length;
+  if (o.moves[n] === san) return studyGo(n + 1);
+  const x = n < o.moves.length && branchesAt(n).find((l) => l.moves[n] === san);
+  if (x) return selectLine(x, n + 1);
+  enterWhatIf([san]);
+}
+
+// ----------------------------------------------------------------- what-if ---
+// Try a move the line doesn't play: drag it on the board, or tap it in the explore list.
+// Shows Stockfish's verdict, a plain-words reason (material it loses, a mate it allows),
+// how often real players choose it, and the refutation, which you can step through.
+
+const PIECE = { p: 'pawn', n: 'knight', b: 'bishop', r: 'rook', q: 'queen', k: 'king' };
+const VALUE = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
+function materialFor(g, color) {
+  let s = 0;
+  for (const row of g.board()) for (const p of row) if (p) s += (p.color === color ? 1 : -1) * VALUE[p.type];
+  return s;
+}
+
+function whatIfReason(w, v, after, yours) {
+  const line = after.lines[0], mover = w.mv.color;
+  const [your, you] = yours ? ['your', 'you'] : ['their', 'they'];
+  if (line?.mate !== undefined && (mover === 'w' ? line.mate < 0 : line.mate > 0)) {
+    return `It allows a forced checkmate in ${Math.abs(line.mate)}: ${esc(pvToSan(w.fenAfter, line.pv || [], 2 * Math.abs(line.mate)))}.`;
+  }
+  if (v.cls === 'best' || v.cls === 'good') {
+    return `Stockfish rates it as playable (${esc(v.evalAfter)}, White's view). It is a sideline, not an error; the line's move is the main road because it ${S.flip ? 'is the most reliable answer' : 'fits the opening\'s plan'}.`;
+  }
+  // play the refutation out a few moves and see what material changes hands
+  const g = new Chess(w.fenBefore), start = materialFor(g, mover);
+  g.move(w.sans[0]);
+  let lost = null;
+  for (const uci of (line?.pv || []).slice(0, 6)) {
+    let m;
+    try { m = uciMove(g, uci); } catch { break; }
+    if (!lost && m.captured && m.color !== mover && VALUE[m.captured] >= 1) lost = m;
+  }
+  const delta = materialFor(g, mover) - start;
+  if (delta <= -1 && lost) {
+    const what = delta <= -8 ? 'the queen' : delta <= -5 ? 'a rook\'s worth of material' : delta <= -3 ? 'a piece' : delta <= -2 ? 'two pawns (or the exchange)' : 'a pawn';
+    return `It drops material: after the best reply ${your} ${PIECE[lost.captured]} on ${lost.to} goes, and ${you} end up ${what} down with nothing to show for it.`;
+  }
+  return `No material goes at once, but the best reply leaves ${yours ? 'you' : 'them'} ${v.cls === 'inaccuracy' ? 'a little' : 'clearly'} worse off. That usually means lost time, a weaker centre or an exposed king; step through the refutation to see how.`;
+}
+
+function enterWhatIf(sans, base = S.game.history().length) {
+  const o = S.opening, g = new Chess();
+  for (let i = 0; i < base; i++) g.move(o.moves[i]);
+  const fenBefore = g.fen();
+  let mv;
+  try { mv = g.move(sans[0]); for (const s of sans.slice(1)) g.move(s); } catch { return; }
+  S.epoch++;
+  S.game = g;
+  S.viewPly = null;
+  if (sans.length === 1) S.anim = { from: mv.from, to: mv.to };
+  moveSound(mv, g.inCheck());
+  startWhatIf({ base, sans: [...sans], fenBefore, mv });
+}
+
+function startWhatIf(w) {
+  const after = new Chess(w.fenBefore);
+  after.move(w.sans[0]);
+  // a multi-move what-if (from Most played) ends past the first move: the refutation no longer fits the board
+  S.whatIf = { ...w, fenAfter: after.fen(), verdict: null, pv: [], pvAt: 0, reason: '', error: '', pvOff: w.sans.length > 1 };
+  hideBanner();
+  whatIfShow();
+  runWhatIf(S.whatIf);
+}
+
+async function runWhatIf(w) {
+  const ep = S.epoch, stale = () => S.whatIf !== w || ep !== S.epoch || !studying();
+  try {
+    const v = await judge(w.fenBefore, w.fenAfter, w.mv, 5);
+    const after = await analyse(w.fenAfter, 700, 5);
+    if (stale()) return;
+    w.verdict = v;
+    w.pv = after.lines[0]?.pv || [];
+    w.reason = whatIfReason(w, v, after, w.mv.color === mySide(S.opening));
+    S.lastVerdict = { ...v, takenBack: false };
+  } catch (e) {
+    if (stale()) return;
+    w.error = e.message;
+  }
+  whatIfShow();
+}
+
+// Your move in Study: the line's own move steps on; anything else is a what-if.
+function onStudyTry(mv, fenBefore) {
+  const o = S.opening, w = S.whatIf;
+  if (w) {   // already off the line: keep exploring from here (the refutation no longer applies)
+    w.sans.push(mv.san);
+    w.pvOff = true;
+    return whatIfShow();
+  }
+  const n = S.game.history().length - 1;
+  if (o.moves[n] === mv.san) { S.epoch++; return studyShow(); }
+  startWhatIf({ base: n, sans: [mv.san], fenBefore, mv });
+}
+
+function whatIfStep() {   // play the next move of Stockfish's refutation
+  const w = S.whatIf;
+  if (!w || w.pvOff || w.pvAt >= Math.min(w.pv.length, 8)) return;
+  try { applyMove(w.pv[w.pvAt]); } catch { w.pvOff = true; return whatIfShow(); }
+  w.pvAt++;
+  whatIfShow();
+}
+
+function exitWhatIf() {
+  const base = S.whatIf?.base ?? S.game.history().length;
+  studyGo(base);
+}
+
+function whatIfShow() {
+  const w = S.whatIf, o = S.opening, me = mySide(o), v = w.verdict;
+  const label = moveLabel(w.base, w.sans[0]), book = o.moves[w.base];
+  const pvLeft = !w.pvOff && w.pvAt < Math.min(w.pv.length, 8);
+  S.arrows = pvLeft ? [{ ...uciSquares(w.pv[w.pvAt]), kind: v && (v.cls === 'best' || v.cls === 'good') ? 'alt' : 'bad' }] : [];
+  S.selected = null;
+  render();
+  const yours = w.mv.color === me;
+  const games = explorerMoves(w.fenBefore).find((r) => r.san === w.sans[0]);
+  const known = (positionIndex().get(posKey(w.fenAfter)) || []).find((e) => e.o !== o && e.o.side === mySide(o));
+  let html = `<div class="study-top"><span class="eyebrow">What if…</span><span class="study-bar"><i style="width:0"></i></span></div>` +
+    `<div class="study-move"><b>${esc(label)}</b><span class="who ${yours ? 'you' : 'them'}">${yours ? 'Instead of your move' : 'If they play this'}</span>` +
+    (v ? `<span class="eng ${v.cls}">${ENG_WORD[v.cls]}</span>` : '') + '</div>';
+  if (book) html += `<p class="study-note">The line plays <b>${esc(moveLabel(w.base, book))}</b> here: ${esc(o.notes[w.base])}</p>`;
+  if (w.error) html += `<p class="muted">Engine check failed: ${esc(w.error)}</p>`;
+  else if (!v) html += '<p class="muted">Checking it with Stockfish…</p>';
+  else {
+    html += `<p class="study-why">${verdictText(v)}</p><p class="study-why">${w.reason}</p>`;
+    if (!yours && (v.cls === 'inaccuracy' || v.cls === 'mistake' || v.cls === 'blunder') && v.replySan) {
+      html += `<div class="eng-warn"><span class="eyebrow">How to punish it</span><span>Answer with <b>${esc(v.replySan)}</b>, Stockfish's best reply.</span></div>`;
+    } else if (!yours && v.replySan) {
+      html += `<div class="gm"><span class="eyebrow">Best answer</span><span><b>${esc(v.replySan)}</b> (Stockfish).</span></div>`;
+    }
+    const bad = v.cls === 'inaccuracy' || v.cls === 'mistake' || v.cls === 'blunder';
+    if (bad && games && games.n >= MIN_GAMES && scoreFor(w.mv.color, games.t) >= 50) {
+      html += `<div class="gm"><span class="eyebrow">A practical trap</span><span>Objectively dubious, yet it scores ${scoreFor(w.mv.color, games.t)}% in real games: natural-looking replies go wrong. Learn the refutation${yours ? ' before you try it' : ''}.</span></div>`;
+    }
+  }
+  if (games) html += `<p class="muted small">In real games ${Math.round(games.share * 100)}% of players choose it here (${games.n.toLocaleString()} games)` +
+    (games.n >= MIN_GAMES ? `, and ${colorName(w.mv.color)} scores ${scoreFor(w.mv.color, games.t)}% after it.` : '.') + '</p>';
+  if (known) html += `<button class="xlink" data-line="${known.o.id}" data-ply="${known.ply}"><span class="eyebrow">In your repertoire</span>This position is in <b>${esc(known.o.branch)}</b>${known.o.family !== o.family ? ` (${esc(familyOf(known.o).name)})` : ''}. Study that line.</button>`;
+  if (w.sans.length > 1 || w.pvAt) html += `<p class="small mono">${esc(pvToSanFrom(w.fenBefore, S.game.history().slice(w.base)))}</p>`;
+  html += '<div class="study-nav"><button data-act="exit">Back to the line</button>';
+  if (pvLeft) html += `<button data-act="refute" class="primary">${w.pvAt ? 'Next refutation move' : 'Show the refutation'} (${w.pvAt}/${Math.min(w.pv.length, 8)})</button>`;
+  html += `<button data-act="ask" data-q="${esc(`Why is ${label} ${yours ? 'worse than' : 'answered by'} the line here? Explain in plain words.`)}">Ask the coach why</button></div>`;
+  $('#study').innerHTML = html;
+  refreshChips();
+  keepStudyInView();
+}
+
+const uciSquares = (uci) => ({ from: uci.slice(0, 2), to: uci.slice(2, 4) });
+function pvToSanFrom(fen, sans) {   // numbered move text for SAN moves played from fen
+  const g = new Chess(fen);
+  let num = parseInt(fen.split(' ')[5], 10), out = [];
+  sans.forEach((s, i) => {
+    const white = g.turn() === 'w';
+    g.move(s);
+    out.push(white ? `${num}. ${s}` : i === 0 ? `${num}... ${s}` : s);
+    if (!white) num++;
+  });
+  return out.join(' ');
+}
+
+// ---------------------------------------------------------- popular lines ---
+// The opening card's "Most played in real games": from the opening's defining moves, the top
+// replies, each followed down its most played continuation, and whether your repertoire covers it.
+function popularLines(f) {
+  if (!EXPLORER) return [];
+  const pre = famPrefix(f), g = new Chess();
+  for (const s of pre) g.move(s);
+  return explorerMoves(g.fen()).slice(0, 4).map((r) => {
+    const seq = [...pre, r.san], h = new Chess(g.fen());
+    h.move(r.san);
+    for (let i = 0; i < 12; i++) {
+      const next = explorerMoves(h.fen())[0];
+      if (!next) break;
+      h.move(next.san);
+      seq.push(next.san);
+    }
+    let best = null, depth = 0;
+    for (const o of OPENINGS.filter((x) => x.side === f.side)) {
+      const d = divergence(o, { moves: seq });
+      if (d > depth) { best = o; depth = d; }
+    }
+    return { seq, share: r.share, n: r.n, t: r.t, line: best, depth };
+  });
+}
+
+function renderPopular(f) {
+  const pops = popularLines(f);
+  $('#popular').classList.toggle('hidden', !pops.length);
+  if (!pops.length) return;
+  const pre = famPrefix(f).length;
+  $('#pop-sum').textContent = `Most played in real games (${bandName()})`;
+  $('#pop-body').innerHTML = pops.map((p, i) => {
+    const covered = p.line && p.depth > pre;
+    const cov = !covered ? '<span class="tag gap">Not in your repertoire</span>'
+      : p.depth >= p.seq.length ? `<span class="tag rep">Your line: ${esc(p.line.branch)}</span>`
+        : `<span class="tag rep">Your line for ${Math.ceil(p.depth / 2)} moves: ${esc(p.line.branch)}</span>`;
+    return `<button class="pop-row" data-pop="${i}"><span class="pop-share"><b>${Math.round(p.share * 100)}%</b>` +
+      `${p.n >= MIN_GAMES ? `<span class="muted">${colorName(f.side)} ${scoreFor(f.side, p.t)}%</span>` : ''}</span>` +
+      `<span class="pop-moves"><span class="mono">${esc(moveText(p.seq))}</span>${cov}</span></button>`;
+  }).join('') + `<div class="muted small">Each row follows the most played moves after the top replies to ${esc(moveText(famPrefix(f)))}. Tap one to study it: your own line if it covers it, otherwise a what-if with Stockfish's view.</div>`;
+  S.pops = pops;
+}
+
+$('#pop-body').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-pop]');
+  const p = b && S.pops?.[+b.dataset.pop];
+  if (!p) return;
+  if (S.omode !== 'study') setOpeningMode('study');
+  const target = p.line && p.depth > 0 ? p.line : S.opening;
+  const d = p.line ? p.depth : divergence(S.opening, { moves: p.seq });
+  selectLine(target, d);
+  if (d < p.seq.length) enterWhatIf(p.seq.slice(d), d);
+  else keepStudyInView();
+});
+
+// ------------------------------------------------------------- side switch ---
+// "Play it" = your repertoire side. "Face it" = the other side: the computer plays the opening
+// and you practise the answers (Study shows how to answer at each move; Learn/Drill quiz them).
+function renderSideSeg() {
+  const o = S.opening, own = o.side, opp = other(own);
+  const [a, b] = document.querySelectorAll('#side-seg [data-flip]');
+  a.innerHTML = `<img src="pieces/${own}K.svg" alt="">Play the opening`;
+  b.innerHTML = `<img src="pieces/${opp}K.svg" alt="">Answer it as ${colorName(opp)}`;
+  a.title = 'Your repertoire side: the reviews track this';
+  b.title = `The computer plays the ${familyOf(o).name}; you practise the best answers`;
+  for (const x of [a, b]) {
+    const on = (x.dataset.flip === '1') === S.flip;
+    x.classList.toggle('active', on);
+    x.setAttribute('aria-checked', String(on));
+  }
+  const hint = $('#flip-hint');
+  const name = familyOf(o).name;
+  hint.classList.remove('hidden');
+  hint.classList.toggle('on', S.flip);
+  hint.innerHTML = !S.flip ? `You play the ${esc(name)}'s moves as ${colorName(own)}; the computer answers. Switch to see it from the other side.`
+    : `<b>The computer plays the ${esc(name)}; you answer as ${colorName(opp)}.</b> ` + (isTrapLine(o)
+      ? 'On this line your side is the one that goes wrong: find the move that avoids it.'
+      : 'Practice only: reviews track your own side.');
+}
+$('#side-seg').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-flip]');
+  if (!b || (b.dataset.flip === '1') === S.flip) return;
+  S.flip = b.dataset.flip === '1';
+  S.reviewQueue = [];
+  startOpening(S.omode === 'study' && !S.whatIf ? S.game.history().length : 0);
+});
+
+// Learn / Drill. With the side flipped (S.flip) the computer plays the opening's own moves and
+// you play the answers. On a flipped trap or mistake line your side is the one that errs, so
+// before each of your moves the line's move is checked with Stockfish: if it is the mistake,
+// you are asked for Stockfish's move instead, and playing it ends the line ("trap avoided").
+const isTrapLine = (o) => inSection(o, 'trap') || inSection(o, 'mistake');
+const expectedAt = (ply) => (S.expect?.ply === ply ? S.expect.san : S.opening.moves[ply]);
 
 function openingNote() {
   const o = S.opening;
   const ply = S.game.history().length;
   let html = '';
-  if (ply > 0) html += `<p><b>${moveLabel(ply - 1, o.moves[ply - 1])}</b>: ${o.notes[ply - 1]}</p>`;
-  if (ply < o.moves.length && S.game.turn() === o.side) {
-    html += S.omode === 'learn'
-      ? `<p>Your move: <b>${o.moves[ply]}</b> (green arrow). ${o.notes[ply]}</p>`
-      : `<p>Your move. Play the book move from memory.</p>`;
+  if (ply > 0) html += `<p><b>${moveLabel(ply - 1, o.moves[ply - 1])}</b>: ${esc(o.notes[ply - 1])}</p>`;
+  if (ply < o.moves.length && S.game.turn() === mySide(o)) {
+    if (S.checkedPly < ply && S.flip && isTrapLine(o)) html += '<p class="muted">Checking the next move with Stockfish…</p>';
+    else if (S.expect?.ply === ply) {
+      html += `<p><b>Careful.</b> The line goes on with <b>${esc(moveLabel(ply, o.moves[ply]))}</b>, and that is the error this line is about ` +
+        `(Stockfish: ${esc(S.expect.cls)}). ${S.omode === 'learn' ? `Play <b>${esc(S.expect.san)}</b> instead (green arrow).` : 'Find the better move.'}</p>`;
+    } else {
+      html += S.omode === 'learn'
+        ? `<p>Your move: <b>${esc(o.moves[ply])}</b> (green arrow). ${esc(o.notes[ply])}</p>`
+        : `<p>Your move. Play the book move from memory.</p>`;
+    }
   }
   $('#opening-note').innerHTML = html;
   keepStudyInView();
@@ -890,7 +1597,7 @@ function openingStep() {
   const o = S.opening;
   const ply = S.game.history().length;
   if (ply >= o.moves.length) return finishOpening();
-  if (S.game.turn() !== o.side) {          // scripted opponent reply
+  if (S.game.turn() !== mySide(o)) {          // scripted opponent reply
     S.busy = true;
     const ep = S.epoch;
     setTimeout(() => {
@@ -903,18 +1610,40 @@ function openingStep() {
     openingNote();
     return;
   }
-  S.arrows = S.omode === 'learn' ? [{ ...sanSquares(S.game.fen(), o.moves[ply]), kind: 'good' }] : [];
+  if (S.flip && isTrapLine(o) && S.checkedPly < ply) {   // is the line's move here the error?
+    S.busy = true;
+    S.arrows = [];
+    render();
+    openingNote();
+    const ep = S.epoch, fen = S.game.fen(), g = new Chess(fen), mv = g.move(o.moves[ply]);
+    judge(fen, g.fen(), mv).then((v) => {
+      if (ep !== S.epoch) return;
+      S.expect = (v.cls === 'mistake' || v.cls === 'blunder') && v.bestSan ? { ply, san: v.bestSan, cls: v.cls } : null;
+    }).catch(() => {}).finally(() => {
+      if (ep !== S.epoch) return;
+      S.busy = false;
+      S.checkedPly = ply;
+      openingStep();
+    });
+    return;
+  }
+  S.arrows = S.omode === 'learn' ? [{ ...sanSquares(S.game.fen(), expectedAt(ply)), kind: 'good' }] : [];
   render();
   openingNote();
 }
 
 async function onOpeningMove(mv, fenBefore) {
+  if (studying()) return onStudyTry(mv, fenBefore);
   const o = S.opening;
   const ply = S.game.history().length - 1;
-  const expected = o.moves[ply];
+  const expected = ply < o.moves.length ? expectedAt(ply) : undefined;
   if (expected === undefined) { S.game.undo(); render(); return; }   // line already finished
   const bare = (s) => s.replace(/[+#]$/, '');
-  if (bare(mv.san) === bare(expected)) { hideBanner(); return openingStep(); }
+  if (bare(mv.san) === bare(expected)) {
+    hideBanner();
+    if (S.expect?.ply === ply) { S.avoided = true; return finishOpening(); }
+    return openingStep();
+  }
 
   S.game.undo();
   S.slips++;
@@ -924,12 +1653,13 @@ async function onOpeningMove(mv, fenBefore) {
   if (S.omode === 'learn') {
     S.arrows = [{ ...exp, kind: 'good' }];
     render();
-    banner('warn', `Not this line. Follow the green arrow: <b>${expected}</b>.`);
+    banner('warn', `Not this line. Follow the green arrow: <b>${esc(expected)}</b>.`);
     return;
   }
   S.arrows = [{ from: mv.from, to: mv.to, kind: 'bad' }, { ...exp, kind: 'good' }];
   render();
-  banner('warn', `<b>${esc(mv.san)}</b> isn't the book move. The line plays <b>${expected}</b>: ${o.notes[ply]}<br><span class="small">Checking your move with Stockfish…</span>`,
+  const why = S.expect?.ply === ply ? `Stockfish's move, avoiding the line's ${esc(S.expect.cls)} ${esc(o.moves[ply])}.` : esc(o.notes[ply]);
+  banner('warn', `<b>${esc(mv.san)}</b> isn't the move. Play <b>${esc(expected)}</b>: ${why}<br><span class="small">Checking your move with Stockfish…</span>`,
     [['Try again', () => { hideBanner(); S.arrows = []; render(); }, true]]);
   const ep = S.epoch, id = ++S.judgeId;
   try {
@@ -956,6 +1686,7 @@ function finishOpening() {
   S.arrows = [];
   render();
   openingNote();
+  if (S.flip) return finishFlipped();
   const before = openingStat(o.id);
   const boxBefore = before ? before.box : 0;
   const r = recordOpening(o.id, S.omode, S.slips);
@@ -979,11 +1710,29 @@ function finishOpening() {
   }
   fillOpeningList();
   const actions = [];
-  if (S.reviewQueue.length) actions.push([`Next due line (${S.reviewQueue.length} left)`, nextReview, true]);
+  if (S.reviewQueue.length) actions.push([`Next line (${S.reviewQueue.length} left)`, nextReview, true]);
   actions.push(['Again', startOpening, !S.reviewQueue.length]);
   if (S.omode === 'learn') actions.push(['Drill it', () => setOpeningMode('drill')]);
   actions.push(['Play on vs Stockfish', continueOpeningInPlay]);
   banner(r.ok || S.omode === 'learn' ? 'ok' : 'warn', `<b>${msg}</b><br><span class="small">${esc(o.name)}: ${esc(o.idea)}</span>`, actions);
+}
+
+// Facing an opening from the other side is practice: it never moves the review schedule
+// (that belongs to your own repertoire), but a clean run pays a little XP once a day per line.
+function finishFlipped() {
+  const o = S.opening, me = colorName(mySide(o));
+  const faced = (P.data.faced ||= {});
+  const clean = !S.slips;
+  if (clean && faced[o.id] !== today()) { faced[o.id] = today(); save(); addXp(5, S.avoided ? 'Trap avoided' : 'Faced it'); }
+  if (clean) sfx('good');
+  const msg = S.avoided ? `Trap avoided. You found the move that sidesteps ${esc(o.branch)}.`
+    : `You met the ${esc(familyOf(o).name)} as ${me}${clean ? ', no slips' : ` (${S.slips} slip${S.slips > 1 ? 's' : ''})`}.`;
+  const actions = [];
+  if (S.reviewQueue.length) actions.push([`Next line (${S.reviewQueue.length} left)`, nextReview, true]);
+  actions.push(['Again', startOpening, !S.reviewQueue.length]);
+  if (S.omode === 'learn') actions.push(['Drill it', () => setOpeningMode('drill')]);
+  actions.push(['Play on vs Stockfish', continueOpeningInPlay]);
+  banner(clean ? 'ok' : 'warn', `<b>${msg}</b><br><span class="small">Facing it is practice: your review schedule only tracks your own side.</span>`, actions);
 }
 
 function continueOpeningInPlay() {
@@ -991,7 +1740,7 @@ function continueOpeningInPlay() {
   if (parked && !parked.recorded && parked.game.history().length && !parked.game.isGameOver()
     && !confirm('You have a game in progress in Play. Abandon it and play on from this opening?')) return;
   const sans = S.game.history();
-  S.playColor = S.opening.side;
+  S.playColor = mySide();
   switchTab('play', false);
   S.saved.play = null;
   S.epoch++;
@@ -1005,7 +1754,7 @@ function continueOpeningInPlay() {
 }
 
 const OMODE_HINTS = {
-  study: 'Step through the line with Next, or tap the right (forward) or left (back) half of the board. Every move comes with its reasoning; blue arrows show the idea.',
+  study: 'Next steps through the line; every move comes with its reasoning, and blue arrows show the idea. Drag any piece (or tap a move in the list below) to see why another move is or is not good.',
   learn: 'Arrows show every move. Read the note, then play it.',
   drill: 'No arrows. Play the line from memory; a clean run moves it up a review box.',
 };
@@ -1595,7 +2344,7 @@ function takeBack() {
   if (S.tab === 'puzzles' || S.tab === 'progress') return;
   if (S.tab === 'play' && S.recorded) return;
   if (S.tab === 'openings' && S.lineDone) return;   // finished lines are recorded; use Again
-  if (studying()) return studyGo(S.game.history().length - 1);
+  if (studying()) return S.whatIf ? exitWhatIf() : studyGo(S.game.history().length - 1);
   if (S.game.history().length === 0) return;   // nothing to undo; don't cancel a pending first reply
   if (S.tab === 'play') S.takebacks++;
   S.epoch++;
@@ -1607,7 +2356,7 @@ function takeBack() {
     render();
     return runAnalysis();
   }
-  const mine = S.tab === 'openings' ? S.opening.side : S.playColor;
+  const mine = S.tab === 'openings' ? mySide() : S.playColor;
   S.game.undo();
   while (S.game.history().length && S.game.turn() !== mine) S.game.undo();
   pruneTags();
@@ -1662,7 +2411,7 @@ function switchTab(tab, reset = true) {
   document.querySelectorAll('.tab').forEach((b) => b.classList.toggle('active', b.dataset.tab === tab));
   for (const t of ['openings', 'puzzles', 'play', 'analyze', 'progress']) $(`#panel-${t}`).classList.toggle('hidden', t !== tab);
   S.epoch++;
-  S.busy = false; S.paused = false; S.selected = null; S.hint = null; S.viewPly = null;
+  S.busy = false; S.paused = false; S.selected = null; S.hint = null; S.viewPly = null; S.whatIf = null;
   hideBanner();
   syncToolButtons();
   refreshChips();
@@ -1752,7 +2501,7 @@ function refreshChips() {
   const v = S.lastVerdict;
   const chips = {
     openings: S.omode === 'study' && S.game.history().length
-      ? ['Explain the last move in more depth', 'What else could be played here?', 'What are the typical plans here?']
+      ? (S.whatIf ? ['Why is this move worse than the line?', 'What is the idea behind the refutation?'] : ['Explain the last move in more depth', 'Why not a different move here?', 'What are the typical plans here?'])
       : ["Explain this opening's ideas", 'What are the typical plans here?', 'What if my opponent deviates?'],
     puzzles: !S.pz.p && !S.pz.mistake ? [] : S.pz.done ? ['Explain the solution', 'What pattern should I remember?'] : ['Give me a hint without the answer'],
     play: ["What's the plan here?", 'What should I watch out for?', ...(v && !v.takenBack && ['inaccuracy', 'mistake', 'blunder'].includes(v.cls) ? ['Why was my last move bad?'] : [])],
@@ -1776,11 +2525,13 @@ async function buildContext() {
   const out = [`FEN: ${fen}`, `Side to move: ${colorName(g.turn())}`];
   if (S.tab === 'openings') {
     const o = S.opening, f = familyOf(o);
-    out.push(`Mode: opening training (${S.omode}) — ${o.name} (${o.eco}), the "${o.branch}" branch of the student's ${f.name} repertoire. Student plays ${colorName(o.side)}.`,
+    out.push(`Mode: opening training (${S.omode}) — ${o.name} (${o.eco}), the "${o.branch}" branch of the student's ${f.name} repertoire. ` +
+      (S.flip ? `The student is FACING this opening from the other side: they play ${colorName(mySide(o))} against it; the computer plays the opening's ${colorName(o.side)} moves.` : `Student plays ${colorName(o.side)}.`),
       `Line being taught: ${numberedLine(o.moves)}`, `Opening idea: ${o.idea}`,
       `Other branches in this opening: ${familyLines(f).filter((x) => x !== o).map((x) => `${x.branch} (${numberedLine(x.moves)})`).join('; ') || 'none'}`);
     const p = g.history().length - 1;
-    if (S.omode === 'study' && p >= 0 && p < o.moves.length) out.push(`Study commentary on the last move ${moveLabel(p, o.moves[p])}: ${o.notes[p]} ${STUDY[o.id]?.why?.[p] || ''}`);
+    if (S.whatIf) out.push(`The student is trying a move OFF the line: ${moveLabel(S.whatIf.base, S.whatIf.sans[0])} instead of the line's ${S.whatIf.base < o.moves.length ? moveLabel(S.whatIf.base, o.moves[S.whatIf.base]) : '(line ended)'}. Explain concretely why it is worse (or fine), using the Stockfish lines below.`);
+    else if (S.omode === 'study' && p >= 0 && p < o.moves.length) out.push(`Study commentary on the last move ${moveLabel(p, o.moves[p])}: ${o.notes[p]} ${STUDY[o.id]?.why?.[p] || ''}`);
     const lib = styleLib(), dn = lib?.openings[f.topic || f.id];
     if (dn?.length) out.push(`${lib.short}'s advice on this opening (from the lesson notes): ${dn.map((x) => x.text).join(' ')}`);
   } else if (S.tab === 'play') {
@@ -1971,6 +2722,17 @@ async function boot() {
   setRepOpen(P.data.settings.repOpen);
   fillOpeningList();
   setOpeningMode(S.omode);
+  statsReady.then(() => {   // real-game numbers arrive after the first paint
+    if (!STATS) return;
+    fillOpeningList();
+    renderRealGames();
+    if (studying()) studyShow();
+  });
+  explorerReady.then(() => {   // the offline opening explorer is the biggest file: it arrives last
+    if (!EXPLORER || S.tab !== 'openings') return;
+    renderPopular(S.family);
+    if (studying()) studyShow();
+  });
 }
 
 boot();

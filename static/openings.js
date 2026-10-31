@@ -3,6 +3,7 @@
 // `notes[i]` explains moves[i] (ply i); `level` 1 beginner-friendly, 2 intermediate, 3 sharp.
 // `family` + `branch` place it in the tree; `kind` is main | variation | transposition, and a
 // transposition's `joins` names the line whose position it reaches by another move order.
+// `topic` (trap | mistake) lists the line under that section of its opening; no topic = Lines.
 // The longer Study-mode commentary (why, master callouts, idea arrows) lives in study.js.
 export const FAMILIES = [
   {
@@ -568,7 +569,7 @@ export const OPENINGS = [
     ],
   },
   {
-    id: "qgd-qga-trap", family: "qgd", kind: "variation", branch: "3...b5? (trying to keep the pawn)",
+    id: "qgd-qga-trap", family: "qgd", kind: "variation", branch: "3...b5? (trying to keep the pawn)", topic: "trap",
     name: "Queen's Gambit Accepted: the ...b5 trap", eco: "D20", side: "w", level: 1,
     idea: "Black tries to keep the extra c4 pawn with ...b5 and ...c6. That fails: a4 breaks the chain, and after the exchanges on b5 your queen hits the a8-rook down the long diagonal.",
     moves: ["d4", "d5", "c4", "dxc4", "e3", "b5", "a4", "c6", "axb5", "cxb5", "Qf3", "Nc6", "Qxc6+", "Bd7", "Qa6"],
@@ -1007,7 +1008,7 @@ export const OPENINGS = [
     ],
   },
   {
-    id: "carokann-bh5", family: "carokann", kind: "variation", branch: "Two Knights 4...Bh5 (trap: 8...e6??)",
+    id: "carokann-bh5", family: "carokann", kind: "variation", branch: "Two Knights 4...Bh5: 8...e6?? 9.Nxc6", topic: ["line","trap"],
     name: "Caro-Kann: Two Knights, 4...Bh5", eco: "B11", side: "b", level: 3,
     idea: "Keeping the bishop with 4...Bh5 is sharper than 4...Bxf3. After 5.exd5 cxd5 6.Bb5+ Nc6 7.g4 Bg6 8.Ne5 you must defend c6 with 8...Rc8!. The natural 8...e6?? loses material to 9.Nxc6, and even after the right move you have to defend precisely.",
     moves: ["e4", "c6", "Nc3", "d5", "Nf3", "Bg4", "h3", "Bh5", "exd5", "cxd5", "Bb5+", "Nc6", "g4", "Bg6", "Ne5", "Rc8", "d4", "e6", "h4", "f6", "Nxg6", "hxg6", "Qd3", "Kf7"],
@@ -1065,7 +1066,7 @@ export const OPENINGS = [
     ],
   },
   {
-    id: "carokann-g4", family: "carokann", kind: "variation", branch: "Advance 4.g4?! (trap: 6...h6?)",
+    id: "carokann-g4", family: "carokann", kind: "variation", branch: "Advance 4.g4?!: answer 6...h5!", topic: "mistake",
     name: "Caro-Kann: Advance, 4.g4?!", eco: "B12", side: "b", level: 2,
     idea: "White chases the f5-bishop with pawns. Step to e4, drop back to g6, and answer h4 with 6...h5!, which stops h5 and leaves White's kingside full of holes. The natural 6...h6? allows 7.h5 Bh7 8.e6! and a strong attack.",
     moves: ["e4", "c6", "d4", "d5", "e5", "Bf5", "g4", "Be4", "f3", "Bg6", "h4", "h5", "Nh3", "e6", "Nf4", "Ne7", "Nc3", "hxg4", "fxg4", "Bh7"],
@@ -1143,7 +1144,7 @@ export const OPENINGS = [
     ],
   },
   {
-    id: "carokann-karpov", family: "carokann", kind: "variation", branch: "Karpov 4...Nd7 with 5.Ng5 (trap: 5...h6??)",
+    id: "carokann-karpov", family: "carokann", kind: "variation", branch: "Karpov 5.Ng5: 5...h6?? 6.Ne6", topic: ["line","trap"],
     name: "Caro-Kann: Karpov Variation, 5.Ng5", eco: "B17", side: "b", level: 2,
     idea: "Play 4...Nd7 to prepare ...Ngf6, so a knight trade on f6 never damages your pawns. Against 5.Ng5 develop with ...Ngf6 and ...e6 first. The natural 5...h6?? loses to 6.Ne6!, and 6...fxe6?? there is mate in two.",
     moves: ["e4", "c6", "d4", "d5", "Nc3", "dxe4", "Nxe4", "Nd7", "Ng5", "Ngf6", "Bd3", "e6", "N1f3", "Bd6", "Qe2", "h6", "Ne4", "Nxe4", "Qxe4", "Nf6"],
@@ -1171,7 +1172,7 @@ export const OPENINGS = [
     ],
   },
   {
-    id: "carokann-karpov-bc4", family: "carokann", kind: "variation", branch: "Karpov 5.Bc4 and Qe2 (trap: 7...h6??)",
+    id: "carokann-karpov-bc4", family: "carokann", kind: "variation", branch: "Karpov 5.Bc4: 7...h6?? 8.Nxf7", topic: ["line","trap"],
     name: "Caro-Kann: Karpov Variation, 5.Bc4", eco: "B17", side: "b", level: 2,
     idea: "White aims everything at f7 and e6 with Bc4, Ng5 and Qe2. The key move is 7...Nb6!, hitting the bishop. The natural 7...h6?? loses to 8.Nxf7!, because the queen on e2 pins your e6-pawn and your king is ripped open.",
     moves: ["e4", "c6", "d4", "d5", "Nc3", "dxe4", "Nxe4", "Nd7", "Bc4", "Ngf6", "Ng5", "e6", "Qe2", "Nb6", "Bd3", "h6", "N5f3", "c5", "dxc5", "Nbd7"],
@@ -1199,7 +1200,7 @@ export const OPENINGS = [
     ],
   },
   {
-    id: "carokann-qe2-trap", family: "carokann", kind: "variation", branch: "Karpov 5.Qe2: avoid the smothered mate",
+    id: "carokann-qe2-trap", family: "carokann", kind: "variation", branch: "Karpov 5.Qe2: 5...Ngf6?? 6.Nd6#", topic: "trap",
     name: "Caro-Kann: 5.Qe2 smothered-mate trap", eco: "B17", side: "b", level: 1,
     idea: "After 4...Nd7 5.Qe2 the automatic 5...Ngf6?? loses on the spot to 6.Nd6 mate: the e7-pawn is pinned, so nothing can take the knight. Play 5...Ndf6!, trade knights, and you get an easy game against a misplaced queen.",
     moves: ["e4", "c6", "d4", "d5", "Nc3", "dxe4", "Nxe4", "Nd7", "Qe2", "Ndf6", "Nf3", "Nxe4", "Qxe4", "Nf6", "Qe2", "Bg4", "c3", "e6", "h3", "Bh5"],
@@ -1227,7 +1228,7 @@ export const OPENINGS = [
     ],
   },
   {
-    id: "carokann-bd3", family: "carokann", kind: "variation", branch: "Classical 5.Bd3?! (take the d4-pawn)",
+    id: "carokann-bd3", family: "carokann", kind: "variation", branch: "Classical 5.Bd3?!: take on d4", topic: "mistake",
     name: "Caro-Kann: Classical, 5.Bd3?!", eco: "B18", side: "b", level: 1,
     idea: "A common club mistake: 5.Bd3 defends the e4-knight but blocks the queen's defence of d4. Take the pawn with 5...Qxd4, bring the queen home in time, trade on e4 and develop. White gets some activity, but you are a clean pawn up.",
     moves: ["e4", "c6", "d4", "d5", "Nc3", "dxe4", "Nxe4", "Bf5", "Bd3", "Qxd4", "Nf3", "Qd8", "Qe2", "e6", "O-O", "Bxe4", "Bxe4", "Nf6", "Bd3", "Nbd7"],
@@ -1933,7 +1934,7 @@ export const OPENINGS = [
     ],
   },
   {
-    id: "caroadv-b2", family: "caroadv", kind: "variation", branch: "6...Qb6 and ...Qxb2?! (the poisoned b-pawn)",
+    id: "caroadv-b2", family: "caroadv", kind: "variation", branch: "6...Qb6 and ...Qxb2?! (the poisoned b-pawn)", topic: "mistake",
     name: "Caro-Kann Advance: 6...Qb6, the poisoned b2-pawn", eco: "B12", side: "w", level: 2,
     idea: "Black hits b2 and d4 with ...Qb6. Answer with 7.Nc3!, offering the b-pawn: after 7...Qxb2?! 8.Qb1! White forces the queens off and wins the b7-pawn back with a better endgame.",
     moves: ["e4", "c6", "d4", "d5", "e5", "Bf5", "Nf3", "e6", "Be2", "c5", "Be3", "Qb6", "Nc3", "Qxb2", "Qb1", "Qb4", "a3", "Qxb1+", "Rxb1", "c4", "Rxb7", "a6"],
@@ -2397,7 +2398,7 @@ export const OPENINGS = [
     ],
   },
   {
-    id: "twoknights-nxd5", family: "twoknights", kind: "variation", branch: "5...Nxd5? (Fried Liver warning)",
+    id: "twoknights-nxd5", family: "twoknights", kind: "variation", branch: "5...Nxd5? (Fried Liver warning)", topic: "trap",
     name: "Two Knights Defence: Fried Liver Attack (warning line)", eco: "C57", side: "b", level: 1,
     idea: "A warning line: after 4.Ng5 d5 5.exd5, the natural 5...Nxd5? lets White sacrifice on f7 and drag your king into the open. Learn the pattern so that you play 5...Na5 instead.",
     moves: ["e4", "e5", "Nf3", "Nc6", "Bc4", "Nf6", "Ng5", "d5", "exd5", "Nxd5", "Nxf7", "Kxf7", "Qf3+", "Ke6", "Nc3", "Nb4", "O-O", "c6", "d4"],
@@ -2499,7 +2500,7 @@ export const OPENINGS = [
     ],
   },
   {
-    id: "petrov-nxe4-trap", family: "petrov", kind: "variation", branch: "3...Nxe4? 4.Qe2 (warning line)",
+    id: "petrov-nxe4-trap", family: "petrov", kind: "variation", branch: "3...Nxe4? 4.Qe2 (warning line)", topic: "mistake",
     name: "Petrov Defence: 3...Nxe4? (warning line)", eco: "C42", side: "b", level: 1,
     idea: "A warning line: copying with 3...Nxe4? lets 4.Qe2 attack your knight on the e-file. 4...Nf6?? loses the queen to 5.Nc6+, and even the best defence leaves you a pawn down.",
     moves: ["e4", "e5", "Nf3", "Nf6", "Nxe5", "Nxe4", "Qe2", "Qe7", "Qxe4", "d6", "d4", "dxe5", "dxe5", "Nc6", "Bb5", "Bd7", "Nc3", "O-O-O"],

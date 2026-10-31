@@ -35,6 +35,8 @@ Every push to `main` publishes `static/` to GitHub Pages (`.github/workflows/pag
 - **Moves/rules**: chess.js 1.4.0 (`static/vendor/chess.js`).
 - **Pieces**: cburnett set from Lichess, by Colin M.L. Burnett, CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/).
 - **Puzzles**: Lichess puzzle API (`/api/puzzle/next`, anonymous), proxied by `server.py` on the laptop, called directly online.
+- **Real-game stats**: win rates and how games end, from the Lichess open database (CC0, https://database.lichess.org), in `static/stats.json`. Rebuild: `node tools/stats/build_stats.mjs <games.pgn>` (see docs/HOW_IT_WORKS.md).
+- **Opening explorer**: what real players play in each common opening position (9,300 positions, per rating band), from the same Lichess sample, in `static/explorer.json`. Rebuild: `node tools/stats/build_explorer.mjs <games.pgn>`.
 - **Opening names**: Lichess chess-openings dataset (CC0), ~3,900 named positions in `static/eco.json`. Rebuild: `node tools/build_eco.mjs tools/eco-data`.
 - **Training repertoire**: 26 openings, 114 lines (main line, variations, transpositions, trap lines) in `static/openings.js`, with Study-mode commentary in `static/study.js`. Both are generated from `tools/tree/drafts/` by `tools/tree/build_tree.mjs` (check with `validate_study.mjs`).
 - **Coach styles**: `static/coaches.json`; a grandmaster style reads its paraphrased lesson library from `static/lessons/<slug>.json`.

@@ -318,6 +318,7 @@
     "twoknights-nxd5": {
       "branch": "5...Nxd5? (Fried Liver warning)",
       "kind": "variation",
+      "topic": "trap",
       "name": "Two Knights Defence: Fried Liver Attack (warning line)",
       "eco": "C57",
       "level": 1,
@@ -627,6 +628,7 @@
     "petrov-nxe4-trap": {
       "branch": "3...Nxe4? 4.Qe2 (warning line)",
       "kind": "variation",
+      "topic": "mistake",
       "name": "Petrov Defence: 3...Nxe4? (warning line)",
       "eco": "C42",
       "level": 1,

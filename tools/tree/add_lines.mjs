@@ -3,7 +3,7 @@
 // where a line leaves the tree. Input shape:
 //   { "<lineId>": { family, after?, prefix?: { from: <lineId>, plies: n }, branch, kind, name, eco,
 //                   level, idea, moves: "e4 c6 ...", notes: [...], why: [...], gm?, show?, joins?,
-//                   gambitPlies? } }
+//                   gambitPlies?, topic?: trap|mistake } }
 // prefix copies notes/why for the first n plies from an existing line (which must share those moves);
 // notes/why in the input then cover only the remaining plies. gm/show keys are full-line ply numbers.
 // The line goes into the draft that owns `family`, listed after `after` (default: at the end).
@@ -48,7 +48,7 @@ for (const [id, l] of Object.entries(add)) {
   const [file, d] = entry;
   const fam = d.data.families.find((f) => f.id === l.family);
   const line = { branch: l.branch, kind: l.kind, name: l.name, eco: l.eco, level: l.level, idea: l.idea, moves, notes, why };
-  for (const k of ['joins', 'gm', 'show', 'gambitPlies']) if (l[k] !== undefined) line[k] = l[k];
+  for (const k of ['topic', 'joins', 'gm', 'show', 'gambitPlies']) if (l[k] !== undefined) line[k] = l[k];
   d.data.lines[id] = line;
   if (!fam.lines.includes(id)) {
     const at = l.after ? fam.lines.indexOf(l.after) + 1 : fam.lines.length;

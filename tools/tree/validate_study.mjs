@@ -2,7 +2,7 @@
 // Validates opening-tree content against openings.js. File shape:
 // { families: [{ id, name, side, idea, masters: [str], lines: [lineId, ...] }],
 //   lines: { <lineId>: { branch, kind: main|variation|transposition, why: [str per ply], gm: {ply: str},
-//            show: {ply: ["e2e4"]}, gambitPlies?: [ply],
+//            show: {ply: ["e2e4"]}, gambitPlies?: [ply], topic?: trap|mistake or a list such as ["line","trap"] (its sections; default Lines),
 //            // existing ids (already in openings.js) may also carry notes: [...] to replace weak notes
 //            // new ids also need: name, eco, level, idea, moves, notes; transpositions need joins } } }
 // Training lines are read from the original 28-line repertoire (base_openings.js), not static/openings.js,
@@ -59,6 +59,7 @@ for (const [file, data] of files) {
     if (!famLines.has(id)) err(`${id}: not listed in any family in ${file}`);
     if (!['main', 'variation', 'transposition'].includes(l.kind)) err(`${id}: bad kind ${l.kind}`);
     textOk(`${id}.branch`, l.branch);
+    if (l.topic !== undefined && ![].concat(l.topic).every((t) => ['line', 'trap', 'mistake'].includes(t))) err(`${id}: topic must be line, trap or mistake, or a list of them`);
     if (ex && l.moves) err(`${id}: existing line, do not send moves (they are fixed)`);
     const moves = ex ? ex.moves : l.moves;
     if (!ex) {

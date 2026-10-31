@@ -28,7 +28,7 @@ for (const f of files) {
     const fam = data.families.find((x) => x.lines.includes(id));
     const base = lines.get(id) || { id, side: fam.side };
     const merged = { ...base, family: fam.id, branch: l.branch, kind: l.kind };
-    for (const k of ['name', 'eco', 'level', 'idea', 'moves', 'notes', 'joins']) if (l[k] !== undefined) merged[k] = l[k];
+    for (const k of ['name', 'eco', 'level', 'idea', 'moves', 'notes', 'joins', 'topic']) if (l[k] !== undefined) merged[k] = l[k];
     lines.set(id, merged);
     study[id] = { why: l.why, ...(l.gm && Object.keys(l.gm).length ? { gm: l.gm } : {}), ...(l.show && Object.keys(l.show).length ? { show: l.show } : {}) };
   }
@@ -50,6 +50,7 @@ let out = `// Opening repertoire, organised as FAMILIES (main openings), each a 
 // \`notes[i]\` explains moves[i] (ply i); \`level\` 1 beginner-friendly, 2 intermediate, 3 sharp.
 // \`family\` + \`branch\` place it in the tree; \`kind\` is main | variation | transposition, and a
 // transposition's \`joins\` names the line whose position it reaches by another move order.
+// \`topic\` (trap | mistake) lists the line under that section of its opening; no topic = Lines.
 // The longer Study-mode commentary (why, master callouts, idea arrows) lives in study.js.
 export const FAMILIES = [\n`;
 for (const f of families) {
@@ -62,7 +63,7 @@ for (const f of families) {
   out += `${ind(2)}// ---- ${f.name} ----\n`;
   for (const id of f.lines) {
     const o = lines.get(id);
-    out += `${ind(2)}{\n${ind(4)}id: ${q(o.id)}, family: ${q(o.family)}, kind: ${q(o.kind)}, branch: ${q(o.branch)},${o.joins ? ` joins: ${q(o.joins)},` : ''}\n`;
+    out += `${ind(2)}{\n${ind(4)}id: ${q(o.id)}, family: ${q(o.family)}, kind: ${q(o.kind)}, branch: ${q(o.branch)},${o.joins ? ` joins: ${q(o.joins)},` : ''}${o.topic && o.topic !== 'line' ? ` topic: ${q(o.topic)},` : ''}\n`;
     out += `${ind(4)}name: ${q(o.name)}, eco: ${q(o.eco)}, side: ${q(o.side)}, level: ${o.level},\n`;
     out += `${ind(4)}idea: ${q(o.idea)},\n${ind(4)}moves: [${o.moves.map(q).join(', ')}],\n`;
     out += `${ind(4)}notes: [\n${o.notes.map((n) => `${ind(6)}${q(n)},\n`).join('')}${ind(4)}],\n${ind(2)}},\n`;

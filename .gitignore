@@ -5,3 +5,5 @@ server.log
 data/
 __pycache__/
 *.pyc
+# Lichess PGN samples for the stats/explorer builders (several GB)
+tools/stats/data/

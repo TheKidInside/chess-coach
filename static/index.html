@@ -94,6 +94,36 @@
         </button>
         <div class="rep-body" id="rep-body">
           <div id="review-strip" class="review-strip"></div>
+          <div class="rep-filters">
+            <label class="search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none"/><path d="M16 16l4.5 4.5" fill="none"/></svg>
+              <input id="rep-search" type="search" placeholder="Search a name, ECO code or moves (Caro, B12, e4 c6)" aria-label="Search openings" autocomplete="off">
+            </label>
+            <div class="filter-row">
+              <div class="seg" id="f-side" role="radiogroup" aria-label="Your colour">
+                <button class="seg-btn" data-v="all" role="radio">Both</button>
+                <button class="seg-btn" data-v="w" role="radio"><img src="pieces/wK.svg" alt="">White</button>
+                <button class="seg-btn" data-v="b" role="radio"><img src="pieces/bK.svg" alt="">Black</button>
+              </div>
+              <div class="seg" id="f-first" role="radiogroup" aria-label="First move">
+                <button class="seg-btn" data-v="all" role="radio">Any start</button>
+                <button class="seg-btn mono" data-v="e4" role="radio">1.e4</button>
+                <button class="seg-btn mono" data-v="d4" role="radio">1.d4</button>
+                <button class="seg-btn" data-v="other" role="radio" title="1.c4, 1.Nf3 and other first moves">Other</button>
+              </div>
+            </div>
+            <div class="pills" id="f-status" role="radiogroup" aria-label="Progress"></div>
+            <div class="filter-row">
+              <div class="filter-result muted small" id="filter-result"></div>
+              <label class="group-by">Group
+                <select id="f-group" aria-label="Group openings by">
+                  <option value="first">by first move</option>
+                  <option value="level">by difficulty</option>
+                  <option value="progress">by progress</option>
+                </select>
+              </label>
+            </div>
+          </div>
           <div id="opening-list" class="olist"></div>
         </div>
       </div>
@@ -101,18 +131,34 @@
       <div class="panel lesson">
         <div class="fam">
           <div class="otitle"><b id="family-title"></b></div>
+          <div id="family-moves" class="fam-moves"></div>
           <p id="family-idea" class="idea"></p>
+          <details class="masters popular hidden" id="popular">
+            <summary id="pop-sum">Most played in real games</summary>
+            <div id="pop-body" class="pop-body"></div>
+          </details>
           <details class="masters" id="masters">
             <summary>From the masters</summary>
             <ul id="masters-list"></ul>
           </details>
+          <details class="masters realgames hidden" id="realgames">
+            <summary id="rg-sum">In real games</summary>
+            <div id="rg-body" class="rg-body"></div>
+          </details>
         </div>
         <div class="branches-head"><span class="eyebrow">Branches</span><span class="muted small" id="branch-count"></span></div>
+        <div class="seg sections" id="sections" role="group" aria-label="Section"></div>
+        <div id="section-hint" class="section-hint muted small"></div>
         <div id="branches" class="branches"></div>
         <div class="odetail">
           <div class="line-title"><b id="opening-title"></b></div>
           <div id="opening-level" class="muted small"></div>
           <p id="opening-idea" class="idea"></p>
+          <div class="seg side-seg" id="side-seg" role="radiogroup" aria-label="Which side you practise">
+            <button class="seg-btn" data-flip="0" role="radio"></button>
+            <button class="seg-btn" data-flip="1" role="radio"></button>
+          </div>
+          <div id="flip-hint" class="flip-hint small hidden"></div>
           <div class="seg" role="radiogroup" aria-label="Training mode">
             <button class="seg-btn active" data-omode="study">Study</button>
             <button class="seg-btn" data-omode="learn">Learn</button>
