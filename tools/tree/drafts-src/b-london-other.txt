@@ -1,0 +1,161 @@
+# London System against 1...Nf6 and other first moves.
+@london-1nf6-d5 | 1 | 1...Nf6 2.Bf4 d5: back to the main line | Black plays ...d5 and you are in the main line by a different order.
+@london-kid-d6 | 2 | 1...Nf6 2.Bf4 g6: King's Indian with ...d6 | Against ...d6 and ...Nbd7 Black wants ...e5. h3 secures h2 for the bishop, and when ...e5 comes the bishop drops back and c4 grabs space.
+c4: Take queenside space while Black's pieces aim at e5.
+Bh2: Save the bishop from ...e5 with tempo, keeping it on the h2-b8 diagonal.
+@london-kid-d5 | 2 | 1...Nf6 2.Bf4 g6 3.e3 d5: Grunfeld shape | ...d5 with ...g6 is a Grunfeld shape without the pressure on c4. c4 attacks d5, and Rc1 prepares to meet ...c5.
+Qa5: Black regains the c5 pawn through the pin on c3.
+@london-kid-c5 | 2 | 1...Nf6 2.Bf4 g6 ... c5: the b2 attack | ...c5 and ...Qb6 come before ...d6. Qb3 guards b2, and Bc4 develops actively once Black's queen has lost its target.
+Bc4: Develop actively: the bishop aims at f7 and helps defend the queenside.
+@london-kid-nh5 | 2 | 6...Nh5 before h3: the bishop gets chased | Without h3 the bishop has no retreat from ...Nh5. Bg5 h6 Bh4 g5 looks scary but stays level, because Nfd2 hits h5. Playing h3 early avoids the fuss.
+O-O: Castle. With h3 not played yet, ...Nh5 will hit your bishop, so know the reply. || In the King's Indian structure the h2 square is your bishop's safety net.
+Nh5: The knight hits your bishop, and without h3 it cannot drop to h2.
+Bg5: Step aside and keep the bishop; ...h6 and ...g5 will chase it.
+Nfd2: Hit the h5-knight: if ...gxh4, Bxh5 wins the piece back.
+@london-1nf6-e6 | 1 | 1...Nf6 2.Bf4 e6: a flexible start | Black delays ...d5 and plays ...c5 first. Pyramid and Bd3: if ...d5 arrives it's the main line.
+@london-1nf6-e6-b6 | 2 | 1...Nf6 2.Bf4 e6 3.e3 b6: Queen's Indian shape | ...b6 and ...Bb7 aim at e4. h3 keeps the bishop safe, Bd3 covers e4, and Nbd2 adds more control.
+@london-1nf6-d6 | 1 | 1...Nf6 2.Bf4 d6: the King's Indian order | As with ...g6: Be2, castle, h3, then c4 and Bh2 once ...e5 comes.
+@london-1nf6-d6-g6 | 2 | 1...Nf6 2.Bf4 d6 3.Nf3 g6: the same by another order | The same King's Indian set-up. Your plan does not change.
+@london-1nf6-d6-nh5 | 1 | 1...Nf6 2.Bf4 d6 3.Nf3 Nbd7: the ...e5 break | Against ...e5 the capture is available: dxe5 dxe5 Nxe5 wins a pawn, because Nxe5 Bxe5 leaves your bishop on e5.
+Nbd7: Black supports ...e5.
+e5: A natural-looking break that loses a pawn: e5 is attacked by your knight and bishop. || Black was counting on ...exd4 or a tempo on your bishop. Do not retreat with Bg3: just take.
+dxe5: Take. The e5 square is attacked twice, and guarded only once after the recapture.
+dxe5: Black recaptures, and the pawn is still loose.
+Nxe5: The pawn falls. If ...Nxe5, Bxe5 keeps it, and the queens may stay on.
+Be7: Black gives up the pawn and develops.
+Nd3: Step back, keep the knight away from attack and stay a pawn up.
+@london-1nf6-d6-nbd7 | 1 | 1...Nf6 2.Bf4 d6 3.e3 Nbd7 4.Nf3 e5?: the same pawn | Other order, same trick: dxe5 dxe5 Nxe5 wins a pawn.
+@london-1nf6-c5 | 3 | 1...Nf6 2.Bf4 c5 3.e3 Qb6 4.Nc3! Qxb2 5.Nb5: the poisoned pawn | With no pawn on d5 the trap uses Nb5 instead of Nxd5: Rb1 and Ra1 chase the queen while the knight eyes c7. The best defence holds, so know the moves.
+Nb5: Threatens Rb1 and Nc7+ together, and the knight cannot be taken.
+Nd5: The only good defence: the knight covers c7 and b4.
+Rb1: Hit the queen.
+Qxa2: The queen takes a second pawn, but it remains in danger.
+Ra1: Chase it again.
+Qb2: The queen escapes.
+Nf3: Develop; you have play for two pawns, and the Black queen is still awkward.
+Na6: Black covers c7 again.
+Rb1: Chase it again; repetition is the safe result here.
+@london-1nf6-c5-cxd4 | 2 | 1...Nf6 2.Bf4 c5 3.e3 cxd4: Qb3 again | Recapture with the e-pawn, then c3, Nf3, Nbd2 and Qb3.
+@london-1nf6-c5-nc6 | 2 | 1...Nf6 2.Bf4 c5 3.e3 Nc6: ...Qb6 and ...c4 | Same plan as the main ...Qb6 line: Qb3, Qc2 and Qc1 keep b2 safe.
+@london-1e6 | 1 | 1...e6: usually the main line | 1...e6 2.Bf4 almost always turns into the main line after ...d5 and ...Nf6.
+Bf4: The bishop leaves before e3 shuts it in: ...e6 did not stop it.
+@london-1e6-c5 | 2 | 1...e6 2.Bf4 c5 3.e3 Qb6: ...cxd4 first | Nc3 again sets the Qxb2 trap, so Black trades on d4. Then exd4 and a3 keep everything protected.
+@london-1e6-qb2 | 3 | 1...e6 2.Bf4 c5 3.e3 Qb6 4.Nc3 Qxb2??: same trap | The queen takes, and Nb5 threatens the fork on c7 and the trap on a3 at once.
+Nb5: The threats: Nc7+ wins the rook, and a3 prepares to trap the queen with Ra2.
+dxe3: Black takes more pawns and opens lines around your king.
+Qf6: The queen escapes and eyes a1 and c3.
+Nc7+: The fork arrives, and the rook on a8 falls.
+@london-1e6-c5-cxd4 | 2 | 1...e6 2.Bf4 c5 3.e3 cxd4: release | Recapture on d4. Then c3, Nf3 and Bd3, with ...d5 reaching the structure of the main lines.
+@london-1e6-d6 | 2 | 1...e6 2.Bf4 d6: a flexible Old Indian set-up | Black's d6 means no pressure on d4. Normal development, then c3 to back up.
+@london-1e6-b6 | 2 | 1...e6 2.Bf4 b6: Queen's Indian again | Same as the 1...Nf6 b6 line: h3, Bd3, castle, and control e4.
+@london-1e6-f5 | 2 | 1...e6 2.Bf4 f5: Dutch via ...e6 | e3, Nf3, Bd3 and castle. Then c4 and Nc3 take the e4 square away from Black.
+@london-1e6-c6 | 2 | 1...e6 2.Bf4 c6: the triangle | Solid and passive. Use the normal set-up and play Re1 for e4.
+@london-1e6-c6-bd6 | 2 | 1...e6 2.Bf4 c6 3.e3 d5 4.Nf3 Bd6: the trade | Bg3 keeps your bishop. Again, Black needs ...Qe7 before ...Nbd7.
+@london-1e6-nc6 | 2 | 1...e6 2.Bf4 Nc6: no quick ...c5 | With the c-pawn blocked, c4 is strong.
+@london-1g6 | 2 | 1...g6: the Modern with ...d6 | Against ...g6 and ...d6, play Be2, castle and h3. When ...e5 comes, Bh2 and c4 keep you comfortable.
+@london-1g6-c5 | 2 | 1...g6 2.Bf4 Bg7 3.e3 c5: the fast ...Qb6 | The long diagonal adds force to b2, so answer ...Qb6 with Qb3 again.
+@london-1g6-d5 | 2 | 1...g6 2.Bf4 d5: Grunfeld shape | Normal pyramid; the g7-bishop hits granite on d4.
+@london-1g6-e6 | 2 | 1...g6 2.Bf4 Bg7 3.e3 e6: holes on the dark squares | With ...e6 and ...g6 Black's dark squares are soft. Bd3, castle and c4.
+@london-1c6 | 2 | 1...c6: the Slav shape | Black transposes into the ...c6 lines: c4 and Qb3 as usual.
+@london-1c6-qb6 | 2 | 1...c6 2.Bf4 Qb6: the early queen | Nc3 offers b2 for a lead in development; after ...Qxb2 Bd2 the game is level. If Black plays ...d5 instead, e4 goes all the way, Caro-style.
+Qb6: Attack b2 at once.
+Nc3: Develop and offer b2: after ...Qxb2 Bd2 guards c3, and your lead in development pays for the pawn.
+@london-1c6-d6 | 2 | 1...c6 2.Bf4 d6: a Pirc set-up | With no ...d5 available, take the centre with e4, then Qd2 and O-O-O.
+@london-1d6 | 2 | 1...d6 2.Bf4 g6: the Modern | ...d6 and ...g6 give you the chance for e4: a Pirc with your bishop on f4, then Qd2 and Bh6.
+@london-1d6-nf6 | 2 | 1...d6 2.Bf4 Nf6: King's Indian shape | The usual: Be2, h3, c4, Bh2.
+@london-1d6-e6 | 2 | 1...d6 2.Bf4 e6: flexible | e3, Nf3, Bd3 and castle.
+@london-1d6-c6 | 2 | 1...d6 2.Bf4 c6: ...Qa5 ideas | ...Qa5 tries to bother you, but Bd2 hits the queen and you grab a broad centre.
+Qa5: The queen looks along the fifth rank and at c3.
+Qc7: The queen retreats with ...e5 in mind.
+@london-1d6-nd7 | 2 | 1...d6 2.Bf4 Nd7: ...e5 follows | Take the centre with e4. After ...e5, dxe5 and Bg3 hold your structure.
+@london-1d6-e5 | 2 | 1...d6 2.Bf4 e5 3.dxe5 dxe5??: an extra pawn | ...e5 looks like a tempo on the bishop, but dxe5 dxe5 Qxd8+ Kxd8 Bxe5 wins a pawn clean.
+e5: This looks like it wins time on your bishop, but you can simply take it.
+Qxd8+: Take the queens off before grabbing e5, so Black's king has lost castling.
+Bg3: Retreat safely, a pawn up with a safe position.
+@london-1d6-e5-nc6 | 2 | 1...d6 2.Bf4 e5 3.dxe5 Nc6: the gambit try | Black offers a pawn for development. Nf3, trade on d8 and Bxe5 keep it, and you castle long.
+@london-1d6-e5-bg4 | 2 | 1...d6 2.Bf4 e5 3.dxe5 Nc6 4.Nf3 Bg4: the pin | Take on d6: when the queens come off you have an extra pawn with no worries.
+@london-1c5 | 2 | 1...c5 2.d5: leave the London for a Benoni | Against 1...c5 the pyramid is not your best plan. d5 takes space, and after ...e5 the structure is closed: Be2, castle and h3.
+d5: Grab the space offered. c3 is possible, but d5 keeps a clear plus.
+e5: Black shuts the centre, leaving the d6 pawn and dark bishop passive.
+Bg4: Black develops and pins before you castle.
+Bxf3: Black gives you the bishop pair.
+@london-1c5-nf6 | 2 | 1...c5 2.d5 Nf6: Benoni | Nc3, e4, Nf3 and Bb5+ develop easily. Then a4 keeps Black's queenside quiet.
+Bb5+: The check disrupts Black's ...a6, ...b5 plan by forcing ...Bd7.
+a4: Stops ...b5 so that Black's queenside plan is stuck.
+@london-1c5-d6 | 2 | 1...c5 2.d5 d6: Benoni with ...d6 first | The same Benoni plan: e4, Nc3, Nf3, Bb5+.
+@london-1c5-g6 | 2 | 1...c5 2.d5 g6: Benoni with ...g6 first | The same Benoni plan.
+@london-1c5-e6 | 2 | 1...c5 2.d5 e6: Modern Benoni | e4 first, then Nc3 and take back with the e-pawn on d5: you get a space edge.
+@london-1c5-e6-d6 | 2 | 1...c5 2.d5 e6 3.e4 d6: same structure | Nc3 and exd5 lead to the same space edge.
+@london-1c5-e6-nf6 | 2 | 1...c5 2.d5 e6 3.e4 Nf6 4.Nc3 exd5?: the e5 push | After ...exd5 the push e5! wins: the knight must leave and Qxd5 takes the pawn with a lead in development.
+Nf6: Black attacks the e4 pawn.
+Nc3: Protect e4 and develop.
+exd5: Natural, but it opens the push e5.
+e5: The knight on f6 has no good squares.
+Ng8: The only way to avoid losing material at once.
+Qxd5: Take the pawn back with a dominant queen.
+Nge7: Black develops around the centre.
+Qd2: Keep the bishop protected. White has a clear lead in development.
+@london-1e5 | 2 | 1...e5: the Englund Gambit | Take the pawn. After ...Nc6, Nf3, ...Qe7 and Bf4 Qb4+, Bd2 is fine because Nc3! saves the a1-rook after ...Qxb2.
+e5: The Englund Gambit: a pure trick opening. Take it.
+dxe5: Take the pawn. Black has no real compensation, only traps.
+Nc6: Black develops and threatens to recover the e5 pawn.
+Qe7: Black's point: the queen hits e5 and heads for b4.
+Qb4+: The fork idea: check, with b2 and f4 both under attack.
+Bd2: Block with the bishop, because b2 is about to be taken anyway.
+Qxb2: Black takes the bait, also hitting a1.
+Nc3: The only good move: it opens b1, so your queen now guards a1, and develops. || Rc1 or Bc3 lose time or worse. This is the move to remember in the Englund.
+Bb4: Black pins the knight and hopes.
+Rb1: Hit the queen; it has to leave b2.
+Qa3: The queen retreats.
+Rb3: Attack it again: Black is running out of moves.
+Qa5: The queen retreats again.
+e4: Take the centre: material is level, but you have a big lead in development and space.
+Nge7: Black develops.
+a3: Now the bishop on b4 is attacked, and the pin is about to end.
+@london-1e5-nb4 | 2 | 1...e5 Englund: 6...Nb4: the raid on c2 | After Nc3, ...Nb4 goes for c2. Nd4 guards it and centralises, and you end up well ahead.
+Nb4: The knight threatens ...Nxc2+.
+Nd4: Guard c2 and centralise: the knight also aims at b5 and e6.
+Na6: The knight goes back, wasting even more time.
+Qf3: Bring the queen in: Black is still undeveloped on the kingside.
+@london-1e5-mistake | 2 | Englund trap: 6.Bc3?? Bb4!: back-rank mate | The famous Englund trap: Bc3 attacks the queen, but ...Bb4 pins, and Qd2 Bxc3 Qxc3 Qc1 is mate. Always play Nc3 instead.
+Bc3: This looks natural: it hits the queen and guards a1. But it hands Black a winning shot. || Your queen is tied to d1 protecting c1 and a1; the pin on c3 pulls it away.
+Bb4: The bishop pins the c3-bishop to your king: the point of the whole gambit.
+Qd2: Defending the bishop seems forced, but the queen has left c1 undefended.
+Bxc3: Now if you recapture with the queen, c1 is unguarded.
+Qxc3: Take back. This is the final mistake.
+@london-1e5-d6 | 2 | 1...e5 2.dxe5 d6: the second pawn offer | Take on d6 and develop with Nf3 and Bg5. Black has given a pawn for a quick ...Bd6.
+d6: Black offers a second pawn to open lines.
+@london-1e5-d6-nc6 | 2 | 1...e5 2.dxe5 d6 3.exd6 Bxd6 4.Nf3 Nc6: Bg5 | Bg5 stops ...Nf6 tricks: ...f6 is forced into a passive shape.
+f6: Black kicks the bishop, weakening the king.
+@london-1e5-d6-bg4 | 2 | 1...e5 2.dxe5 d6 3.exd6 Bxd6 4.Nf3 Bg4: the pin | Nbd2 supports f3 and heads for c4.
+@london-1e5-f6 | 2 | 1...e5 2.dxe5 f6: the Soller | Take on f6 and Nf3. After ...d5, Bxf6 and Nc3 press d5 while you stay a pawn up.
+Bxf6: Remove the guard of d5.
+Qxf6: Black has to take back.
+Nc3: Hit d5 and stay a pawn up. Not Qxd5?, because ...Qxb2 wins the pawn back with tempo.
+@london-1e5-nc6-nge7 | 2 | 1...e5 2.dxe5 Nc6 3.Nf3 Nge7: Black hits e5 | Bf4 holds e5. Then if ...Ng6 Bg3, and the Qd5 central queen keeps the pawn.
+Qd5: Centralise the queen and guard e5.
+@london-1e5-nc6-bc5 | 2 | 1...e5 2.dxe5 Nc6 3.Nf3 Bc5: ...Qe7 next | Bf4 and Nc3. Then exd6 leaves you a clean pawn up.
+@london-1e5-nc6-d6 | 2 | 1...e5 2.dxe5 Nc6 3.Nf3 d6: open lines | Take on d6. Nc3 and Bg5 finish development, and Black's bishop on d6 gets no time.
+@london-1e5-nc6-d6-bg4 | 2 | 1...e5 2.dxe5 Nc6 3.Nf3 d6 4.exd6 Bxd6 5.Nc3 Bg4: the pin | Bg5 first, then Bd2 and e3: the pin on f3 cannot hurt you with so many defenders.
+@london-1e5-nc6-f6 | 2 | 1...e5 2.dxe5 Nc6 3.Nf3 f6: the second gambit | e4 is strongest: take the centre, then Bc4 and Ng5 attack f7.
+Bc4: Attack f7 straight away, where ...f6 has weakened Black the most.
+Ng5: Head for f7: with the bishop's support, Nf7 forks queen and rook.
+Na5: Black hits the bishop.
+Bd3: Keep the bishop. Black can regain d5 with ...Qxd5, but your lead in development remains.
+@london-1e5-bc5 | 2 | 1...e5 2.dxe5 Bc5: fast development | Nf3, Bf4 and Nc3 hold everything. If ...d6, exd6 and Qxd6 win more pawns.
+Bc5: Black develops and aims at f2, ahead of ...Qe7.
+Be6: Black develops and covers c4 and d5.
+Bb6: The bishop retreats to stay on the diagonal.
+Qxd6: Take the loose pawn: you are two pawns up.
+@london-1e5-bc5-d6 | 2 | 1...e5 2.dxe5 Bc5 3.Nf3 d6: the same pawn | Take on d6, recapture on d6 is the same position as the 2...d6 line.
+@london-1e5-bc5-ne7 | 2 | 1...e5 2.dxe5 Bc5 3.Nf3 d6 4.exd6 Ne7: leave c7 alone | Do not grab c7: dxc7 runs into ...Bxf2+ and ...Qxd1. Nc3 keeps two extra tempi, and a3 and b4 chase the bishop.
+Nc3: Develop. Not dxc7?, because ...Bxf2+ uncovers the queen on your queen.
+@london-1e5-qe7 | 2 | 1...e5 2.dxe5 Qe7: straight for e5 | Nf3 and Bf4 hold. Then ...Qb4+ Bd2 hits the queen, and Nc3 and e4 complete development.
+Qe7: Black wants the e5 pawn back.
+Nf6: Black develops and adds to e4.
+f4: Hit the queen and grab space; you are comfortably ahead in development.
+@london-1f5 | 2 | 1...f5: the Dutch | e3, Nf3, h3 and Bd3 is the familiar set-up. Black's ...f5 takes e4, so c3 and Nbd2 prepare to contest it.
+
+@london-1e5-d5 | 2 | 1...e5 2.dxe5 d5: en passant | Take en passant, and you are in the 2...d6 line.
+@london-1nf6-nc6 | 2 | 1...Nf6 2.Bf4 Nc6: the same set-up | ...d5 reaches the 3...Nc6 lines. c3 and Nbd2 as usual.
+@london-1nf6-c6 | 2 | 1...Nf6 2.Bf4 c6: the Slav | ...d5 and ...Bf5 lead to the c4 and Qb3 plan.

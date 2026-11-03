@@ -17,8 +17,10 @@
 
   <nav class="tabs" role="tablist" aria-label="Sections">
     <button class="tab active" data-tab="openings" role="tab">Openings<span id="due-badge" class="badge hidden"></span></button>
+    <button class="tab" data-tab="elo" role="tab">Lessons</button>
     <button class="tab" data-tab="puzzles" role="tab">Puzzles</button>
     <button class="tab" data-tab="play" role="tab">Play</button>
+    <button class="tab" data-tab="games" role="tab">Games</button>
     <button class="tab" data-tab="analyze" role="tab">Analyze</button>
     <button class="tab" data-tab="progress" role="tab">Progress</button>
   </nav>
@@ -44,6 +46,8 @@
     </button>
   </div>
 </header>
+
+<div class="el-view hidden" id="panel-elo"></div>
 
 <main class="layout">
   <section class="board-col">
@@ -88,9 +92,9 @@
     <div class="panel-stack" id="panel-openings">
       <div class="panel repertoire" id="repertoire">
         <button class="fold-head" id="rep-toggle" aria-expanded="true" aria-controls="rep-body">
-          <span class="eyebrow">Repertoire</span>
+          <span class="rep-label" id="rep-label"></span>
           <span class="muted small" id="mastery-count"></span>
-          <svg viewBox="0 0 24 24" class="chev" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none"/></svg>
+          <span class="rep-back" id="rep-back"></span>
         </button>
         <div class="rep-body" id="rep-body">
           <div id="review-strip" class="review-strip"></div>
@@ -129,14 +133,25 @@
       </div>
 
       <div class="panel lesson">
-        <div class="fam">
+        <div class="lesson-head">
           <div class="otitle"><b id="family-title"></b></div>
           <div id="family-moves" class="fam-moves"></div>
+          <button id="lesson-review" class="primary hidden" title="Drill every line that is due, back to back"></button>
+        </div>
+        <div class="seg otabs" id="otabs" role="tablist" aria-label="Opening">
+          <button class="seg-btn" data-otab="train" role="tab" title="Study, learn or drill the current line">Train</button>
+          <button class="seg-btn" data-otab="lines" role="tab" title="Every line, trap and mistake in this opening">Lines <span class="count" id="otab-lines"></span></button>
+          <button class="seg-btn" data-otab="plan" role="tab" title="The middlegame: the pawn structure, both sides' plans, and practice from your lines">Plan</button>
+          <button class="seg-btn" data-otab="about" role="tab" title="The idea, the most played lines, real-game results, history">About</button>
+          <button class="seg-btn" data-otab="coach" role="tab" title="Ask about this position">Coach</button>
+        </div>
+        <div class="opane fam" data-pane="about">
           <p id="family-idea" class="idea"></p>
-          <details class="masters popular hidden" id="popular">
+          <details class="masters popular hidden" id="popular" open>
             <summary id="pop-sum">Most played in real games</summary>
             <div id="pop-body" class="pop-body"></div>
           </details>
+          <button id="danya-family" class="hidden">Danya's puzzles for this opening</button>
           <details class="masters" id="masters">
             <summary>From the masters</summary>
             <ul id="masters-list"></ul>
@@ -146,28 +161,35 @@
             <div id="rg-body" class="rg-body"></div>
           </details>
         </div>
+        <div class="opane" data-pane="lines">
         <div class="branches-head"><span class="eyebrow">Branches</span><span class="muted small" id="branch-count"></span></div>
         <div class="seg sections" id="sections" role="group" aria-label="Section"></div>
         <div id="section-hint" class="section-hint muted small"></div>
         <div id="branches" class="branches"></div>
+        </div>
+        <div class="opane" data-pane="plan"><div id="mg" class="mg hidden"></div></div>
+        <div class="opane" data-pane="train">
         <div class="odetail">
-          <div class="line-title"><b id="opening-title"></b></div>
+          <div class="line-row"><div class="line-title"><b id="opening-title"></b></div><button class="linkish small" id="to-lines">Change line</button></div>
           <div id="opening-level" class="muted small"></div>
           <p id="opening-idea" class="idea"></p>
+          <div class="train-ctl">
+          <div class="seg" role="radiogroup" aria-label="Training mode">
+            <button class="seg-btn active" data-omode="study" title="Step through the line with the reasoning for every move">Study</button>
+            <button class="seg-btn" data-omode="learn" title="Play the line yourself with arrows showing each move">Learn</button>
+            <button class="seg-btn" data-omode="drill" title="Play the line from memory; a clean run moves it up a review box">Drill</button>
+          </div>
           <div class="seg side-seg" id="side-seg" role="radiogroup" aria-label="Which side you practise">
             <button class="seg-btn" data-flip="0" role="radio"></button>
             <button class="seg-btn" data-flip="1" role="radio"></button>
           </div>
-          <div id="flip-hint" class="flip-hint small hidden"></div>
-          <div class="seg" role="radiogroup" aria-label="Training mode">
-            <button class="seg-btn active" data-omode="study">Study</button>
-            <button class="seg-btn" data-omode="learn">Learn</button>
-            <button class="seg-btn" data-omode="drill">Drill</button>
           </div>
+          <div id="flip-hint" class="flip-hint small hidden"></div>
           <div id="omode-hint" class="muted small"></div>
         </div>
         <div id="study" class="study hidden" aria-live="polite"></div>
         <div id="opening-note" class="note"></div>
+        </div>
       </div>
     </div>
 
@@ -180,8 +202,13 @@
       </div>
       <div class="seg" role="radiogroup" aria-label="Puzzle source">
         <button class="seg-btn active" data-psrc="lichess">Lichess puzzles</button>
+        <button class="seg-btn" data-psrc="danya">Danya's openings</button>
         <button class="seg-btn" data-psrc="mistakes">My mistakes <span id="mistake-count" class="count"></span></button>
       </div>
+      <div id="pz-lesson" class="note hidden"></div>
+      <label class="field hidden" id="pz-danya-field">Opening
+        <select id="pz-danya"></select>
+      </label>
       <label class="field" id="pz-theme-field">Theme
         <select id="pz-theme">
           <option value="mix">Mixed</option>
@@ -194,6 +221,22 @@
           <option value="discoveredAttack">Discovered attacks</option>
           <option value="opening">Opening tactics</option>
           <option value="endgame">Endgames</option>
+          <option value="pawnEndgame">Pawn endgames</option>
+          <option value="rookEndgame">Rook endgames</option>
+          <option value="knightEndgame">Knight endgames</option>
+          <option value="bishopEndgame">Bishop endgames</option>
+          <option value="advancedPawn">Advanced pawns</option>
+          <option value="promotion">Promotion</option>
+          <option value="zugzwang">Zugzwang</option>
+          <option value="mateIn3">Mate in 3</option>
+          <option value="kingsideAttack">Kingside attacks</option>
+          <option value="exposedKing">Exposed king</option>
+          <option value="sacrifice">Sacrifices</option>
+          <option value="deflection">Deflection</option>
+          <option value="capturingDefender">Remove the defender</option>
+          <option value="intermezzo">In-between moves</option>
+          <option value="defensiveMove">Defensive moves</option>
+          <option value="crushing">Finish a won position</option>
         </select>
       </label>
       <div id="pz-status" class="pz-status"></div>
@@ -224,11 +267,17 @@
         <button id="btn-newgame" class="primary grow">New game</button>
         <button id="btn-resign">Resign</button>
       </div>
+      <button id="btn-sf" disabled title="Available on your turn, at the current position">Show Stockfish's move</button>
+      <div id="sf-note" class="muted small hidden">Using it halves this game's XP, and the move won't count toward your accuracy.</div>
+      <div id="sf-card" class="sf-card hidden" aria-live="polite"></div>
       <div id="play-note" class="note"></div>
+      <details id="play-plan" class="mg play-plan hidden" open></details>
     </div>
 
     <!-- Analyze -->
     <div class="panel hidden" id="panel-analyze">
+      <div id="review" class="review"></div>
+      <div id="analyze-free" class="review">
       <div class="olist-head"><span class="eyebrow">Stockfish top lines</span><span class="muted small">click a line to play its first move</span></div>
       <div id="lines" class="lines"></div>
       <label class="field">Load a position
@@ -239,7 +288,11 @@
         <button id="btn-copyfen">Copy FEN</button>
         <button id="btn-copypgn">Copy PGN</button>
       </div>
+      </div>
     </div>
+
+    <!-- Games: every game played, see games.js -->
+    <div class="panel hidden" id="panel-games"></div>
 
     <!-- Progress -->
     <div class="panel hidden" id="panel-progress"></div>

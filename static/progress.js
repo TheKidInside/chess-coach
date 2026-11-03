@@ -5,13 +5,13 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 function niceDate(day) { const [, m, d] = day.split('-').map(Number); return `${MONTHS[m - 1]} ${d}`; }
 
-export function renderProgress(el, openings, onGoalChange, onOpenGame) {
+export function renderProgress(el, openings, onGoalChange, onOpenGame, onAllGames) {
   const d = P.data;
   const lvl = levelOf(d.xp);
   const lo = levelStart(lvl), hi = levelStart(lvl + 1);
   const mastered = openings.filter((o) => (d.openings[o.id]?.box || 0) >= MASTERED_BOX).length;
   const started = openings.filter((o) => d.openings[o.id]).length;
-  const recent = d.games.slice(0, 10);
+  const recent = d.games.filter((g) => g.acc != null).slice(0, 10);
   const avgAcc = recent.length ? Math.round(recent.reduce((a, g) => a + (g.acc || 0), 0) / recent.length) : null;
   const pz = d.puzzles;
 
@@ -34,7 +34,7 @@ export function renderProgress(el, openings, onGoalChange, onOpenGame) {
     ${heatmap(d.days, d.goal)}
     <div class="card-head"><span class="eyebrow">Puzzle rating</span><span class="muted small">${pz.history.length ? `last ${Math.min(60, pz.history.length)} puzzles` : ''}</span></div>
     <div class="chartbox" id="pz-chart">${pz.history.length >= 2 ? '' : '<div class="empty">Solve a few puzzles to see your rating trend.</div>'}</div>
-    <div class="card-head"><span class="eyebrow">Recent games</span></div>
+    <div class="card-head"><span class="eyebrow">Recent games</span><button class="linkish small" id="all-games">All ${d.games.length} games</button></div>
     ${gamesTable(d.games.slice(0, 8))}
     <div class="goalset">Daily goal
       <select id="goal-select" aria-label="Daily XP goal">
@@ -44,7 +44,8 @@ export function renderProgress(el, openings, onGoalChange, onOpenGame) {
     </div>`;
 
   if (pz.history.length >= 2) ratingChart(el.querySelector('#pz-chart'), pz.history.slice(-60));
-  el.querySelector('#goal-select').onchange = (e) => { d.goal = +e.target.value; save(); onGoalChange(); };
+  el.querySelector('#all-games').onclick = onAllGames;
+  el.querySelector('#goal-select').onchange = (e) => { P.data.goal = +e.target.value; save(); onGoalChange(); };
   el.querySelectorAll('.games tbody tr').forEach((tr) => {
     const g = d.games[+tr.dataset.i];
     if (g && g.pgn) tr.onclick = () => onOpenGame(g.pgn);
@@ -68,11 +69,11 @@ function heatmap(days, goal) {
 }
 
 function gamesTable(games) {
-  if (!games.length) return '<div class="empty">Finish a game in the Play tab and it shows up here with your accuracy.</div>';
-  const res = { win: ['Won', 'res-w'], loss: ['Lost', 'res-l'], draw: ['Draw', ''] };
+  if (!games.length) return '<div class="empty">Play a game in the Play tab and it shows up here.</div>';
+  const res = { win: ['Won', 'res-w'], loss: ['Lost', 'res-l'], draw: ['Draw', ''], unfinished: ['Unfinished', 'muted'] };
   return `<table class="games"><thead><tr><th>Date</th><th>You</th><th>Opponent</th><th>Result</th><th>Accuracy</th></tr></thead><tbody>${
     games.map((g, i) => `<tr data-i="${i}" title="Open in Analyze"><td>${niceDate(g.date)}</td><td>${g.color === 'w' ? 'White' : 'Black'}</td><td>${esc(g.oppLabel || g.elo)}</td>` +
-      `<td class="${res[g.result][1]}">${res[g.result][0]}${g.resigned ? ' (resigned)' : ''}</td><td>${g.acc ?? '–'}%${g.takebacks ? ` <span class="muted">· ${g.takebacks} TB</span>` : ''}</td></tr>`).join('')
+      `<td class="${res[g.result][1]}">${res[g.result][0]}${g.resigned ? ' (resigned)' : ''}</td><td>${g.acc == null ? '–' : `${g.acc}%`}${g.takebacks ? ` <span class="muted">· ${g.takebacks} TB</span>` : ''}${g.peeks ? ` <span class="muted">· ${g.peeks} shown</span>` : ''}</td></tr>`).join('')
   }</tbody></table>`;
 }
 

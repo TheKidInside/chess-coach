@@ -1,0 +1,170 @@
+# Caro-Kann: every common White try, for Black.
+@carokann-class-nf3 | 2 | Classical with 6.Nf3 before h4 | The same system as the main line in another order: Nd7, h6 when h4 comes, swap on d3, then ...e6, ...Ngf6 and ...Be7.
+Nd7: Black is ready for ...Ngf6, and it stops Ne5 for now.
+h6: Give the bishop h7 so h5 does not trap it.
+Be7: Solid: castle next, or stay flexible with ...Qc7 and ...O-O-O.
+@carokann-class-ng5 | 2 | Classical with 5.Ng5: the leap | Ng5 is a tricky move. ...h6 sends it back and ...e6 stays solid. Swap the bishops, then trade off the e5-knight.
+Ng5: A tricky jump: it eyes f7 and e6 and hopes you panic.
+h6: Kick it: it has to move again, so White loses time.
+@carokann-class-nc5 | 2 | Classical with 5.Nc5: b7 under fire | Nc5 attacks b7. ...b6 sends the knight back with a gain of time, then ...e6 and ...Nd7 finish development.
+b6: Attack the knight: this also guards b7 for free.
+@carokann-class-bd3-traps | 2 | Classical with 5.Qf3: the early queen | The queen hits f5, but ...e6 and ...Qd5 lead to a queen trade in your favour: c6 recapturing gives you a sound structure.
+Qd5: Offer a trade: White's queen came out early and you now have a safe game.
+Bxe4: Trade your bishop for the knight and force the queens off.
+Qxd5: The queens come off, leaving you with no opening problems.
+cxd5: Recapture: your structure is fine, and White has no initiative.
+@carokann-class-bc4 | 2 | 4.Bc4: a gambit | Bc4 gives a pawn. Take it with ...Nf6 and f3, then ...exf3 Nxf3. After ...Bf5 and ...e6 you stay a pawn up, solid.
+Nf6: Hold the extra pawn: the knight guards e4.
+@carokann-class-f3 | 3 | 4.f3: the Blackmar-Diemer type | Accept with ...exf3. After Nxf3 Bg4, h3 and Bxf3, ...Qxd4 grabs a second pawn. Black's queen checks on h4 and then gets back to f6, safely ahead.
+Bg4: Pin the knight, the defender of d4.
+Bxf3: Remove the defender, because the d4 pawn is now loose.
+Qxd4: Take d4: you are two pawns up, and now it is only a matter of defending.
+@carokann-karpov-nf3 | 1 | Karpov 5.Nf3 Ngf6 6.Nxf6+ | Trade on f6, then Bf5 and ...e6. Solid and comfortable: your bishop gets outside before ...e6.
+Ngf6: Challenge the e4-knight at once.
+@carokann-karpov-ng3 | 2 | Karpov 5.Nf3 Ngf6 6.Ng3 | The knight retreats. ...e6, then ...c5 and ...Bc5 finish a quick development.
+@carokann-karpov-bd3 | 2 | Karpov 5.Bd3 Ngf6 6.Ng5 | Another Ng5 trick: ...e6 holds, Bd6 and ...h6. The traps here are on f7 and e6, so do not rush ...h6.
+@carokann-nd2-exch | 2 | 3.Nd2 dxe4 ...: Ne5 tries | After Nd2 the structure is the same as 3.Nc3. Ne5 can be answered by ...Be6 and ...g6, then the bishop comes to g7.
+Be6: The bishop finds a home when f5 is unavailable.
+g6: The second bishop will go to g7.
+@carokann-adv-bd3 | 1 | Advance 4.Bd3: the bishop trade | White gives up the light bishop, your Caro-Kann problem piece. After Bxd3, Qxd3 you are already comfortable: ...e6, ...Qb6 and ...c5.
+Bd3: White trades off your bad-looking bishop, and hands you an easy game. || White is giving up a good attacking piece for a bishop that has always been your problem. Take the gift.
+@carokann-adv-bd3-f4 | 2 | Advance 4.Bd3 Bxd3 5.Qxd3 e6 6.f4 | f4 grabs space, but ...c5 and ...Qb6 attack the base. The h6 knight heads for f5.
+@carokann-adv-bd3-ne2 | 2 | Advance 4.Bd3 Bxd3 5.Qxd3 e6 6.Ne2 | Same plan: ...c5, ...Nc6 and ...Qb6 against d4.
+@carokann-adv-h4 | 2 | Advance 4.h4: the Tal | The pawn hunts your bishop, so stop it with ...h5. Then ...e6, ...Ne7 and ...dxc4 if White pushes c4.
+h4: The Tal idea: h5 and g4 next would trap or harass your bishop.
+h5: Stop it dead. The g5 hole is real but less important than the safety of your bishop.
+Ng3: The knight hits your bishop and holds the kingside.
+@carokann-adv-h4-bd3 | 2 | Advance 4.h4 h5 5.Bd3 | The same trade as 4.Bd3, but with the kingside pawns moved. ...e6 and ...c5 as usual.
+@carokann-adv-f4 | 2 | Advance 4.f4: extra space | f4 backs e5 but leaves dark-squared holes. Play ...e6, ...c5 and ...Qb6 against the d4-pawn.
+@carokann-adv-f4-bd3 | 2 | Advance 4.f4 e6 5.Bd3 | Trade on d3, then ...c5 and ...Qb6. The knight goes to h6 and f5.
+@carokann-adv-nc3 | 3 | Advance 4.Nc3 e6 5.g4: the Shirov | g4 hits the bishop, then Nge2. ...Bg6, ...c5 and ...Nc6 strike back at d4 at the right moment.
+g4: Shirov's sharp idea: space and a chase for your bishop.
+Nge2: The knight holds d4 and prepares Nf4 against g6.
+@carokann-adv-c3 | 1 | Advance 4.c3: the slow way | Quiet and solid: ...e6, then the trade on d3 and ...c5, ...Nc6 and ...Qb6.
+@carokann-adv-c4 | 2 | Advance 4.c4: the pawn move | c4 weakens d4 and leaves the structure loose. Take on c4 with ...dxc4, then ...Nd7, ...Ne7 and ...Nb6.
+c4: White hits d5 from the side, at the risk of losing d4 later.
+@carokann-adv-nf3-bd3 | 1 | Advance 5.Bd3: Short System | Trade bishops, then ...Qb6 and ...c5. Your Caro-Kann problem bishop is gone.
+@carokann-adv-nf3-nc3 | 2 | Advance 5.Nc3 Ne7 | Develop with ...Ne7, ...Nd7 and ...h6, keeping the bishop safe from g4-f4 ideas.
+@carokann-adv-nf3-c3 | 2 | Advance 5.c3 c5 6.Be3 | ...Qb6 attacks b2 with Be3 unable to move easily. Qa4+ is met by ...Nc6, and ...Rc8 and ...a6 kick the bishop.
+Qa4+: White checks, trying to avoid the trade.
+Rc8: The rook guards the knight and prepares ...a6.
+Bxc6+: White gives up the bishop; recapture with the queen.
+@carokann-adv-nf3-c4 | 2 | Advance 5.c4 | Take on c4 to win time on the bishop, then ...Nd7, ...Ne7 and ...Nb6 hit c4.
+@carokann-panov | 1 | Panov 4.c4 Nf6 5.Nc3 e6: Bb4 against the IQP | White accepts an isolated d-pawn for piece activity. Blockade on d5, swap pieces, and press d4.
+c4: The Panov: White accepts an isolated d-pawn for active pieces.
+cxd5: White trades, and you recapture with the knight.
+@carokann-panov-nf3 | 2 | Panov 4.c4 Nf6 5.Nf3 e6 | The same system. ...dxc4 Bxc4 and ...b6 and ...Bb7 target the isolated pawn.
+b6: The bishop goes to b7 to pressure d5 from afar.
+@carokann-exch-nf3 | 1 | Exchange 4.Nf3 Nc6 5.c3 | The modern approach: White plays Bf4 and Bd3 setup. ...Bg4, ...e6, ...Bd6 trade and equalise.
+Bg4: Pin the knight outside the chain before ...e6.
+Bxd6: White trades the dark bishops.
+@carokann-exch-nf3-bb5 | 2 | Exchange 4.Nf3 Nc6 5.Bb5 | Pin with Bb5: just develop: ...Nf6, ...e6 and ...Be7. Your king is safe after castling.
+@carokann-exch-nf3-c4 | 2 | Exchange 4.Nf3 Nc6 5.c4: Panov by transposition | The usual: ...Nf6, ...e6. Recapture with the e-pawn here to keep your bishop on d6 active.
+@carokann-exch-nf3-be2 | 2 | Exchange 4.Nf3 Nc6 5.Be2 | ...Nf6, ...Bg4, ...e6 and ...Bd6.
+@carokann-exch-nf3-nc3 | 2 | Exchange 4.Nf3 Nc6 5.Nc3 | ...Nf6, Bb5, ...e6, ...Be7.
+@carokann-exch-nf3-h3 | 2 | Exchange 4.Nf3 Nc6 5.h3 | h3 rules out ...Bg4, so you develop ...Nf6 and ...e6 instead.
+@carokann-exch-nc3 | 2 | Exchange 4.Nc3 Nf6 5.Nf3 | ...Bg4, ...e6, ...Nc6 and ...Bd6.
+@carokann-exch-nc3-bg5 | 2 | Exchange 4.Nc3 Nf6 5.Bg5 | Pin: ...Nc6, ...Bg4, ...e6 and ...Be7.
+@carokann-exch-c3 | 2 | Exchange 4.c3 Nc6 5.Bd3 | ...Nf6, ...Bg4, ...e6 and ...Bd6.
+@carokann-exch-bb5 | 2 | Exchange 4.Bb5+ | Block with ...Nc6, develop with ...Nf6, ...e6 and ...Bd6.
+@carokann-exch-bd3-nf3 | 2 | Exchange 4.Bd3 Nc6 5.Nf3 | ...Nf6, ...Bg4, ...e6 and ...Bd6.
+@carokann-exch-h3 | 2 | Exchange 6.h3: the ...e5 break | h3 stops ...Bg4, but it gives you time for ...e5. Trade pieces and aim for an easy ending.
+e5: Break! With h3 played instead of Bf4, ...e5 is possible.
+@carokann-fantasy | 2 | 3.f3: the Fantasy | ...dxe4 fxe4 e5! hits the centre. After Nf3 exd4 Bc4, ...Nd7 is the safe way, then ...Ngf6, ...Nb6 and ...Be6.
+f3: The Fantasy: White builds a big centre, but f3 takes the knight's square and weakens the king.
+e5: Immediately strike: ...e5 opens the centre before White has developed.
+Bc4: White gambits d4 to attack f7.
+Nd7: Calm and correct: this avoids the ...Bb4+ trap, and defends along the second rank.
+@carokann-fantasy-trap | 3 | Fantasy trap: 6...Bb4+? 7.c3 dxc3? 8.Bxf7+! | ...Bb4+ and ...dxc3 lose to Bxf7+. Don't grab: f7 is guarded only by the king, and ...Nd7 first is the correct move order.
+@carokann-fantasy-e6 | 2 | 3.f3 e6: a French-like way | ...e6 and ...Bb4 pin the knight. Then ...Ne7, castle, and ...Ba5, ...b5 for queenside play.
+@carokann-tk-exd5 | 2 | 2.Nc3 d5 3.exd5 cxd5 4.d4 | ...Nf6, ...Bg4, ...e6, ...Nc6 and ...Bd6 give an easy game, like the Exchange.
+@carokann-tk-exd5-nf3 | 2 | 2.Nc3 d5 3.exd5 cxd5 4.Nf3 | ...Nf6, ...Bg4, then ...Bxf3 and ...e6.
+@carokann-tk-exd5-bb5 | 2 | 2.Nc3 d5 3.exd5 cxd5 4.Bb5+ | Block with ...Nc6, then ...Nf6, ...e6 and ...Bd6.
+@carokann-tk-exd5-bg4 | 2 | 2.Nc3 d5 3.Nf3 Bg4 4.exd5 | ...cxd5 and Bb5+ Nc6. Then h3 Bxf3, Qxf3 e6 and ...Nf6.
+@carokann-tk-d4 | 2 | 2.Nc3 d5 3.Nf3 Bg4 4.exd5 cxd5 5.d4 | ...Nf6, ...e6, ...Nc6 and ...Bd6: a good Exchange structure.
+@carokann-tk-be2 | 2 | 2.Nc3 d5 3.Nf3 Bg4 4.Be2 | ...e6, ...Nf6, and when e5 comes, take on f3 and ...Nfd7. Then ...c5.
+@carokann-tk-e5 | 2 | 2.Nc3 d5 3.e5 | Bf5 and ...e6, like an Advance. Your bishop is already out.
+@carokann-tk-d3 | 2 | 2.Nc3 d5 3.d3 | Take on e4, trade queens, and the ending is equal, with White having lost castling.
+@carokann-tk-qf3 | 2 | 2.Nc3 d5 3.Qf3 | ...dxe4, ...Nd7 and ...Ngf6. The early queen helps you get ...g6 and ...Bg7 with tempo.
+@carokann-2nf3 | 1 | 2.Nf3 d5 3.exd5 cxd5 4.d4 | This is the Exchange: ...Nc6, ...Nf6, ...Bg4 and ...e6. The most common way to reach it.
+@carokann-2nf3-c4 | 2 | 2.Nf3 d5 3.exd5 cxd5 4.c4 Nf6 5.cxd5 | ...Nf6 and ...Nxd5 recover it. ...Nc6 and ...Bf5, then ...Rc8.
+@carokann-2nf3-c4-nc3 | 2 | 2.Nf3 d5 3.exd5 cxd5 4.c4 Nf6 5.Nc3 d4 | Gain space with ...d4 and force the knight to e2.
+@carokann-2nf3-bb5 | 2 | 2.Nf3 d5 3.exd5 cxd5 4.Bb5+ | Trade bishops, ...Nxd7, and then the usual ...Ngf6 and ...e6.
+Nxd7: Recapture with the knight, which is well placed for ...Ngf6.
+@carokann-2nf3-e5 | 2 | 2.Nf3 d5 3.e5 Bg4 4.h3 | ...Bxf3 and ...e6, ...c5. An Advance where the knight is gone from f3.
+@carokann-2nf3-e5-d4 | 2 | 2.Nf3 d5 3.e5 Bg4 4.d4 | ...e6, ...c5 and ...Nc6, ...Qb6 press d4.
+@carokann-2nf3-e5-h3 | 2 | 2.Nf3 d5 3.e5 Bg4 4.d4 e6 5.h3 | Bh5 keeps the pin. After that the plan does not change.
+@carokann-2nf3-e5-be2 | 2 | 2.Nf3 d5 3.e5 Bg4 4.Be2 | Take on f3, then ...e6 and ...c5.
+@carokann-2nf3-d3 | 2 | 2.Nf3 d5 3.Nc3 Bg4 | The Two Knights by another order. ...Bxf3, ...Nf6 and ...dxe4.
+@carokann-2nf3-d3b | 2 | 2.Nf3 d5 3.d3 dxe4 4.dxe4 | Trade queens with ...Qxd1+. Then ...Bg4, ...Nd7 and ...Bxf3. Then ...g6 and ...Bh6 with a nice ending.
+@carokann-2nf3-d3-ng5 | 2 | 2.Nf3 d5 3.d3 dxe4 4.Ng5: gambit | Take on d3, then ...Qa5+ and ...Nf6 keep it simple: h7 and f7 are safe.
+@carokann-2bc4 | 2 | 2.Bc4 d5 3.exd5 cxd5 4.Bb5+ | Trade bishops with ...Bd7, then ...Qxd7, ...Nc6 and ...Nf6. Your bad bishop is gone already.
+d5: Attack the bishop and the e4-pawn. This is why 2.Bc4 is not a threat.
+@carokann-2bc4-bb3 | 2 | 2.Bc4 d5 3.exd5 cxd5 4.Bb3 | Normal development: ...Nf6, ...Nc6, ...Bg4 and ...e6.
+@carokann-2bc4-bb3-d4 | 2 | 2.Bc4 d5 3.exd5 cxd5 4.Bb3 Nf6 5.d4 | The same plan: ...Nc6, ...Bg4 and ...e6.
+@carokann-2bc4-bd3 | 2 | 2.Bc4 d5 3.Bb3 dxe4 4.Qh5: the queen attack | Take on e4. ...g6 kicks the queen, then ...Nf6, ...Bf5 and ...Bg7.
+g6: Drive the queen away: it has nothing else to attack.
+@carokann-2f4 | 2 | 2.f4 d5 3.e5 | An Advance with f4: ...Bf5, ...e6 and ...c5, ...Nc6, ...Qb6.
+@carokann-2f4-exd5 | 2 | 2.f4 d5 3.exd5 cxd5 4.d4 | ...Nf6, ...Bg4 and ...e6. The e4 square is a real hole in White's position.
+@carokann-2f4-exd5-nf3 | 2 | 2.f4 d5 3.exd5 cxd5 4.Nf3 | Same plan: ...Nf6, ...Bg4, ...e6 and ...Bd6.
+@carokann-2d3 | 2 | 2.d3 d5 3.Nd2: King's Indian Attack | ...e5, ...Bd6 and ...Nf6 grab a broad centre. Re8 and ...Nbd7 then come.
+d3: The King's Indian Attack: White postpones the centre fight.
+@carokann-2d3-exd5 | 2 | 2.d3 d5 3.exd5 | ...cxd5, ...Nc6, ...Nf6 and ...e6: comfortable.
+@carokann-2d3-e5 | 2 | 2.d3 d5 3.e5 | ...Bf5, then ...e6 and ...c5: an Advance where White lost a move on d3-d4.
+@carokann-2d3-nf3 | 2 | 2.d3 d5 3.Nf3 dxe4 4.dxe4 | Same ending as the 2.Nf3 line.
+@carokann-2c4 | 2 | 2.c4 d5 3.exd5 cxd5 4.cxd5 | ...Nf6 and if Bb5+, ...Nbd7. Then ...a6 and ...Rb8 win the d5 pawn back.
+Rb8: The rook steps aside, freeing ...b5 to kick the bishop and regain the pawn.
+@carokann-2c4-nc3 | 2 | 2.c4 d5 3.exd5 cxd5 4.cxd5 Nf6 5.Nc3 | ...Nxd5 regains the pawn; ...Nc6, ...e6 and ...Be7 come next.
+@carokann-2c4-cxd5 | 2 | 2.c4 d5 3.cxd5 | Same plan: ...cxd5, ...Nf6 and if Bb5+ ...Nbd7.
+@carokann-2c4-d4 | 2 | 2.c4 d5 3.exd5 cxd5 4.d4 | This is the Panov. ...Nf6, ...e6, ...Bb4 and ...Nc6.
+@carokann-2f4-nc3 | 2 | 2.f4 d5 3.Nc3 | ...dxe4 and ...Nd7, ...Ngf6. ...e6 and ...c5 complete the plan.
+@carokann-2e5 | 2 | 2.e5 d6: strike at once | ...d6 hits the pawn. After exd6 exd6 White's structure has no center pawn left.
+e5: An offbeat advance: it takes squares but does nothing yet.
+d6: Attack the pawn at once.
+exd6: Recapture toward the centre, the structure is symmetrical and level.
+Bg4: Develop outside the chain.
+
+# Black's own alternatives, and the replies they bring.
+@carokann-tartakower | 2 | 4...Nf6 5.Nxf6+ exf6: Tartakower, 6.Bc4 | Recapture with the e-pawn for quick development: ...Bd6, ...O-O and ...Bg4. White's queenside majority is the long-term issue, so keep the pieces active.
+Nf6: Challenge the e4-knight straight away, ready to recapture on f6 either way.
+@carokann-tartakower-nf3 | 2 | Tartakower 6.Nf3 | The same plan: ...Bd6, castle and ...Bg4, and the knight comes to d7.
+@carokann-tartakower-c3 | 2 | Tartakower 6.c3 | ...Bd6, castle, ...Re8 and ...Nd7. The e-file is yours.
+@carokann-tartakower-qc2 | 2 | Tartakower 6.c3 Bd6 7.Bd3 O-O 8.Qc2 | ...Re8+ gains a move before ...h6 stops the h7 mate threat.
+Re8+: Check first, which forces Ne2 or a king move.
+h6: Stop Qxh7+ ideas: the h7 pawn was the target.
+@carokann-bronstein | 3 | 4...Nf6 5.Nxf6+ gxf6: Bronstein-Larsen | Recapture with the g-pawn for a sharper game: ...Bf5, ...e6 and the g-file. The structure is split, so expect White's edge on the board and fight with activity.
+@carokann-bl-ng5 | 2 | 4...Nf6 5.Ng5 | ...h6 kicks the knight, and Nxf7 fails to Kxf7. After N5f3, ...Bg4 and ...Nbd7. Trade on f3 when h3 asks.
+N5f3: The knight goes back; White has spent time on it.
+@carokann-bl-ng5-nxf7 | 2 | 4...Nf6 5.Ng5 h6 6.Nxf7?: a piece for a pawn | White sacrifices on f7, a real-game favourite. Take it, then ...Bf5 and ...e6: you are a piece up for one pawn and an exposed king.
+h6: Kick the knight. Real games show 6.Nxf7 very often, and it does not work.
+Nxf7: White gives the knight for one pawn and hopes for an attack on your king.
+Kxf7: Take it: you are a piece up.
+Bc4+: White checks and brings the bishop in.
+@carokann-bl-ng3 | 2 | 4...Nf6 5.Ng3: the ...e5 break | ...e5 at once: Black gets a free game. After Nf3 exd4 and the queen trade, ...Bc5 and castling leave you equal.
+@carokann-adv-c5 | 2 | 3...c5: Botvinnik-Carls, 4.dxc5 | The direct way: ...c5 before ...Bf5. After dxc5 e6 and ...Bxc5 you have active pieces and no problem bishop.
+@carokann-adv-c5-c3 | 2 | 3...c5 4.c3 Nc6 5.Nf3 | ...Bg4, ...e6 and ...Nge7. Your bishop is out before the chain closes.
+@carokann-adv-c5-nf3 | 2 | 3...c5 4.Nf3 | ...Bg4 pins first. The usual ...e6, ...Nc6 and ...Nge7 follow.
+@carokann-adv-c5-bb5 | 2 | 3...c5 4.c3 Nc6 5.Bb5 | ...e6, ...Bd7 and ...Nge7 neutralise the pin.
+@carokann-adv-c5-bg4-bb5 | 2 | 3...c5 4.c3 Nc6 5.Nf3 Bg4 6.Bb5 | ...e6, then after Bxc6+ recapture bxc6 and play ...Ne7. Your c-pawn supports d5.
+@carokann-adv-c5-f4 | 2 | 3...c5 4.c3 Nc6 5.f4 | Trade first with ...cxd4, then ...Bf5, ...e6 and ...Nge7.
+@carokann-adv-c5-be3 | 2 | 3...c5 4.c3 Nc6 5.Be3 | ...Bf5, ...e6, ...Nge7, then trade on d4 to open the c-file.
+@carokann-adv-c5-check | 2 | 3...c5 4.Bb5+ | ...Bd7 trades off your light bishop, which is welcome. Then the usual ...Nc6, ...e6 and ...Nge7.
+@carokann-adv-h6 | 2 | 4.h4 h6: the bishop steps to d7 | ...h6 keeps h5 available for White, so after g4 the bishop has to go to d7. ...c5, ...e6 and ...Qb6 still hit d4.
+@carokann-panov-nc6 | 3 | Panov 5...Nc6 6.Nf3 Bg4 | The classical fight: ...Bg4 and ...Bxf3, with ...Nb6 after Qb3. White gets the bishop pair; you get a target on d4.
+Nb6: The knight retreats from b3's attack, holding d5 from behind.
+@carokann-panov-bg5 | 3 | Panov 5...Nc6 6.Bg5 | ...dxc4, then d5 Ne5 and ...Nd3+ wins the bishop pair.
+@carokann-panov-g6 | 3 | Panov 5...g6: Fianchetto | The bishop goes to g7, so d4 stays under fire. ...O-O, ...Nbd7 and ...Nb6 recover the d5 pawn.
+@carokann-exch-nf6 | 1 | Exchange 4.Nf3 Nf6 5.Bd3 | ...Bg4 and ...e6, and the f3-knight is pinned before White finishes developing.
+@carokann-exch-nf6-bb5 | 2 | Exchange 4.Nf3 Nf6 5.Bb5+ | ...Bd7 trades the bishops, and the b8-knight recaptures on d7.
+@carokann-exch-nf6-c3 | 2 | Exchange 4.Nf3 Nf6 5.c3 | ...Bg4, ...e6, ...Nc6 and ...Bd6.
+@carokann-exch-nf6-be2 | 2 | Exchange 4.Nf3 Nf6 5.Be2 | ...Bg4, ...Nc6, ...e6 and ...Bd6.
+@carokann-exch-nf6-h3 | 2 | Exchange 4.Nf3 Nf6 5.h3 | h3 rules out ...Bg4, so play ...Nc6, ...e6 and ...Bd6.
+@carokann-exch-be2 | 2 | Exchange 4.Be2 | ...Nc6, ...Nf6, ...Bg4 and ...e6.
+@carokann-exch-bf4 | 2 | Exchange 4.Bf4 | ...Nc6, ...Nf6, ...Bg4, ...e6 and ...Bd6 trade off that bishop.
+@carokann-2c4-nf6 | 2 | 2.c4 d5 3.exd5 Nf6: recover d5 with the knight | ...Nf6 lets ...cxd5 and ...Nxd5 recover the pawn with a piece on d5.
+@carokann-2c4-dxc6 | 3 | 2.c4 d5 3.exd5 Nf6 4.dxc6: the gambit | Take with the knight: ...Nxc6, ...e5, ...Bf5 and ...Bc5 give you real compensation in development for the pawn.
+e5: Take the centre: you have a big lead in development for the pawn.
+@carokann-2c4-dxc6-nc3 | 3 | 2.c4 d5 3.exd5 Nf6 4.dxc6 Nxc6 5.Nc3 | ...e5 and ...e4 gain time, then ...Bf5 and ...exd3 open the position.
+@carokann-tk-dxe4 | 2 | 2.Nc3 d5 3.Nf3 dxe4 | Trade on e4 and develop with ...Nd7 and ...Ngf6, then the bishop comes to g4.
+@carokann-2nf3-d4 | 2 | 2.Nf3 d5 3.d4 dxe4 4.Ne5 | ...Nd7 challenges the knight. After Nxe5 and the queen trade, ...Bf5 is simply a good ending.
+@carokann-2nf3-d4-ng5 | 2 | 2.Nf3 d5 3.d4 dxe4 4.Ng5 | ...Bf5 holds the extra pawn. Then ...e6, ...Nf6 and ...h6 kick the knight.

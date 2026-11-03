@@ -21,7 +21,11 @@ const EARLY_PLIES = 40;   // over by move 20
 
 // Openings whose lines share too little to name them: count games from these positions instead.
 const ANCHOR_OVERRIDE = {
-  london: ['d4 d5 Bf4', 'd4 Nf6 Bf4'],
+  london: ['d4 d5 Bf4'],
+  'london-nf6': ['d4 Nf6 Bf4'],
+  'london-side': ['d4 e6 Bf4', 'd4 g6 Bf4', 'd4 c6 Bf4', 'd4 d6 Bf4', 'd4 c5 d5', 'd4 e5 dxe5', 'd4 f5 Bf4'],
+  jobava: ['d4 d5 Nc3 Nf6 Bf4'],
+  'caro-side': ['e4 c6 Nc3', 'e4 c6 Nf3', 'e4 c6 Bc4', 'e4 c6 f4', 'e4 c6 d3', 'e4 c6 c4', 'e4 c6 e5', 'e4 c6 d4 d5 f3'],
   najdorf: ['e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6'],
 };
 

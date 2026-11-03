@@ -1,0 +1,125 @@
+# Default words for routine moves in the Jobava London lines; a line's own note replaces these.
+w Nf3: Develop the knight: it covers e5 and heads for castling.
+w e3: Support d4 and open the f1-bishop. The f4-bishop is already outside the chain.
+w Bd3: Challenge Black's bishop or aim at h7. If Black trades, recapture with the c-pawn.
+w O-O: Castle, then choose your plan from what Black has set up.
+w Nb5: The Jobava's signature jump: the knight eyes c7 and d6, and Bf4 backs it up.
+w dxc5: Take on c5. Black must spend time recapturing.
+w Bg3: Keep the bishop rather than trading. Now ...Bxg3 hxg3 opens the h-file for you.
+w Bf4: The second half of the set-up: Nc3 and Bf4 are the Jobava's two fixed moves.
+w cxd3: The Jobava recapture: doubled pawns but control of e4 and c4, the c-file for your rook, and b3 for the queen.
+w Nc3: Develop before the pawns: the knight blocks the c-pawn on purpose, and hits d5 and e4.
+w Be2: A modest post: safe from ...Bf5 and keeping the kingside covered.
+w dxe5: Take on e5. Black must spend time recapturing.
+w Qd2: Connect the back rank and keep the kingside options alive.
+w e4: Strike in the centre while Black's pieces are not ready for it.
+w c3: Support d4.
+w exd4: Recapture towards the centre; the e-file opens for your rook.
+w f3: Prepare e4 and take g4 away from Black's minor pieces.
+w Nxd6+: Take the bishop with check: you get the two bishops.
+w f4: Take space and support e5.
+w bxc3: Recapture: the bishop pair is worth the doubled pawns.
+w Be5: The centralised bishop blocks ...e5 and hits f6 and b8.
+w Qb3: Pressure b7 and d5 along the open diagonal.
+w Ne5: The outpost knight, hitting c6, d7 and f7.
+w O-O-O: Castle long and aim your rook at the d-file.
+w e5: Take space with tempo on the f6-knight.
+w Qg4: Attack g7 and tie Black's king to the kingside.
+w Bd2: Develop and block the pressure along the diagonal.
+w b4: Hold the extra c5 pawn.
+w Rc1: Take the c-file and shield the a1-rook.
+w Bb5: Pin the knight and pressure e8 before Black has castled.
+w Bxe5: Recapture and keep the dark diagonal.
+w Bxc6: Damage Black's structure before Black completes development.
+w Nge2: Develop without blocking the f-pawn.
+w a3: A useful move: it keeps the bishop out of b4 and gives the queen's knight breathing room.
+w Rb1: Guard b2 by protecting from behind, so you need not disturb your structure.
+w a4: Take b5 from Black and keep a grip on the queenside.
+w Kxd2: Recapture with the king: with queens off, it belongs in the centre.
+w Ke1: The king steps back; you are clearly better on the board.
+w g4: Grab kingside space against the f5-bishop.
+w h4: Space on the kingside and a threat to push on.
+w g5: Kick the knight to gain more space with tempo.
+w Qxd3: Recapture on d3 with the queen, which is well placed.
+w Nxd5: Win the d5 pawn; the check on f6 is also there.
+w Nxf4: Recapture on f4 and remain a pawn up.
+w Ne2: Step back with the knight and bring it round to g3.
+w Nxc3: Recapture and develop.
+w Ne4: Centralise the knight and avoid the pawn's attack.
+w Bxe4: Recapture and stop Black from using e4.
+w Bh6: Offer the trade of Black's fianchetto bishop, opening the king.
+w Be3: Back up d4 and put a target on the a7-g1 diagonal.
+w Nxd4: Recapture in the centre.
+w Qg3: Keep the queen on the kingside and hold c7 under pressure.
+w d5: Gain space and limit Black's minor pieces.
+w Qxd8+: Trade queens and keep the extra options in the ending.
+w Bc4: Develop actively, looking at f7.
+w Bg5: Develop the bishop to an active square.
+w Qxd4: Recapture and centralise the queen.
+w h3: Keep Black's bishop and knight out of g4.
+w Bxd6: Trade bishops and open Black's dark squares.
+w Nxe4: Recapture in the centre.
+w Nc7+: Fork! The knight hits king and rook.
+w Bxc7: You take the queen.
+b e6: A French-style reply: Black shores up d5 and frees the f8-bishop.
+b O-O: Black castles.
+b c5: Black strikes at d4: the most challenging plan, but it weakens b5 and d6.
+b Nf6: Black develops towards the centre and covers e4.
+b Bd6: Black offers to trade off your good bishop.
+b Nc6: Black develops and adds pressure on d4.
+b Bf5: Black develops outside the chain, but your Bd3 is ready to challenge it.
+b a6: A useful pawn move: it controls b5.
+b Bxd3: Black trades the light bishops.
+b c6: Black takes b5 away from your knight and supports d5.
+b e5: Black breaks in the centre to free his game.
+b Na6: The knight guards c7 from the rim, but has few prospects there.
+b Nbd7: Black develops the knight.
+b Bxc5: Black recovers the pawn with an active bishop.
+b Be7: Black prepares to castle.
+b Bb4: Black pins the c3-knight.
+b Bg7: The bishop goes to the long diagonal.
+b cxd4: Black releases the tension.
+b g6: Black prepares a fianchetto.
+b Bg4: Black develops the bishop and looks at the d1-queen.
+b cxd6: Black takes back with the c-pawn. The bishops are now yours.
+b Qb6: Black hits b2 and d4.
+b d5: Black takes the centre.
+b Nh5: Black goes after your dark bishop.
+b Qe7: Protect the d6-bishop and connect the rooks.
+b h5: Black takes space and stops g4-g5 from being simple.
+b Nfd7: The knight steps back but keeps an eye on e5.
+b exd4: Black takes on d4.
+b d6: A flexible Pirc-style move.
+b Bxc3+: Black gives up the bishop to double your pawns.
+b Nxc5: Black takes back, leaving the knight well placed.
+b f6: Black kicks your bishop and takes e5 from it, but the e6 pawn is weakened.
+b Ne4: Black grabs the outpost.
+b Bxe5: Black recaptures on e5.
+b bxc6: Black recaptures towards the centre but his queenside is split.
+b Bh5: Black keeps the bishop on the diagonal to d1.
+b Qxc5: Black takes back with the queen. This queen will now be hit by your pieces.
+b Bd7: Black develops and covers b5.
+b Qa5+: Black checks first to disrupt your play.
+b Qxd2+: Black trades queens.
+b Ne4+: Black checks with the knight.
+b b6: Black protects c5 and prepares ...Bb7.
+b Bg6: The bishop steps back on the diagonal.
+b Nxf4: Black takes the dark-squared bishop.
+b Nxe5: Black recovers the pawn.
+b Bxc3: Black takes on c3, doubling your pawns.
+b d4: Black gains space and pushes the knight away.
+b Nxe4: Black takes on e4 and swaps knights.
+b b5: Black starts a queenside pawn storm.
+b Bc5: Black develops the bishop with a look at f2.
+b Nd5: The knight steps to the centre and hits c3 and f4.
+b Kf8: Black has to give up castling to protect g7.
+b h4: Black gains kingside space and bothers your queen.
+b Nxc3: Black trades the knight.
+b dxe5: Black recaptures.
+b Kxd8: Black recaptures with the king.
+b Ke8: The king steps back out of the centre.
+b Qa5: The queen pressures the queenside.
+b Qxd6: Black recaptures.
+b dxe4: Black takes the e-pawn.
+b Qd5: The queen centralises.
+b Qxc7: The queen takes the knight, but the bishop on f4 was guarding it.

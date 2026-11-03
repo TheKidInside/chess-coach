@@ -29,7 +29,9 @@ sf.stdout.on('data', (d) => {
 const send = (s) => sf.stdin.write(s + '\n');
 function until(pred) { return new Promise((res) => { waiter = (l) => { if (pred(l)) { waiter = null; res(l); } }; }); }
 
+const seen = new Map();          // lines share their opening moves, so each position is searched once
 async function evalFen(fen) {    // score from the side to move's view, in cp (mate = ±10000)
+  if (seen.has(fen)) return seen.get(fen);
   let score = 0, best = '';
   send(`position fen ${fen}`);
   send(`go movetime ${MOVETIME}`);
@@ -39,10 +41,12 @@ async function evalFen(fen) {    // score from the side to move's view, in cp (m
     const pv = l.match(/ pv (\S+)/); if (pv) best = pv[1];
     return l.startsWith('bestmove');
   });
+  seen.set(fen, { score, best });
   return { score, best };
 }
 
 send('uci'); await until((l) => l === 'uciok');
+send('setoption name Threads value 6');
 send('isready'); await until((l) => l === 'readyok');
 
 let lines = [];
@@ -51,7 +55,7 @@ if (args[0] === '--ids') lines = args.slice(1).map((id) => OPENINGS.find((o) => 
 else for (const f of args) {
   const data = JSON.parse(readFileSync(f, 'utf8'));
   for (const [id, l] of Object.entries(data.lines || {})) {
-    const moves = l.moves || OPENINGS.find((o) => o.id === id)?.moves;
+    const moves = typeof l.moves === 'string' ? l.moves.trim().split(/\s+/) : l.moves || OPENINGS.find((o) => o.id === id)?.moves;
     if (moves) lines.push({ id, moves, gambit: l.gambitPlies || [] });
   }
 }
@@ -66,7 +70,7 @@ for (const l of lines) {
     try { mv = g.move(l.moves[i]); } catch { out.push(`  ply ${i} ${l.moves[i]}: ILLEGAL`); break; }
     const after = await evalFen(g.fen());
     const loss = before.score - (-after.score);
-    if (loss >= 100) {
+    if (loss >= (process.env.FLAG_CP === undefined ? 100 : +process.env.FLAG_CP)) {
       const tag = l.gambit.includes(i) ? ' (declared gambit)' : '';
       out.push(`  ply ${i} ${Math.floor(i / 2) + 1}${i % 2 ? '...' : '.'}${mv.san}: gives away ~${loss} cp; Stockfish preferred ${before.best}${tag}`);
     }

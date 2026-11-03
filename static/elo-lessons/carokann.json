@@ -1,0 +1,1353 @@
+{
+ "id": "carokann",
+ "name": "Caro-Kann",
+ "side": "b",
+ "tiers": [
+  {
+   "elo": "0",
+   "name": "Beginner",
+   "hook": "One setup you can play nearly every game",
+   "takeaway": "Protect the square first, get the light bishop out before ...e6, recapture with a pawn when you can, then castle.",
+   "scenes": [
+    {
+     "title": "Why 1...c6",
+     "from": "",
+     "steps": [
+      {
+       "who": "student",
+       "say": "I've never studied an opening. What am I supposed to do with Black?"
+      },
+      {
+       "say": "With Black you spend the first few moves reacting, so it helps to have one plan that barely changes from game to game. Think of it as putting up scaffolding before you build the wall. It looks slow, and everything after it goes up safely."
+      },
+      {
+       "play": "e4",
+       "arrows": [
+        [
+         "e4",
+         "d5",
+         "alt"
+        ]
+       ],
+       "say": "White takes the centre. The e4 pawn also eyes d5."
+      },
+      {
+       "play": "c6",
+       "say": "This looks timid. It's the scaffolding: next move your pawn goes to d5, and c6 will guard it."
+      },
+      {
+       "play": "d4 d5",
+       "arrows": [
+        [
+         "c6",
+         "d5",
+         "good"
+        ],
+        [
+         "d8",
+         "d5",
+         "good"
+        ]
+       ],
+       "marks": [
+        "d5"
+       ],
+       "say": "Now d5 has two guards, the c6 pawn and the queen. That's the question to ask all lesson long: who protects this square? Protected means safe."
+      }
+     ]
+    },
+    {
+     "title": "Why not 1...d5 straight away?",
+     "from": "e4",
+     "steps": [
+      {
+       "who": "student",
+       "say": "Why waste a move on c6? Why not just push d5 now?"
+      },
+      {
+       "play": "d5 exd5",
+       "say": "You can. White takes, and now no pawn can take back."
+      },
+      {
+       "play": "Qxd5 Nc3",
+       "arrows": [
+        [
+         "c3",
+         "d5",
+         "bad"
+        ]
+       ],
+       "marks": [
+        "d5"
+       ],
+       "say": "So the queen recaptures, and a knight develops by attacking her. She has to move again while White gets a free move. That opening is real and playable, but it asks more of you. With ...c6 played first, a pawn takes back and the queen stays home."
+      }
+     ]
+    },
+    {
+     "title": "The bishop goes before the pawn",
+     "from": "e4 c6 d4 d5",
+     "steps": [
+      {
+       "play": "Nc3 dxe4 Nxe4",
+       "say": "White guards e4 with the knight. You take once, because holding the tension gets complicated, and White takes back. The centre is settled and nothing of yours is hanging."
+      },
+      {
+       "say": "Look at your c8 bishop. If ...e6 comes first, that bishop is locked behind its own pawns for the rest of the opening. So what do you play?",
+       "marks": [
+        "c8",
+        "e6"
+       ],
+       "quiz": {
+        "kind": "move",
+        "answer": "Bf5",
+        "hint": "Move the piece that would get stuck. It can even attack something.",
+        "hit": "Bishop out, and it hits the knight on the way. Everything else in this setup depends on this one bit of order."
+       }
+      },
+      {
+       "play": "Ng3 Bg6",
+       "say": "White chases it. Step back along the same line. It's still outside the pawn wall you're about to build, which is all you wanted."
+      },
+      {
+       "play": "Nf3 Nd7",
+       "arrows": [
+        [
+         "d7",
+         "e5",
+         "good"
+        ]
+       ],
+       "say": "This knight stands guard over e5, so White's knight can't settle there. Your other knight comes to f6 next and has d7's support."
+      },
+      {
+       "play": "Bd3 e6",
+       "arrows": [
+        [
+         "d3",
+         "g6",
+         "alt"
+        ]
+       ],
+       "say": "Now you can build the wall. The pawn on e6 guards d5 and opens a road for your other bishop."
+      },
+      {
+       "play": "O-O Ngf6 Bxg6",
+       "say": "White castles, you develop, White trades bishops."
+      },
+      {
+       "say": "Two pawns can take back. Which one?",
+       "arrows": [
+        [
+         "h7",
+         "g6",
+         "alt"
+        ],
+        [
+         "f7",
+         "g6",
+         "alt"
+        ]
+       ],
+       "quiz": {
+        "kind": "move",
+        "answer": "hxg6",
+        "hint": "Keep your pawns together and pick the capture that opens a file for a rook.",
+        "hit": "Take with the h-pawn. Your pawns stay connected and your rook on h8 now looks down the h-file."
+       }
+      },
+      {
+       "play": "c4 Be7 Bf4 O-O",
+       "marks": [
+        "e7",
+        "f6",
+        "g8"
+       ],
+       "say": "That's the whole opening. Every piece is out, every piece is guarded, and your king is safe. The engine reads this as +0.08, where +1.00 would mean White is a pawn better. So this is dead level."
+      }
+     ]
+    },
+    {
+     "title": "Same setup against the other moves",
+     "from": "e4 c6 d4 d5",
+     "steps": [
+      {
+       "say": "White has three main choices here. This is what people actually play at each level.",
+       "table": {
+        "caption": "White's third move, share of games",
+        "head": [
+         "",
+         "Under 1400",
+         "1400-1799",
+         "1800-2199",
+         "2200+"
+        ],
+        "rows": [
+         [
+          "3.e5",
+          "52%",
+          "45%",
+          "33%",
+          "37%"
+         ],
+         [
+          "3.exd5",
+          "24%",
+          "29%",
+          "32%",
+          "25%"
+         ],
+         [
+          "3.Nc3",
+          "20%",
+          "20%",
+          "24%",
+          "24%"
+         ]
+        ]
+       }
+      },
+      {
+       "play": "e5 Bf5",
+       "arrows": [
+        [
+         "c8",
+         "f5",
+         "good"
+        ]
+       ],
+       "say": "When White pushes past you there's nothing to capture. The bishop still goes first."
+      },
+      {
+       "play": "Nf3 e6",
+       "say": "Then ...e6, then ...c5 to hit White's chain. Same order, same wall."
+      }
+     ]
+    },
+    {
+     "title": "When White trades on d5",
+     "from": "e4 c6 d4 d5 exd5",
+     "steps": [
+      {
+       "say": "White takes on d5. This is why you played c6. Take back.",
+       "quiz": {
+        "kind": "move",
+        "answer": "cxd5",
+        "hint": "Use the pawn you put there for this moment. The queen stays home.",
+        "hit": "A pawn recaptures and your queen is still on d8. That's the difference from 1...d5."
+       }
+      },
+      {
+       "play": "Bd3 Nc6 c3 Nf6 Bf4 Bg4",
+       "arrows": [
+        [
+         "c8",
+         "g4",
+         "good"
+        ]
+       ],
+       "say": "Knights come out, and the bishop goes before ...e6 again. It lands on g4 this time, active and outside the wall. The rule is the same."
+      }
+     ]
+    },
+    {
+     "title": "If White plays 2.Bc4",
+     "from": "e4 c6",
+     "steps": [
+      {
+       "play": "Bc4",
+       "say": "About one in eight Under-1400 players do this, and almost nobody above 1800. Your plan doesn't change."
+      },
+      {
+       "play": "d5 exd5 cxd5",
+       "arrows": [
+        [
+         "d5",
+         "c4",
+         "good"
+        ]
+       ],
+       "marks": [
+        "c4"
+       ],
+       "say": "You pushed d5, and now your pawn attacks the bishop. White has to move it again and you've gained a free move. The engine already prefers Black (-0.23)."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "name": "Classical setup",
+     "moves": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6 Nf3 Nd7 Bd3 e6 O-O Ngf6 Bxg6 hxg6 c4 Be7 Bf4 O-O"
+    },
+    {
+     "name": "White pushes e5",
+     "moves": "e4 c6 d4 d5 e5 Bf5 Nf3 e6"
+    },
+    {
+     "name": "White trades on d5",
+     "moves": "e4 c6 d4 d5 exd5 cxd5 Bd3 Nc6 c3 Nf6 Bf4 Bg4"
+    }
+   ]
+  },
+  {
+   "elo": "850",
+   "name": "Intermediate",
+   "hook": "Ask one uncomfortable question early",
+   "takeaway": "When a white piece moves, check what it just stopped guarding. Take the pawn if it's free, and check first, because the same pawn grab can be right in one line and wrong in the next.",
+   "scenes": [
+    {
+     "title": "The pawn that looks poisoned",
+     "from": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5",
+     "steps": [
+      {
+       "who": "student",
+       "say": "I know the setup, but my games feel slow. Can I make things harder for White without taking big risks?"
+      },
+      {
+       "say": "Yes. Most people at your level have played the same first ten moves a hundred times. Push them out of that one early, without weakening yourself. It's like taking a regular commuter off the highway: they can still drive, but now they have to think about it."
+      },
+      {
+       "play": "Bd3",
+       "arrows": [
+        [
+         "d3",
+         "e4",
+         "alt"
+        ]
+       ],
+       "say": "White guards the attacked knight in the most natural way. Look how often it happens.",
+       "table": {
+        "caption": "White's fifth move after 4...Bf5, share of games",
+        "head": [
+         "",
+         "Under 1400",
+         "1400-1799",
+         "1800-2199",
+         "2200+"
+        ],
+        "rows": [
+         [
+          "5.Ng3",
+          "25%",
+          "57%",
+          "79%",
+          "91%"
+         ],
+         [
+          "5.Bd3",
+          "25%",
+          "8%",
+          "3%",
+          "2%"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "That bishop move cost White something. Which white pawn just lost its protection? Tap it.",
+       "quiz": {
+        "kind": "square",
+        "answer": "d4",
+        "hint": "Look along the d-file from White's queen.",
+        "hit": "The bishop now stands between the queen on d1 and the d4 pawn. Nothing else guards it."
+       }
+      },
+      {
+       "say": "So take it.",
+       "quiz": {
+        "kind": "move",
+        "answer": "Qxd4",
+        "hint": "Your queen is looking straight down the d-file.",
+        "hit": "Only about one in four Under-1400 players took this pawn in our sample, though it's a small one (about 60 games). The usual fear is that an early queen gets hunted. Here she can simply go home."
+       }
+      },
+      {
+       "play": "Nf3 Qd8",
+       "arrows": [
+        [
+         "d4",
+         "d8",
+         "good"
+        ]
+       ],
+       "say": "Attacked, so back to d8. You're a clean pawn up. White has a lead in development, which is why the engine only says about -0.2."
+      },
+      {
+       "play": "Qe2",
+       "arrows": [
+        [
+         "d3",
+         "f5",
+         "bad"
+        ]
+       ],
+       "marks": [
+        "f5"
+       ],
+       "say": "White lines up on your king. Now see the arrow: that knight on e4 is the only thing between White's bishop and your bishop on f5. If the knight jumps away with check, you lose a piece."
+      },
+      {
+       "say": "How do you end that problem?",
+       "quiz": {
+        "kind": "move",
+        "answer": "Bxe4",
+        "hint": "Remove the piece that could jump.",
+        "hit": "Trade it off. After 8.Bxe4 you're still a pawn up with no weaknesses (engine -0.15). When you're ahead, trades favour you. If White castles instead on move 7, the same ...Bxe4 lets you trade queens as well, and the engine goes to -0.7."
+       }
+      }
+     ]
+    },
+    {
+     "title": "Tap the weakest pawn",
+     "from": "e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 Be3",
+     "steps": [
+      {
+       "say": "Now the Advance, your most common opponent at this level. White has developed the bishop to e3, which looks entirely sensible."
+      },
+      {
+       "say": "Find the weakest pawn in White's camp. Tap it.",
+       "quiz": {
+        "kind": "square",
+        "answer": "b2",
+        "hint": "What was the c1 bishop guarding before it left?",
+        "hit": "b2. The bishop used to guard it from c1. Now it stands alone."
+       }
+      },
+      {
+       "say": "What's the one move that hits it, and d4 as well?",
+       "quiz": {
+        "kind": "move",
+        "answer": "Qb6",
+        "hint": "The queen can reach a square on the b-file that also looks at d4.",
+        "hit": "Queen b6. The engine rates this a little lower than the quiet 6...Nd7 (+0.56 against +0.37), so you're paying a small price. What you buy is a position where almost every normal reply gives the pawn away."
+       }
+      },
+      {
+       "say": "If White just carries on with 7.O-O or 7.Nbd2, then 7...Qxb2 takes a pawn and White's whole edge is gone (engine 0.00). Only one reply keeps it, and it doesn't look natural.",
+       "arrows": [
+        [
+         "b6",
+         "b2",
+         "good"
+        ]
+       ],
+       "marks": [
+        "b2"
+       ]
+      }
+     ]
+    },
+    {
+     "title": "The one good reply",
+     "from": "e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 Be3 Qb6",
+     "steps": [
+      {
+       "play": "Nc3",
+       "say": "A strong opponent ignores the pawn and develops. It looks like a blunder."
+      },
+      {
+       "say": "So do you take on b2?",
+       "quiz": {
+        "kind": "choice",
+        "prompt": "Your move",
+        "options": [
+         {
+          "t": "7...Qxb2, the pawn is there",
+          "ok": false,
+          "why": "It's a trap this time. See the next section: 8.Qb1 forces the queens off, and White wins b7 back with the better game (+1.07)."
+         },
+         {
+          "t": "7...c4, gain space and keep the b-file",
+          "ok": true,
+          "why": "Right. The pawn hits nothing, but it takes b3 and d3 away from White, and your queen keeps watching b2."
+         }
+        ]
+       }
+      },
+      {
+       "play": "c4 Rb1 Qd8",
+       "arrows": [
+        [
+         "b1",
+         "b2",
+         "alt"
+        ]
+       ],
+       "say": "White's rook had to step off a1 to guard b2. Now your queen goes home, and you have queenside space and a bishop outside the chain. White is slightly better (+0.38), and is no longer playing the position they prepared."
+      }
+     ]
+    },
+    {
+     "title": "What happens if you grab anyway",
+     "from": "e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 Be3 Qb6 Nc3",
+     "steps": [
+      {
+       "play": "Qxb2 Qb1",
+       "arrows": [
+        [
+         "b1",
+         "b2",
+         "bad"
+        ]
+       ],
+       "say": "White offers a queen trade from the back rank, and your queen has no good way out."
+      },
+      {
+       "play": "Qb4 a3 Qxb1+ Rxb1 c4 Rxb7",
+       "marks": [
+        "b7"
+       ],
+       "arrows": [
+        [
+         "b1",
+         "b7",
+         "bad"
+        ]
+       ],
+       "say": "The queens are gone and the pawn is back. White also has a rook on your seventh rank."
+      },
+      {
+       "who": "student",
+       "say": "But the pawn on d4 was safe to take. So when is a pawn poisoned?"
+      },
+      {
+       "say": "There's no general answer. That's the lesson. Don't file b2 under safe or poisoned. Every time, ask what the piece that just moved threatens, and whether your queen has a way home."
+      }
+     ]
+    },
+    {
+     "title": "When ...Qb6 is too early",
+     "from": "e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 c3",
+     "steps": [
+      {
+       "say": "White played 6.c3 this time, and the bishop is still on c1, so b2 is guarded."
+      },
+      {
+       "play": "Nc6 O-O Qb6",
+       "say": "Say you play the queen move on autopilot."
+      },
+      {
+       "play": "dxc5 Bxc5 b4",
+       "arrows": [
+        [
+         "b4",
+         "c5",
+         "bad"
+        ]
+       ],
+       "marks": [
+        "c5"
+       ],
+       "say": "White takes, then the b-pawn runs with tempo and your bishop gets pushed around. +1.54, a real problem from one automatic move."
+      },
+      {
+       "say": "Prepare it instead: 7...a6 is the engine's choice here (+0.23). Then if 8.Be3 comes, the bishop has left c1 and ...Qb6 makes sense again."
+      }
+     ]
+    },
+    {
+     "title": "The same trick, aimed at you",
+     "from": "e4 c6 d4 d5 exd5 cxd5 Bd3 Nc6 c3 Nf6 Bf4 Bg4",
+     "steps": [
+      {
+       "play": "Qb3",
+       "say": "Your own bishop just left c8. White has the same idea you had."
+      },
+      {
+       "say": "Which of your pawns is under attack and unguarded? Tap it.",
+       "quiz": {
+        "kind": "square",
+        "answer": "b7",
+        "hint": "It's the mirror image of the b2 story.",
+        "hit": "b7. The queen on b3 also hits d5, so she's asking two questions at once."
+       }
+      },
+      {
+       "say": "Guard b7 and d5 with one move, and keep your pawns intact.",
+       "quiz": {
+        "kind": "move",
+        "answer": "Qd7",
+        "hint": "Find the queen square on the same rank as b7 and the same file as d5.",
+        "hit": "From d7 she covers both. Your bishop on g4 stays guarded too."
+       }
+      },
+      {
+       "play": "Nd2 e6 Ngf3 Bd6",
+       "say": "Then the wall goes up and the second bishop comes out. +0.24, as comfortable as this structure gets."
+      }
+     ]
+    },
+    {
+     "title": "The trap to know by heart",
+     "from": "e4 c6 d4 d5 Nc3 dxe4 Nxe4",
+     "steps": [
+      {
+       "say": "If you ever try 4...Nd7 instead of 4...Bf5, there's one thing you must know."
+      },
+      {
+       "play": "Nd7 Qe2",
+       "arrows": [
+        [
+         "e2",
+         "e7",
+         "alt"
+        ]
+       ],
+       "say": "White lines up on the e-file. It looks harmless, and ...Ngf6 is what every Caro player wants to play."
+      },
+      {
+       "play": "Ngf6 Nd6#",
+       "marks": [
+        "d6",
+        "e8"
+       ],
+       "arrows": [
+        [
+         "d6",
+         "e8",
+         "bad"
+        ]
+       ],
+       "say": "Checkmate. The e7 pawn can't take because it's pinned to the king by the queen on e2, and your own pieces fill every escape square. Play ...e6 or trade on e4 first."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "name": "Win the d4 pawn",
+     "moves": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Bd3 Qxd4 Nf3 Qd8 Qe2 Bxe4 Bxe4"
+    },
+    {
+     "name": "...Qb6 against 6.Be3",
+     "moves": "e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 Be3 Qb6 Nc3 c4 Rb1 Qd8"
+    },
+    {
+     "name": "Guard b7",
+     "moves": "e4 c6 d4 d5 exd5 cxd5 Bd3 Nc6 c3 Nf6 Bf4 Bg4 Qb3 Qd7"
+    }
+   ]
+  },
+  {
+   "elo": "1,900",
+   "name": "Advanced",
+   "hook": "Solid has soft spots. Know where they are",
+   "takeaway": "Move order is the whole game here: ...Nd7 before ...Ngf6, ...h5 against h4 before ...e6. Your bishop is your best piece, so don't let it get trapped. Your break is ...c5.",
+   "scenes": [
+    {
+     "title": "Why strong players play ...Nd7",
+     "from": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6",
+     "steps": [
+      {
+       "who": "student",
+       "say": "I get solid positions and then White attacks me. I never feel like I'm doing anything."
+      },
+      {
+       "say": "That's the honest risk of this opening. It feels safe, so you play natural moves, and a couple of natural moves in the wrong order are exactly what White is waiting for. Start with a number."
+      },
+      {
+       "play": "Nf3",
+       "say": "White's main move here. Look what Black plays as ratings go up.",
+       "table": {
+        "caption": "Black's sixth move after 6.Nf3, share of games",
+        "head": [
+         "",
+         "Under 1400",
+         "1400-1799",
+         "1800-2199",
+         "2200+"
+        ],
+        "rows": [
+         [
+          "6...Nd7",
+          "10%",
+          "20%",
+          "49%",
+          "84%"
+         ],
+         [
+          "6...e6",
+          "43%",
+          "29%",
+          "25%",
+          "11%"
+         ],
+         [
+          "6...Nf6",
+          "40%",
+          "36%",
+          "21%",
+          "3%"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "6...Nf6 goes from 40% to 3%. The engine dislikes it a little (+0.53 against +0.30), but that gap doesn't explain a move disappearing. A trap does."
+      }
+     ]
+    },
+    {
+     "title": "The trap behind the statistic",
+     "from": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6 h4 h6 Nf3",
+     "steps": [
+      {
+       "play": "Nf6 Ne5 Bh7 Bc4 e6 Qe2",
+       "arrows": [
+        [
+         "e5",
+         "f7",
+         "bad"
+        ],
+        [
+         "c4",
+         "e6",
+         "bad"
+        ],
+        [
+         "e2",
+         "e6",
+         "bad"
+        ]
+       ],
+       "marks": [
+        "f7",
+        "e6"
+       ],
+       "say": "Here's the same idea with h4 and ...h6 added, which is how it usually comes up. No knight stands on d7, so White's knight walks straight to e5. It hits f7, while the bishop and queen both hit e6. A sacrifice is coming."
+      },
+      {
+       "say": "You still need to develop. What about the natural move?",
+       "quiz": {
+        "kind": "choice",
+        "prompt": "Your move",
+        "options": [
+         {
+          "t": "10...Nbd7, just develop",
+          "ok": false,
+          "why": "This is the move everyone wants to play, and it loses. Watch what happens next (+8.5)."
+         },
+         {
+          "t": "10...Nd5, block the bishop",
+          "ok": true,
+          "why": "Yes, the best move (+0.29). The knight blocks the bishop's line to e6, so the sacrifice stops working. Other moves such as 10...Be7 are already worse (+0.62). Having to find this on move 10 is the price of ...Nf6."
+         }
+        ]
+       }
+      },
+      {
+       "play": "Nbd7 Nxf7",
+       "marks": [
+        "f7"
+       ],
+       "say": "Now see what happens after the natural 10...Nbd7. The knight takes on f7 and attacks your queen and your rook on h8. If you decline, the rook goes, and the engine says +8.5. So say you take."
+      },
+      {
+       "play": "Kxf7 Qxe6+ Kg6 Qf7#",
+       "marks": [
+        "g6"
+       ],
+       "say": "The queen takes e6 with the bishop behind her, and your king's only legal move is g6. Then 13.Qf7 is mate. Your own knight on d7 helped by taking away the squares your king and queen needed."
+      },
+      {
+       "say": "A knight on d7 guards e5 like a bouncer on the door. Put it there before f6 and this whole line can't happen."
+      }
+     ]
+    },
+    {
+     "title": "The main road and your break",
+     "from": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6 h4 h6 Nf3 Nd7",
+     "steps": [
+      {
+       "play": "h5 Bh7 Bd3 Bxd3 Qxd3 e6",
+       "say": "White gains space with the h-pawn and trades your bishop. You've traded your one problem piece. The h5 pawn cramps you, and it can also become a target later."
+      },
+      {
+       "play": "Bd2 Ngf6 O-O-O Be7 Ne4",
+       "say": "White castles long and heads for the kingside. Here's the question every Caro player asks."
+      },
+      {
+       "who": "student",
+       "say": "Can I really castle short into that h5 pawn? I've always been told to go long."
+      },
+      {
+       "say": "The old advice is reasonable, but check it here. What do you play?",
+       "quiz": {
+        "kind": "move",
+        "answer": "O-O",
+        "hint": "The engine's first choice here surprises people. Your king is safer than it looks.",
+        "hit": "The engine's top choice (+0.35). White needs g4-g5 to open your king, and that takes time you can use in the centre. 13...Nxe4 14.Qxe4 Nf6 (+0.31) is the quieter way if you don't want this."
+       }
+      },
+      {
+       "play": "Kb1",
+       "say": "White tidies up the king and prepares to attack."
+      },
+      {
+       "say": "You've finished developing. Which pawn break opens the position for you?",
+       "arrows": [
+        [
+         "c6",
+         "c5",
+         "alt"
+        ]
+       ],
+       "quiz": {
+        "kind": "move",
+        "answer": "c5",
+        "hint": "It's the pawn that started this whole opening.",
+        "hit": "...c5 is your source of play. It hits d4 and gets you counterplay before White's attack arrives."
+       }
+      },
+      {
+       "play": "g4 Nxg4",
+       "marks": [
+        "g4"
+       ],
+       "say": "White offers the g-pawn to open the file. Take it. The engine calls this level (+0.08), and you have a pawn plus ...f5 ideas to close the door."
+      }
+     ]
+    },
+    {
+     "title": "The bishop trap",
+     "from": "e4 c6 d4 d5 e5 Bf5",
+     "steps": [
+      {
+       "play": "h4",
+       "arrows": [
+        [
+         "h4",
+         "h5",
+         "alt"
+        ]
+       ],
+       "say": "This move grows fast with rating. Its point is simple: it wants to trap your best piece.",
+       "table": {
+        "caption": "White's fourth move h4, and Black's natural reply ...e6",
+        "head": [
+         "",
+         "Under 1400",
+         "1400-1799",
+         "1800-2199",
+         "2200+"
+        ],
+        "rows": [
+         [
+          "White plays 4.h4",
+          "2%",
+          "7%",
+          "19%",
+          "34%"
+         ],
+         [
+          "Black answers 4...e6",
+          "46%",
+          "15%",
+          "6%",
+          "3%"
+         ],
+         [
+          "Black answers 4...h5",
+          "33%",
+          "29%",
+          "55%",
+          "64%"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "You've been told: bishop out, then ...e6. Is that still right?",
+       "quiz": {
+        "kind": "choice",
+        "prompt": "Your move",
+        "options": [
+         {
+          "t": "4...e6, the usual wall",
+          "ok": false,
+          "why": "This one drops a piece. The next section shows how. Engine: +4.84."
+         },
+         {
+          "t": "4...h5, stop the pawn",
+          "ok": true,
+          "why": "Yes. It leaves a hole on g5, but your bishop keeps its escape squares (+0.13). This is why the top players play it."
+         }
+        ]
+       }
+      },
+      {
+       "play": "h5 c4 e6 Nc3 dxc4 Bxc4 Nd7",
+       "say": "With the bishop safe, you take on c4 and play for the d5 square and the light squares. +0.28, a normal game."
+      }
+     ]
+    },
+    {
+     "title": "How 4...e6 loses the bishop",
+     "from": "e4 c6 d4 d5 e5 Bf5 h4",
+     "steps": [
+      {
+       "play": "e6 g4",
+       "arrows": [
+        [
+         "g4",
+         "f5",
+         "bad"
+        ]
+       ],
+       "say": "The wall closed the bishop's way home. Now the g-pawn hits it."
+      },
+      {
+       "play": "Be4 f3 Bg6 h5",
+       "marks": [
+        "g6"
+       ],
+       "arrows": [
+        [
+         "h5",
+         "g6",
+         "bad"
+        ]
+       ],
+       "say": "It runs, and pawns keep hitting it until it has nowhere to go. Black gets one pawn for it at best. White scored about 70% after 4...e6 in the middle two rating bands."
+      },
+      {
+       "say": "Your rule said bishop before ...e6. It never said ...e6 is automatically safe once the bishop is out. Check for h4 and g4 every time."
+      }
+     ]
+    },
+    {
+     "title": "When to trade on d4",
+     "from": "e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 Be3",
+     "steps": [
+      {
+       "who": "student",
+       "say": "I always release the tension with ...cxd4. Is that wrong?"
+      },
+      {
+       "say": "Often it just helps White, because a piece gets to d4. Here it has a point: the knight that recaptures can be challenged, and White's e5 pawn loses its support."
+      },
+      {
+       "play": "cxd4 Nxd4 Ne7",
+       "arrows": [
+        [
+         "e7",
+         "f5",
+         "good"
+        ],
+        [
+         "d4",
+         "f5",
+         "alt"
+        ]
+       ],
+       "say": "The knight attacks your bishop, so you guard it with the knight on e7. Your other knight comes to c6."
+      },
+      {
+       "say": "If 8.Nxf5 Nxf5, White gets the bishop pair and you get a great knight, with e5 now weak. The engine gives -0.76, in Black's favour, so the bishop pair isn't everything."
+      },
+      {
+       "play": "c4 Nbc6 Qa4 a6 Nc3",
+       "say": "This is the serious line. White plays c4 and pins your c6 knight with the queen. ...a6 takes b5 away from White's pieces and prepares ...b5. +0.35, so White is a little better and there's plenty of play."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "name": "Main road with ...O-O",
+     "moves": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6 h4 h6 Nf3 Nd7 h5 Bh7 Bd3 Bxd3 Qxd3 e6 Bd2 Ngf6 O-O-O Be7 Ne4 O-O Kb1 c5"
+    },
+    {
+     "name": "4.h4 h5",
+     "moves": "e4 c6 d4 d5 e5 Bf5 h4 h5 c4 e6 Nc3 dxc4 Bxc4 Nd7"
+    },
+    {
+     "name": "...cxd4 line",
+     "moves": "e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 Be3 cxd4 Nxd4 Ne7 c4 Nbc6 Qa4 a6"
+    }
+   ]
+  },
+  {
+   "elo": "2,350",
+   "name": "Master",
+   "hook": "Solid isn't the same as drawn",
+   "takeaway": "Choose your structure by how much you need to win. The engine's small differences matter less at this level than getting a position your opponent has not spent a year preparing.",
+   "scenes": [
+    {
+     "title": "Against 3.f3, keep the tension",
+     "from": "e4 c6 d4 d5",
+     "steps": [
+      {
+       "who": "student",
+       "say": "I find the Caro boring. Everyone plays the same thing and then it's a draw. How do I play this to win?"
+      },
+      {
+       "say": "The reputation is out of date. It used to be close to a system where the first several moves played themselves. Now each third move for White has its own long theory, and you have real choices. Start with the line White scores best with."
+      },
+      {
+       "say": "Here's White's score with each third move. Look at the bottom row in every band.",
+       "table": {
+        "caption": "White's score by third move (50% is equal)",
+        "head": [
+         "",
+         "Under 1400",
+         "1400-1799",
+         "1800-2199",
+         "2200+"
+        ],
+        "rows": [
+         [
+          "3.e5",
+          "50%",
+          "50%",
+          "51%",
+          "53%"
+         ],
+         [
+          "3.exd5",
+          "51%",
+          "49%",
+          "50%",
+          "53%"
+         ],
+         [
+          "3.Nc3",
+          "54%",
+          "52%",
+          "52%",
+          "58%"
+         ],
+         [
+          "3.f3",
+          "59%",
+          "55%",
+          "57%",
+          "62%"
+         ]
+        ]
+       }
+      },
+      {
+       "play": "f3",
+       "arrows": [
+        [
+         "f3",
+         "e4",
+         "alt"
+        ]
+       ],
+       "say": "This is the Fantasy. It guards e4 with a pawn and invites you to open the f-file for White."
+      },
+      {
+       "say": "Most people take on e4. Should you?",
+       "quiz": {
+        "kind": "choice",
+        "prompt": "Your move",
+        "options": [
+         {
+          "t": "3...dxe4, the common reaction",
+          "ok": false,
+          "why": "It's playable (+0.33), but it opens the f-file and gives White the game they want. White scored 56-73% against it across the bands."
+         },
+         {
+          "t": "3...e6, keep the tension",
+          "ok": true,
+          "why": "The engine's first choice (+0.18), and in the sample it scored better for Black than 3...dxe4 at all four rating bands, though samples are small (15 to 154 games a cell)."
+         }
+        ]
+       }
+      },
+      {
+       "play": "e6 Nc3 Bb4 Bd2 Ne7",
+       "arrows": [
+        [
+         "b4",
+         "c3",
+         "good"
+        ]
+       ],
+       "say": "Yes, you just locked the c8 bishop in, breaking the first rule you learned. Rules at this level are defaults, not laws. In exchange your bishop pins the c3 knight, and your other knight heads for g6 or f5, ready for ...c5 (+0.19)."
+      }
+     ]
+    },
+    {
+     "title": "Tal's line: all the pieces, none of the safety",
+     "from": "e4 c6 d4 d5 e5 Bf5 Nc3 e6",
+     "steps": [
+      {
+       "play": "g4 Bg6 Nge2 c5",
+       "arrows": [
+        [
+         "c5",
+         "d4",
+         "good"
+        ]
+       ],
+       "say": "White throws the pawns forward at once. You strike the centre, as a flank attack is best answered there. That move is why this isn't just a one-sided attack (-0.07)."
+      },
+      {
+       "play": "h4",
+       "arrows": [
+        [
+         "h4",
+         "h5",
+         "alt"
+        ]
+       ],
+       "say": "Now the h-pawn threatens to run at your bishop."
+      },
+      {
+       "say": "This is the one moment you can't play on instinct.",
+       "quiz": {
+        "kind": "choice",
+        "prompt": "Your move",
+        "options": [
+         {
+          "t": "7...h5, block the pawn immediately",
+          "ok": true,
+          "why": "Yes. The order matters. You give up a pawn on h5, and the engine still says the position is level."
+         },
+         {
+          "t": "7...cxd4 first, then ...h5",
+          "ok": false,
+          "why": "The natural order gives White time for 9.Bb5+ and the position is +1.08. The same two moves in the wrong order are a full pawn worse."
+         }
+        ]
+       }
+      },
+      {
+       "play": "h5 Nf4 Bh7 Nxh5 Nc6",
+       "arrows": [
+        [
+         "c6",
+         "d4",
+         "good"
+        ],
+        [
+         "c5",
+         "d4",
+         "good"
+        ]
+       ],
+       "marks": [
+        "h5"
+       ],
+       "say": "White has won a pawn with a knight far from the centre, and your pieces are all aimed at d4 and e5. The engine gives 0.00. Every piece is still on the board and you are not worse. If you need a win with Black, that's a dream position."
+      }
+     ]
+    },
+    {
+     "title": "3...c5, the modern way to hit first",
+     "from": "e4 c6 d4 d5 e5",
+     "steps": [
+      {
+       "say": "You don't even need the bishop move. A third of the games at every rating band go here, and it spends two moves on one pawn."
+      },
+      {
+       "play": "c5 Nf3 Nc6 dxc5 e6",
+       "arrows": [
+        [
+         "f8",
+         "c5",
+         "good"
+        ]
+       ],
+       "say": "You've given up c5 for a moment. Your bishop will take it back. White must spend time holding on."
+      },
+      {
+       "play": "Be3 Nh6",
+       "arrows": [
+        [
+         "h6",
+         "f5",
+         "good"
+        ]
+       ],
+       "say": "This looks odd. The knight heads to f5 to hit the e3 bishop. If 7.Bxh6 gxh6, you get the bishop pair and control of f5 in exchange for doubled pawns (+0.45). Otherwise you win c5 back on your terms (about +0.3 after 7.Qd2). At move 3 the engine rates this level with 3...Bf5 (+0.43 against +0.44), and it's a very different game."
+      }
+     ]
+    },
+    {
+     "title": "Unbalance the pawns: 4...Nf6",
+     "from": "e4 c6 d4 d5 Nc3 dxe4 Nxe4",
+     "steps": [
+      {
+       "say": "At the top, 4...Nf6 overtakes 4...Bf5.",
+       "table": {
+        "caption": "Black's fourth move, share of games",
+        "head": [
+         "",
+         "Under 1400",
+         "1400-1799",
+         "1800-2199",
+         "2200+"
+        ],
+        "rows": [
+         [
+          "4...Nf6",
+          "44%",
+          "47%",
+          "57%",
+          "59%"
+         ],
+         [
+          "4...Bf5",
+          "53%",
+          "48%",
+          "32%",
+          "30%"
+         ],
+         [
+          "4...Nd7",
+          "3%",
+          "5%",
+          "12%",
+          "11%"
+         ]
+        ]
+       }
+      },
+      {
+       "play": "Nf6 Nxf6+",
+       "marks": [
+        "f6"
+       ],
+       "say": "White takes and you have to choose which way to ruin your pawns. Both captures double them, and that's the point: the position is no longer symmetrical."
+      },
+      {
+       "say": "You must win this game. Which capture gives you the most fight?",
+       "quiz": {
+        "kind": "choice",
+        "prompt": "Your move",
+        "options": [
+         {
+          "t": "5...exf6, quick development",
+          "ok": false,
+          "why": "It's the sensible choice most of the time (+0.41, played in about 90% of games). You keep a safe king and fast development, but it's the drawish choice."
+         },
+         {
+          "t": "5...gxf6, open the g-file",
+          "ok": true,
+          "why": "This is the fighting choice. The engine gives White more (+0.85), but White's score in the sample barely differs from 5...exf6 (46-58% against 50-58%). Small samples, 8 to 41 games a cell, but it suggests humans find it hard to prove."
+         }
+        ]
+       }
+      },
+      {
+       "play": "gxf6 Nf3 Bg4 Be2 e6 O-O Nd7",
+       "say": "Then ...Qc7, ...O-O-O and a rook on g8. You've got an open file aimed at White's king and a centre of pawns ready to roll with ...f5 and ...e5."
+      }
+     ]
+    },
+    {
+     "title": "Pick by what you need",
+     "from": "e4 c6 d4 d5",
+     "steps": [
+      {
+       "say": "You don't need all of this. You need one solid choice and one fighting choice against each of White's main moves. Engine scores are from White's side at depth 20.",
+       "table": {
+        "caption": "Your menu",
+        "head": [
+         "Line",
+         "Engine",
+         "What you get"
+        ],
+        "rows": [
+         [
+          "4...Nd7",
+          "+0.32",
+          "Most accurate, small risk, heavy theory"
+         ],
+         [
+          "4...Bf5",
+          "+0.39",
+          "Safe development, White gets space"
+         ],
+         [
+          "4...Nf6, 5...exf6",
+          "+0.41",
+          "Fast pieces, damaged pawns, drawish"
+         ],
+         [
+          "4...Nf6, 5...gxf6",
+          "+0.85",
+          "Open g-file, real fight, objective price"
+         ],
+         [
+          "3.e5 Bf5",
+          "+0.44",
+          "Good bishop, French structure"
+         ],
+         [
+          "3.e5 c5",
+          "+0.43",
+          "Immediate fight for d4"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "So the answer to \"it's boring\" is the same as the answer at every level. You make a choice before the game starts. 0 Elo chose a setup, 850 chose a question, 1,900 chose a move order, and you choose how much risk you want."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "name": "3.f3 e6",
+     "moves": "e4 c6 d4 d5 f3 e6 Nc3 Bb4 Bd2 Ne7"
+    },
+    {
+     "name": "Tal line",
+     "moves": "e4 c6 d4 d5 e5 Bf5 Nc3 e6 g4 Bg6 Nge2 c5 h4 h5 Nf4 Bh7 Nxh5 Nc6"
+    },
+    {
+     "name": "3...c5",
+     "moves": "e4 c6 d4 d5 e5 c5 Nf3 Nc6 dxc5 e6 Be3 Nh6"
+    },
+    {
+     "name": "5...gxf6",
+     "moves": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Nf6 Nxf6+ gxf6 Nf3 Bg4 Be2 e6 O-O Nd7"
+    }
+   ]
+  }
+ ],
+ "checks": [
+  {
+   "name": "Qxd4 after 7.O-O trade",
+   "moves": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Bd3 Qxd4 Nf3 Qd8 O-O Bxe4 Bxe4 Qxd1 Rxd1",
+   "eval": -0.7
+  },
+  {
+   "name": "7.O-O Qxb2",
+   "moves": "e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 Be3 Qb6 O-O Qxb2",
+   "eval": 0.0
+  },
+  {
+   "name": "6.c3 Nc6 7.O-O a6",
+   "moves": "e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 c3 Nc6 O-O a6",
+   "eval": 0.23
+  },
+  {
+   "name": "8.Nxf5 Nxf5",
+   "moves": "e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 Be3 cxd4 Nxd4 Ne7 Nxf5 Nxf5",
+   "eval": -0.76
+  },
+  {
+   "name": "13...Nxe4 line",
+   "moves": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6 h4 h6 Nf3 Nd7 h5 Bh7 Bd3 Bxd3 Qxd3 e6 Bd2 Ngf6 O-O-O Be7 Ne4 Nxe4 Qxe4 Nf6",
+   "eval": 0.31
+  },
+  {
+   "name": "Qf7 mate",
+   "moves": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6 h4 h6 Nf3 Nf6 Ne5 Bh7 Bc4 e6 Qe2 Nbd7 Nxf7 Kxf7 Qxe6+ Kg6 Qf7#",
+   "mate": true
+  },
+  {
+   "name": "Nd6 mate",
+   "moves": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Nd7 Qe2 Ngf6 Nd6#",
+   "mate": true
+  }
+ ]
+}

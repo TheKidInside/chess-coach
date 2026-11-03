@@ -26,6 +26,7 @@ function fresh() {
     puzzles: { rating: 1200, solved: 0, failed: 0, run: 0, bestRun: 0, history: [], seen: [] },
     mistakes: [],                              // {id, fen, best, played, label, cls, date, box, due}
     games: [],                                 // newest first
+    reviews: [],                               // reviewed games, newest first: moments + patterns, see saveReview
     settings: { sound: true, theme: 'system', coachOpen: true, coachStyle: 'standard', repOpen: true, elo: 1500, color: 'w', coach: true, statsBand: -1 },
     savedAt: 0,
   };
@@ -39,20 +40,39 @@ function emit(ev) { for (const fn of listeners) fn(ev); }
 // ------------------------------------------------------------------ storage ---
 
 let saveTimer = null;
+let mirrorFailed = false;
+/** Nothing is being kept: the browser refused the save and there is no server behind it. */
+export const storageFailed = () => mirrorFailed && !serverSync;
 function push() {
   saveTimer = null;
   if (!serverSync) return;
-  // keepalive lets the request finish even if the window is closing
-  fetch('/api/profile', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(P.data), keepalive: true })
+  // keepalive lets the request finish even if the window is closing, but browsers refuse a keepalive
+  // body over 64 KB. A bigger profile that misses the closing save is still newer in localStorage.
+  const body = JSON.stringify(P.data);
+  fetch('/api/profile', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, keepalive: body.length < 60000 })
     .catch(() => {});
 }
 export function save() {
   P.data.savedAt = Date.now();
-  try { localStorage.setItem(MIRROR, JSON.stringify(P.data)); } catch { /* private mode */ }
+  try { localStorage.setItem(MIRROR, JSON.stringify(P.data)); mirrorFailed = false; } catch { mirrorFailed = true; }   // full, or private mode
   clearTimeout(saveTimer);
   saveTimer = setTimeout(push, 400);
 }
 addEventListener('pagehide', () => { if (saveTimer) { clearTimeout(saveTimer); push(); } });
+// A second app window saved: take its copy, or this window's next save would wipe out what it recorded.
+addEventListener('storage', (e) => {
+  if (e.key !== MIRROR || !e.newValue) return;
+  try {
+    const j = JSON.parse(e.newValue);
+    if (j?.v !== 1) return;
+    const newer = (j.savedAt || 0) > (P.data.savedAt || 0);
+    const base = newer ? merge(fresh(), j) : P.data, other = newer ? P.data.games : j.games || [];
+    const ids = new Set(base.games.map((g) => g.id)), missing = other.filter((g) => !ids.has(g.id));   // never lose a game to a save race
+    if (newer) P.data = base;
+    if (missing.length) { base.games = [...missing, ...base.games].sort((a, b) => (b.at || 0) - (a.at || 0)); save(); }
+    if (newer || missing.length) emit({ type: 'sync' });
+  } catch { /* ignore */ }
+});
 
 function merge(base, saved) {   // fill fields added in later versions
   const out = { ...base, ...saved };
@@ -72,6 +92,9 @@ export async function loadProfile() {
   const saved = server && local ? ((local.savedAt || 0) > (server.savedAt || 0) ? local : server) : server || local;
   P.data = saved ? merge(fresh(), saved) : fresh();
   if (saved === local && local && local !== server) save();   // push the newer copy back to the server
+  let gaveIds = false;   // games saved before they had ids
+  for (const g of P.data.games) if (!g.id) { g.id = newGameId(); gaveIds = true; }
+  if (gaveIds) save();
   migrateOldProgress();
   return P.data;
 }
@@ -168,7 +191,7 @@ export function dueOpenings(all) {
 export function addMistake(m) {
   const list = P.data.mistakes;
   if (list.some((x) => x.fen === m.fen)) return;
-  list.unshift({ ...m, id: Date.now().toString(36), date: today(), box: 0, due: today() });
+  list.unshift({ ...m, id: Date.now().toString(36) + list.length.toString(36), date: today(), box: 0, due: today() });
   if (list.length > 300) list.length = 300;
   save();
 }
@@ -215,8 +238,72 @@ export function moveAccuracy(loss) {
   return Math.max(0, Math.min(100, 103.1668 * Math.exp(-0.04354 * loss) - 3.1669));
 }
 
-export function recordGame(g) {
-  P.data.games.unshift({ ...g, date: today() });
-  if (P.data.games.length > 200) P.data.games.length = 200;
+// ------------------------------------------------------------- game reviews ---
+
+const REVIEW_MAX = 200, REVIEW_EVALS = 30;   // the engine's numbers are bulky: only recent games keep them
+
+/** Remember a reviewed game. The same game reviewed again replaces its old entry, so nothing double-counts. */
+export function saveReview(rec) {
+  const list = (P.data.reviews ||= []).filter((r) => r.id !== rec.id);
+  list.unshift(rec);
+  list.forEach((r, i) => { if (i >= REVIEW_EVALS) delete r.evals; });
+  P.data.reviews = list.slice(0, REVIEW_MAX);
   save();
 }
+
+export const getReview = (id) => (P.data.reviews || []).find((r) => r.id === id) || null;
+
+/** A moment from an earlier game at this position (newest first), or null. */
+export function findMoment(fen, excludeId) {
+  const key = fen.split(' ').slice(0, 4).join(' ');
+  for (const r of P.data.reviews || []) {
+    if (r.id === excludeId) continue;
+    const m = (r.moments || []).find((x) => x.fen && x.fen.split(' ').slice(0, 4).join(' ') === key && !String(x.cls).startsWith('trap'));
+    if (m) return { ...m, date: r.date };
+  }
+  return null;
+}
+
+/** What the reviews add up to: recurring themes, phase accuracy, and the moments grouped for the panel. */
+export function reviewPatterns(excludeId = null) {
+  const list = (P.data.reviews || []).filter((r) => r.id !== excludeId);
+  const avg = (xs) => { const v = xs.filter((x) => x !== null && x !== undefined); return v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : null; };
+  const themes = {}, errors = [], misses = [], slips = [], traps = [], good = [];
+  const TRAP = { fell: 'Fell into', sprung: 'Sprang', missed: 'Missed the punishment in', avoided: 'Sidestepped', 'could-set': 'Could have set' };
+  for (const r of list) {
+    for (const m of r.moments || []) {
+      if (m.theme && m.cls !== 'inaccuracy') themes[m.theme] = (themes[m.theme] || 0) + 1;
+      const row = { id: r.id, ply: m.ply, cls: m.cls, date: r.date, text: `${m.label}${m.bestSan ? ` (better: ${m.bestSan})` : ''}` };
+      if (m.cls === 'mistake' || m.cls === 'blunder') errors.push(row);
+      else if (m.cls === 'miss') misses.push(row);
+      else if (m.cls === 'inaccuracy') slips.push(row);
+      else if (m.cls === 'inaccuracy') slips.push(row);
+      else if (m.cls === 'inaccuracy') slips.push(row);
+      else if (m.cls === 'inaccuracy') slips.push(row);
+      else if (m.cls === 'brilliant' || m.cls === 'great') good.push({ ...row, text: m.label });
+      else if (String(m.cls).startsWith('trap-')) {
+        const kind = m.cls.slice(5);
+        traps.push({ id: r.id, ply: m.ply, cls: kind === 'sprung' || kind === 'avoided' ? 'great' : 'miss', date: r.date, text: `${TRAP[kind] || kind} ${m.trap}` });
+      }
+    }
+  }
+  return {
+    games: list.length, acc: avg(list.map((r) => r.acc)),
+    themes: Object.entries(themes).sort((a, b) => b[1] - a[1]),
+    phases: { opening: avg(list.map((r) => r.phases?.opening)), middlegame: avg(list.map((r) => r.phases?.middlegame)), endgame: avg(list.map((r) => r.phases?.endgame)) },
+    errors, misses, slips, traps, good,
+  };
+}
+
+// Insert a game, or update the same one (by id) as it goes on. Every game is kept, however many.
+export function recordGame(g) {
+  const list = P.data.games, i = g.id ? list.findIndex((x) => x.id === g.id) : -1;
+  if (i >= 0) list[i] = { ...list[i], ...g };
+  else list.unshift({ date: today(), at: Date.now(), ...g, id: g.id || newGameId() });
+  save();
+}
+export function removeGame(id) {
+  P.data.games = P.data.games.filter((g) => g.id !== id);
+  save();
+}
+export const newGameId = () => `g${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;

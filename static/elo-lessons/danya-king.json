@@ -1,0 +1,171 @@
+{
+  "id": "danya-king",
+  "name": "The king in endgames",
+  "side": "w",
+  "tiers": [
+    {
+      "elo": 0, "name": "Beginner",
+      "hook": "King first, pawn second",
+      "takeaway": "When the queens and rooks are gone your king stops hiding and starts fighting. Walk it up the board ahead of the pawn. The pawn can wait.",
+      "sources": [
+        { "title": "Principles of Chess Endgames | King Activity", "url": "https://youtu.be/mhUoe2JBxco?t=83", "label": "1:23" },
+        { "title": "Principles of Chess Endgames | King Activity", "url": "https://youtu.be/mhUoe2JBxco?t=1680", "label": "28:00" }
+      ],
+      "scenes": [
+        {
+          "title": "A king and a pawn",
+          "fen": "8/8/4k3/8/8/3K4/4P3/8 w - - 0 1",
+          "steps": [
+            { "who": "student", "say": "I'm a pawn up with nothing else left. Do I just run the pawn to the end?" },
+            { "who": "coach", "say": "That's the instinct, and here it throws the win away. Naroditsky ranks one idea above every other in endgames: keep your king active. For most of the game the king lies low. Now it's your best fighter.", "marks": ["d3"] },
+            { "who": "coach", "say": "Your move. Don't touch the pawn. Bring the king forward so it stands right in front of Black's king, one square apart.", "quiz": { "kind": "move", "answer": "Ke4", "hint": "Move the king, not the pawn, one square diagonally forward.", "hit": "Right. Your king is now in front of its pawn, and Black's king can't get past it." } },
+            { "who": "student", "say": "What if I'd pushed 1.e4 like I wanted?" },
+            { "who": "coach", "say": "It's a draw with correct play. The pawn would be in front of the king, and Black's king gets to stand in its way. Same position, same material, half a point gone in one move." }
+          ]
+        },
+        {
+          "title": "Follow the king up",
+          "fen": "8/8/4k3/8/8/3K4/4P3/8 w - - 0 1",
+          "steps": [
+            { "who": "coach", "say": "Watch how the win goes. The king leads each time, and the pawn moves only when it's safe and useful.", "play": "Ke4 Kf6 Kd5 Ke7 Ke5 Kf7", "arrows": [["e5", "e6", "good"]] },
+            { "who": "student", "say": "So the pawn hasn't moved at all, and I'm still winning?" },
+            { "who": "coach", "say": "Yes, because the king has done the work. The pawn is still back on e2 with spare moves in hand, and your king has walked past the middle of the board. Now one small pawn step sends Black's king backward.", "play": "e3 Kg6 Ke6", "marks": ["e6"] }
+          ]
+        }
+      ],
+      "drills": [
+        { "name": "King first", "fen": "8/8/4k3/8/8/3K4/4P3/8 w - - 0 1", "moves": "Ke4 Kf6 Kd5 Ke7 Ke5 Kf7 e3 Kg6 Ke6" }
+      ]
+    },
+    {
+      "elo": 850, "name": "Improver",
+      "hook": "Opposition, and the stalemate trap",
+      "takeaway": "Opposition means the kings face each other with one square between them, and whoever has to move gives way. Get your king to the sixth rank, then step around theirs. Don't push the pawn until your king has cleared the way.",
+      "sources": [
+        { "title": "Using Your King | Principles of Chess Endgames", "url": "https://youtu.be/n3FufrVltsc?t=162", "label": "2:42" },
+        { "title": "Using Your King | Principles of Chess Endgames", "url": "https://youtu.be/n3FufrVltsc?t=241", "label": "4:01" }
+      ],
+      "scenes": [
+        {
+          "title": "Step around their king",
+          "fen": "4k3/8/4K3/4P3/8/8/8/8 w - - 0 1",
+          "steps": [
+            { "who": "student", "say": "My king is on the sixth rank. Is that as good as it looks?" },
+            { "who": "coach", "say": "It's the winning setup. The kings are in opposition, staring at each other with one square between them. If it were Black's move, Black's king would have to step aside and let yours through.", "marks": ["e7"] },
+            { "who": "coach", "say": "It's your move, though. Pick the plan.", "quiz": { "kind": "choice", "prompt": "White to play", "options": [
+              { "t": "1.Kd6, sidestep to the next file", "ok": true, "why": "Right. Your king stays on the sixth rank and aims for the seventh. Stockfish shows a forced mate from here." },
+              { "t": "1.Kd5, step back and regroup", "ok": false, "why": "Giving up the sixth rank lets Black's king come to d7 and hold. That's a draw." },
+              { "t": "1.Kf5, step back the other way", "ok": false, "why": "Same problem on the other side. Black's king reaches f7 and the win is gone." }
+            ] } },
+            { "who": "coach", "say": "Now the pawn can run, because the king has already prepared the road.", "play": "Kd6 Kd8 e6 Ke8 e7 Kf7 Kd7", "arrows": [["e7", "e8", "good"]] }
+          ]
+        },
+        {
+          "title": "The move that throws it away",
+          "fen": "4k3/8/3K4/4P3/8/8/8/8 w - - 0 1",
+          "steps": [
+            { "who": "student", "say": "Here my pawn is ready. Surely 1.e6 is safe now?" },
+            { "who": "coach", "say": "Try the other idea first. Your king isn't in front of the pawn yet. One more king move puts it there, and it's the only move that wins.", "quiz": { "kind": "move", "answer": "Ke6", "hint": "A king move, onto the square directly in front of your pawn.", "hit": "Right. King ahead of the pawn again, and Black's king has to give way." } },
+            { "who": "coach", "say": "After 1.e6 instead, Black plays 1...Kd8 and it's a draw. Pushed pawns can't come back, so the push is the move to be suspicious of. Naroditsky's point about pawn endings is that they run on different rules from the middlegame: you check every line, because the natural move can be the one that draws." }
+          ]
+        }
+      ],
+      "drills": [
+        { "name": "Sidestep and promote", "fen": "4k3/8/4K3/4P3/8/8/8/8 w - - 0 1", "moves": "Kd6 Kd8 e6 Ke8 e7 Kf7 Kd7" },
+        { "name": "King ahead of the pawn", "fen": "4k3/8/3K4/4P3/8/8/8/8 w - - 0 1", "moves": "Ke6 Kd8 Kf7 Kc7 e6" }
+      ]
+    },
+    {
+      "elo": 1900, "name": "Club player",
+      "hook": "Chart a course, use a decoy",
+      "takeaway": "Decide where your king is going before it walks. A diagonal route can do two jobs at once, and an outside passed pawn can pull their king away from where the real fight is.",
+      "sources": [
+        { "title": "Using Your King | Principles of Chess Endgames", "url": "https://youtu.be/n3FufrVltsc?t=1134", "label": "18:54" },
+        { "title": "Understanding Passed Pawns | Principles of Chess Endgames", "url": "https://youtu.be/W0Lw4ox_n_M?t=1359", "label": "22:39" },
+        { "title": "Introduction to Pawn Endgames | Principles of Chess Endgames", "url": "https://youtu.be/QUqq7wSLE78?t=725", "label": "12:05" }
+      ],
+      "scenes": [
+        {
+          "title": "Two jobs on one road",
+          "fen": "7K/8/k1P5/7p/8/8/8/8 w - - 0 1",
+          "steps": [
+            { "who": "student", "say": "This looks hopeless. My king is miles from everything, and their pawn is running." },
+            { "who": "coach", "say": "This is Réti's famous study from 1921, and the best example we know of what Naroditsky calls charting a course. Like setting a destination in a map app, you choose where you're going before you pick the road." },
+            { "who": "coach", "say": "Your king has two jobs: catch the h-pawn, or support your c-pawn. A king moves just as fast on the diagonal as on a straight line, so one road can serve both.", "arrows": [["h8", "g7", "good"], ["g7", "f6", "good"], ["f6", "e5", "good"]], "quiz": { "kind": "move", "answer": "Kg7", "hint": "Move diagonally toward the centre, so you get closer to both pawns at once.", "hit": "Right, and it's the only move that saves the game." } },
+            { "who": "coach", "say": "Black's king goes for your pawn, and now the second job appears. You keep walking down the same diagonal.", "play": "Kb6 Kf6 h4 Ke5 h3 Kd6 h2 c7 Kb7 Kd7 h1=Q c8=Q+", "marks": ["c8"] },
+            { "who": "coach", "say": "Both sides queen, and it's a draw from a position that looked lost. After 1.Kh7 or 1.Kg8, or 1.c7 at once, Stockfish finds a forced mate for Black. Your king just arrives one step too late." }
+          ]
+        },
+        {
+          "title": "The decoy on the far wing",
+          "fen": "8/8/1p3k2/1P6/8/3K4/6P1/8 w - - 0 1",
+          "steps": [
+            { "who": "student", "say": "So I should push my passed g-pawn as fast as I can and force a queen?" },
+            { "who": "coach", "say": "Black's king will just catch it. That's fine, because catching it is the point. The pawn is a decoy, drawing their king away from b6 while your king walks over and takes it.", "marks": ["b6", "g2"] },
+            { "who": "coach", "say": "The destination is b6. Start walking toward it.", "quiz": { "kind": "move", "answer": "Kd4", "hint": "Your king heads for the b6 pawn through the middle, ready to go either way.", "hit": "Right. The king is on its way, and Black can't guard b6 and the g-pawn together." } },
+            { "who": "coach", "say": "Black's king keeps your king out for now, so the g-pawn goes to work. Each push asks Black's king a question.", "play": "Ke6 g4 Kd6 g5 Ke6 g6 Kf6" },
+            { "who": "coach", "say": "Black's king has been dragged to the f-file, so your king walks in. It gives up the g-pawn and wins b6 for it, and the b-pawn then decides the game.", "play": "Kd5 Kxg6 Kc6 Kf5 Kxb6", "arrows": [["b5", "b6", "good"]] }
+          ]
+        }
+      ],
+      "drills": [
+        { "name": "The Réti walk", "fen": "7K/8/k1P5/7p/8/8/8/8 w - - 0 1", "moves": "Kg7 Kb6 Kf6 h4 Ke5 h3 Kd6 h2 c7 Kb7 Kd7 h1=Q c8=Q+" },
+        { "name": "Decoy and collect", "fen": "8/8/1p3k2/1P6/8/3K4/6P1/8 w - - 0 1", "moves": "Kd4 Ke6 g4 Kd6 g5 Ke6 g6 Kf6 Kd5 Kxg6 Kc6 Kf5 Kxb6" }
+      ]
+    },
+    {
+      "elo": 2350, "name": "Expert",
+      "hook": "Losing a move on purpose",
+      "takeaway": "In a locked pawn ending every king position has a matching one on the other side. Map which squares answer which, then take the longer road so the opponent runs out of matching replies. The only winning first move can look like a wasted one.",
+      "sources": [
+        { "title": "Using Your King | Principles of Chess Endgames", "url": "https://youtu.be/n3FufrVltsc?t=1134", "label": "18:54" },
+        { "title": "Using Your King | Principles of Chess Endgames", "url": "https://youtu.be/n3FufrVltsc?t=2260", "label": "37:40" }
+      ],
+      "scenes": [
+        {
+          "title": "The one winning square",
+          "fen": "8/k7/3p4/p2P1p2/P2P1P2/8/8/K7 w - - 0 1",
+          "steps": [
+            { "who": "student", "say": "Every pawn is locked. Surely it doesn't matter which way my king goes first?" },
+            { "who": "coach", "say": "This is Lasker and Reichhelm, 1901, and it's the sharpest test of the idea there is. You want to reach f5 by going around through g5. Black's king has to shadow you and keep you out of both c5 and the kingside.", "marks": ["f5", "a5"] },
+            { "who": "coach", "say": "Three first moves look about the same. Only one wins, and Stockfish calls the other two dead draws.", "quiz": { "kind": "choice", "prompt": "White to play", "options": [
+              { "t": "1.Kb1", "ok": true, "why": "Right. It looks like a passive shuffle, but it's the only move that gets the timing right. Black's king now can't reach its matching square." },
+              { "t": "1.Kb2", "ok": false, "why": "The natural diagonal step. Black replies 1...Ka8 and always has the matching square from then on. A draw." },
+              { "t": "1.Ka2", "ok": false, "why": "After 1...Kb8 2.Kb1 Ka7 you get the position from 1.Kb1, but with you to move instead of Black. The timing is wrong, and it stays a draw." }
+            ] } },
+            { "who": "coach", "say": "Black keeps answering on the same file, so nothing has changed yet.", "play": "Kb1 Kb7 Kc1 Kc7 Kd1 Kd7" },
+            { "who": "student", "say": "We're mirroring each other. How does that ever break?" },
+            { "who": "coach", "say": "Now step off the mirror. You take four moves to reach d3 from d1, when two would do. That's triangulation, and it hands Black the move at the worst moment.", "play": "Kc2 Kc8 Kd2 Kd7 Kc3 Kc7 Kd3", "marks": ["d3"] }
+          ]
+        },
+        {
+          "title": "Break through on the other wing",
+          "fen": "8/k7/3p4/p2P1p2/P2P1P2/8/8/K7 w - - 0 1",
+          "steps": [
+            { "who": "coach", "say": "We reach the key position once more with Black to move, and Black has to choose. Going to b6 guards c5 but gives up the race to the other wing.", "play": "Kb1 Kb7 Kc1 Kc7 Kd1 Kd7 Kc2 Kc8 Kd2 Kd7 Kc3 Kc7 Kd3 Kb6" },
+            { "who": "coach", "say": "So you turn around. Your king runs to h5 by the short road while Black's king is a step behind.", "play": "Ke2 Kc7 Kf3 Kd8 Kg3 Ke7 Kh4 Kf6 Kh5 Kf7", "arrows": [["h5", "g5", "good"]] },
+            { "who": "coach", "say": "King to g5 comes next, f5 falls, and the rest of the pawns follow. Stockfish finds mate from the start of this line. As Naroditsky says about pawn endings, the rules of thumb only help you calculate. At this level you do the counting right to the end, and the board tells you when your intuition was wrong." }
+          ]
+        }
+      ],
+      "drills": [
+        { "name": "Lasker's walk", "fen": "8/k7/3p4/p2P1p2/P2P1P2/8/8/K7 w - - 0 1", "moves": "Kb1 Kb7 Kc1 Kc7 Kd1 Kd7 Kc2 Kc8 Kd2 Kd7 Kc3 Kc7 Kd3 Kb6 Ke2 Kc7 Kf3 Kd8 Kg3 Ke7 Kh4 Kf6 Kh5 Kf7" }
+      ]
+    }
+  ],
+  "checks": [
+    { "name": "1.Ke4 wins", "fen": "8/8/4k3/8/8/3K4/4P3/8 w - - 0 1", "moves": "Ke4", "min": 5 },
+    { "name": "1.e4 only draws", "fen": "8/8/4k3/8/8/3K4/4P3/8 w - - 0 1", "moves": "e4", "eval": 0 },
+    { "name": "1.Kd5 draws", "fen": "4k3/8/4K3/4P3/8/8/8/8 w - - 0 1", "moves": "Kd5", "eval": 0 },
+    { "name": "1.Kd6 wins", "fen": "4k3/8/4K3/4P3/8/8/8/8 w - - 0 1", "moves": "Kd6", "min": 5 },
+    { "name": "1.Ke6 wins", "fen": "4k3/8/3K4/4P3/8/8/8/8 w - - 0 1", "moves": "Ke6", "min": 5 },
+    { "name": "1.e6 draws", "fen": "4k3/8/3K4/4P3/8/8/8/8 w - - 0 1", "moves": "e6", "eval": 0 },
+    { "name": "Reti 1.Kg7 draws", "fen": "7K/8/k1P5/7p/8/8/8/8 w - - 0 1", "moves": "Kg7", "eval": 0 },
+    { "name": "Reti 1.c7 loses", "fen": "7K/8/k1P5/7p/8/8/8/8 w - - 0 1", "moves": "c7", "max": -5 },
+    { "name": "Reti 1.Kh7 loses", "fen": "7K/8/k1P5/7p/8/8/8/8 w - - 0 1", "moves": "Kh7", "max": -5 },
+    { "name": "Decoy wins", "fen": "8/8/1p3k2/1P6/8/3K4/6P1/8 w - - 0 1", "moves": "Kd4", "min": 5 },
+    { "name": "Lasker 1.Kb1 wins", "fen": "8/k7/3p4/p2P1p2/P2P1P2/8/8/K7 w - - 0 1", "moves": "Kb1", "min": 3 },
+    { "name": "Lasker 1.Kb2 draws", "fen": "8/k7/3p4/p2P1p2/P2P1P2/8/8/K7 w - - 0 1", "moves": "Kb2", "eval": 0 },
+    { "name": "Lasker 1.Ka2 draws", "fen": "8/k7/3p4/p2P1p2/P2P1P2/8/8/K7 w - - 0 1", "moves": "Ka2", "eval": 0 }
+  ]
+}

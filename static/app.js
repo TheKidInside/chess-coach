@@ -1,15 +1,20 @@
 import { Chess } from './vendor/chess.js';
 import { OPENINGS, FAMILIES } from './openings.js';
 import { STUDY } from './study.js';
+import { MIDDLEGAMES } from './middlegames.js';
 import './studies.js';   // appends the Lichess studies to OPENINGS / FAMILIES / STUDY
 import {
   P, loadProfile, save, onEvent, addXp, levelOf, levelStart, todayXp, streakNow, INTERVALS, MASTERED_BOX,
   openingStat, recordOpening, dueOpenings, addMistake, dueMistakes, recordMistakeReview,
-  recordPuzzle, puzzleDifficulty, moveAccuracy, recordGame, today, addDays, checkGoal,
+  recordPuzzle, puzzleDifficulty, moveAccuracy, recordGame, removeGame, newGameId, today, addDays, checkGoal,
 } from './profile.js';
 import { play as sfx, moveSound, setSound } from './sound.js';
 import { renderProgress } from './progress.js';
+import { renderGames } from './games.js';
+import { openLessons as openEloLessons } from './elo.js';
 import { api, isStatic } from './backend.js';
+import { VALUE, PIECE, materialFor, passFen, threatIn, explainMove } from './why.js';
+import { createReview, MARK } from './review-ui.js';
 
 const $ = (s) => document.querySelector(s);
 const boardEl = $('#board');
@@ -53,8 +58,18 @@ const S = {
   pz: { src: 'lichess', p: null, mistake: null, color: 'w', step: 0, failed: false, done: false, next: null, pending: null, skipped: new Set() },
   lineDone: false,         // current opening run already recorded
   takebacks: 0,            // take-backs in the current Play game
+  peek: null,              // Play: Stockfish's move on show { fen, san, reasons, ... }; why is null while it thinks
+  peeks: {},               // ply index -> you looked at Stockfish's move before playing it
   chat: [],
   coachStyle: 'standard',  // standard | danya
+  otab: 'train',           // Openings tab: train | lines | plan | about | coach
+  studyPane: 'why',        // Study card: why (this move) | options (what can be played here)
+  gameId: null,            // the Play game being saved
+  gameSel: null,           // Games tab: the game on the board
+  beforeGames: null,       // board state to put back when leaving the Games tab
+  resumeId: null,          // Continue: the saved game the next Play game carries on
+  planFrom: null,          // Study ply to return to when leaving the Plan pane
+  opened: false,           // an opening has been opened this session
   flip: false,             // practise the opening from the other side: the computer plays it, you answer
   whatIf: null,            // Study: a move off the line being tried out (see enterWhatIf)
   repQuery: '',            // repertoire search box
@@ -62,6 +77,8 @@ const S = {
   checkedPly: -1,          // flipped trap line: last ply whose book move was engine-checked
   avoided: false,          // flipped trap line: the student sidestepped the trap
   pops: [],                // the opening card's most-played lines, as rendered
+  review: null,            // Analyze: the game under review (see review-ui.js); locks the board
+  boardColor: null,        // Analyze: your colour, when the board holds a game you played in Play
 };
 
 const other = (c) => (c === 'w' ? 'b' : 'w');
@@ -84,6 +101,12 @@ function analyse(fen, movetime = 700, multipv = 1) {
 }
 
 // ------------------------------------------------------------- chess utils ---
+
+const Review = createReview({
+  S, $, esc, openings: OPENINGS, api, ecoReady: () => ecoReady,
+  render: () => render(), syncTools: () => syncToolButtons(), runAnalysis: () => runAnalysis(), setView: (p) => setView(p), drawArrows: (l) => drawArrows(l), updateEval: (l) => updateEval(l), evalText: (l) => evalText(l),
+  toast: (h) => toast(h), switchTab: (t) => switchTab(t),
+});
 
 function winPct(line) {             // White's winning chances, 0-100
   if (!line) return 50;
@@ -163,7 +186,7 @@ const colorName = (c) => (c === 'w' ? 'White' : 'Black');
 // Lichess chess-openings dataset by tools/build_eco.mjs. Keying by position
 // means transpositions still get the right name.
 let ECO = null;
-fetch('eco.json').then((r) => r.json()).then((j) => { ECO = j; render(); }).catch(() => {});
+const ecoReady = fetch('eco.json').then((r) => r.json()).then((j) => { ECO = j; render(); return j; }).catch(() => ({}));
 
 // ------------------------------------------------------------ real games ---
 
@@ -319,6 +342,32 @@ function branchScore(o, x, n) {   // " · 52% of games, you score 49%" for the p
 // teaching, distilled into lessons/<slug>.json; their per-opening advice also shows under
 // "From the masters". Adding a GM is a data change: a lessons file plus a style entry.
 let COACHES = null;
+// Danya's opening puzzles: real positions from his opening advice, each carrying the note it teaches.
+let DANYA = [];
+const DANYA_KEY = 'chess-coach-danya-v1';
+const fenKey = (fen) => fen.split(' ').slice(0, 4).join(' ');
+const danyaByFen = new Map();
+const danyaSolved = () => { try { return JSON.parse(localStorage.getItem(DANYA_KEY) || '{}'); } catch { return {}; } };
+const danyaFamily = (f) => DANYA.filter((p) => p.family === (f.topic || f.id));
+// The Danya puzzle a repertoire move answers, if any
+function danyaAt(fen, san) {
+  const p = danyaByFen.get(fenKey(fen));
+  if (!p) return null;
+  const m = new Chess(fen).move(san);
+  return p.accept.includes(m.from + m.to + (m.promotion || '')) ? p : null;
+}
+fetch('lessons/naroditsky-puzzles.json').then((r) => r.json()).then((list) => {
+  DANYA = list.map((p) => ({ ...p, rating: 0, themes: [], solution: [p.solution], lesson: true }));
+  for (const p of DANYA) {
+    const g = new Chess();
+    p.pgn.split(' ').forEach((m) => g.move(m));
+    danyaByFen.set(fenKey(g.fen()), p);
+  }
+  const fams = [...new Set(DANYA.map((p) => p.family))].map((id) => FAMILIES.find((f) => f.id === id)).filter(Boolean);
+  $('#pz-danya').innerHTML = `<option value="all">All openings (${DANYA.length})</option>` +
+    fams.map((f) => `<option value="${esc(f.id)}">${esc(f.name)} (${DANYA.filter((p) => p.family === f.id).length})</option>`).join('');
+  if (S.tab === 'openings' && S.family) renderFamily();
+}).catch(() => {});
 const LIBS = {};   // slug -> lesson library
 fetch('coaches.json').then((r) => r.json()).then(async (c) => {
   COACHES = c;
@@ -346,7 +395,7 @@ function renderBoardHead(info) {
   const el = $('#opening-name');
   if (S.tab === 'puzzles' && (S.pz.p || S.pz.mistake)) {
     el.innerHTML = S.pz.p
-      ? `<b>PUZZLE</b>Rated ${Number(S.pz.p.rating) || '?'} · ${colorName(S.pz.color)} to move`
+      ? `<b>${S.pz.p.lesson ? 'DANYA' : 'PUZZLE'}</b>${S.pz.p.lesson ? '' : `Rated ${Number(S.pz.p.rating) || '?'} · `}${colorName(S.pz.color)} to move`
       : `<b>REVIEW</b>Your mistake from ${esc(S.pz.mistake.date)}`;
     return;
   }
@@ -363,6 +412,7 @@ function renderBoardHead(info) {
 // ------------------------------------------------------------------- board ---
 
 function viewGame() {        // the position on screen: live, or an earlier ply while browsing
+  if (S.review?.preview) return S.review.preview.game;   // Game review: Stockfish's move, tried on a copy
   if (S.viewPly === null) return S.game;
   const g = cloneGame(S.game);
   for (let n = g.history().length; n > S.viewPly; n--) g.undo();
@@ -387,6 +437,7 @@ function squareCenter(sq) {
 }
 
 function render() {
+  $('#evalbar').classList.toggle('flipped', S.orient === 'b');   // your colour sits at the bottom, like the board
   const g = viewGame();
   const live = S.viewPly === null;
   const hist = g.history({ verbose: true });
@@ -428,13 +479,15 @@ function render() {
   }
   boardEl.replaceChildren(frag);
   S.flash = null;
-  if (S.anim && live) slide(S.anim);
+  if (S.anim && (live || S.review?.preview)) slide(S.anim);
   S.anim = null;
   drawArrows(live);
   const info = gameOpening();
   renderBoardHead(info);
   renderMoves(info ? info.book : new Set());
-  $('#live-pill').classList.toggle('hidden', live);
+  $('#live-pill').classList.toggle('hidden', live || !!S.review);
+  if (S.review && S.tab === 'analyze') Review.decorateBoard();
+  syncPeek();
 }
 
 function slide({ from, to }) {
@@ -450,7 +503,7 @@ function slide({ from, to }) {
 function drawArrows(live = S.viewPly === null) {
   const svg = $('#arrows');
   svg.querySelectorAll('line').forEach((l) => l.remove());
-  if (!live) return;
+  if (!live && !(S.review && S.tab === 'analyze')) return;
   for (const a of S.arrows) {
     const [x1, y1] = squareCenter(a.from);
     const [x2, y2] = squareCenter(a.to);
@@ -467,7 +520,7 @@ function drawArrows(live = S.viewPly === null) {
   }
 }
 
-const TAG_MARK = { inaccuracy: '?!', mistake: '?', blunder: '??' };
+const TAG_MARK = MARK;
 function renderMoves(book) {
   const sans = S.game.history();
   const cur = (S.viewPly ?? sans.length) - 1;
@@ -494,10 +547,11 @@ function renderMoves(book) {
 
 $('#movelist').addEventListener('click', (e) => {
   const b = e.target.closest('.mv');
-  if (b) navTo(+b.dataset.ply);
+  if (b) { if (S.review) S.review.preview = null; navTo(+b.dataset.ply); }
 });
 
 function navTo(ply) {   // Study steps through its line; everywhere else this browses back through the game
+  if (S.review?.preview && S.tab === 'analyze') return Review.lineNav(ply);
   if (studying() && S.whatIf) {   // forward plays the refutation, back returns to the line
     if (ply > S.game.history().length) whatIfStep();
     else studyGo(Math.min(ply, S.whatIf.base));
@@ -511,6 +565,7 @@ function setView(ply) {
   S.viewPly = ply >= n ? null : ply;
   S.selected = null;
   if (S.tab === 'analyze') S.arrows = [];
+  if (S.review) S.review.preview = null;
   render();
   if (S.tab === 'analyze') runAnalysis();
 }
@@ -518,7 +573,7 @@ function setView(ply) {
 function updateEval(line) {
   S.evalLine = line;
   const w = line ? winPct(line) : 50;
-  $('#evalfill').style.height = `${S.orient === 'w' ? w : 100 - w}%`;
+  $('#evalfill').style.height = `${w}%`;   // always White's share; render() anchors it to White's end of the board
   $('#evaltext').textContent = line ? evalText(line) : '–';
 }
 
@@ -535,14 +590,14 @@ function applyMove(move, { animate = true } = {}) {
 
 function userColorCanMove(color) {
   if (S.tab === 'analyze') return true;
-  if (S.tab === 'progress') return false;
+  if (S.tab === 'progress' || S.tab === 'games') return false;
   if (studying()) return color === S.game.turn();   // Study: try any move to see what it does
   const mine = S.tab === 'openings' ? mySide() : S.tab === 'puzzles' ? S.pz.color : S.playColor;
   return color === mine;
 }
 
 function inputLocked() {
-  if (S.viewPly !== null || studying()) return true;
+  if (S.viewPly !== null || studying() || S.tab === 'games' || (S.review && S.tab === 'analyze')) return true;
   if (S.tab === 'puzzles' && (S.pz.done || (!S.pz.p && !S.pz.mistake))) return true;
   if (S.tab === 'play' && S.recorded) return true;
   return S.busy || S.paused || S.game.isGameOver();
@@ -565,6 +620,7 @@ boardEl.addEventListener('pointerdown', (e) => {
   }
   const sq = squareAt(e.clientX, e.clientY);
   if (!sq) return;
+  if (S.review && S.tab === 'analyze') return;   // reading a review: the buttons and arrow keys drive it
   if (S.viewPly !== null) { setView(S.game.history().length); return; }   // clicking the board returns to live
   if (inputLocked()) return;
   const piece = S.game.get(sq);
@@ -715,6 +771,7 @@ onEvent((ev) => {
   if (ev.type === 'xp') { sfx('xp'); toast(`<b>+${ev.amount} XP</b>${esc(ev.reason)}`); }
   if (ev.type === 'goal') { sfx('goal'); toast(`<b>Daily goal hit</b>Streak: ${ev.streak} day${ev.streak > 1 ? 's' : ''}. Come back tomorrow to keep it going.`, true); }
   if (ev.type === 'level') { sfx('level'); toast(`<b>Level ${ev.level}</b>Keep stacking reps.`, true); }
+  if (ev.type === 'sync' && S.tab === 'games') paintGames();   // another window saved a game
   updateHud();
 });
 
@@ -738,7 +795,7 @@ const LEVELS = ['', 'Beginner', 'Intermediate', 'Sharp'];
 
 // Each opening's branches are split into three sections so they can be learned apart.
 const TOPICS = [
-  { id: 'line', label: 'Lines', one: 'line', many: 'lines', next: 'Next line',
+  { id: 'line', label: 'Main lines', one: 'line', many: 'lines', next: 'Next line',
     hint: 'The main line, its variations and other move orders: what you actually play.' },
   { id: 'trap', label: 'Traps', one: 'trap', many: 'traps', next: 'Next trap',
     hint: 'Tactics that win on the spot. Learn to set them, and to see them coming.' },
@@ -746,6 +803,17 @@ const TOPICS = [
     hint: 'Common errors, yours or your opponent\'s, and how to avoid or punish them.' },
 ];
 const TOPIC = new Map(TOPICS.map((t) => [t.id, t]));
+// The Middlegame section is not a list of lines: it shows what to do once the opening is over
+// (middlegames.js) and lets you play that out against Stockfish from where your lines end.
+const MG = { id: 'middlegame', label: 'Middlegame',
+  hint: 'What to do once the opening is over. Read the plan, then play it out against Stockfish from where your lines end.' };
+const planOf = (f) => (f && (MIDDLEGAMES[f.id] || MIDDLEGAMES[f.topic])) || null;
+// Plans are written from the repertoire side; facing the opening (or playing the other colour) swaps them.
+const planSides = (f, plan, color) => (color === f.side ? [plan.you, plan.them] : [plan.them, plan.you]);
+// A line's own sentence applies inside its opening, including the families split off from it,
+// but not to a Lichess family borrowing the plan.
+const linePlan = (f, o) => (f.source ? '' : MIDDLEGAMES[f.id]?.lines?.[o.id] || MIDDLEGAMES[f.topic]?.lines?.[o.id]) || '';
+const mgLines = (f) => familyLines(f).filter((o) => inSection(o, 'line') && o.kind !== 'transposition');
 // A line's sections: `topic` is one id or a list (a main-theory line that also carries a trap
 // sits in Lines and Traps). Unknown ids fall back to Lines.
 const topicsOf = (o) => { const ts = [].concat(o.topic || 'line').filter((t) => TOPIC.has(t)); return ts.length ? ts : ['line']; };
@@ -862,7 +930,10 @@ function fillOpeningList() {
     groups.get(label).items.push(f);
   }
   for (const [label, g] of [...groups].sort((a, b) => a[1].order - b[1].order)) {
-    list.insertAdjacentHTML('beforeend', `<div class="olist-group"><span class="eyebrow">${esc(label)}</span><span class="count">${g.items.length}</span></div>`);
+    const shut = !q && (P.data.settings.repShut || []).includes(label);   // a search looks inside folded groups
+    list.insertAdjacentHTML('beforeend', `<button class="olist-group${shut ? ' shut' : ''}" data-group="${esc(label)}" aria-expanded="${!shut}"><span class="eyebrow">${esc(label)}</span><span class="count">${g.items.length}</span>` +
+      '<svg viewBox="0 0 24 24" class="chev" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none"/></svg></button>');
+    if (shut) continue;
     for (const f of g.items) {
       const lines = familyLines(f);
       const due = lines.filter(isDue).length;
@@ -884,6 +955,16 @@ function fillOpeningList() {
   renderRepHead();
   renderReviewStrip();
 }
+
+$('#opening-list').addEventListener('click', (e) => {   // fold a group of openings away
+  const b = e.target.closest('[data-group]');
+  if (!b) return;
+  const st = P.data.settings, label = b.dataset.group;
+  st.repShut = (st.repShut || []).includes(label) ? st.repShut.filter((x) => x !== label) : [...(st.repShut || []), label];
+  save();
+  fillOpeningList();
+  $(`#opening-list [data-group="${CSS.escape(label)}"]`)?.focus();
+});
 
 function setRepFilter(k, v) {
   const F = repFilter();
@@ -910,26 +991,35 @@ function renderRepHead() {
   const open = !$('#repertoire').classList.contains('closed');
   const due = dueOpenings(OPENINGS).length;
   const mastered = OPENINGS.filter((o) => (openingStat(o.id)?.box || 0) >= MASTERED_BOX).length;
-  $('#mastery-count').textContent = open
-    ? `${FAMILIES.length} openings · ${mastered} of ${OPENINGS.length} lines mastered`
-    : `${due ? `${due} due · ` : ''}change opening`;
+  $('#rep-label').textContent = open ? 'Choose an opening' : '← All openings';
+  $('#mastery-count').textContent = open ? `${FAMILIES.length} openings · ${mastered} of ${OPENINGS.length} lines mastered` : due ? `${due} due` : '';
+  $('#rep-back').textContent = open && S.opened ? `Back to ${S.family.name} →` : '';
+  $('#lesson-review').classList.toggle('hidden', !due);
+  $('#lesson-review').textContent = `Review ${due} due`;
 }
 
 function setRepOpen(open) {   // fold the repertoire away while you study one opening
   $('#repertoire').classList.toggle('closed', !open);
   $('#rep-toggle').setAttribute('aria-expanded', String(open));
+  if (!open) S.opened = true;
   if (P.data.settings.repOpen !== open) { P.data.settings.repOpen = open; save(); }
   syncPage();
   renderRepHead();
   if (open) $('#opening-list .orow.active')?.scrollIntoView({ block: 'nearest' });
 }
-$('#rep-toggle').addEventListener('click', () => setRepOpen($('#repertoire').classList.contains('closed')));
+$('#rep-toggle').addEventListener('click', () => {
+  const closed = $('#repertoire').classList.contains('closed');
+  if (closed || S.opened) setRepOpen(closed);   // on a first visit there is no lesson to go back to yet
+});
+$('#lesson-review').addEventListener('click', () => startReview());
 
 function selectFamily(f) {
   S.family = f;
   S.opening = familyLines(f).find(isDue) || mainOf(f);
   S.reviewQueue = [];
   setRepOpen(false);
+  S.planFrom = null;
+  setOTab('train');
   fillOpeningList();
   startOpening();
 }
@@ -937,6 +1027,9 @@ function selectFamily(f) {
 // Pick a line inside the current opening. In Study, `atPly` keeps you at the same
 // point (a branch shares the moves so far; a transposition reaches the same position).
 function selectLine(o, atPly = null) {
+  if (!$('#repertoire').classList.contains('closed')) setRepOpen(false);
+  S.planFrom = null;
+  setOTab('train');
   S.opening = o;
   S.family = familyOf(o);
   S.reviewQueue = [];
@@ -959,22 +1052,37 @@ function renderFamily() {
   renderPopular(f);
   const gm = Object.values(LIBS).flatMap((lib) => (lib.openings[f.topic || f.id] || []).map((d) => ({ ...d, who: lib.short })));
   $('#masters').classList.toggle('hidden', !f.masters.length && !gm.length);
+  const dn = danyaFamily(f).length;
+  $('#danya-family').classList.toggle('hidden', !dn);
+  $('#danya-family').textContent = `Danya's puzzles for this opening (${dn})`;
   $('#masters-list').innerHTML = f.masters.map((m) => `<li>${esc(m)}</li>`).join('') +
     gm.map((d) => `<li class="gm-note"><span class="eyebrow">${esc(d.who)}'s videos</span> ${esc(d.text)} <span class="small">${sourceLinks(d.sources)}</span></li>`).join('') +
     (f.source ? `<li class="gm-note"><span class="eyebrow">Lichess study</span> <a href="${lichessUrl(f.source.url)}" target="_blank" rel="noopener">${esc(f.source.study)}</a>${f.source.author ? ` by ${esc(f.source.author)}` : ''}</li>` : '');
   renderRealGames();
   const all = familyLines(f);
   $('#branch-count').textContent = `${all.length} in all`;
-  const t = TOPIC.get(S.section);
+  $('#otab-lines').textContent = all.length;
+  $('[data-otab="plan"]').classList.toggle('hidden', !planOf(f));
+  const plan = planOf(f);
+  if (S.section === MG.id && !plan) S.section = 'line';
+  const t = S.section === MG.id ? MG : TOPIC.get(S.section) || TOPIC.get('line');
   $('#sections').innerHTML = TOPICS.map((x) => {
     const n = all.filter((o) => inSection(o, x.id)).length;
     return `<button class="seg-btn${x === t ? ' active' : ''}" data-section="${x.id}" aria-pressed="${x === t}">${x.label} <span class="count">${n}</span></button>`;
   }).join('');
+  $('#branches').classList.toggle('hidden', t === MG);
+  $('#mg').classList.toggle('hidden', t !== MG);
+  if (t === MG) return renderMiddlegame(f, plan);
   const lines = all.filter((o) => inSection(o, t.id));
   $('#section-hint').innerHTML = `<span>${esc(t.hint)}</span>` +
     (lines.length > 1 ? `<button id="drill-section" title="Drill every ${t.one} in this section from memory, one after another">Drill all ${lines.length}</button>` : '');
   const box = $('#branches');
   box.innerHTML = lines.length ? '' : `<div class="bempty muted small">No ${t.many} for this opening yet.</div>`;
+  // A long list folds by the first move after the opening's defining moves; the current line's group stays open.
+  const at0 = famPrefix(f).length, foldBy = (o) => (o.moves[at0] ? moveLabel(at0, o.moves[at0]) : 'Other');
+  const folds = new Map();
+  if (lines.length > 12) for (const o of lines) folds.set(foldBy(o), (folds.get(foldBy(o)) || 0) + 1);
+  const useFolds = folds.size > 1, holders = new Map();
   for (const o of lines) {
     const d = divergence(o, main);
     const at = o === main ? 'Main' : o.kind === 'transposition' ? 'Order' : d < o.moves.length ? moveLabel(d, o.moves[d]).replace(' ', '') : 'Main';
@@ -984,8 +1092,18 @@ function renderFamily() {
     row.title = o.kind === 'transposition' ? `Another move order into ${LINE.get(o.joins)?.branch || 'this opening'}` : o.name;
     row.innerHTML = `<span class="bmove">${esc(at)}</span><span class="bname">${isDue(o) ? '<span class="due">Due</span>' : ''}${esc(o.branch)}</span>` +
       `<span class="olvl l${o.level}">${LEVELS[o.level]}</span>` + pips(st ? st.box : 0);
-    row.onclick = () => { if (o !== S.opening) selectLine(o); };
-    box.appendChild(row);
+    row.onclick = () => { setOTab('train'); if (o !== S.opening) selectLine(o); };
+    if (!useFolds) { box.appendChild(row); continue; }
+    const key = foldBy(o);
+    if (!holders.has(key)) {
+      const d2 = document.createElement('details');
+      d2.className = 'bfold';
+      d2.innerHTML = `<summary><b class="mono">${esc(key)}</b><span class="muted small">${folds.get(key)} line${folds.get(key) === 1 ? '' : 's'}</span></summary>`;
+      holders.set(key, d2);
+      box.appendChild(d2);
+    }
+    if (o === S.opening) holders.get(key).open = true;
+    holders.get(key).appendChild(row);
   }
 }
 
@@ -993,7 +1111,9 @@ $('#sections').addEventListener('click', (e) => {
   const b = e.target.closest('[data-section]');
   if (!b || b.dataset.section === S.section) return;
   S.section = b.dataset.section;
-  renderFamily();
+  if (S.section === MG.id && S.omode === 'study' && !S.whatIf) startOpening(S.opening.moves.length);   // show where the line ends
+  else renderFamily();
+  refreshChips();
   $(`#sections [data-section="${S.section}"]`).focus();   // the redraw replaced the focused button
 });
 $('#section-hint').addEventListener('click', (e) => {
@@ -1001,6 +1121,46 @@ $('#section-hint').addEventListener('click', (e) => {
   S.reviewQueue = familyLines(S.family).filter((o) => inSection(o, S.section)).map((o) => o.id);
   nextReview();
 });
+
+const bullets = (xs) => `<ul>${xs.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
+const mgBlock = (label, xs, cls = '') => (xs?.length ? `<div class="mg-block${cls}"><span class="eyebrow">${label}</span>${bullets(xs)}</div>` : '');
+
+function renderMiddlegame(f, plan) {
+  const me = mySide(S.opening), them = me === 'w' ? 'b' : 'w';
+  const [mine, theirs] = planSides(f, plan, me);
+  $('#section-hint').innerHTML = `<span>${esc(MG.hint)}</span>`;
+  const rows = mgLines(f).map((o) => {
+    const own = linePlan(f, o), last = o.moves.length - 1;
+    return `<div class="mg-pos${o === S.opening ? ' active' : ''}">` +
+      `<div class="mg-pos-text"><b>${esc(o.branch)}</b> <span class="muted small mono">ends ${esc(moveLabel(last, o.moves[last]))}</span>` +
+      (own ? `<p>${esc(own)}</p>` : '') + '</div>' +
+      `<div class="mg-pos-btns"><button data-mg-view="${o.id}" title="Show where this line ends on the board">View</button>` +
+      `<button class="primary" data-mg-play="${o.id}" title="Play on from the end of this line against Stockfish, as ${colorName(me)}">Play it out</button></div></div>`;
+  }).join('');
+  const fold = (label, body, open = false) => (body ? `<details class="mg-fold"${open ? ' open' : ''}><summary>${label}</summary>${body}</details>` : '');
+  const list = (xs) => (xs?.length ? bullets(xs) : '');
+  $('#mg').innerHTML = `<p class="mg-structure">${esc(plan.structure)}</p>` +
+    fold(`Your plan · ${colorName(me)}`, list(mine), true) + fold(`Their plan · ${colorName(them)}`, list(theirs)) +
+    fold('Piece routes and pawn breaks', list(plan.pieces)) + fold('Avoid', list(plan.avoid)) +
+    fold(`Practise from your lines (${mgLines(f).length})`, `<div class="mg-list">${rows || '<div class="bempty muted small">No lines to start from yet.</div>'}</div>`, true);
+}
+
+$('#mg').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-mg-view], [data-mg-play]');
+  const o = b && LINE.get(b.dataset.mgView || b.dataset.mgPlay);
+  if (!o) return;
+  if (b.dataset.mgPlay) return practiseMiddlegame(o);
+  S.opening = o; S.family = familyOf(o); S.reviewQueue = []; S.planFrom = null;
+  fillOpeningList();
+  if (S.omode !== 'study') setOpeningMode('study');
+  startOpening(o.moves.length);
+});
+
+function practiseMiddlegame(o) {
+  const g = new Chess();
+  for (const m of o.moves) g.move(m);
+  startPlayFrom(g.history(), mySide(o), o);
+}
 
 function renderReviewStrip() {
   const el = $('#review-strip');
@@ -1036,6 +1196,7 @@ function nextReview() {
   if (!id) return;
   S.opening = LINE.get(id);
   S.family = familyOf(S.opening);
+  setOTab('train');
   fillOpeningList();
   setOpeningMode('drill');
 }
@@ -1053,7 +1214,7 @@ function startOpening(atPly = 0) {
   const st = openingStat(o.id);
   const joins = o.kind === 'transposition' && LINE.get(o.joins);
   if (S.sectionLine !== o.id) {   // a new line: show a section it belongs to (keep the current one if it does)
-    if (!inSection(o, S.section)) S.section = topicsOf(o)[0];
+    if (!(S.section === MG.id && (S.omode === 'study' || S.otab === 'plan')) && !inSection(o, S.section)) S.section = topicsOf(o)[0];
     S.sectionLine = o.id;
   }
   renderFamily();
@@ -1081,17 +1242,40 @@ const studying = () => S.tab === 'openings' && S.omode === 'study';
 // The phone layout (style.css) keys off these: the board sticks while an opening is open.
 function syncPage() {
   const d = document.body.dataset;
-  d.tab = S.tab; d.omode = S.omode;
+  d.tab = S.tab; d.omode = S.omode; d.otab = S.otab;
   d.rep = $('#repertoire').classList.contains('closed') ? 'closed' : 'open';
 }
 const narrow = matchMedia('(max-width: 960px)');
 
+// The lesson is four panes, one at a time, instead of one long scroll.
+function setOTab(t) {
+  const wasPlan = S.otab === 'plan';
+  S.otab = t;
+  syncPage();
+  document.querySelectorAll('[data-otab]').forEach((b) => { const on = b.dataset.otab === t; b.classList.toggle('active', on); b.setAttribute('aria-selected', String(on)); });
+  if (t === 'coach') setCoachOpen(true);
+  if (t === 'plan' && !wasPlan) {   // the plan is about where the line ends: Study shows that position, then goes back
+    S.section = MG.id;
+    S.planFrom = studying() && !S.whatIf ? S.game.history().length : null;
+    if (S.planFrom !== null) startOpening(S.opening.moves.length);
+    else renderFamily();
+  } else if (wasPlan && t !== 'plan') {
+    S.section = 'line';
+    if (S.planFrom !== null && studying()) startOpening(S.planFrom);
+    else renderFamily();
+    S.planFrom = null;
+  }
+  if (t === 'plan' || wasPlan) refreshChips();
+}
+$('#otabs').addEventListener('click', (e) => { const b = e.target.closest('[data-otab]'); if (b) setOTab(b.dataset.otab); });
+$('#to-lines').addEventListener('click', () => setOTab('lines'));
+
 // Phone: keep the explanation (Study card, or the Learn/Drill note) right under the sticky board.
 function keepStudyInView() {
-  if (!narrow.matches || S.tab !== 'openings' || document.body.dataset.rep !== 'closed') return;
+  if (!narrow.matches || S.tab !== 'openings' || S.otab !== 'train' || document.body.dataset.rep !== 'closed') return;
   const el = studying() ? $('#study') : $('#opening-note');
   if (!el.innerHTML) return;
-  const top = document.querySelector('.board-col').getBoundingClientRect().bottom;
+  const top = $('#otabs').getBoundingClientRect().bottom;
   const r = el.getBoundingClientRect();
   if (r.top < top || r.top > innerHeight - 160) scrollBy({ top: r.top - top - 8, behavior: 'smooth' });
 }
@@ -1160,7 +1344,10 @@ function studyShow() {
   S.selected = null;
   render();
   let html = `<div class="study-top"><span class="eyebrow">${n ? `Move ${n} of ${len}` : 'Before move 1'}</span>` +
-    `<span class="study-bar"><i style="width:${(n / len) * 100}%"></i></span></div>`;
+    `<span class="study-bar"><i style="width:${(n / len) * 100}%"></i></span></div>` +
+    `<div class="seg study-seg" role="group" aria-label="Study view">${[['why', n ? 'Why this move' : 'The idea'], ['options', 'Options here']].map(([v, t]) =>
+      `<button class="seg-btn${S.studyPane === v ? ' active' : ''}" data-sp="${v}" aria-pressed="${S.studyPane === v}">${t}</button>`).join('')}</div><div class="spane" data-pane="why">`;
+  $('#study').classList.toggle('sp-options', S.studyPane === 'options');
   if (!n) {
     html += `<p class="study-why">${esc(o.idea)}</p>` + (o.source
       ? `<p class="muted small">From ${o.source.game ? `the game ${esc(o.source.game)} in ` : ''}<a href="${lichessUrl(o.source.url)}" target="_blank" rel="noopener">${esc(o.source.chapter)}</a>, a chapter of a Lichess study. The notes are the author's.</p>` : '') + (S.flip
@@ -1171,7 +1358,7 @@ function studyShow() {
     html += `<div class="study-move"><b>${esc(moveLabel(p, o.moves[p]))}</b><span class="who ${yours ? 'you' : 'them'}">${yours ? 'Your move' : 'Their move'}</span>` +
       `<span class="eng" id="eng-badge" title="Stockfish's opinion of this move"></span></div>` +
       `<p class="study-note">${esc(o.notes[p])}</p>` +
-      (st.why?.[p] ? `<p class="study-why">${esc(st.why[p])}</p>` : '') +
+      (st.why?.[p] && st.why[p] !== o.notes[p] ? `<p class="study-why">${esc(st.why[p])}</p>` : '') +
       '<div id="eng-warn"></div>' +
       (st.gm?.[p] ? `<div class="gm"><span class="eyebrow">From the masters</span>${esc(st.gm[p])}</div>` : '');
     for (const t of transpositionsHere()) {
@@ -1182,8 +1369,7 @@ function studyShow() {
   if (n === len) {
     html += `<div class="study-end"><b>End of the line.</b> ${esc(o.idea)}</div>`;
   }
-  html += studyStatsHtml(o);
-  html += '<div id="explore" class="explore"></div>';
+  html += `</div><div class="spane" data-pane="options">${studyStatsHtml(o)}<div id="explore" class="explore"></div></div>`;
   html += '<div class="study-nav">';
   if (n === len) {
     const sec = inSection(o, S.section) ? S.section : topicsOf(o)[0];   // stay in this section
@@ -1292,8 +1478,15 @@ async function fillExplore(o, n) {
 }
 
 $('#study').addEventListener('click', (e) => {
+  const sp = e.target.closest('[data-sp]');
+  if (sp) {
+    S.studyPane = sp.dataset.sp;
+    $('#study').classList.toggle('sp-options', S.studyPane === 'options');
+    document.querySelectorAll('#study [data-sp]').forEach((x) => { const on = x === sp; x.classList.toggle('active', on); x.setAttribute('aria-pressed', String(on)); });
+    return;
+  }
   const ex = e.target.closest('.ex-row');
-  if (ex) return exploreMove(ex.dataset.san);
+  if (ex) { S.studyPane = 'why'; return exploreMove(ex.dataset.san); }
   const b = e.target.closest('button');
   if (!b) return;
   if (b.dataset.line && b.dataset.act !== 'branch') return selectLine(LINE.get(b.dataset.line), +b.dataset.ply);
@@ -1324,14 +1517,6 @@ function exploreMove(san) {
 // Try a move the line doesn't play: drag it on the board, or tap it in the explore list.
 // Shows Stockfish's verdict, a plain-words reason (material it loses, a mate it allows),
 // how often real players choose it, and the refutation, which you can step through.
-
-const PIECE = { p: 'pawn', n: 'knight', b: 'bishop', r: 'rook', q: 'queen', k: 'king' };
-const VALUE = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
-function materialFor(g, color) {
-  let s = 0;
-  for (const row of g.board()) for (const p of row) if (p) s += (p.color === color ? 1 : -1) * VALUE[p.type];
-  return s;
-}
 
 function whatIfReason(w, v, after, yours) {
   const line = after.lines[0], mover = w.mv.color;
@@ -1374,6 +1559,7 @@ function enterWhatIf(sans, base = S.game.history().length) {
 }
 
 function startWhatIf(w) {
+  setOTab('train');
   const after = new Chess(w.fenBefore);
   after.move(w.sans[0]);
   // a multi-move what-if (from Most played) ends past the first move: the refutation no longer fits the board
@@ -1402,6 +1588,7 @@ async function runWhatIf(w) {
 
 // Your move in Study: the line's own move steps on; anything else is a what-if.
 function onStudyTry(mv, fenBefore) {
+  if (S.otab !== 'train') setOTab('train');
   const o = S.opening, w = S.whatIf;
   if (w) {   // already off the line: keep exploring from here (the refutation no longer applies)
     w.sans.push(mv.san);
@@ -1529,6 +1716,7 @@ $('#pop-body').addEventListener('click', (e) => {
   if (S.omode !== 'study') setOpeningMode('study');
   const target = p.line && p.depth > 0 ? p.line : S.opening;
   const d = p.line ? p.depth : divergence(S.opening, { moves: p.seq });
+  S.studyPane = 'why';
   selectLine(target, d);
   if (d < p.seq.length) enterWhatIf(p.seq.slice(d), d);
   else keepStudyInView();
@@ -1540,10 +1728,10 @@ $('#pop-body').addEventListener('click', (e) => {
 function renderSideSeg() {
   const o = S.opening, own = o.side, opp = other(own);
   const [a, b] = document.querySelectorAll('#side-seg [data-flip]');
-  a.innerHTML = `<img src="pieces/${own}K.svg" alt="">Play the opening`;
-  b.innerHTML = `<img src="pieces/${opp}K.svg" alt="">Answer it as ${colorName(opp)}`;
-  a.title = 'Your repertoire side: the reviews track this';
-  b.title = `The computer plays the ${familyOf(o).name}; you practise the best answers`;
+  a.innerHTML = `<img src="pieces/${own}K.svg" alt="">Play it`;
+  b.innerHTML = `<img src="pieces/${opp}K.svg" alt="">Answer it`;
+  a.title = `Play the opening as ${colorName(own)}: your repertoire side, which the reviews track`;
+  b.title = `The computer plays the ${familyOf(o).name}; you practise the best answers as ${colorName(opp)}`;
   for (const x of [a, b]) {
     const on = (x.dataset.flip === '1') === S.flip;
     x.classList.toggle('active', on);
@@ -1578,6 +1766,12 @@ function openingNote() {
   const ply = S.game.history().length;
   let html = '';
   if (ply > 0) html += `<p><b>${moveLabel(ply - 1, o.moves[ply - 1])}</b>: ${esc(o.notes[ply - 1])}</p>`;
+  if (ply > 0 && (ply - 1) % 2 === (mySide(o) === 'w' ? 0 : 1)) {       // the move you just played
+    const g = new Chess();
+    o.moves.slice(0, ply - 1).forEach((m) => g.move(m));
+    const dp = danyaAt(g.fen(), o.moves[ply - 1]);
+    if (dp) html += `<div class="danya-note"><span class="eyebrow">From Danya's videos</span><p>${esc(dp.text)} <span class="small">${sourceLinks(dp.sources)}</span></p></div>`;
+  }
   if (ply < o.moves.length && S.game.turn() === mySide(o)) {
     if (S.checkedPly < ply && S.flip && isTrapLine(o)) html += '<p class="muted">Checking the next move with Stockfish…</p>';
     else if (S.expect?.ply === ply) {
@@ -1586,7 +1780,7 @@ function openingNote() {
     } else {
       html += S.omode === 'learn'
         ? `<p>Your move: <b>${esc(o.moves[ply])}</b> (green arrow). ${esc(o.notes[ply])}</p>`
-        : `<p>Your move. Play the book move from memory.</p>`;
+        : `<p>Your move. Play the book move from memory.</p>${danyaAt(S.game.fen(), o.moves[ply]) ? `<div class="danya-note"><span class="eyebrow">Question on Danya's lesson</span><p>${esc(danyaAt(S.game.fen(), o.moves[ply]).ask)}</p></div>` : ''}`;
     }
   }
   $('#opening-note').innerHTML = html;
@@ -1736,21 +1930,53 @@ function finishFlipped() {
 }
 
 function continueOpeningInPlay() {
+  startPlayFrom(S.game.history(), mySide(), S.opening);
+}
+
+// Start a Play game from the position reached by `sans`. `line` is the opening line it came
+// from: its middlegame plan is shown beside the game and handed to the coach.
+function startPlayFrom(sans, color, line) {
   const parked = S.saved.play;
   if (parked && !parked.recorded && parked.game.history().length && !parked.game.isGameOver()
     && !confirm('You have a game in progress in Play. Abandon it and play on from this opening?')) return;
-  const sans = S.game.history();
-  S.playColor = mySide();
+  S.playColor = color;
   switchTab('play', false);
   S.saved.play = null;
   S.epoch++;
   S.game = new Chess();
   for (const san of sans) S.game.move(san);
   resetPlayState();
+  S.mg = line && planOf(familyOf(line)) ? { line: line.id, color } : null;
+  renderPlayPlan();
   S.orient = S.playColor;
   hideBanner();
+  if (S.mg) setPlayNote(`Middlegame practice from <b>${esc(line.branch)}</b>: you have ${colorName(color)} against ${oppLabel()}. The plan is below.`);
   render();
+  refreshChips();
   afterPositionChange();
+}
+
+function renderPlayPlan() {
+  const el = $('#play-plan');
+  const o = S.mg && LINE.get(S.mg.line), f = o && familyOf(o), plan = f && planOf(f);
+  el.classList.toggle('hidden', !plan);
+  if (!plan) { el.innerHTML = ''; return; }
+  const [mine, theirs] = planSides(f, plan, S.mg.color), own = linePlan(f, o);
+  const general = mgBlock('Your plan', mine) + mgBlock('Watch for', theirs) + mgBlock('Avoid', plan.avoid, ' avoid');
+  // a line with its own plan leads with it; the opening's general plan may not fit it move for move
+  el.innerHTML = `<summary><span class="eyebrow">Middlegame plan</span> <span class="muted small">${esc(o.branch)}</span></summary>` +
+    (own ? `<p class="mg-structure"><b>In this line.</b> ${esc(own)}</p><details class="mg-more"><summary class="small">The ${esc(f.name)}'s general plan</summary><p class="small muted">${esc(plan.structure)}</p>${general}</details>`
+      : `<p class="mg-structure">${esc(plan.structure)}</p>${general}`);
+}
+
+// The plan as plain text for the coach.
+function planText(o, color) {
+  const f = familyOf(o), plan = planOf(f);
+  if (!plan) return '';
+  const [mine, theirs] = planSides(f, plan, color), own = linePlan(f, o);
+  return `Middlegame plan for this opening (the student plays ${colorName(color)}): ${plan.structure}` +
+    (own ? ` In this line: ${own}` : '') +
+    ` Student's plan: ${mine.join(' ')} Opponent's plan: ${theirs.join(' ')} Piece routes and breaks: ${(plan.pieces || []).join(' ')} Avoid: ${(plan.avoid || []).join(' ')}`;
 }
 
 const OMODE_HINTS = {
@@ -1797,6 +2023,7 @@ function puzzleButtons() {
   $('#pz-solution').disabled = !active || S.busy;
   $('#pz-next').textContent = z.src === 'mistakes' ? 'Next mistake' : 'Next puzzle';
   $('#pz-theme-field').classList.toggle('hidden', z.src !== 'lichess');
+  $('#pz-danya-field').classList.toggle('hidden', z.src !== 'danya');
 }
 
 async function fetchPuzzle() {
@@ -1808,7 +2035,21 @@ async function fetchPuzzle() {
   return null;
 }
 
+// Unsolved first, then anything but the one just shown
+function nextDanyaPuzzle() {
+  const fam = $('#pz-danya').value;
+  const pool = DANYA.filter((p) => fam === 'all' || p.family === fam);
+  const done = danyaSolved();
+  const fresh = pool.filter((p) => !done[p.id]);
+  const from = (fresh.length ? fresh : pool).filter((p) => p.id !== S.pz.lastDanya);
+  const list = from.length ? from : pool;
+  const p = list[Math.floor(Math.random() * list.length)];
+  S.pz.lastDanya = p?.id;
+  return p;
+}
+
 function prefetchPuzzle() {
+  if (S.pz.src !== 'lichess') return;
   S.pz.next = fetchPuzzle().catch(() => null);
 }
 
@@ -1827,8 +2068,9 @@ async function loadPuzzle() {
   puzzleButtons();
   let p = null;
   try {
-    const pre = z.next && (await z.next);
-    p = pre && pre.theme === $('#pz-theme').value ? pre : await fetchPuzzle();
+    const pre = z.src === 'lichess' && z.next && (await z.next);
+    p = z.src === 'danya' ? nextDanyaPuzzle() : pre && pre.theme === $('#pz-theme').value ? pre : await fetchPuzzle();
+    if (!p) throw new Error('No puzzles loaded');
   } catch (e) {
     if (ep !== S.epoch) return;
     pzStatus('bad', `<b>Couldn't reach Lichess.</b> ${esc(e.message)}. Check the internet connection, or train on your own mistakes meanwhile.`);
@@ -1847,7 +2089,7 @@ async function loadPuzzle() {
   S.busy = true;
   render();
   puzzleButtons();
-  pzStatus('', `<b>${colorName(z.color)} to move.</b> Find the best move.`);
+  pzStatus('', p.lesson ? `<b>${colorName(z.color)} to move.</b> ${esc(p.ask)}` : `<b>${colorName(z.color)} to move.</b> Find the best move.`);
   setTimeout(() => {
     if (ep !== S.epoch) return;
     settlePuzzle();
@@ -1887,7 +2129,7 @@ async function onPuzzleMove(mv, fenBefore) {
   if (z.mistake) return onMistakeMove(mv, fenBefore);
   const uci = mv.from + mv.to + (mv.promotion || '');
   const expected = z.p.solution[z.step];
-  if (uci === expected || S.game.isCheckmate()) {
+  if (uci === expected || z.p.accept?.includes(uci) || S.game.isCheckmate()) {
     z.step++;
     S.flash = { sq: mv.to, kind: 'good' };
     render();
@@ -1913,7 +2155,7 @@ async function onPuzzleMove(mv, fenBefore) {
   S.busy = true;
   render();
   puzzleFailed();
-  pzStatus('bad', '<b>Not it.</b> Try again, or show the solution.');
+  pzStatus('bad', z.p.lesson ? '<b>Not the move this lesson is about.</b> Try again, or show the solution.' : '<b>Not it.</b> Try again, or show the solution.');
   z.pending = { kind: 'undo' };
   puzzleButtons();
   const ep = S.epoch;
@@ -1940,8 +2182,19 @@ function puzzleFailed() {   // the first miss (or a hint) is what the rating cou
   const z = S.pz;
   if (z.failed) return;
   z.failed = true;
+  if (z.p.lesson) return;        // these don't move your puzzle rating
   const delta = recordPuzzle(z.p, false);
   renderPuzzleStats(delta);
+}
+
+// Solved or shown, a Danya puzzle ends with the lesson it was built on.
+function danyaReveal(head) {
+  const z = S.pz;
+  const done = danyaSolved();
+  done[z.p.id] = 1;
+  try { localStorage.setItem(DANYA_KEY, JSON.stringify(done)); } catch {}
+  pzStatus(z.failed ? '' : 'ok', `<b>${head}</b> Press Enter for the next one.`);
+  $('#pz-meta').innerHTML = `<div class="danya-note"><span class="eyebrow">From Danya's videos</span><p>${esc(z.p.text)}</p><span class="small">${sourceLinks(z.p.sources)}</span></div>`;
 }
 
 function puzzleSolved() {
@@ -1949,6 +2202,11 @@ function puzzleSolved() {
   z.done = true;
   S.hint = null;
   puzzleButtons();
+  if (z.p.lesson) {
+    if (!z.failed) { sfx('good'); addXp(10, "Danya's puzzle"); }
+    danyaReveal(z.failed ? 'Solved after a miss.' : 'Solved.');
+    return refreshChips();
+  }
   const themes = `<div class="themes">${z.p.themes.map((t) => `<span>${esc(t.replace(/([A-Z])/g, ' $1').toLowerCase())}</span>`).join('')}</div>`;
   $('#pz-meta').innerHTML = `Puzzle ${esc(z.p.id)} · rated ${Number(z.p.rating) || '?'} · <a href="https://lichess.org/training/${encodeURIComponent(z.p.id)}" target="_blank" rel="noopener">open on Lichess</a>${themes}`;
   if (!z.failed) {
@@ -1991,7 +2249,8 @@ function showSolution() {
       S.busy = false;
       z.done = true;
       puzzleButtons();
-      pzStatus('', '<b>That was the solution.</b> Step back through it with the arrow keys, or press Enter for the next puzzle.');
+      if (z.p.lesson) danyaReveal('That was the move.');
+      else pzStatus('', '<b>That was the solution.</b> Step back through it with the arrow keys, or press Enter for the next puzzle.');
       refreshChips();
       return;
     }
@@ -2010,7 +2269,7 @@ function showHint() {
   S.hint = target.slice(0, 2);
   if (z.mistake) z.failed = true; else puzzleFailed();
   render();
-  pzStatus('', `<b>Hint:</b> move the highlighted piece. ${z.mistake ? 'Hinted fixes come back tomorrow.' : 'Hints count as a miss for your rating.'}`);
+  pzStatus('', `<b>Hint:</b> move the highlighted piece. ${z.mistake ? 'Hinted fixes come back tomorrow.' : z.p.lesson ? '' : 'Hints count as a miss for your rating.'}`);
 }
 
 async function onMistakeMove(mv, fenBefore) {
@@ -2061,10 +2320,20 @@ async function onMistakeMove(mv, fenBefore) {
 $('#pz-next').addEventListener('click', loadPuzzle);
 $('#pz-hint').addEventListener('click', showHint);
 $('#pz-solution').addEventListener('click', showSolution);
-$('#pz-theme').addEventListener('change', () => { S.pz.next = null; loadPuzzle(); });
+$('#pz-danya').addEventListener('change', loadPuzzle);
+$('#danya-family').addEventListener('click', () => {
+  S.pz.src = 'danya';
+  document.querySelectorAll('[data-psrc]').forEach((x) => x.classList.toggle('active', x.dataset.psrc === 'danya'));
+  $('#pz-danya').value = S.family.topic || S.family.id;
+  $('#pz-lesson').classList.add('hidden');
+  switchTab('puzzles');
+  loadPuzzle();
+});
+$('#pz-theme').addEventListener('change', () => { S.pz.next = null; $('#pz-lesson').classList.add('hidden'); loadPuzzle(); });
 document.querySelectorAll('[data-psrc]').forEach((b) => b.addEventListener('click', () => {
   S.pz.src = b.dataset.psrc;
   document.querySelectorAll('[data-psrc]').forEach((x) => x.classList.toggle('active', x === b));
+  $('#pz-lesson').classList.add('hidden');
   loadPuzzle();
 }));
 
@@ -2073,8 +2342,22 @@ document.querySelectorAll('[data-psrc]').forEach((b) => b.addEventListener('clic
 function setPlayNote(html) { $('#play-note').innerHTML = html; }
 
 function resetPlayState() {
-  S.tags = {}; S.lossByPly = {}; S.recorded = false; S.takebacks = 0;
+  S.tags = {}; S.lossByPly = {}; S.recorded = false; S.takebacks = 0; S.peek = null; S.peeks = {};
   S.paused = false; S.busy = false; S.arrows = []; S.lastVerdict = null; S.viewPly = null;
+  S.gameId = S.resumeId;   // null for a new game
+  S.resumeId = null;
+}
+
+// Save the Play game as it goes, from your first move: abandoned or closed, it is still in Games.
+function logLiveGame() {
+  if (S.recorded || !S.game.history().length) return;
+  S.gameId ||= newGameId();
+  recordGame({ id: S.gameId, result: 'unfinished', resigned: false, color: S.playColor, elo: S.elo, oppLabel: oppLabel(), acc: null,
+    takebacks: S.takebacks, peeks: Object.keys(S.peeks).length, moves: S.game.history().length, pgn: S.game.pgn(), opening: savedOpening(S.game) });
+}
+function savedOpening(g) {
+  const o = gameOpening(g);
+  return o ? { eco: o.eco, name: o.name } : null;
 }
 
 function oppLabel(elo = S.elo) {
@@ -2092,8 +2375,10 @@ function resumePlay() {
   const saved = S.saved.play;
   S.saved.play = null;
   if (!saved || saved.game.isGameOver() || saved.game.history().length === 0 || saved.recorded) return newGame();
-  S.game = saved.game; S.tags = saved.tags; S.lossByPly = saved.lossByPly; S.lastVerdict = saved.verdict; S.recorded = false; S.takebacks = saved.takebacks || 0;
+  S.game = saved.game; S.tags = saved.tags; S.lossByPly = saved.lossByPly; S.lastVerdict = saved.verdict; S.recorded = false; S.takebacks = saved.takebacks || 0; S.peek = null; S.peeks = saved.peeks || {};
   S.orient = S.playColor; S.arrows = []; S.viewPly = null;
+  S.mg = saved.mg || null;
+  renderPlayPlan();
   setPlayNote('Game resumed.');
   render();
   afterPositionChange();
@@ -2106,6 +2391,8 @@ function newGame() {
   S.playColor = S.colorPref === 'r' ? (Math.random() < 0.5 ? 'w' : 'b') : S.colorPref;
   S.orient = S.playColor;
   resetPlayState();
+  S.mg = null;
+  renderPlayPlan();
   hideBanner();
   updateEval(null);
   setPlayNote(`You have ${colorName(S.playColor)} against ${oppLabel()}. ${S.coachOn ? 'The coach checks every move.' : 'Coach is off; accuracy is still scored.'}`);
@@ -2121,8 +2408,8 @@ function afterPositionChange() {
   analyse(fen).then((r) => { if (S.game.fen() === fen) updateEval(r.lines[0]); }).catch(() => {});
 }
 
-function accuracy(lossByPly = S.lossByPly) {
-  const losses = Object.values(lossByPly);
+function accuracy(lossByPly = S.lossByPly, peeks = S.peeks) {   // a move you were shown is not your move
+  const losses = Object.entries(lossByPly).filter(([ply]) => !peeks[ply]).map(([, l]) => l);
   if (!losses.length) return null;
   return Math.round(losses.reduce((a, l) => a + moveAccuracy(l), 0) / losses.length);
 }
@@ -2146,27 +2433,32 @@ function gameOver() {
 async function finishGame(result, msg, resigned) {
   if (S.recorded) return;
   S.recorded = true;
+  if (S.peek) { S.peek = null; S.arrows = []; drawArrows(); }
+  syncPeek();
   const ep = S.epoch;
   // snapshot now: a new game or tab switch while we wait must not lose this one
-  const snap = { game: S.game, tags: S.tags, lossByPly: S.lossByPly, color: S.playColor, elo: S.elo, opp: oppLabel(), takebacks: S.takebacks };
+  const peeks = Object.keys(S.peeks).length;
+  const snap = { game: S.game, tags: S.tags, lossByPly: S.lossByPly, color: S.playColor, elo: S.elo, opp: oppLabel(), takebacks: S.takebacks, peeks: S.peeks, id: S.gameId };
   await waitForJudging();
-  const acc = accuracy(snap.lossByPly);
+  const acc = accuracy(snap.lossByPly, snap.peeks);
   const counts = { inaccuracy: 0, mistake: 0, blunder: 0 };
   for (const t of Object.values(snap.tags)) counts[t]++;
   const myMoves = Object.keys(snap.lossByPly).length;
-  recordGame({ result, resigned, color: snap.color, elo: snap.elo, oppLabel: snap.opp, acc, counts, takebacks: snap.takebacks, moves: snap.game.history().length, pgn: snap.game.pgn() });
-  // XP for finished games only: resigning or a very short game pays nothing, take-backs halve it
+  recordGame({ id: snap.id, opening: savedOpening(snap.game), result, resigned, color: snap.color, elo: snap.elo, oppLabel: snap.opp, acc, counts, takebacks: snap.takebacks, peeks, moves: snap.game.history().length, pgn: snap.game.pgn() });
+  // XP for finished games only: resigning or a very short game pays nothing, take-backs and looking at Stockfish's move halve it
   let xp = !resigned && myMoves >= 10 ? 15 + (result === 'win' ? 25 : result === 'draw' ? 10 : 0) + Math.round((acc || 0) / 10) : 0;
-  if (snap.takebacks) xp = Math.floor(xp / 2);
+  if (snap.takebacks || peeks) xp = Math.floor(xp / 2);
   if (xp) addXp(xp, result === 'win' ? 'Game won' : 'Game finished');
   updateHud();
+  if (S.tab === 'games') paintGames();
   if (ep !== S.epoch || S.tab !== 'play') return;
   sfx(result === 'win' ? 'good' : result === 'loss' ? 'bad' : 'move');
   const dueM = dueMistakes().length;
-  const actions = [['Rematch', newGame, true], ['Analyze this game', () => switchTab('analyze')]];
+  const actions = [['Rematch', newGame, true], ['Review this game', () => Review.reviewGame(snap.game.pgn(), snap.color)], ['Analyze this game', () => { if (S.review) Review.exit(); S.boardColor = snap.color; switchTab('analyze'); }]];
+  actions.push(['All my games', () => switchTab('games')]);
   if (dueM) actions.push([`Fix my mistakes (${dueM})`, () => { S.pz.src = 'mistakes'; S.saved.puzzles = null; document.querySelectorAll('[data-psrc]').forEach((x) => x.classList.toggle('active', x.dataset.psrc === 'mistakes')); switchTab('puzzles'); }]);
   banner(result === 'loss' ? 'bad' : 'ok',
-    `<b>${msg}</b>${xpNote(resigned, myMoves, snap.takebacks)}
+    `<b>${msg}</b>${xpNote(resigned, myMoves, snap.takebacks, peeks)}
      <div class="summary">
        <div><b>${acc ?? '–'}${acc === null ? '' : '%'}</b><span>Accuracy</span></div>
        <div><b>${counts.inaccuracy}</b><span>Inaccuracies</span></div>
@@ -2177,16 +2469,89 @@ async function finishGame(result, msg, resigned) {
   updateHud();
 }
 
-function xpNote(resigned, myMoves, takebacks) {
+function xpNote(resigned, myMoves, takebacks, peeks) {
+  const helped = [takebacks && `${takebacks} take-back${takebacks > 1 ? 's' : ''}`, peeks && `${peeks} Stockfish move${peeks > 1 ? 's' : ''} shown`].filter(Boolean).join(', ');
   const why = resigned ? 'Resigned games earn no XP.' : myMoves < 10 ? 'Short games (under 10 of your moves) earn no XP.'
-    : takebacks ? `${takebacks} take-back${takebacks > 1 ? 's' : ''}: XP halved.` : '';
+    : helped ? `${helped}: XP halved.` : '';
   return why ? `<br><span class="small">${why}</span>` : '';
+}
+
+// Show Stockfish's move: an arrow on the board plus why it works. It always asks for the
+// full-strength analyser, not the Elo-limited opponent. The move itself comes from the same search
+// as judge() (multipv 1), so playing it is then marked as Stockfish's top choice.
+function peekAllowed() {
+  return S.tab === 'play' && S.viewPly === null && !S.busy && !S.paused && !S.recorded
+    && !S.game.isGameOver() && S.game.turn() === S.playColor;
+}
+
+function syncPeek() {
+  if (S.peek && S.peek.fen !== S.game.fen()) S.peek = null;
+  const p = S.peek, btn = $('#btn-sf'), card = $('#sf-card');
+  btn.textContent = p ? "Hide Stockfish's move" : "Show Stockfish's move";
+  btn.disabled = !p && !peekAllowed();
+  $('#sf-note').classList.toggle('hidden', !!p || !peekAllowed());
+  card.classList.toggle('hidden', !p);
+  if (!p) { card.innerHTML = ''; return; }
+  if (p.rendered) return;
+  p.rendered = !!p.reasons || !!p.error;
+  if (p.error) { card.innerHTML = `<p class="muted">Stockfish didn't answer: ${esc(p.error)}</p>`; return; }
+  if (!p.reasons) { card.innerHTML = '<p class="muted">Stockfish is thinking…</p>'; return; }
+  card.innerHTML = `<div class="study-move"><b>${esc(p.san)}</b><span class="eng best" title="White's view">${esc(p.evalText)}</span></div>` +
+    `<ul class="sf-why">${p.reasons.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>` +
+    (p.line ? `<div class="sf-line"><span class="eyebrow">Likely play</span><span>${esc(p.line)}</span></div>` : '') +
+    '<div class="actions"><button id="sf-ask">Ask the coach to explain more</button></div>';
+  $('#sf-ask').onclick = () => ask(`Why does ${p.san} work in this position? Explain the idea, using Stockfish's line.`);
+}
+
+async function togglePeek() {
+  if (S.peek) {
+    S.peek = null; S.arrows = [];
+    drawArrows();
+    return syncPeek();
+  }
+  if (!peekAllowed()) return;
+  const fen = S.game.fen(), ply = S.game.history().length, ep = S.epoch, me = S.playColor;
+  const peek = S.peek = { fen };
+  syncPeek();
+  const stale = () => ep !== S.epoch || S.peek !== peek;
+  try {
+    const [main, wide] = await Promise.all([analyse(fen, 700, 1), analyse(fen, 900, 3)]);
+    const best = main.bestmove;
+    if (!best || !main.lines[0]) throw new Error('no move found');
+    const line = main.lines[0].pv?.[0] === best ? main.lines[0] : { ...main.lines[0], pv: [best] };
+    const afterFen = new Chess(fen);
+    uciMove(afterFen, best);
+    const threatOf = async (f) => {
+      const pass = passFen(f);
+      return pass ? threatIn(pass, await analyse(pass, 500, 1).catch(() => null)) : null;
+    };
+    const [threatNow, threatNext] = await Promise.all([threatOf(fen), threatOf(afterFen.fen())]);
+    if (stale()) return;
+    const winOf = (l) => (me === 'w' ? winPct(l) : 100 - winPct(l));
+    const next = wide.lines.find((l) => l.pv?.[0] && l.pv[0] !== best);
+    peek.san = uciToSan(fen, best);
+    peek.evalText = evalText(line);
+    peek.reasons = explainMove({
+      fen, line, winNow: winOf(line), threatNow, threatNext,
+      last: S.game.history({ verbose: true }).at(-1) || null,
+      alt: next ? { san: uciToSan(fen, next.pv[0]), evalText: evalText(next), gap: Math.max(0, winOf(line) - winOf(next)) } : null,
+    });
+    peek.line = pvToSan(fen, line.pv, 8);
+    S.peeks[ply] = true;   // counted only once it has actually been shown
+    S.arrows = [{ from: best.slice(0, 2), to: best.slice(2, 4), kind: 'good' }];
+    drawArrows();
+  } catch (e) {
+    if (stale()) return;
+    peek.error = e.message;
+  }
+  syncPeek();
 }
 
 let judging = Promise.resolve();
 function waitForJudging() { return judging.catch(() => {}); }
 
 async function onPlayMove(mv, fenBefore) {
+  logLiveGame();
   const ep = S.epoch;
   const ply = S.game.history().length - 1;
   const fenAfter = S.game.fen();
@@ -2200,6 +2565,11 @@ async function onPlayMove(mv, fenBefore) {
     return v;
   });
   judging = p;
+  if (game.isGameOver()) {   // your move ended it: record it now, not after the coach's pause or a tab switch
+    S.busy = false;
+    gameOver();
+    return;
+  }
   if (!S.coachOn) {
     p.then((v) => { if (v) { S.lastVerdict = v; render(); refreshChips(); updateHud(); } }).catch(() => {});
     if (!gameOver()) engineReply();
@@ -2252,6 +2622,7 @@ async function engineReply() {
     if (wait > 0) await new Promise((res) => setTimeout(res, wait));
     if (ep !== S.epoch) return;
     if (r.bestmove) applyMove(r.bestmove);
+    if (S.gameId) logLiveGame();
   } catch (e) {
     if (ep !== S.epoch) return;
     S.busy = false;
@@ -2275,6 +2646,7 @@ function resign() {
 
 async function runAnalysis() {
   const ep = ++S.anaEpoch;
+  if (S.review) return Review.sync();
   const g = viewGame();
   const fen = g.fen();
   const box = $('#lines');
@@ -2321,9 +2693,10 @@ $('#btn-load').addEventListener('click', () => {
     $('#lines').textContent = `Could not load: ${e.message}`;
     return;
   }
-  S.game = g; S.tags = {}; S.selected = null; S.viewPly = null;
+  S.game = g; S.tags = {}; S.selected = null; S.viewPly = null; S.boardColor = null;
   render();
   runAnalysis();
+  Review.show();
 });
 
 function copy(text, what) {
@@ -2341,7 +2714,7 @@ function pruneTags() {   // drop ?/?? marks for plies that are no longer on the 
 }
 
 function takeBack() {
-  if (S.tab === 'puzzles' || S.tab === 'progress') return;
+  if (S.tab === 'puzzles' || S.tab === 'progress' || S.tab === 'games' || (S.tab === 'analyze' && S.review)) return;
   if (S.tab === 'play' && S.recorded) return;
   if (S.tab === 'openings' && S.lineDone) return;   // finished lines are recorded; use Again
   if (studying()) return S.whatIf ? exitWhatIf() : studyGo(S.game.history().length - 1);
@@ -2360,6 +2733,11 @@ function takeBack() {
   S.game.undo();
   while (S.game.history().length && S.game.turn() !== mine) S.game.undo();
   pruneTags();
+  for (const k of Object.keys(S.peeks)) if (+k >= S.game.history().length) delete S.peeks[k];   // the take-back already halves XP
+  if (S.tab === 'play' && S.gameId) {   // no move of yours left on the board: there is no game to keep
+    if (S.game.history().length < (S.playColor === 'w' ? 1 : 2)) { removeGame(S.gameId); S.gameId = null; }
+    else logLiveGame();
+  }
   if (S.lastVerdict) S.lastVerdict.takenBack = true;
   render();
   if (S.tab === 'openings') openingStep();
@@ -2374,9 +2752,9 @@ function flip() {
 
 function restart() {
   if (S.tab === 'openings') startOpening();
-  else if (S.tab === 'play') { if (!gameInProgress() || confirm('Abandon this game? It will not be recorded.')) newGame(); }
+  else if (S.tab === 'play') { if (!gameInProgress() || confirm('Start a new game? This one stays in Games as unfinished.')) newGame(); }
   else if (S.tab === 'puzzles') loadPuzzle();
-  else if (S.tab === 'analyze') { S.game = new Chess(); S.tags = {}; S.arrows = []; S.viewPly = null; render(); runAnalysis(); }
+  else if (S.tab === 'analyze') { if (S.review) Review.exit(); S.game = new Chess(); S.tags = {}; S.arrows = []; S.viewPly = null; S.boardColor = null; render(); runAnalysis(); Review.show(); }
 }
 
 $('#btn-undo').addEventListener('click', takeBack);
@@ -2391,25 +2769,31 @@ $('#live-pill').addEventListener('click', () => setView(S.game.history().length)
 
 function syncToolButtons() {
   const t = S.tab;
-  $('#btn-undo').classList.toggle('hidden', t === 'puzzles' || t === 'progress' || studying());
-  $('#btn-reset').classList.toggle('hidden', t === 'progress');
+  $('#btn-undo').classList.toggle('hidden', t === 'puzzles' || t === 'progress' || t === 'games' || studying() || (t === 'analyze' && !!S.review));
+  $('#btn-reset').classList.toggle('hidden', t === 'progress' || t === 'games');
   $('#btn-reset').textContent = t === 'puzzles' ? 'Skip' : 'Restart';
   $('#moves-card').classList.toggle('hidden', t === 'progress');
 }
 
 function switchTab(tab, reset = true) {
   if (S.tab === tab && reset) return;
+  if (S.tab === 'analyze' && tab !== S.tab && S.review) { Review.leave(); S.tags = {}; S.arrows = []; }
   if ((S.tab === 'play' || S.tab === 'puzzles') && tab !== S.tab) {
     // keep this game to come back to; other tabs work on a copy
-    if (S.tab === 'play') S.saved.play = { game: S.game, tags: S.tags, lossByPly: S.lossByPly, verdict: S.lastVerdict, recorded: S.recorded, takebacks: S.takebacks };
+    if (S.tab === 'play') S.saved.play = { game: S.game, tags: S.tags, lossByPly: S.lossByPly, verdict: S.lastVerdict, recorded: S.recorded, takebacks: S.takebacks, peeks: S.peeks, mg: S.mg };
     else S.saved.puzzles = S.game;
     S.game = cloneGame(S.game);
     S.tags = { ...S.tags }; S.lossByPly = {};
   }
+  if (tab === 'games' && S.tab !== 'games') S.beforeGames = { game: S.game, tags: S.tags, boardColor: S.boardColor, orient: S.orient };
+  else if (S.tab === 'games' && tab !== 'games' && S.beforeGames) {   // Games borrows the board: give it back
+    ({ game: S.game, tags: S.tags, boardColor: S.boardColor, orient: S.orient } = S.beforeGames);
+    S.beforeGames = null;
+  }
   S.tab = tab;
   syncPage();
   document.querySelectorAll('.tab').forEach((b) => b.classList.toggle('active', b.dataset.tab === tab));
-  for (const t of ['openings', 'puzzles', 'play', 'analyze', 'progress']) $(`#panel-${t}`).classList.toggle('hidden', t !== tab);
+  for (const t of ['openings', 'puzzles', 'play', 'games', 'analyze', 'progress', 'elo']) $(`#panel-${t}`).classList.toggle('hidden', t !== tab);
   S.epoch++;
   S.busy = false; S.paused = false; S.selected = null; S.hint = null; S.viewPly = null; S.whatIf = null;
   hideBanner();
@@ -2426,13 +2810,58 @@ function switchTab(tab, reset = true) {
       settlePuzzle();   // finish a reply/undo that the tab switch interrupted
       render(); puzzleButtons();
     } else loadPuzzle();
-  } else if (tab === 'analyze') { S.arrows = []; render(); runAnalysis(); }
-  else { S.arrows = []; render(); renderProgress($('#panel-progress'), OPENINGS, () => { checkGoal(); updateHud(); }, openLoggedGame); }
+  } else if (tab === 'analyze') { Review.restore(); S.arrows = []; render(); runAnalysis(); Review.show(); }
+  else if (tab === 'elo') { openEloLessons($('#panel-elo'), S.eloAt); S.eloAt = null; }   // has its own board; the main layout is hidden
+  else if (tab === 'games') openGames();
+  else { S.arrows = []; render(); renderProgress($('#panel-progress'), OPENINGS, () => { checkGoal(); updateHud(); }, openLoggedGame, () => switchTab('games')); }
 }
 
-function openLoggedGame(pgn) {
+// Games tab: the chosen game sits on the main board, and the arrow keys step through it.
+function showSavedGame(g) {
+  S.gameSel = g?.id ?? null;
+  const game = new Chess();
+  if (g) try { game.loadPgn(g.pgn); } catch { toast('<b>Could not open</b>that game'); }
+  S.game = game; S.tags = {}; S.lastVerdict = null; S.arrows = []; S.viewPly = null; S.selected = null;
+  if (g) S.orient = g.color;
+  updateEval(null);
+  render();
+}
+
+function openGames() {
+  const games = P.data.games;
+  showSavedGame(games.find((g) => g.id === S.gameSel) || games[0]);
+  paintGames();
+}
+
+// Carry on a game left unfinished, against the same opponent, under the same record.
+function continueSavedGame(g) {
+  if (S.saved.play && !S.saved.play.recorded && S.gameId === g.id) return switchTab('play');   // it is simply parked
+  const c = new Chess();
+  try { c.loadPgn(g.pgn); } catch { toast('<b>Could not open</b>that game'); return; }
+  if (g.elo) { S.elo = g.elo; $('#play-elo').value = g.elo; $('#elo-label').textContent = oppLabel(); }
+  S.resumeId = g.id;
+  startPlayFrom(c.history(), g.color, null);
+  S.resumeId = null;   // the start was cancelled, or already used
+}
+
+function paintGames() {
+  renderGames($('#panel-games'), {
+    selected: () => S.gameSel,
+    onSelect: showSavedGame,
+    onContinue: continueSavedGame,
+    onAnalyze: (g) => openLoggedGame(g.pgn, g.color),
+    onReview: (g) => Review.reviewGame(g.pgn, g.color),
+    onCopy: (g) => copy(g.pgn, 'PGN'),
+    openingOf: (pgn) => { const c = new Chess(); try { c.loadPgn(pgn); } catch { return null; } return savedOpening(c); },
+  });
+}
+
+function openLoggedGame(pgn, color = null) {
   const g = new Chess();
   try { g.loadPgn(pgn); } catch { toast('<b>Could not open</b>that game'); return; }
+  if (S.review) Review.exit();
+  S.boardColor = color || P.data.games.find((x) => x.pgn === pgn)?.color || null;
+  S.beforeGames = null;   // this game replaces whatever the board held
   S.game = g; S.tags = {}; S.lastVerdict = null;
   switchTab('analyze');
 }
@@ -2440,7 +2869,7 @@ function openLoggedGame(pgn) {
 document.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => switchTab(b.dataset.tab)));
 document.querySelectorAll('[data-omode]').forEach((b) => b.addEventListener('click', () => { S.reviewQueue = []; setOpeningMode(b.dataset.omode); }));
 document.querySelectorAll('[data-color]').forEach((b) => b.addEventListener('click', () => {
-  if (gameInProgress() && !confirm('Abandon this game and start a new one?')) return;
+  if (gameInProgress() && !confirm('Start a new game? This one stays in Games as unfinished.')) return;
   S.colorPref = b.dataset.color;
   P.data.settings.color = S.colorPref; save();
   document.querySelectorAll('[data-color]').forEach((x) => x.classList.toggle('active', x === b));
@@ -2452,16 +2881,18 @@ $('#play-elo').addEventListener('input', (e) => {
 });
 $('#play-elo').addEventListener('change', () => { P.data.settings.elo = S.elo; save(); });
 $('#coach-on').addEventListener('change', (e) => { S.coachOn = e.target.checked; P.data.settings.coach = S.coachOn; save(); });
-$('#btn-newgame').addEventListener('click', () => { if (!gameInProgress() || confirm('Abandon this game? It will not be recorded.')) newGame(); });
+$('#btn-newgame').addEventListener('click', () => { if (!gameInProgress() || confirm('Start a new game? This one stays in Games as unfinished.')) newGame(); });
 $('#btn-resign').addEventListener('click', resign);
+$('#btn-sf').addEventListener('click', togglePeek);
 
 document.addEventListener('keydown', (e) => {
-  if (e.target.closest('input, textarea, select') || e.ctrlKey || e.altKey || e.metaKey) return;
+  if (S.tab === 'elo' || (S.tab === 'openings' && document.body.dataset.rep === 'open') || e.target.closest('input, textarea, select') || e.ctrlKey || e.altKey || e.metaKey) return;
   const cur = S.viewPly ?? S.game.history().length;
   if (e.key === 'ArrowLeft') { navTo(cur - 1); e.preventDefault(); }
   else if (e.key === 'ArrowRight' || (e.key === ' ' && studying() && !e.target.closest('button'))) { navTo(cur + 1); e.preventDefault(); }
   else if (e.key === 'Home') { navTo(0); e.preventDefault(); }
   else if (e.key === 'End') { navTo(navEnd()); e.preventDefault(); }
+  else if (e.key === ' ' && S.review && S.tab === 'analyze' && !e.target.closest('button')) { Review.togglePlay(); e.preventDefault(); }
   else if (e.key === 'f') flip();
   else if (e.key === 'Escape') { S.selected = null; render(); }
   else if (e.key === 'Enter' && S.tab === 'puzzles' && (S.pz.done || (!S.pz.p && !S.pz.mistake)) && !e.target.closest('button')) loadPuzzle();
@@ -2500,13 +2931,16 @@ function addMsg(kind, html, who) {
 function refreshChips() {
   const v = S.lastVerdict;
   const chips = {
-    openings: S.omode === 'study' && S.game.history().length
+    openings: S.section === MG.id ? ['What is the plan in this position?', 'Which pawn break should I aim for?']
+      : S.omode === 'study' && S.game.history().length
       ? (S.whatIf ? ['Why is this move worse than the line?', 'What is the idea behind the refutation?'] : ['Explain the last move in more depth', 'Why not a different move here?', 'What are the typical plans here?'])
       : ["Explain this opening's ideas", 'What are the typical plans here?', 'What if my opponent deviates?'],
     puzzles: !S.pz.p && !S.pz.mistake ? [] : S.pz.done ? ['Explain the solution', 'What pattern should I remember?'] : ['Give me a hint without the answer'],
-    play: ["What's the plan here?", 'What should I watch out for?', ...(v && !v.takenBack && ['inaccuracy', 'mistake', 'blunder'].includes(v.cls) ? ['Why was my last move bad?'] : [])],
-    analyze: ["What's the plan here?", 'Explain the top engine line'],
+    play: [...(S.mg ? ['Am I following the plan?'] : []), "What's the plan here?", 'What should I watch out for?', ...(v && !v.takenBack && ['inaccuracy', 'mistake', 'blunder'].includes(v.cls) ? ['Why was my last move bad?'] : [])],
+    analyze: S.review ? ['Explain this move in more depth', 'What should I have been thinking here?', "What's the plan here?"] : ["What's the plan here?", 'Explain the top engine line'],
     progress: ['What should I train next?'],
+    elo: [],
+    games: [],
   }[S.tab];
   const box = $('#chips');
   box.innerHTML = '';
@@ -2534,8 +2968,12 @@ async function buildContext() {
     else if (S.omode === 'study' && p >= 0 && p < o.moves.length) out.push(`Study commentary on the last move ${moveLabel(p, o.moves[p])}: ${o.notes[p]} ${STUDY[o.id]?.why?.[p] || ''}`);
     const lib = styleLib(), dn = lib?.openings[f.topic || f.id];
     if (dn?.length) out.push(`${lib.short}'s advice on this opening (from the lesson notes): ${dn.map((x) => x.text).join(' ')}`);
+    if (S.section === MG.id) out.push(`The student is reading this opening's MIDDLEGAME section. ${planText(o, mySide(o))}`);
   } else if (S.tab === 'play') {
     out.push(`Mode: practice game vs Stockfish (${oppLabel()}). Student plays ${colorName(S.playColor)}.`);
+    const mo = S.mg && LINE.get(S.mg.line);
+    if (mo) out.push(`This game started from the end of the student's opening line "${mo.branch}" (${numberedLine(mo.moves)}) to practise the middlegame. ${planText(mo, S.mg.color)} When relevant, say whether the student's moves follow this plan.`);
+    if (S.peek?.reasons) out.push(`The student asked to see Stockfish's move here: ${S.peek.san}. Reasons worked out from the engine's lines: ${S.peek.reasons.join(' ')}`);
   } else if (S.tab === 'puzzles') {
     const z = S.pz;
     if (!z.done) out.push('Mode: tactics puzzle the student is still solving. Do NOT reveal the solution move or name the moving piece. Give a nudge: what to look at (checks, loose pieces, the theme).');
@@ -2543,7 +2981,9 @@ async function buildContext() {
   } else if (S.tab === 'progress') {
     const d = P.data;
     const weak = OPENINGS.filter((o) => d.openings[o.id] && d.openings[o.id].box < 2).map((o) => o.name);
-    out.push(`Mode: training advice. Puzzle rating ${d.puzzles.rating}; ${d.games.length} games, recent accuracy ${d.games.slice(0, 5).map((x) => x.acc).join('/') || 'n/a'}; mistake deck ${d.mistakes.length}; weak opening lines: ${weak.join(', ') || 'none'}.`);
+    out.push(`Mode: training advice. Puzzle rating ${d.puzzles.rating}; ${d.games.length} games, recent accuracy ${d.games.filter((x) => x.acc != null).slice(0, 5).map((x) => x.acc).join('/') || 'n/a'}; mistake deck ${d.mistakes.length}; weak opening lines: ${weak.join(', ') || 'none'}.`);
+  } else if (S.review) {
+    out.push(...Review.context());
   } else {
     out.push('Mode: free analysis board (student moves both sides).');
   }
@@ -2572,6 +3012,7 @@ async function buildContext() {
 }
 
 async function ask(question) {
+  if (S.tab === 'openings') setOTab('coach');
   setCoachOpen(true);
   addMsg('user', mdToHtml(question));
   const pending = addMsg('ai', '<p class="muted">Thinking…</p>');
@@ -2622,6 +3063,40 @@ $('#coach-styles').addEventListener('click', (e) => { const b = e.target.closest
 const sourceLinks = (sources = []) => sources.map((s) =>
   `<a href="${esc(s.url)}" target="_blank" rel="noopener" title="${esc(s.title)}">${esc(s.label || 'video')}</a>`).join(' · ');
 
+// A lesson can be practised three ways: a walk-through level, puzzles on its theme, or a game with it pinned.
+const lessonActions = (l) => {
+  const walk = l.walk ? `<button class="primary" data-walk="${esc(l.walk[0])}" data-level="${Number(l.walk[1])}">Step through it on the board</button>` : '';
+  const label = l.try === 'game' ? 'Play a game with this in mind'
+    : l.try ? `Try it: ${esc($(`#pz-theme option[value="${l.try}"]`)?.textContent.toLowerCase() || l.try)}${l.try === 'mix' ? ' puzzles' : ''}` : '';
+  const go = l.try ? `<button data-try="${esc(l.try)}">${label}</button>` : '';
+  return walk || go ? `<div class="btnrow lesson-try">${walk}${go}</div>` : '';
+};
+
+function practiseLesson(btn) {
+  const item = btn.closest('.lesson-item');
+  const title = item.querySelector('b').textContent, text = item.querySelector('p').textContent;
+  const pinned = `<b>${esc(title)}</b> ${esc(text)}`;
+  $('#lessons-dlg').close();
+  if (btn.dataset.walk) {
+    S.eloAt = { id: btn.dataset.walk, tier: Number(btn.dataset.level) };
+    return switchTab('elo');
+  }
+  if (btn.dataset.try === 'game') {
+    switchTab('play');
+    if (!gameInProgress() || confirm('Start a new game? This one stays in Games as unfinished.')) newGame();
+    return setPlayNote(`Lesson to keep in mind: ${pinned}`);
+  }
+  S.pz.src = 'lichess';
+  document.querySelectorAll('[data-psrc]').forEach((x) => x.classList.toggle('active', x.dataset.psrc === 'lichess'));
+  $('#pz-theme').value = btn.dataset.try;
+  S.pz.next = null;
+  switchTab('puzzles');
+  $('#pz-lesson').innerHTML = pinned;
+  $('#pz-lesson').classList.remove('hidden');
+  loadPuzzle();
+}
+$('#lessons-body').addEventListener('click', (e) => { const b = e.target.closest('[data-try], [data-walk]'); if (b) practiseLesson(b); });
+
 function openLessons() {
   const lib = styleLib();
   if (!lib) return;
@@ -2629,7 +3104,7 @@ function openLessons() {
   $('#lessons-source').textContent = lib.source || '';
   $('#lessons-body').innerHTML = !lib.themes.length ? '<p class="empty">No lessons distilled yet.</p>'
     : lib.themes.map((t) => `<section><h3>${esc(t.name)}</h3>${t.lessons.map((l) =>
-      `<div class="lesson-item"><b>${esc(l.title)}</b><p>${esc(l.text)}</p><span class="small">${sourceLinks(l.sources)}</span></div>`).join('')}</section>`).join('');
+      `<div class="lesson-item"><b>${esc(l.title)}</b><p>${esc(l.text)}</p><span class="small">${sourceLinks(l.sources)}</span>${lessonActions(l)}</div>`).join('')}</section>`).join('');
   $('#lessons-dlg').showModal();
 }
 $('#btn-lessons').addEventListener('click', openLessons);
@@ -2721,6 +3196,7 @@ async function boot() {
   S.family = familyOf(S.opening);
   setRepOpen(P.data.settings.repOpen);
   fillOpeningList();
+  setOTab(S.otab);
   setOpeningMode(S.omode);
   statsReady.then(() => {   // real-game numbers arrive after the first paint
     if (!STATS) return;

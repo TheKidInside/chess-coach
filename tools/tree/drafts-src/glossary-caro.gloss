@@ -1,0 +1,176 @@
+# Default words for routine moves in the Caro-Kann lines, written for Black; a line's own note replaces these.
+w O-O: White castles.
+w Nf3: White develops and covers e5 and d4.
+w d4: White takes the centre.
+w c3: White supports d4.
+w Nc3: White develops and adds pressure on d5.
+w Bd3: White develops, aiming at h7, and offers to trade your light bishop.
+w Be2: White develops modestly and prepares to castle.
+w Qxd3: White recaptures, developing the queen.
+w exd5: White releases the centre: expect ...cxd5 next.
+w c4: White attacks d5 from the side, aiming for an isolated pawn or a Panov.
+w Bb5: White pins or pressures the c6-knight.
+w Bb5+: White develops with check.
+w h3: White asks the bishop on g4 to decide.
+w Be3: White backs up d4 and keeps c5 in view.
+w e5: White gains space and blocks your f6-knight's best route.
+w f3: White supports e4, offering a gambit-style centre.
+w Bc4: White develops actively, looking at f7.
+w cxd5: White trades on d5 to open lines.
+w Bg5: White pins the f6-knight.
+w d3: White plays a modest set-up and keeps e4 protected.
+w Bb3: White retreats the bishop but keeps it aimed at d5.
+w Nbd2: White develops, backing up e4 or f3.
+w Bf4: White activates the dark bishop before e3.
+w cxd4: White recaptures, keeping a pawn on d4.
+w Ne2: White develops, with an eye on f4 or g3.
+w Qxf3: White recaptures with the queen.
+w h4: White gains kingside space, hunting your bishop.
+w Bd2: White blocks the check or develops quietly.
+w Bxd7+: White trades bishops with check.
+w Nge2: White develops the knight towards f4 or g3.
+w f4: White takes more space and backs e5.
+w Bxc4: White recaptures with the bishop.
+w Ng5: White jumps forward, eyeing f7 and h7.
+w Ne5: White plants the knight on the central outpost.
+w Qf3: An early queen sortie that hits f7 and looks at f5.
+w Nxf3: White recaptures with the knight, keeping open lines.
+w Qe2: White connects the rooks and adds to the e-file.
+w Bxf3: White recaptures with the bishop.
+w Nxe4: White recaptures on e4.
+w Qd3: White develops the queen and watches the b1-h7 diagonal.
+w Ng3: White retreats the knight, gaining a move on your bishop.
+w Nd2: White develops, supporting e4.
+w O-O-O: White castles long, signalling a kingside attack.
+w Ngf3: White develops the last knight.
+w Qxe4: White recaptures with the queen, which is well placed.
+w g3: A King's Indian Attack set-up: the bishop heads for g2.
+w Nxf6+: White trades knights with check.
+w dxe4: White recaptures, leaving a symmetrical structure.
+w Kxd1: White recaptures with the king; the queens are gone.
+w fxe4: White recaptures, taking a broad centre.
+w Qe1: The queen frees d1 and heads for the kingside or a5.
+w a3: White takes b4 from your pieces.
+w Bxd6: White trades the dark bishops.
+w dxe5: White takes on e5.
+w g4: White hunts your bishop, with kingside space as a bonus.
+w dxc5: White takes on c5, aiming to win time on your bishop.
+w Qa4+: White checks along the diagonal.
+w Bxc6+: White takes the knight with check, damaging your pawn structure.
+w N5f3: The knight goes back after h6 has chased it.
+w Nxe5: White recaptures on e5.
+w Nc5: The knight jumps forward to attack b7.
+w Nb3: The knight retreats, with an eye on c5 and a5.
+w N2g3: The other knight joins, heading for your bishop.
+w Qxd5: White trades queens on d5.
+w Nxg6: White takes the bishop, doubling your pawns but opening the h-file for you.
+w Nxd4: White recaptures on d4.
+w Nh3: The knight goes to h3 because f3 is covered.
+w Qe3: White defends the d-pawn and develops.
+w Qh5: A direct try against f7 that usually wastes time.
+w Nf2: The knight retreats to guard the e4 square.
+w Bg2: The fianchetto bishop lands on the long diagonal.
+w Re1: White takes the e-file.
+w Qa4: White pins the knight on d7.
+w exd6: White takes the pawn on d6.
+w Bxd3: White recaptures.
+w Bxf7+: This is the point: the f7 pawn was only guarded by the king.
+w Qb3: The queen hits both the bishop and b7.
+w Qxb4+: The queen wins the bishop with check.
+w Qc4+: Another check, and the c2 pawn falls next.
+w Qxc2: White collects the last loose pawn: White is winning.
+w Bd2: White blocks the check or develops quietly.
+b e6: Support d5 and open the f8-bishop.
+b Nf6: Develop and hit e4.
+b Nc6: Develop and add pressure on d4.
+b c5: Strike at d4: this is the Caro-Kann's main freeing break.
+b Be7: A modest, solid square. Castle next.
+b O-O: Castle: your king is safe and the rooks connect.
+b Bg4: Develop outside the chain with a pin on the f3-knight.
+b Nd7: Develop the queen's knight, ready to support e5 or challenge on f6.
+b Qb6: Hit b2 and d4: the queen uses the dark-square gap that your bishop left behind.
+b Bd6: Develop to the best diagonal, offering to trade dark bishops.
+b cxd5: Recapture with the c-pawn: the classic Caro structure with the c-file open.
+b Ngf6: Develop the second knight, challenging e4.
+b Bxd3: Trade off White's attacking bishop.
+b dxe4: Trade on e4 and take your share of the centre.
+b Bxf3: Give the bishop for the knight to remove a key defender of d4 and e5.
+b Bf5: Develop the bishop outside the chain, the whole point of the Caro-Kann move order.
+b Ne7: Develop towards f5 or g6, leaving the f-pawn free.
+b Nbd7: Develop the queen's knight.
+b e5: Break in the centre, which gives your bishops free play.
+b cxd4: Open the c-file for your rook and release the tension.
+b d5: Take the centre: this is the Caro-Kann's plan after ...c6.
+b h6: Give the bishop a square, or stop Ng5.
+b dxc4: Take on c4, making White spend a tempo with the bishop.
+b g6: Prepare a fianchetto, giving the dark bishop a long diagonal.
+b Nb6: Retreat the knight to a square where it hits c4 or d5.
+b Be6: Develop the bishop to shield d5.
+b Nxd5: Recapture in the centre.
+b Nxe5: Recapture on e5, centralising the knight.
+b Bd7: Block the check and develop.
+b Bg6: Step back, keeping the bishop on its diagonal.
+b Rc8: Take the c-file so c5 has more force.
+b exf3: Take the gambit pawn. You can give it back later for a good position.
+b Bb4: Pin the knight and develop quickly.
+b Qxd7: Recapture with the queen and connect the rooks.
+b Nge7: Develop the knight towards f5 or g6.
+b a6: Stop Nb5 and Bb5, and keep your queenside secure.
+b b6: Prepare ...Bb7 or back up the c5 square.
+b Nxf6: Recapture on f6, developing a knight back into play.
+b Qxd1+: Trade queens: the ending is roughly level, and White has lost castling.
+b Bg7: The bishop arrives on the long diagonal, aimed at d4.
+b exd4: Take on d4.
+b Ba5: Keep the bishop aimed at the White king.
+b b5: Gain queenside space and hit the bishop.
+b Qxd6: Recapture with the queen.
+b exd5: Recapture, opening the e-file for your rook.
+b h5: Stop the g-pawn and h-pawn from marching.
+b g5: Take kingside space and stop f4 plans.
+b Qxc6: Recapture with the queen, keeping the structure intact.
+b Qd5: Centralise the queen and offer a trade that eases your defence.
+b Bxe4: Trade your bishop for White's active knight.
+b Qxd4: Take the d4 pawn: if it is free, take it.
+b Qh4+: Check, disturbing White's king position.
+b Qf6: Step away from danger, keeping the extra pawn safe.
+b hxg6: Recapture towards the centre and open the h-file.
+b Bc5: Develop actively, with pressure on d4 and f2.
+b Nfd7: Retreat the knight to prepare ...c5.
+b Nxd7: Recapture on d7.
+b Nf5: Land on the outpost, attacking d4.
+b Nxe4: Trade the knights on e4.
+b Bh6: The bishop goes to its active diagonal.
+b Re8: The rook supports ...e5 and takes the e-file.
+b Rb8: Save the rook from the bishop's attack.
+b d6: A compact reply.
+b exd6: Recapture towards the centre.
+b exd3: Take the pawn. Now your structure stays compact.
+b Qa5+: Check, gaining a move and developing the queen.
+b Qc7: Guard h7 and e5 by centralising the queen.
+b Nh6: Develop the knight towards f5.
+b Bh5: Keep the pin.
+b Bb4+: A natural-looking check. It turns out to be the wrong moment.
+b dxc3: The greedy capture. It runs into a sting on f7.
+b Ke7: The king must step up.
+b c2+: Discovered check trying to promote; it is the last trick.
+b Kxf7: Take the bishop; the king stays exposed.
+b Ke8: The king steps back, but c2 falls and White is simply better.
+b d4: Gain space and hit the knight.
+w Bf3: White puts the bishop on the long diagonal, aimed at d5 and b7.
+w Qd4: White centralises the queen and hits g7.
+w Qe2+: White checks on the open e-file.
+w Qxd4: White recaptures with the queen.
+w d5: White pushes past your knight on c6, gaining space with tempo.
+w dxc6: White takes the c-pawn, offering a gambit for development.
+w gxf3: White recaptures with the g-pawn, opening the g-file.
+w h5: White gains more kingside space.
+b Nbxd7: Recapture with the knight, which heads for f6 or b6.
+b Nd3+: Check that forces White to give up the f1-bishop.
+b Ne5: Centralise the knight: it heads for d3.
+b Nxc6: Recapture, developing the knight in return for the pawn.
+b bxc6: Recapture towards the centre, doubling nothing and keeping d5 supported.
+b cxd3: Recapture: you keep an extra pawn on d3, at least for now.
+b exf6: Recapture with the e-pawn: your structure is healthy, and pieces develop fast. White has a queenside majority.
+b gxf6: Recapture with the g-pawn: active piece play and an open g-file in return for a split structure.
+w Qc2: White lines the queen up with the bishop against h7.
+b e4: Gain space and hit the f3-knight.

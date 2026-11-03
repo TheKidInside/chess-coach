@@ -1,0 +1,118 @@
+# Jobava London: Nc3 and Bf4 against almost anything.
+@jobava | 1 | 3...e6 4.e3 Bd6: main line | The core set-up. After ...Bd6 keep the bishop with Bg3, finish with Bd3 and Nf3, castle, and be ready to take on c5.
+Nc3: The Jobava move: the knight comes before any pawn. It blocks the c-pawn, but hits d5 and can jump to b5. || The London knight usually goes to d2. Here it goes to c3 instead, which aims at b5 and e4 and makes the game much sharper.
+Nf6: The most common reply: Black covers e4.
+Bf4: The Jobava set-up in place: knight on c3 plus bishop on f4, with c7 in the crosshairs. || Now Nb5 is a real threat because the knight and bishop both hit c7.
+e6: Solid: Black backs up d5, but this shuts in the c8-bishop.
+Bg3: Keep the bishop rather than swap it, and if Bxg3 comes, hxg3 opens the h-file.
+dxc5: Take: Black's bishop loses time recapturing.
+@jobava-c5-nb5 | 1 | 3...e6 4.e3 c5 5.Nb5: the knight jump | ...c5 weakens b5, and Nb5 threatens Nc7+. Black's best is ...Na6, where the knight has no future: you stay comfortably better.
+c5: Black strikes at d4, but this weakens b5.
+Nb5: The signature jump: Nc7+ is threatened. || Black has to defend c7. The natural ...Na6 leaves the knight badly placed for a long time.
+Na6: Black guards c7, but the knight on the rim has few prospects.
+c3: Support d4 and block checks on the a5-e1 diagonal.
+@jobava-bb4 | 2 | 3...e6 4.e3 Bb4: the pin | ...Bb4 pins the knight, but Bd3 develops calmly. Taking on c5 and accepting ...Bxc3+ bxc3 gives you the two bishops.
+Bb4: Black pins the knight, stopping Nb5.
+Bd3: Develop: the pin is not a threat, and if ...Bxc3+ you recapture with the bishop pair.
+dxc5: Take on c5 to open lines for your bishops.
+Bxc3+: Black gives up the bishop to double your pawns.
+bxc3: Your structure is damaged, but you have the two bishops in an open position.
+@jobava-a6-e6 | 2 | 3...e6 4.e3 a6: stop Nb5 first | ...a6 kills the Nb5 idea at the cost of a tempo. Bd3 and castling, while Black's ...c5 lets you take and then develop.
+a6: Black stops Nb5, the Jobava's main idea, at the cost of a tempo.
+@jobava-be7 | 2 | 3...e6 4.e3 Be7 5.Nb5: the knight again | ...Be7 leaves c7 needing protection. Nb5 forces ...Na6, and after ...Nh5 your bishop goes to e5, then back to g3.
+Be7: Black prepares to castle, but c7 is still sore.
+Be5: The bishop steps out of ...Nxf4 with a central post.
+f6: Black asks the bishop to retreat.
+@jobava-bf5 | 1 | 3...Bf5: the bishop duel | Bd3 meets the bishop. If Black trades, recapture with the c-pawn: doubled pawns, but control of e4 and c4 plus the c-file.
+Bf5: The natural Slav-type reply: the bishop gets out before ...e6.
+Bd3: Offer the trade. Do not fear the doubled pawns. || After cxd3 your pawns control e4 and c4, and you gain the c-file for the rook and b3 for the queen.
+Bxd3: Black trades the bishops.
+cxd3: Recapture with the c-pawn, towards the centre: it controls e4 and c4. || This structure looks wrong, but it is exactly what the opening wants. Qb3 and Rc1 follow.
+@jobava-bf5-c6 | 2 | 3...Bf5 4.e3 c6: Slav against Jobava | ...c6 rules out Nb5. Bd3, cxd3 and Qb3 keep your plan: pressure on b7.
+Qb3: Pressure on b7 is the follow-up to the c-pawn recapture.
+@jobava-bf5-a6 | 2 | 3...Bf5 4.e3 a6: the same idea | ...a6 stops Nb5. Bd3 and castle again.
+@jobava-bf5-nbd7 | 2 | 3...Bf5 4.Nb5: go straight in | After ...Bf5, c7 is still guarded only by the queen. Nb5 forces ...Na6, then normal development.
+@jobava-bf5-c5 | 3 | 3...Bf5 4.e3 c5: the sharp counter | ...c5 weakens b5. Nb5 forces ...Na6, then c3 and dxc5, leaving Black to prove compensation.
+Bg7: Black develops with his eye on d4 and b2.
+Ne4: Black hits c5 and c3, activating the knight.
+@jobava-a6 | 2 | 3...a6: the prophylactic reply | ...a6 is the best way to deny the knight b5. Keep developing. Bd3 and castle, and if ...Bf5 trade on d3 with the c-pawn.
+a6: Often the best reply: stop Nb5 before anything else. || The trade-off is a tempo, so use it to finish developing and castle.
+@jobava-a6-c5 | 2 | 3...a6 4.e3 c5: take the pawn | ...c5 lets you take on c5 and then develop. Black recovers with ...Bxc5 but you have a lead in development.
+@jobava-nc6 | 2 | 3...Nc6: blocking the c-pawn | ...Nc6 blocks Black's own c-pawn. Bb5 pins it, Ne5 attacks it: you get the initiative and a good structure.
+Nc6: Black develops, but blocks his c-pawn.
+Bb5: Pin the knight and keep Black's king in the centre.
+@jobava-nc6-a6 | 2 | 3...Nc6 4.e3 a6: stops Bb5 | Bd3 and f3 stop ...Bg4 ideas. Nge2 keeps the f-pawn free.
+f3: Stop ...Bg4 pins by preparing e4.
+@jobava-nc6-e6 | 2 | 3...Nc6 4.e3 e6: Nb5 and the bishops | ...e6 lets Nb5 come in. Bd6 Nxd6+ gives you the two bishops. Remember ...Qxd6 would lose the queen to Bxd6.
+Bd6: Black tries to swap your bishop off.
+Nxd6+: Take with check: the bishop pair is the permanent gain.
+@jobava-c6 | 2 | 3...c6: Black takes away b5 | ...c6 takes the b5 square from your knight, so simply develop: Bd3 and castle, with cxd3 if the bishops come off.
+c6: A solid reply: b5 is off-limits now.
+@jobava-c6-e6 | 2 | 3...c6 4.e3 e6: the triangle | ...e6 locks in c8. Bd3, Bg3 and Nf3. Note that ...Qe7 has to come before ...Nbd7.
+Qd2: Connect the rooks and prepare e4.
+@jobava-c6-qb6 | 2 | 3...c6 4.e3 Qb6: hit b2 | Rb1 guards b2. Then Bd3 and Qb3 offer a trade on Black's most active piece.
+Qb6: Black hits b2 straight away, the Jobava's usual pain point.
+@jobava-c5 | 2 | 3...c5 4.e3 cxd4: the open e-file | ...cxd4 exd4 leaves you an open e-file and e5 for the knight. Black's ...a6 again stops Nb5.
+c5: Black hits d4. e3 is calm and keeps every option open.
+@jobava-c5-qb6 | 3 | 3...c5 4.e3 Qb6: take and jump | Take on c5, and then Nb5 hits c7 with tempo. ...Na6 and Be5 take the knight off a good square.
+Qxc5: Black takes back. Now the queen is exposed to Nb5 and Rc1 ideas.
+@jobava-c5-nc6 | 3 | 3...c5 4.e3 Nc6 5.Nb5: the fork threat | Nb5 threatens Nc7+. ...e5 gambits, but after the queen trade you stay ahead with a good position.
+e5: Black gives up the pawn: there is no other way to stop Nc7+ without losing time.
+Qa5+: Check, to trade queens and remove the danger.
+Ne4+: Check, and the knight takes up a good square.
+Ke1: Back to e1, safe. You are a pawn up with Nc7+ still in the air.
+@jobava-g6 | 2 | 3...g6: fianchetto | Nf3, Be2 and castle: Black's bishop bites on d4. Nb5 appears if the c7 square goes thin.
+Be2: Keep it simple: the bishop is safe here against a Grunfeld shape.
+b6: Black protects c5, but this leaves the a8-h1 diagonal open.
+@jobava-bg4 | 2 | 3...Bg4: asks you about f3 | f3 kicks the bishop and prepares e4. g4 and h4 grab space if the bishop stays on the kingside.
+Bg4: Black develops, aiming at d1.
+Bd3: Trade the bishops. With your kingside pawns advanced, the queen recapture is best here.
+f3: Kick the bishop and prepare e4. Your kingside pawns begin to roll.
+@jobava-nbd7 | 2 | 3...Nbd7 4.Nb5: pressure on c7 | Nb5 and Bf4 attack c7 twice while only the queen guards it. The good reply is the pawn sacrifice ...e5.
+Nbd7: Natural, but c7 now has only the queen to guard it, and Nb5 hits it twice.
+e5: The only defence that holds: Black gives up a pawn to free the position.
+@jobava-nbd7-c6 | 2 | 3...Nbd7 4.Nb5 c6??: the queen falls | ...c6 attacks your knight but ignores the fork: Nc7+ wins Black's queen.
+c6: This kicks the knight, but ignores the check on c7.
+Nc7+: Fork: the knight is protected by the bishop, and Black's queen has to take.
+Qxc7: Forced: the only legal move, and the bishop takes the queen.
+Bxc7: You win queen for knight. The game is decided.
+@jobava-2e6 | 1 | 2...e6 3.Bf4 Nf6: the main line by another order | The same position as the main line. Bg3 and Bd3 as usual.
+@jobava-2e6-bb4 | 2 | 2...e6 3.Bf4 Bb4: pin first | The pin comes early. Bd3 and Nge2 keep f-pawn options open, and the knight protects c3.
+Ne2: The knight goes to e2, where it guards c3 and d4.
+@jobava-2e6-bd6 | 2 | 2...e6 3.Bf4 Bd6: swap the bishops | Accept the trade, then e4: the knight on c3 is already in the right place.
+e4: Strike now that the queen on d6 is exposed.
+Qd5: The queen centralises on d5.
+@jobava-2e6-a6 | 2 | 2...e6 3.Bf4 a6: prevent Nb5 | The usual plan: e3, Bd3, Nf3, take on c5 if Black pushes it.
+@jobava-2e6-nc6 | 2 | 2...e6 3.Bf4 Nc6: another path to Nb5 | e3 and Nb5. If ...Bd6, take with check and take the two bishops.
+@jobava-2e6-c5 | 2 | 2...e6 3.Bf4 c5: Nb5 at once | e3 then Nb5. ...Na6 is forced into the rim, and c3 supports d4.
+@jobava-2nc6 | 2 | 2...Nc6 3.Bf4 Bf5: the mirror | e3 and Nb5: if ...Bd6, take and earn the bishops.
+@jobava-2nc6-nf6 | 2 | 2...Nc6 3.Bf4 Nf6: the Nc6 line by another order | Same as 3...Nc6: Bb5 pin, Ne5 and Bxc6.
+@jobava-2nc6-e6 | 2 | 2...Nc6 3.Bf4 e6: Nb5 is on | e3 and Nb5. If ...Bd6 Nxd6+ gives you the bishops.
+@jobava-2nc6-a6 | 2 | 2...Nc6 3.Bf4 a6: the slow one | ...a6 stops Nb5 and Bb5. e3, Bd3 and cxd3 if bishops swap.
+@jobava-2c6 | 2 | 2...c6 3.Bf4 Bf5: Slav set-up | Bd3 and cxd3, the usual: pressure along the c-file.
+@jobava-2c6-e6 | 2 | 2...c6 3.Bf4 e6: triangle set-up | Same plan: Bd3, Bg3, Nf3.
+@jobava-2bf5 | 2 | 2...Bf5 3.Bf4: the mirror line | Same as 3...Bf5: Bd3 and the c-pawn recapture.
+@jobava-2c5 | 2 | 2...c5: the sharp reply | Take on c5. After ...d4 the knight goes to e4, and e3 gets rid of the d4 pawn.
+d4: Black gains space, hitting your knight.
+Ne4: Centralise: this knight now has targets and good squares.
+exd4: Open the centre, and take on Black's overextended pawn.
+exd4: Black recaptures, leaving the d-pawn isolated.
+@jobava-1nf6-d5 | 1 | 1...Nf6 2.Nc3 d5 3.Bf4 e6 4.Nb5: straight to it | Nb5 at once. ...Na6 lets you bounce back to c3 having dislodged Black's knight.
+Nc3: Retreat with the point proved: Black's knight is on a6 for good.
+@jobava-e6-nb5-bd6 | 1 | 1...Nf6 2.Nc3 d5 3.Bf4 e6 4.Nb5 Bd6: the bishops | Bd6 gives up the bishops: ...cxd6 keeps Black solid, but the bishops favour you long term.
+@jobava-1nf6-g6-d5 | 2 | 1...Nf6 2.Nc3 g6 3.Bf4 d5: Grunfeld shape | e3, Nf3 and Be2: same as the 3...g6 line.
+@jobava-1nf6-g6 | 2 | 1...Nf6 2.Nc3 g6 3.Bf4 Bg7 4.e4: Pirc-style attack | Without ...d5 you can seize the centre: e4, Qd2, O-O-O and Bh6 trade off the king's defender.
+Bh6: Trade off the king's main defender.
+@jobava-1nf6-d6 | 2 | 1...Nf6 2.Nc3 d6: Pirc set-up | e4 takes the centre. Bf4 and Qd2 then come, with the same attacking plan.
+@jobava-1nf6-d6-e5 | 2 | 1...Nf6 2.Nc3 d6 3.e4 e5: Old Indian | Take on e5, trade queens: Black's king has lost castling, and Bc4 hits f7.
+@jobava-1nf6-d6-c6 | 2 | 1...Nf6 2.Nc3 d6 3.e4 c6: the Czech Pirc | f4 grabs space, and if ...Qa5, Bd3 guards e4.
+@jobava-1nf6-d6-nbd7 | 2 | 1...Nf6 2.Nc3 d6 3.e4 Nbd7: Old Indian | f4 again. After ...e5 and ...exd4 your queen recaptures in the centre, then you castle long.
+@jobava-1nf6-e6 | 2 | 1...Nf6 2.Nc3 e6 3.e4 d5: a French | Without ...d5 yet, e4 is possible, and a French arrives. e5, f4 and Nf3 is the Classical plan.
+e6: With ...e6 and no d5 yet, e4 is possible, so take it.
+d5: The game becomes a French Defence, a good version since you have Nc3 and e5 in.
+e5: Space with tempo: the knight has to move, and your f-pawn will follow.
+@jobava-1nf6-e6-bb4 | 2 | 1...Nf6 2.Nc3 e6 3.e4 Bb4: Nimzo with e4 | e5 forces the knight away, then Qg4 hits g7, and Black has to deal with it.
+Nd5: The knight keeps a central post.
+Qg4: Hit g7, which is undefended.
+Kf8: Black gives up castling to guard g7.
+@jobava-1nf6-c5 | 2 | 1...Nf6 2.Nc3 c5: Benoni | d5 and e4, with Bb5+ and a4: the same plan as in the 1...c5 lines.

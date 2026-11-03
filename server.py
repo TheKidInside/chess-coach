@@ -38,7 +38,7 @@ if HEADLESS:
 STATIC = ROOT / "static"
 DATA = Path(os.environ.get("CHESS_DATA_DIR") or ROOT / "data")
 PROFILE = DATA / "profile.json"
-PROFILE_MAX = 2_000_000   # bytes; a year of heavy use is well under this
+PROFILE_MAX = 50_000_000   # bytes; the game log has no cap, and a game is under 1 KB
 PUZZLE_DIFFICULTY = {"easiest", "easier", "normal", "harder", "hardest"}
 PUZZLE_ANGLE = re.compile(r"^[A-Za-z0-9]{1,40}$")
 IDLE_SHUTDOWN = 600   # seconds without a ping from any app window before an app-mode server exits

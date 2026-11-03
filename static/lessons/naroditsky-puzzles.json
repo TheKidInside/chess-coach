@@ -1,0 +1,885 @@
+[
+ {
+  "id": "it-blackburne",
+  "family": "italian",
+  "pgn": "e4 e5 Nf3 Nc6 Bc4 Nd4",
+  "solution": "f3d4",
+  "accept": [
+   "f3d4"
+  ],
+  "ask": "Black's knight just left e5 hanging. Take the pawn, or something better?",
+  "text": "Watch for 3...Nd4 after Bc4, the Blackburne Shilling trap. Grabbing on e5 and f7 lets Black's queen raid g2 and e4 and finish with a knight mate on f3, whereas simply taking the knight on d4 leaves Black in a poor way.",
+  "sources": [
+   {
+    "title": "Danya Defeats Exposed Cheater | Ruy Lopez: Bird Variation | GM Naroditsky's Theory Speedrun",
+    "url": "https://youtu.be/Ust1WJO7KQ0?t=985",
+    "label": "16:25"
+   },
+   {
+    "title": "Opening Blunders!! | Scotch Game | 900 Elo | Top Theory Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/h-9MlTRN-fk?t=1301",
+    "label": "21:41"
+   }
+  ]
+ },
+ {
+  "id": "ruy-b5-first",
+  "family": "ruy",
+  "pgn": "e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1",
+  "solution": "b7b5",
+  "accept": [
+   "b7b5"
+  ],
+  "ask": "White just played Re1, so e4 is covered. What's the threat, and what must Black play before castling?",
+  "text": "Once White has Re1 in the Closed Ruy, e4 is covered, so Bxc6 followed by Nxe5 becomes a real threat. That is why Black has to play ...b5 before castling; castling too early is the classic slip from players new to ...e5 defences, and White should be ready to punish it.",
+  "sources": [
+   {
+    "title": "Owen's Defense + Ruy Lopez (Morphy Defense)  | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/_JQ-AH3OYQ4?t=485",
+    "label": "8:05"
+   },
+   {
+    "title": "Owen's Defense + Ruy Lopez (Morphy Defense)  | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/_JQ-AH3OYQ4?t=562",
+    "label": "9:22"
+   }
+  ]
+ },
+ {
+  "id": "ruy-d6-d4",
+  "family": "ruy",
+  "pgn": "e4 e5 Nf3 Nc6 Bb5 d6",
+  "solution": "d2d4",
+  "accept": [
+   "d2d4"
+  ],
+  "ask": "Black has gone passive with ...d6. How do you make your lead in development count?",
+  "text": "When Black sidesteps the Berlin with a passive ...d6, he now answers with d4 at once instead of preparing with c3 first. The aim is to open the centre fully so that White's lead in development counts.",
+  "sources": [
+   {
+    "title": "Grandmaster Naroditsky | Chess Speedrun | 2021",
+    "url": "https://youtu.be/CpaJYTaDHM0",
+    "label": "video"
+   }
+  ]
+ },
+ {
+  "id": "ruy-bird",
+  "family": "ruy",
+  "pgn": "e4 e5 Nf3 Nc6 Bb5 Nd4",
+  "solution": "f3d4",
+  "accept": [
+   "f3d4"
+  ],
+  "ask": "The Bird: an odd knight jump. Don't panic. What's the simple reply?",
+  "text": "The Ruy has far too much theory to memorise, so he treats the positional lines as a matter of understanding and saves rote learning for the sharp ones, such as ...Nd4 and ...f5 ideas. When an opponent plays something odd like the Bird (3...Nd4), do not panic and develop by basic principles.",
+  "sources": [
+   {
+    "title": "Anti-Marshall | The Sensei Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/Dp2q1lzUVlQ?t=1259",
+    "label": "20:59"
+   },
+   {
+    "title": "Grandmaster Naroditsky | Chess Speedrun | 2065",
+    "url": "https://youtu.be/uVQKL83tZb0?t=551",
+    "label": "9:11"
+   }
+  ]
+ },
+ {
+  "id": "scotch-order",
+  "family": "scotch",
+  "pgn": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nc3 Bb4",
+  "solution": "d4c6",
+  "accept": [
+   "d4c6"
+  ],
+  "ask": "Get the move order right. Bd3 looks natural, but something hangs. What comes first?",
+  "text": "Get the Four Knights Scotch move order right: after ...Bb4 take on c6 first and only then develop the bishop to d3, because Bd3 straight away just drops the knight on d4. Do not defend e4 with f3 out of common sense. Unlike the Sicilian it weakens the king, and Black castles and strikes with ...d5.",
+  "sources": [
+   {
+    "title": "Decisive Tactics, Brilliant Checkmate!! | Four Knights Scotch | GM Naroditsky’s Theory Speed Run",
+    "url": "https://youtu.be/F7UDk49ESWs?t=641",
+    "label": "10:41"
+   },
+   {
+    "title": "Decisive Tactics, Brilliant Checkmate!! | Four Knights Scotch | GM Naroditsky’s Theory Speed Run",
+    "url": "https://youtu.be/F7UDk49ESWs?t=723",
+    "label": "12:03"
+   }
+  ]
+ },
+ {
+  "id": "vienna-nf3",
+  "family": "vienna",
+  "pgn": "e4 e5 Nc3 Nc6 f4 exf4",
+  "solution": "g1f3",
+  "accept": [
+   "g1f3"
+  ],
+  "ask": "Black took the f4 pawn. d4 and Bc4 both tempt you. Which move stops the check on h4?",
+  "text": "Once Black takes the f4 pawn, start with Nf3 and do not rush d4 or Bc4. Either lets Black check on h4, and g3 does not answer it because the f4 pawn captures on g3, so the king gets dragged out. He calls this the most common error for White players learning the Vienna.",
+  "sources": [
+   {
+    "title": "Master Class | Vienna Game | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/YgMVGhponbU?t=87",
+    "label": "1:27"
+   },
+   {
+    "title": "Master Class | GM's Blunder Too, Vienna Gambit | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/JyTKdxfD8no?t=80",
+    "label": "1:20"
+   },
+   {
+    "title": "You MUST Know THIS About The Vienna Gambit | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/RehhbTF00qQ?t=1544",
+    "label": "25:44"
+   }
+  ]
+ },
+ {
+  "id": "vienna-e5",
+  "family": "vienna",
+  "pgn": "e4 e5 Nc3 Nf6 f4 exf4",
+  "solution": "e4e5",
+  "accept": [
+   "e4e5"
+  ],
+  "ask": "Black grabbed the gambit pawn with the knight on f6. How do you punish it?",
+  "text": "Taking the gambit pawn is a mistake for Black because e5 chases the f6 knight back to g8, so Black's one good reply to f4 is the central counterstrike ...d5. After 3.f4 d5 4.fxe5 Nxe4, he calls the modern Qf3 the move to know and says it is dangerous for Black (he has lost to it himself). The older Nf3 lets Black equalise with ...Bc5, and after d4 with ...Bb4 hitting the c3 knight.",
+  "sources": [
+   {
+    "title": "You MUST Know THIS About The Vienna Gambit | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/RehhbTF00qQ?t=82",
+    "label": "1:22"
+   },
+   {
+    "title": "You MUST Know THIS About The Vienna Gambit | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/RehhbTF00qQ?t=166",
+    "label": "2:46"
+   },
+   {
+    "title": "Master Class | Vienna Gambit | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/V4lW-6f56Cg?t=812",
+    "label": "13:32"
+   }
+  ]
+ },
+ {
+  "id": "vienna-d5",
+  "family": "vienna",
+  "pgn": "e4 e5 Nc3 Nf6 f4",
+  "solution": "d7d5",
+  "accept": [
+   "d7d5"
+  ],
+  "ask": "White played f4. Black's one good reply isn't to take. What is it?",
+  "text": "Taking the gambit pawn is a mistake for Black because e5 chases the f6 knight back to g8, so Black's one good reply to f4 is the central counterstrike ...d5. After 3.f4 d5 4.fxe5 Nxe4, he calls the modern Qf3 the move to know and says it is dangerous for Black (he has lost to it himself). The older Nf3 lets Black equalise with ...Bc5, and after d4 with ...Bb4 hitting the c3 knight.",
+  "sources": [
+   {
+    "title": "You MUST Know THIS About The Vienna Gambit | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/RehhbTF00qQ?t=82",
+    "label": "1:22"
+   },
+   {
+    "title": "You MUST Know THIS About The Vienna Gambit | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/RehhbTF00qQ?t=166",
+    "label": "2:46"
+   },
+   {
+    "title": "Master Class | Vienna Gambit | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/V4lW-6f56Cg?t=812",
+    "label": "13:32"
+   }
+  ]
+ },
+ {
+  "id": "vienna-qf3",
+  "family": "vienna",
+  "pgn": "e4 e5 Nc3 Nf6 f4 d5 fxe5 Nxe4",
+  "solution": "d1f3",
+  "accept": [
+   "d1f3"
+  ],
+  "ask": "The critical Vienna Gambit position. Find the modern move to know.",
+  "text": "Taking the gambit pawn is a mistake for Black because e5 chases the f6 knight back to g8, so Black's one good reply to f4 is the central counterstrike ...d5. After 3.f4 d5 4.fxe5 Nxe4, he calls the modern Qf3 the move to know and says it is dangerous for Black (he has lost to it himself). The older Nf3 lets Black equalise with ...Bc5, and after d4 with ...Bb4 hitting the c3 knight.",
+  "sources": [
+   {
+    "title": "You MUST Know THIS About The Vienna Gambit | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/RehhbTF00qQ?t=82",
+    "label": "1:22"
+   },
+   {
+    "title": "You MUST Know THIS About The Vienna Gambit | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/RehhbTF00qQ?t=166",
+    "label": "2:46"
+   },
+   {
+    "title": "Master Class | Vienna Gambit | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/V4lW-6f56Cg?t=812",
+    "label": "13:32"
+   }
+  ]
+ },
+ {
+  "id": "kg-nf3",
+  "family": "kingsgambit",
+  "pgn": "e4 e5 f4 exf4",
+  "solution": "g1f3",
+  "accept": [
+   "g1f3"
+  ],
+  "ask": "After ...exf4, d4 is the wrong start. What develops and stops ...Qh4+?",
+  "text": "After ...exf4, never play d4 straight away. Black gets a strong check on h4, and g3 fails to ...fxg3, so the king is forced out. Develop the knight to f3 first, which stops the check, and only then play d4.",
+  "sources": [
+   {
+    "title": "Beginner To Master | Chess Speedrun | King's Gambit | Grandmaster Naroditsky",
+    "url": "https://youtu.be/8QxDmN_BMaU?t=3",
+    "label": "0:03"
+   },
+   {
+    "title": "Crushing the King's Gambit | GM Naro's Opening Lab",
+    "url": "https://youtu.be/zEytN1zSTEE?t=77",
+    "label": "1:17"
+   }
+  ]
+ },
+ {
+  "id": "tk-na5",
+  "family": "twoknights",
+  "pgn": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5",
+  "solution": "c6a5",
+  "accept": [
+   "c6a5"
+  ],
+  "ask": "Fried Liver position. The knight mustn't recapture on d5. What's the move to know?",
+  "text": "Against the Fried Liver attack (Ng5), Black's main answer is ...d5, which blocks the bishop. After exd5 the knight must not recapture on d5, the classic mistake that runs into Nxf7, and the move to know is ...Na5, a heavily theoretical line. He notes this attack is among the most common variations at every level, beginners especially, so expect Ng5 often.",
+  "sources": [
+   {
+    "title": "Trashing the Traxler | Busting Unsound Openings with GM Naro",
+    "url": "https://youtu.be/ykmGxE9DURo?t=89",
+    "label": "1:29"
+   },
+   {
+    "title": "Outfoxing a 1200-Rated Genius | Philidor, Bowdler Attack, Sicilian | GM Naroditsky's DYI Speedrun",
+    "url": "https://youtu.be/U9ZVpNscIGg?t=1020",
+    "label": "17:00"
+   },
+   {
+    "title": "Beginner To Master | Chess Speedrun | 1400 | Grandmaster Naroditsky",
+    "url": "https://youtu.be/RUYbO35XVCE?t=1464",
+    "label": "24:24"
+   }
+  ]
+ },
+ {
+  "id": "tk-punish",
+  "family": "twoknights",
+  "pgn": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5",
+  "solution": "d2d4",
+  "accept": [
+   "d2d4",
+   "g5f7"
+  ],
+  "ask": "Black made the classic mistake and took on d5. How does White punish it?",
+  "text": "Against the Fried Liver attack (Ng5), Black's main answer is ...d5, which blocks the bishop. After exd5 the knight must not recapture on d5, the classic mistake that runs into Nxf7, and the move to know is ...Na5, a heavily theoretical line. He notes this attack is among the most common variations at every level, beginners especially, so expect Ng5 often.",
+  "sources": [
+   {
+    "title": "Trashing the Traxler | Busting Unsound Openings with GM Naro",
+    "url": "https://youtu.be/ykmGxE9DURo?t=89",
+    "label": "1:29"
+   },
+   {
+    "title": "Outfoxing a 1200-Rated Genius | Philidor, Bowdler Attack, Sicilian | GM Naroditsky's DYI Speedrun",
+    "url": "https://youtu.be/U9ZVpNscIGg?t=1020",
+    "label": "17:00"
+   },
+   {
+    "title": "Beginner To Master | Chess Speedrun | 1400 | Grandmaster Naroditsky",
+    "url": "https://youtu.be/RUYbO35XVCE?t=1464",
+    "label": "24:24"
+   }
+  ]
+ },
+ {
+  "id": "tk-traxler-d5",
+  "family": "twoknights",
+  "pgn": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 Bc5 d4",
+  "solution": "d7d5",
+  "accept": [
+   "d7d5"
+  ],
+  "ask": "White found the antidote 5.d4. Capturing on d4 loses. What must Black find?",
+  "text": "The Traxler (...Bc5 against Ng5) is a serious system, and it punishes a White player who grabs on f7 at once. But he teaches White an antidote, 5.d4, where the c1 bishop covers f4: Black must find ...d5 (capturing on d4 loses), and after Bxd5 Black ends up a pawn down in an unpleasant endgame, the worst result for a gambit player. So the Traxler works best while your opponent is unprepared.",
+  "sources": [
+   {
+    "title": "Trashing the Traxler | Busting Unsound Openings with GM Naro",
+    "url": "https://youtu.be/ykmGxE9DURo?t=89",
+    "label": "1:29"
+   },
+   {
+    "title": "Trashing the Traxler | Busting Unsound Openings with GM Naro",
+    "url": "https://youtu.be/ykmGxE9DURo?t=326",
+    "label": "5:26"
+   },
+   {
+    "title": "Trashing the Traxler | Busting Unsound Openings with GM Naro",
+    "url": "https://youtu.be/ykmGxE9DURo?t=1423",
+    "label": "23:43"
+   }
+  ]
+ },
+ {
+  "id": "petrov-stafford",
+  "family": "petrov",
+  "pgn": "e4 e5 Nf3 Nf6 Nxe5 Nc6 Nxc6 dxc6",
+  "solution": "d2d3",
+  "accept": [
+   "d2d3",
+   "b1c3"
+  ],
+  "ask": "The Stafford Gambit, full of traps. What's the calm way to develop?",
+  "text": "The Stafford Gambit (...Nc6 instead of ...d6 after Nxe5) is a trap-heavy sideline that he sets out to refute as White. Calm development works, such as d3, covering g4, then c3 and d4, or h3, Qc2 and castling long, and Black ends up pawns down with a wrecked position.",
+  "sources": [
+   {
+    "title": "Snuffing the Stafford Gambit | Busting the Gambits with GM Naro",
+    "url": "https://youtu.be/lLzLAJcRn-Q?t=1368",
+    "label": "22:48"
+   },
+   {
+    "title": "Grandmaster Naroditsky | Chess Speedrun | 1380",
+    "url": "https://youtu.be/xoS71OW-Re0?t=1404",
+    "label": "23:24"
+   },
+   {
+    "title": "Snuffing the Stafford Gambit | Busting the Gambits with GM Naro",
+    "url": "https://youtu.be/lLzLAJcRn-Q?t=166",
+    "label": "2:46"
+   }
+  ]
+ },
+ {
+  "id": "alapin-exd5",
+  "family": "alapin",
+  "pgn": "e4 c5 c3 d5",
+  "solution": "e4d5",
+  "accept": [
+   "e4d5"
+  ],
+  "ask": "Black hit e4 with ...d5. e5 is tempting. What's the accurate choice?",
+  "text": "After ...d5 in the c3 lines, recapture on d5 rather than pushing e5. The e5 route drifts into an Advance French where neither side knows what to do, and if Black has not yet played ...e6 it is simply inaccurate, because Black gets the light bishop out to f5 first and ends up with a good French or Caro-Kann.",
+  "sources": [
+   {
+    "title": "Exploding the Center | IQP | In-depth Sicilian Alapin | GM Naroditsky’s Theory Speed Run",
+    "url": "https://youtu.be/Q0CTfDwnd3A?t=7",
+    "label": "0:07"
+   },
+   {
+    "title": "Exploding the Center | IQP | In-depth Sicilian Alapin | GM Naroditsky’s Theory Speed Run",
+    "url": "https://youtu.be/Q0CTfDwnd3A?t=86",
+    "label": "1:26"
+   },
+   {
+    "title": "IQP Strategy: Mastering Sicilian Defense | Alapin Variation | GM Naroditsky's Theory Speedrun",
+    "url": "https://youtu.be/IEnsliJAt3U?t=255",
+    "label": "4:15"
+   }
+  ]
+ },
+ {
+  "id": "najdorf-e5-bb5",
+  "family": "najdorf",
+  "pgn": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 e5",
+  "solution": "f1b5",
+  "accept": [
+   "f1b5"
+  ],
+  "ask": "Black played ...e5 without ...a6 first. How does White make that hurt?",
+  "text": "The ...a6 move takes b5 away from White's pieces, prepares ...b5 and keeps the setup flexible, which is why an immediate ...e5 is premature (Bb5+ is unpleasant). In the English attack structure the kings usually castle on opposite wings, so Black's main plan is a queenside pawn advance with ...b5, ...b4, ...a5 and ...a4 to strip away the pieces covering White's king. The knight normally belongs on d7, and Black must be careful not to allow a4 before pushing ...b5.",
+  "sources": [
+   {
+    "title": "Beginner To Master | Viewer Games | Chess Speedrun",
+    "url": "https://youtu.be/uJCgrG90u8A?t=1041",
+    "label": "17:21"
+   },
+   {
+    "title": "Beginner To Master | Viewer Games | Chess Speedrun",
+    "url": "https://youtu.be/uJCgrG90u8A?t=320",
+    "label": "5:20"
+   },
+   {
+    "title": "Restarting the Speedrun Soon!? | Sicilian - Najdorf | GM Naroditsky's Theory Speedrun",
+    "url": "https://youtu.be/vbWQt7Qn_eQ?t=88",
+    "label": "1:28"
+   }
+  ]
+ },
+ {
+  "id": "najdorf-g4-d5",
+  "family": "najdorf",
+  "pgn": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be3 e5 Nb3 Be6 f3 Be7 g4",
+  "solution": "d6d5",
+  "accept": [
+   "d6d5"
+  ],
+  "ask": "White rushed g4 in the English attack. What's the strike that punishes it?",
+  "text": "In the English attack (Be3, f3, Qd2), rushing g4 is a mistake for White because of ...d5. If White carries on with g5, Black plays ...d4 and, after gxf6, recaptures with the bishop and stands better. Qd2 is White's sensible move, so this is a trap to watch for against unprepared opponents.",
+  "sources": [
+   {
+    "title": "Unveiling the Strategy | Sicilian Najdorf | GM Naroditsky’s Theory Speed Run",
+    "url": "https://youtu.be/zEqoGIgzk1E?t=2672",
+    "label": "44:32"
+   },
+   {
+    "title": "Unveiling the Strategy | Sicilian Najdorf | GM Naroditsky’s Theory Speed Run",
+    "url": "https://youtu.be/zEqoGIgzk1E?t=2749",
+    "label": "45:49"
+   }
+  ]
+ },
+ {
+  "id": "dragon-qa5",
+  "family": "dragon",
+  "pgn": "e4 c5 Nf3 Nc6 d4 cxd4 Nxd4 g6 c4 Nf6 Nxc6 bxc6 e5",
+  "solution": "d8a5",
+  "accept": [
+   "d8a5"
+  ],
+  "ask": "White took on c6 and pushed e5, hitting your knight. Which move saves everything?",
+  "text": "The Maroczy Bind (White plays c4 and keeps e4) is the main reason strong players avoid the Accelerated Dragon, and theory rates it better for White. Below roughly 2200 it is far less scary, because White must play very positionally and Black has tricky replies. Play ...Nf6 before ...Bg7: if White takes on c6 and pushes e5, ...Qa5+ wins that pawn.",
+  "sources": [
+   {
+    "title": "What an End Game! Deep Analysis | Accelerated Dragon Maroczy Bind | GM Naroditsky’s Theory Speed Run",
+    "url": "https://youtu.be/lryqtSMy4pY?t=2851",
+    "label": "47:31"
+   },
+   {
+    "title": "Understanding the Accelerated Dragon!! | Open Sicilian | GM Naroditsky's Theory Speed Run",
+    "url": "https://youtu.be/YzI6qI-33_U?t=1449",
+    "label": "24:09"
+   },
+   {
+    "title": "Controlling Dark Squares | Sicilian, Accelerated Dragon | Top Theory Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/IZN7fZFpzoc?t=1379",
+    "label": "22:59"
+   }
+  ]
+ },
+ {
+  "id": "dragon-castle",
+  "family": "dragon",
+  "pgn": "e4 c5 Nf3 Nc6 d4 cxd4 Nxd4 g6 Nc3 Bg7 Be3 Nf6 Bc4",
+  "solution": "e8g8",
+  "accept": [
+   "e8g8"
+  ],
+  "ask": "Against Bc4, an immediate ...Nxd4 looks clever and loses a piece. What do you play first?",
+  "text": "If White plays Dragon-style moves against the Accelerated move order, Black profits from not having played ...d6. After f3 and Qd2 the break ...d5 comes in one go, a tempo better than the same position in the main-line Dragon. Against Bc4, castle and then play ...Qb6 to set up ...Nxd4, because the bishop on e3 is unprotected (an immediate ...Nxd4 just loses a piece, and this is the trap Fischer once fell into against Panno).",
+  "sources": [
+   {
+    "title": "Understanding the Accelerated Dragon!! | Open Sicilian | GM Naroditsky's Theory Speed Run",
+    "url": "https://youtu.be/YzI6qI-33_U?t=1712",
+    "label": "28:32"
+   },
+   {
+    "title": "What an End Game! Deep Analysis | Accelerated Dragon Maroczy Bind | GM Naroditsky’s Theory Speed Run",
+    "url": "https://youtu.be/lryqtSMy4pY?t=3893",
+    "label": "64:53"
+   }
+  ]
+ },
+ {
+  "id": "caro-exf6",
+  "family": "carokann",
+  "pgn": "e4 c6 d4 d5 Nd2 dxe4 Nxe4 Nf6 Nxf6+",
+  "solution": "e7f6",
+  "accept": [
+   "e7f6"
+  ],
+  "ask": "Tartakower line. Which pawn recaptures, and why accept the damage?",
+  "text": "In the Tartakower line (after Nd2, ...dxe4, Nxe4, ...Nf6, Nxf6+) recapture with ...exf6, not ...gxf6. Black accepts a damaged structure in return for easy development: the bishop goes to d6, then ...Bg4 ties down a white knight on f3, and White must either weaken with h3 and g4 or retreat the bishop to e2 passively. Do not pick a line only because it leads to one appealing position, since you also need a plan against White's other options, above all the Advance.",
+  "sources": [
+   {
+    "title": "Master Class | Caro-Kann, Tartakower | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/cPVp5TWZR0w?t=86",
+    "label": "1:26"
+   },
+   {
+    "title": "Master Class | Caro-Kann, Tartakower | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/cPVp5TWZR0w?t=738",
+    "label": "12:18"
+   },
+   {
+    "title": "Master Class | Caro-Kann, Tartakower | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/cPVp5TWZR0w?t=1211",
+    "label": "20:11"
+   }
+  ]
+ },
+ {
+  "id": "caroadv-c3",
+  "family": "caroadv",
+  "pgn": "e4 c6 d4 d5 exd5 cxd5 Bd3 Nc6",
+  "solution": "c2c3",
+  "accept": [
+   "c2c3"
+  ],
+  "ask": "Exchange line. Black's knight hits d4. Nc3 is the beginner habit. What's better?",
+  "text": "Against the Caro-Kann the Exchange with Bd3 is a good practical choice and is also rated objectively as one of White's better tries for a small edge. Support d4 with c3 instead of the beginner habit of Nc3, which leaves d4 weak (...Nc6 adds pressure). After Bd3 Nf6, Black wants ...Bg4, and c3 followed by Qb3 is the topical answer at the top level.",
+  "sources": [
+   {
+    "title": "Handling the IQP | Caro-Kann-Exchange | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/898k4qkY0vg?t=2128",
+    "label": "35:28"
+   },
+   {
+    "title": "Handling the IQP | Caro-Kann-Exchange | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/898k4qkY0vg?t=2208",
+    "label": "36:48"
+   },
+   {
+    "title": "Master Class | Danish ACCEPTED!! | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/RSZfxqk9wNc?t=1469",
+    "label": "24:29"
+   }
+  ]
+ },
+ {
+  "id": "caroadv-qb3",
+  "family": "caroadv",
+  "pgn": "e4 c6 d4 d5 exd5 cxd5 Bd3 Nf6 c3 Bg4",
+  "solution": "d1b3",
+  "accept": [
+   "d1b3"
+  ],
+  "ask": "Black got ...Bg4 in. What's the topical answer?",
+  "text": "Against the Caro-Kann the Exchange with Bd3 is a good practical choice and is also rated objectively as one of White's better tries for a small edge. Support d4 with c3 instead of the beginner habit of Nc3, which leaves d4 weak (...Nc6 adds pressure). After Bd3 Nf6, Black wants ...Bg4, and c3 followed by Qb3 is the topical answer at the top level.",
+  "sources": [
+   {
+    "title": "Handling the IQP | Caro-Kann-Exchange | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/898k4qkY0vg?t=2128",
+    "label": "35:28"
+   },
+   {
+    "title": "Handling the IQP | Caro-Kann-Exchange | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/898k4qkY0vg?t=2208",
+    "label": "36:48"
+   },
+   {
+    "title": "Master Class | Danish ACCEPTED!! | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/RSZfxqk9wNc?t=1469",
+    "label": "24:29"
+   }
+  ]
+ },
+ {
+  "id": "scandi-c6",
+  "family": "scandi",
+  "pgn": "e4 d5 exd5 Nf6 c4",
+  "solution": "c7c6",
+  "accept": [
+   "c7c6"
+  ],
+  "ask": "White is clinging to the pawn with c4. What gives Black real compensation?",
+  "text": "The 2...Nf6 version, delaying the recapture, is a perfectly viable choice. If White tries to hold the pawn with c4, ...c6 follows and, after dxc6 Nxc6, Black controls d4 firmly and has real compensation. The quiet reply to know is Bb5+ followed by Be2, a low-theory line that gives White a modest but stable edge.",
+  "sources": [
+   {
+    "title": "Natural Developing Moves | Scandinavian Defense: Modern | GM Naroditsky’s Top Theory Speedrun",
+    "url": "https://youtu.be/3Qw4AL8RDOw?t=6",
+    "label": "0:06"
+   },
+   {
+    "title": "Master Class | Scandinavian Defense | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/_j8aiuqS4_0?t=6",
+    "label": "0:06"
+   },
+   {
+    "title": "Settle for a Draw!?! | Scandinavian Defense | GM Naroditsky’s Theory Speed Run",
+    "url": "https://youtu.be/358seoKegqA?t=6",
+    "label": "0:06"
+   }
+  ]
+ },
+ {
+  "id": "scandi-slow-d4",
+  "family": "scandi",
+  "pgn": "e4 d5 exd5 Qxd5 Nc3 Qa5 d4",
+  "solution": "c7c6",
+  "accept": [
+   "c7c6",
+   "g8f6"
+  ],
+  "ask": "White played d4. ...Nc6 is the tempting mistake. What's the right set-up move?",
+  "text": "Once White has played d4, the right way to slow it is ...c6 together with ...Nf6 and a bishop to g4, the most popular developing move. An early ...Nc6 is a mistake because d5 kicks it away and Black is already behind in development.",
+  "sources": [
+   {
+    "title": "Scandinavian Defense Dissected | Develop Your Instincts | GM Naroditsky's DYI Speedrun",
+    "url": "https://youtu.be/zhfOsKtD2vk?t=89",
+    "label": "1:29"
+   },
+   {
+    "title": "Scandinavian Defense Dissected | Develop Your Instincts | GM Naroditsky's DYI Speedrun",
+    "url": "https://youtu.be/zhfOsKtD2vk?t=2982",
+    "label": "49:42"
+   }
+  ]
+ },
+ {
+  "id": "pirc-nxe4",
+  "family": "pirc",
+  "pgn": "e4 d6 d4 Nf6 Nc3 g6 Nf3 Bg7 Be2 O-O O-O e5 dxe5 dxe5 Qxd8 Rxd8 Nxe5",
+  "solution": "f6e4",
+  "accept": [
+   "f6e4"
+  ],
+  "ask": "White traded twice on e5 and took a pawn. What's the usual shot to win it back?",
+  "text": "Against the Classical (Be2) both sides castle short, so the fight is about whether White can turn central control into something concrete. ...c5 is the principled reply, and if White pushes d5 Benoni-style, ...e6 hits the centre. Black can also play ...e5 at once: White is supposed to trade twice on e5, but Black regains the pawn with the usual ...Nxe4 shot, as in the King's Indian exchange.",
+  "sources": [
+   {
+    "title": "TRAP THE QUEEN!! | Deep Dive - Pirc Defense: Classical | GM Naroditsky’s Top Theory Speedrun",
+    "url": "https://youtu.be/TIpUDMzQVmU?t=239",
+    "label": "3:59"
+   },
+   {
+    "title": "TRAP THE QUEEN!! | Deep Dive - Pirc Defense: Classical | GM Naroditsky’s Top Theory Speedrun",
+    "url": "https://youtu.be/TIpUDMzQVmU?t=2189",
+    "label": "36:29"
+   }
+  ]
+ },
+ {
+  "id": "london-nb5",
+  "family": "london",
+  "pgn": "d4 d5 Bf4 Nf6 e3 c5 Nc3 Qb6 Nf3 Qxb2",
+  "solution": "c3b5",
+  "accept": [
+   "c3b5"
+  ],
+  "ask": "Black took the b2 pawn. Why was Nc3 safe? Find the reply.",
+  "text": "Black's ...c5 with ...Qb6 is the standard way to unsettle the London, because the early bishop leaves b2 loose. The automatic b3 costs a lot (it permanently weakens the dark squares c3, b4 and a3, and b3 combined with c3 is an awkward structure), yet most players who have not prepared drift into it. The accurate answers are hard to find over the board, so learn them in advance; in the Jobava version Nc3 works because Qxb2 runs into Nb5.",
+  "sources": [
+   {
+    "title": "London System Unveiled | A Comprehensive Analysis | GM Naroditsky’s Theory Speed Run",
+    "url": "https://youtu.be/RzfG5SfKRak?t=170",
+    "label": "2:50"
+   },
+   {
+    "title": "How to CRUSH the London System!! | Indian, Scandinavian | GM Naroditsky's DYI Speedrun",
+    "url": "https://youtu.be/BmFrJuPdwxE?t=949",
+    "label": "15:49"
+   },
+   {
+    "title": "London System Unveiled | A Comprehensive Analysis | GM Naroditsky’s Theory Speed Run",
+    "url": "https://youtu.be/RzfG5SfKRak?t=90",
+    "label": "1:30"
+   }
+  ]
+ },
+ {
+  "id": "qgd-a4",
+  "family": "qgd",
+  "pgn": "d4 d5 c4 dxc4 e3 b5",
+  "solution": "a2a4",
+  "accept": [
+   "a2a4"
+  ],
+  "ask": "Black is trying to hold c4 with ...b5. What's the standard reply?",
+  "text": "If Black takes on c4 and tries to hold it with ...b5, a4 is the standard reply. Qe2 or Nd2 then wins the pawn back and e4 follows to claim the centre (strike in the centre when the opponent is busy on a wing). Remember the old trap as well: after e3 ...b5, a4 ...c6?, axb5 cxb5 and Qf3 hits the rook on a8, which is trapped because the bishop has not reached b7 yet.",
+  "sources": [
+   {
+    "title": "Grandmaster Naroditsky | Chess Speedrun | 2050",
+    "url": "https://youtu.be/EfHnGTCO1s4?t=803",
+    "label": "13:23"
+   },
+   {
+    "title": "Patience Pays Off!! | Anti-Sicilian, Alapin, King's Indian | GM Naroditsky's DYI Speedrun",
+    "url": "https://youtu.be/3nyxVHwDCTY?t=2239",
+    "label": "37:19"
+   },
+   {
+    "title": "Taking Down the Wing Gambit!! | Deep Dive | Sicilian | GM Naroditsky's Theory Speed Run",
+    "url": "https://youtu.be/JXqgHjE14K4?t=1799",
+    "label": "29:59"
+   }
+  ]
+ },
+ {
+  "id": "qgd-qf3",
+  "family": "qgd",
+  "pgn": "d4 d5 c4 dxc4 e3 b5 a4 c6 axb5 cxb5",
+  "solution": "d1f3",
+  "accept": [
+   "d1f3"
+  ],
+  "ask": "The old trap. Black's bishop hasn't reached b7 yet. What wins material?",
+  "text": "If Black takes on c4 and tries to hold it with ...b5, a4 is the standard reply. Qe2 or Nd2 then wins the pawn back and e4 follows to claim the centre (strike in the centre when the opponent is busy on a wing). Remember the old trap as well: after e3 ...b5, a4 ...c6?, axb5 cxb5 and Qf3 hits the rook on a8, which is trapped because the bishop has not reached b7 yet.",
+  "sources": [
+   {
+    "title": "Grandmaster Naroditsky | Chess Speedrun | 2050",
+    "url": "https://youtu.be/EfHnGTCO1s4?t=803",
+    "label": "13:23"
+   },
+   {
+    "title": "Patience Pays Off!! | Anti-Sicilian, Alapin, King's Indian | GM Naroditsky's DYI Speedrun",
+    "url": "https://youtu.be/3nyxVHwDCTY?t=2239",
+    "label": "37:19"
+   },
+   {
+    "title": "Taking Down the Wing Gambit!! | Deep Dive | Sicilian | GM Naroditsky's Theory Speed Run",
+    "url": "https://youtu.be/JXqgHjE14K4?t=1799",
+    "label": "29:59"
+   }
+  ]
+ },
+ {
+  "id": "qgd-chigorin",
+  "family": "qgd",
+  "pgn": "d4 d5 c4 Nc6 Nf3 Bg4 cxd5 Qxd5",
+  "solution": "b1c3",
+  "accept": [
+   "b1c3"
+  ],
+  "ask": "Black recaptured on d5 with the queen, which this line can't afford. What's the reply?",
+  "text": "Against the Chigorin (...Nc6), Black's whole plan is to pile pressure on d4 quickly, directly or by hitting its defenders, so White should develop soundly and keep d4 covered. He says 3.Nc3 is currently thought to give White the biggest edge, and that the line works best as a club-level surprise. In the 3.Nf3 ...Bg4 line Black must not recapture on d5 with the queen, because Nc3 follows.",
+  "sources": [
+   {
+    "title": "Chigorin Defense; QGD | The Sensei Speedrun | GM Naro",
+    "url": "https://youtu.be/KJTX68hK87w?t=7",
+    "label": "0:07"
+   },
+   {
+    "title": "Chigorin Defense; QGD | The Sensei Speedrun | GM Naro",
+    "url": "https://youtu.be/KJTX68hK87w?t=656",
+    "label": "10:56"
+   },
+   {
+    "title": "Master Class | QGD Chigorin & Baltic Defense  | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/TyzvlcfCUDg?t=7",
+    "label": "0:07"
+   }
+  ]
+ },
+ {
+  "id": "kid-samisch",
+  "family": "kid",
+  "pgn": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 f3 O-O Be3",
+  "solution": "c7c5",
+  "accept": [
+   "c7c5",
+   "e7e5",
+   "a7a6",
+   "b8c6"
+  ],
+  "ask": "The Samisch plan is Qd2, long castling and h4-h5. Which Benoni-style strike disturbs it?",
+  "text": "The Sämisch (f3) is dangerous for an unprepared Black: White plans Be3, Qd2, long castling and then h4-h5 and Bh6, and can mate quickly, so Black has to disturb that sequence. His two modern answers are the Benoni-style ...c5 (often seen as objectively best) and the Panno set-up; the old ...e5 line is playable but leaves Black slightly worse against accurate play, though few opponents have studied it.",
+  "sources": [
+   {
+    "title": "Master Class | King's Indian Defence, Sämisch | Chess Speedrun | Grandmaster Naroditsky",
+    "url": "https://youtu.be/2Mys0GRUgM4?t=81",
+    "label": "1:21"
+   },
+   {
+    "title": "Converting a Small Advantage | King’s Indian | The Sensei Speedrun | GM Naroditsky",
+    "url": "https://youtu.be/9JUlD51s6zE?t=80",
+    "label": "1:20"
+   }
+  ]
+ },
+ {
+  "id": "slav-bf5",
+  "family": "slav",
+  "pgn": "d4 d5 c4 c6 Nf3 Nf6 Nc3 dxc4 a4",
+  "solution": "c8f5",
+  "accept": [
+   "c8f5"
+  ],
+  "ask": "White stopped ...b5. Don't cling to c4. Which piece comes out, and why before ...e6?",
+  "text": "When White plays a4 against ...dxc4 to stop ...b5, do not try to cling to the c4 pawn; develop quickly and harmoniously instead. Get the light-squared bishop outside the pawn chain before playing ...e6, because ...e6 first (the semi-Slav triangle) locks that bishop in, though it does lead to very complex play.",
+  "sources": [
+   {
+    "title": "Grandmaster Naroditsky | Chess Speedrun | 2120",
+    "url": "https://youtu.be/Z4WjtjMl3j8?t=8",
+    "label": "0:08"
+   },
+   {
+    "title": "Grandmaster Naroditsky | Chess Speedrun | 2120",
+    "url": "https://youtu.be/Z4WjtjMl3j8?t=568",
+    "label": "9:28"
+   }
+  ]
+ },
+ {
+  "id": "grunfeld-order",
+  "family": "grunfeld",
+  "pgn": "d4 Nf6 c4 g6 Nf3",
+  "solution": "f8g7",
+  "accept": [
+   "f8g7"
+  ],
+  "ask": "Against 3.Nf3 he warns about one automatic Grunfeld move. What do you play instead?",
+  "text": "Watch the move order. Against 3.Nf3 he warns against playing ...d5 straight away, since White simply trades and plays e4. In the English, an early e4 can also move-order a Grünfeld player into a King's Indian, so you need to know that set-up as well.",
+  "sources": [
+   {
+    "title": "Mastering Transitions in The King’s Indian Opening | A GM Naroditsky Theory Speed Run",
+    "url": "https://youtu.be/kQHOIgVhyow",
+    "label": "video"
+   },
+   {
+    "title": "Checkmate! That's the Tactic! | English Opening | GM Naroditsky’s Top Theory Speedrun",
+    "url": "https://youtu.be/z92soIY1rSg?t=2180",
+    "label": "36:20"
+   }
+  ]
+ },
+ {
+  "id": "dutch-qh5",
+  "family": "dutch",
+  "pgn": "d4 f5 Bg5 h6 Bh4 g5 Bg3 f4 e3 fxg3",
+  "solution": "d1h5",
+  "accept": [
+   "d1h5"
+  ],
+  "ask": "Black chased the bishop all the way and took it. Finish the game.",
+  "text": "Be careful with the Bg5 sideline. Chasing the bishop with ...h6 and ...g5 can lose quickly: White retreats Bh4, meets ...g5 with Bg3, and after ...f4 plays e3, so grabbing the bishop allows Qh5 and mate on the h5-e8 diagonal. He also thinks an old book recommendation of ...h6 here is a mistake, because White has strong central strikes such as e4.",
+  "sources": [
+   {
+    "title": "Chess for Beginners | Hippo & Glek Unveiled | Develop Your Instincts | GM Naroditsky's DYI Speedrun",
+    "url": "https://youtu.be/fGBhk9oqdbg?t=724",
+    "label": "12:04"
+   },
+   {
+    "title": "Grandmaster Naroditsky | Chess Speedrun | 1420",
+    "url": "https://youtu.be/cdEASsRLWcg?t=576",
+    "label": "9:36"
+   }
+  ]
+ },
+ {
+  "id": "benoni-a4",
+  "family": "benoni",
+  "pgn": "d4 Nf6 c4 c5 d5 e6 Nc3 exd5 cxd5 d6 e4 g6 Nf3 a6",
+  "solution": "a2a4",
+  "accept": [
+   "a2a4"
+  ],
+  "ask": "Black played ...a6 and wants ...b5. How does White stop the counterplay?",
+  "text": "From White's side, the standard plan against Benoni structures is to reroute the knight f3, d2, c4 to hit the d6 pawn, a permanent weakness that is hard to remove, and to meet ...a6 with a4 so Black never gets ...b5. Knowing this tells Black to look for counterplay before the knight lands.",
+  "sources": [
+   {
+    "title": "TRAP THE QUEEN!! | Deep Dive - Pirc Defense: Classical | GM Naroditsky’s Top Theory Speedrun",
+    "url": "https://youtu.be/TIpUDMzQVmU?t=481",
+    "label": "8:01"
+   },
+   {
+    "title": "TRAP THE QUEEN!! | Deep Dive - Pirc Defense: Classical | GM Naroditsky’s Top Theory Speedrun",
+    "url": "https://youtu.be/TIpUDMzQVmU?t=2761",
+    "label": "46:01"
+   },
+   {
+    "title": "TRAP THE QUEEN!! | Deep Dive - Pirc Defense: Classical | GM Naroditsky’s Top Theory Speedrun",
+    "url": "https://youtu.be/TIpUDMzQVmU?t=3491",
+    "label": "58:11"
+   }
+  ]
+ }
+]

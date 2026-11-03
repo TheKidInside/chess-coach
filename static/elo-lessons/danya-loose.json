@@ -1,0 +1,161 @@
+{
+  "id": "danya-loose",
+  "name": "Loose pieces",
+  "side": "w",
+  "tiers": [
+    {
+      "elo": 0, "name": "Beginner",
+      "hook": "Find the piece nobody guards",
+      "takeaway": "Before every move, ask which pieces have no defender, on both sides. Most tactics start with one of them. Attack it with a check, and the opponent has no time to save it.",
+      "sources": [
+        { "title": "A Grandmaster Does Puzzle Rush Survival | 0 to 50", "url": "https://youtu.be/Q5s1S-esBW0?t=478", "label": "7:58" },
+        { "title": "Grandmaster Naroditsky Chess Speedrun Pt. 3", "url": "https://youtu.be/3knyQ8z7lrQ?t=494", "label": "8:14" }
+      ],
+      "scenes": [
+        {
+          "title": "Look before you think",
+          "fen": "r3k3/5ppp/8/8/7Q/8/5PPP/4K3 w - - 0 1",
+          "steps": [
+            { "who": "student", "say": "I never see tactics until it's too late. What am I meant to be looking for?" },
+            { "who": "coach", "say": "One thing, before anything clever. Loose pieces, meaning pieces with no defender. Most forks, pins and skewers start with one, and Naroditsky keeps coming back to this as the first thing to check." },
+            { "who": "coach", "say": "Find it. Which Black piece has nothing protecting it, and is worth a lot?", "quiz": { "kind": "square", "answer": "a8", "hint": "Pawns on f7, g7 and h7 protect each other or sit by the king. Look further away.", "hit": "Right. That rook is alone in the corner. The king is too far away to protect it." } }
+          ]
+        },
+        {
+          "title": "Win it with a check",
+          "fen": "r3k3/5ppp/8/8/7Q/8/5PPP/4K3 w - - 0 1",
+          "steps": [
+            { "who": "coach", "say": "If you just attack the rook, it moves away. Attack it and the king at the same time, and Black can only save one. Black has to answer a check.", "marks": ["a8", "e8"] },
+            { "who": "coach", "say": "Your queen can do both from one square. Find it.", "quiz": { "kind": "move", "answer": "Qe4+", "hint": "You need a square on the e-file that also sits on the long diagonal running to a8.", "hit": "Right. Check on the e-file, and the rook on the diagonal." } },
+            { "who": "coach", "say": "The king has to move, so the rook falls.", "play": "Kd7 Qxa8" },
+            { "who": "student", "say": "Qa4+ also checks the king and hits the rook, doesn't it?" },
+            { "who": "coach", "say": "It does, on the a-file, with nothing in between. So the rook just takes your queen. When you attack something, it can also attack you, and that's why you always check the reply." }
+          ]
+        }
+      ],
+      "drills": [
+        { "name": "Fork the rook", "fen": "r3k3/5ppp/8/8/7Q/8/5PPP/4K3 w - - 0 1", "moves": "Qe4+ Kd7 Qxa8" }
+      ]
+    },
+    {
+      "elo": 850, "name": "Improver",
+      "hook": "When your own piece is the loose one",
+      "takeaway": "A free pawn can leave your own piece loose. Before you grab it, ask what the capturing piece stands on and who guards it. If the answer is nobody, look for the queen move that attacks it and something else too.",
+      "sources": [
+        { "title": "Opening Blunders!! | Scotch Game | 900 Elo | Top Theory Speedrun | GM Naroditsky", "url": "https://youtu.be/h-9MlTRN-fk?t=1301", "label": "21:41" },
+        { "title": "Danya Defeats Exposed Cheater | Ruy Lopez: Bird Variation | GM Naroditsky's Theory Speedrun", "url": "https://youtu.be/Ust1WJO7KQ0?t=985", "label": "16:25" }
+      ],
+      "scenes": [
+        {
+          "title": "The pawn that looks free",
+          "from": "e4 e5 Nf3 Nc6 Bc4 Nd4",
+          "steps": [
+            { "who": "student", "say": "Black just moved the same knight twice and left e5 hanging. I can take it for free, can't I?" },
+            { "who": "coach", "say": "This is the Blackburne Shilling trap, and Naroditsky warns about it in his speedruns. Think before you grab it. What will your knight stand on, and who protects it there?", "marks": ["e5", "d4"] },
+            { "who": "coach", "say": "Choose.", "quiz": { "kind": "choice", "prompt": "White to play", "options": [
+              { "t": "4.Nxd4, take the knight", "ok": true, "why": "Right, and it's Stockfish's top choice. You remove the odd piece and get a healthy game, and Black's plan disappears." },
+              { "t": "4.Nxe5, take the pawn", "ok": false, "why": "Your knight on e5 has no defender. After 4...Qg5 the queen hits both the knight and g2, and you end up on the defensive." },
+              { "t": "4.c3, chase the knight", "ok": false, "why": "It isn't a disaster, but you're only slightly better. 4.Nxd4 is much stronger, so don't pass it up." }
+            ] } },
+            { "who": "coach", "say": "After the capture, Black's best is to take back with the e-pawn, and you get on with development.", "play": "Nxd4 exd4 O-O c6 Re1 d6 c3", "arrows": [["e1", "e8", "alt"]] }
+          ]
+        },
+        {
+          "title": "What happens if you grab",
+          "from": "e4 e5 Nf3 Nc6 Bc4 Nd4",
+          "steps": [
+            { "who": "coach", "say": "Here's the punishment, so you'll recognise it. The queen attacks the loose knight and the g2 pawn in one move.", "play": "Nxe5 Qg5", "arrows": [["g5", "e5", "bad"], ["g5", "g2", "bad"]] },
+            { "who": "student", "say": "But I can take on f7 and fork the queen and the rook." },
+            { "who": "coach", "say": "That's what the trap wants. Black ignores it. Watch the queen.", "play": "Nxf7 Qxg2 Rf1 Qxe4+ Be2 Nf3#", "marks": ["f3"] },
+            { "who": "coach", "say": "It's checkmate on Black's seventh move. White's 5.O-O would've kept the game going, but it still gives the knight back. It all started because a piece was left loose." }
+          ]
+        }
+      ],
+      "drills": [
+        { "name": "Refuse the pawn", "moves": "e4 e5 Nf3 Nc6 Bc4 Nd4 Nxd4 exd4 O-O c6 Re1 d6 c3" }
+      ]
+    },
+    {
+      "elo": 1900, "name": "Club player",
+      "hook": "One defender isn't enough",
+      "takeaway": "Count defenders as well as attackers. A piece guarded once is still loose if that guard has another job or gets overloaded. A single move that hits two soft spots costs the opponent the game.",
+      "sources": [
+        { "title": "A Grandmaster Does Puzzle Rush Survival | 0 to 50", "url": "https://youtu.be/Q5s1S-esBW0?t=478", "label": "7:58" },
+        { "title": "Grandmaster Naroditsky | Chess Speedrun | 2050", "url": "https://youtu.be/EfHnGTCO1s4?t=1043", "label": "17:23" },
+        { "title": "Master Class | 700 Elo | Chess Speedrun | Grandmaster Naroditsky", "url": "https://youtu.be/NnQmNvrOmCI?t=169", "label": "2:49" }
+      ],
+      "scenes": [
+        {
+          "title": "The guard with two jobs",
+          "fen": "2r3k1/5ppp/p3p3/1p6/4n3/1BP4P/PP1Q1PP1/3R2K1 w - - 0 1",
+          "steps": [
+            { "who": "student", "say": "Black's knight on e4 is loose, so I'd just attack it with Qd4." },
+            { "who": "coach", "say": "That does win the knight, and it's a good move. Before you settle, ask the question Naroditsky asks about every good move: is there a better one? Look at the rook on c8. It's the only piece guarding Black's back rank.", "marks": ["c8", "d8"] },
+            { "who": "coach", "say": "Naroditsky calls a piece with a single defender a second kind of undefended piece. Here the whole back rank is defended once. Find the move that overloads the guard.", "quiz": { "kind": "move", "answer": "Qd8+", "hint": "Give the rook something it has to take, on the d-file.", "hit": "Right. The rook has to take, and your other rook replaces the queen on d8." } },
+            { "who": "coach", "say": "It's mate in two, and the knight never mattered.", "play": "Rxd8 Rxd8#", "marks": ["d8"] }
+          ]
+        },
+        {
+          "title": "Two soft spots at once",
+          "from": "e4 e5 Nf3 d6 d4 Bg4 dxe5 Bxf3 Qxf3 dxe5 Bc4 Nf6",
+          "steps": [
+            { "who": "coach", "say": "This is Morphy's Opera Game from 1858, which Naroditsky uses to teach beginners about development. Black has a soft f7, guarded only by the king, and a pawn on b7, guarded by nothing now that the bishop's gone.", "marks": ["f7", "b7"] },
+            { "who": "coach", "say": "One queen move hits both. Find it.", "quiz": { "kind": "move", "answer": "Qb3", "hint": "Line the queen up behind your bishop on the a2-g8 diagonal, on a square that also looks down the b-file.", "hit": "Right. It attacks b7 and adds to the pressure on f7. Stockfish gives White about three pawns here." } },
+            { "who": "coach", "say": "Black holds both by putting the queen on e7, where she blocks in the f8 bishop. Stockfish would just take on b7 here. Morphy prefers to keep developing, because his lead is growing.", "play": "Qe7 Nc3" }
+          ]
+        }
+      ],
+      "drills": [
+        { "name": "Overload the back rank", "fen": "2r3k1/5ppp/p3p3/1p6/4n3/1BP4P/PP1Q1PP1/3R2K1 w - - 0 1", "moves": "Qd8+ Rxd8 Rxd8#" },
+        { "name": "The Opera Game opening", "moves": "e4 e5 Nf3 d6 d4 Bg4 dxe5 Bxf3 Qxf3 dxe5 Bc4 Nf6 Qb3 Qe7 Nc3" }
+      ]
+    },
+    {
+      "elo": 2350, "name": "Expert",
+      "hook": "A pinned piece defends nothing",
+      "takeaway": "A defender only counts if it can actually move. Before you trust a count, take the pinned pieces off it. Then spend material to remove the last real guard, because a mate on the next move repays any price.",
+      "sources": [
+        { "title": "Grandmaster Naroditsky | Chess Speedrun | 2050", "url": "https://youtu.be/EfHnGTCO1s4?t=1043", "label": "17:23" },
+        { "title": "Grandmaster Naroditsky | Chess Speedrun | 1640", "url": "https://youtu.be/ZlIq20_wnho?t=500", "label": "8:20" },
+        { "title": "Master Class | 700 Elo | Chess Speedrun | Grandmaster Naroditsky", "url": "https://youtu.be/NnQmNvrOmCI?t=169", "label": "2:49" }
+      ],
+      "scenes": [
+        {
+          "title": "Pay for the open lines",
+          "from": "e4 e5 Nf3 d6 d4 Bg4 dxe5 Bxf3 Qxf3 dxe5 Bc4 Nf6 Qb3 Qe7 Nc3 c6 Bg5 b5",
+          "steps": [
+            { "who": "student", "say": "I know this game, and I've always wondered whether the sacrifice is really sound or just old-fashioned." },
+            { "who": "coach", "say": "Test it. Black's f6 knight is pinned to the queen, the b-pawn has just attacked your bishop, and Black has barely developed. You can retreat or simplify. Or you can take stock of what Black's pieces can actually do.", "marks": ["f6", "b5"] },
+            { "who": "coach", "say": "Stockfish rates one move far above the rest.", "quiz": { "kind": "move", "answer": "Nxb5", "hint": "Take the pawn that attacks your bishop, using the knight.", "hit": "Right. Stockfish rates it about +5.5, well ahead of 10.Bxf6 at about +1.4." } },
+            { "who": "coach", "say": "Morphy follows up with a pin on the other knight and brings the last piece in.", "play": "cxb5 Bxb5+ Nbd7 O-O-O Rd8", "marks": ["d7", "f6"] }
+          ]
+        },
+        {
+          "title": "Take the last guard away",
+          "from": "e4 e5 Nf3 d6 d4 Bg4 dxe5 Bxf3 Qxf3 dxe5 Bc4 Nf6 Qb3 Qe7 Nc3 c6 Bg5 b5 Nxb5 cxb5 Bxb5+ Nbd7 O-O-O Rd8",
+          "steps": [
+            { "who": "coach", "say": "Count the d7 knight's defenders. The rook, queen, king and f6 knight all point at it. But the f6 knight is pinned to the queen by your g5 bishop, so it can't recapture without losing her. And the d7 knight is itself pinned to the king by your b5 bishop, so it can't move. The count looks safe and isn't.", "marks": ["d7"] },
+            { "who": "coach", "say": "Hit it where the count is weakest.", "quiz": { "kind": "move", "answer": "Rxd7", "hint": "Take on d7 with a heavy piece, and bring the other one in straight after.", "hit": "Right. Stockfish makes it about +8.8. Morphy then brings the second rook in and keeps spending material." } },
+            { "who": "coach", "say": "Black recaptures, and your second rook takes the place of the first. Black offers a queen trade with ...Qe6, and you just keep taking on d7. (Stockfish prefers 13...Nxd7 for Black, but that loses the queen to 14.Bxe7.)", "play": "Rxd7 Rd1 Qe6 Bxd7+ Nxd7" },
+            { "who": "coach", "say": "Now look at d8. Your bishop supports it, and your rook could land there with mate, except that the knight on d7 blocks the file. So give away your queen to pull the knight off it.", "marks": ["d8", "d7"], "quiz": { "kind": "move", "answer": "Qb8+", "hint": "A check the knight has to answer, on the back rank.", "hit": "Right, one of the most famous queen sacrifices ever played, and Stockfish calls it mate in two." } },
+            { "who": "coach", "say": "The knight has to take, and that opens the d-file.", "play": "Nxb8 Rd8#", "marks": ["d8"] }
+          ]
+        }
+      ],
+      "drills": [
+        { "name": "The whole Opera Game", "moves": "e4 e5 Nf3 d6 d4 Bg4 dxe5 Bxf3 Qxf3 dxe5 Bc4 Nf6 Qb3 Qe7 Nc3 c6 Bg5 b5 Nxb5 cxb5 Bxb5+ Nbd7 O-O-O Rd8 Rxd7 Rxd7 Rd1 Qe6 Bxd7+ Nxd7 Qb8+ Nxb8 Rd8#" }
+      ]
+    }
+  ],
+  "checks": [
+    { "name": "Qe4+ wins the rook", "fen": "r3k3/5ppp/8/8/7Q/8/5PPP/4K3 w - - 0 1", "moves": "Qe4+ Kd7 Qxa8", "min": 5 },
+    { "name": "Blackburne 4.Nxd4", "moves": "e4 e5 Nf3 Nc6 Bc4 Nd4 Nxd4", "eval": 1.44 },
+    { "name": "Blackburne 4.c3", "moves": "e4 e5 Nf3 Nc6 Bc4 Nd4 c3", "eval": 0.61 },
+    { "name": "Blackburne mate", "moves": "e4 e5 Nf3 Nc6 Bc4 Nd4 Nxe5 Qg5 Nxf7 Qxg2 Rf1 Qxe4+ Be2 Nf3#", "mate": true },
+    { "name": "Back rank mate", "fen": "2r3k1/5ppp/p3p3/1p6/4n3/1BP4P/PP1Q1PP1/3R2K1 w - - 0 1", "moves": "Qd8+ Rxd8 Rxd8#", "mate": true },
+    { "name": "Opera 7.Qb3", "moves": "e4 e5 Nf3 d6 d4 Bg4 dxe5 Bxf3 Qxf3 dxe5 Bc4 Nf6 Qb3", "eval": 3.0 },
+    { "name": "Opera 10.Nxb5", "moves": "e4 e5 Nf3 d6 d4 Bg4 dxe5 Bxf3 Qxf3 dxe5 Bc4 Nf6 Qb3 Qe7 Nc3 c6 Bg5 b5 Nxb5", "min": 3 },
+    { "name": "Opera 10.Bxf6", "moves": "e4 e5 Nf3 d6 d4 Bg4 dxe5 Bxf3 Qxf3 dxe5 Bc4 Nf6 Qb3 Qe7 Nc3 c6 Bg5 b5 Bxf6", "eval": 1.4 },
+    { "name": "Opera mate", "moves": "e4 e5 Nf3 d6 d4 Bg4 dxe5 Bxf3 Qxf3 dxe5 Bc4 Nf6 Qb3 Qe7 Nc3 c6 Bg5 b5 Nxb5 cxb5 Bxb5+ Nbd7 O-O-O Rd8 Rxd7 Rxd7 Rd1 Qe6 Bxd7+ Nxd7 Qb8+ Nxb8 Rd8#", "mate": true }
+  ]
+}

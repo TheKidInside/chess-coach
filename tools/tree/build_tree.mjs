@@ -40,7 +40,12 @@ for (const o of OLD) {
   Object.assign(lines.get(o.id), { family: o.id, branch: 'Main line', kind: 'main' });
 }
 // Families in the old list order of their main line (keeps the White e4 / d4, Black e4 / d4 grouping).
-const rank = (fam) => { const i = OLD.findIndex((o) => fam.lines.includes(o.id)); return i < 0 ? 999 : i; };
+// A family can name the one it should follow with `after`; a chain of them keeps its order.
+const rank = (fam) => {
+  if (fam.after) return rank(families.find((f) => f.id === fam.after)) + 0.001;
+  const i = OLD.findIndex((o) => fam.lines.includes(o.id));
+  return i < 0 ? 999 : i;
+};
 families.sort((a, b) => rank(a) - rank(b));
 
 const q = JSON.stringify;
@@ -54,7 +59,7 @@ let out = `// Opening repertoire, organised as FAMILIES (main openings), each a 
 // The longer Study-mode commentary (why, master callouts, idea arrows) lives in study.js.
 export const FAMILIES = [\n`;
 for (const f of families) {
-  out += `${ind(2)}{\n${ind(4)}id: ${q(f.id)}, name: ${q(f.name)}, side: ${q(f.side)},\n${ind(4)}idea: ${q(f.idea)},\n`;
+  out += `${ind(2)}{\n${ind(4)}id: ${q(f.id)}, name: ${q(f.name)}, side: ${q(f.side)},${f.topic ? ` topic: ${q(f.topic)},` : ''}\n${ind(4)}idea: ${q(f.idea)},\n`;
   out += `${ind(4)}masters: [\n${f.masters.map((m) => `${ind(6)}${q(m)},\n`).join('')}${ind(4)}],\n`;
   out += `${ind(4)}lines: [${f.lines.map(q).join(', ')}],\n${ind(2)}},\n`;
 }
