@@ -14,7 +14,8 @@ import { renderGames } from './games.js';
 import { openLessons as openEloLessons } from './elo.js';
 import { api, isStatic } from './backend.js';
 import { VALUE, PIECE, materialFor, passFen, threatIn, explainMove } from './why.js';
-import { createReview, MARK } from './review-ui.js';
+import { createReview, MARK, matePill, arrowKey, badgeOn, legendHtml } from './review-ui.js';
+import { lineQuality, labelMove, LABEL } from './review.js';
 
 const $ = (s) => document.querySelector(s);
 const boardEl = $('#board');
@@ -106,6 +107,7 @@ const Review = createReview({
   S, $, esc, openings: OPENINGS, api, ecoReady: () => ecoReady,
   render: () => render(), syncTools: () => syncToolButtons(), runAnalysis: () => runAnalysis(), setView: (p) => setView(p), drawArrows: (l) => drawArrows(l), updateEval: (l) => updateEval(l), evalText: (l) => evalText(l),
   toast: (h) => toast(h), switchTab: (t) => switchTab(t),
+  showLines: (box, fen) => analyse(fen, 1200, 3).then((r) => { if (box.dataset.fen === fen) fillLines(box, fen, r); }).catch(() => { if (box.dataset.fen === fen) { delete box.dataset.fen; box.classList.remove('stale'); box.textContent = 'Stockfish is busy. Step to another move to try again.'; } }),
 });
 
 function winPct(line) {             // White's winning chances, 0-100
@@ -487,6 +489,7 @@ function render() {
   renderMoves(info ? info.book : new Set());
   $('#live-pill').classList.toggle('hidden', live || !!S.review);
   if (S.review && S.tab === 'analyze') Review.decorateBoard();
+  else if (S.tab === 'analyze') freeBadge();
   syncPeek();
 }
 
@@ -500,10 +503,16 @@ function slide({ from, to }) {
     { duration: 190, easing: 'cubic-bezier(.22, 1, .36, 1)' });
 }
 
+function syncLegend() {
+  const box = $('#arrow-legend'), mode = !S.review ? 'free' : S.review.preview ? 'line' : 'review';
+  if (box.dataset.mode !== mode) { box.dataset.mode = mode; box.innerHTML = legendHtml(mode); }   // only on a change, or an open Symbols list would shut
+}
+
 function drawArrows(live = S.viewPly === null) {
   const svg = $('#arrows');
   svg.querySelectorAll('line').forEach((l) => l.remove());
-  if (!live && !(S.review && S.tab === 'analyze')) return;
+  syncLegend();
+  if (!live && S.tab !== 'analyze') return;
   for (const a of S.arrows) {
     const [x1, y1] = squareCenter(a.from);
     const [x2, y2] = squareCenter(a.to);
@@ -580,6 +589,7 @@ function updateEval(line) {
 // Every programmatic move goes through here: slide animation, sound, back to live view.
 function applyMove(move, { animate = true } = {}) {
   const mv = typeof move === 'string' && /^[a-h][1-8][a-h][1-8][qrbn]?$/.test(move) ? uciMove(S.game, move) : S.game.move(move);
+  if (S.tab === 'analyze') delete S.tags[S.game.history().length - 1];   // a new move: the old one's symbol is not its own
   S.viewPly = null;
   if (animate) S.anim = { from: mv.from, to: mv.to };
   moveSound(mv, S.game.inCheck());
@@ -1044,6 +1054,7 @@ function divergence(a, b) {   // first ply where two lines part ways
   return i;
 }
 
+const WALKS = { london: 'London', scotch: 'Scotch', qgd: "Queen's Gambit", najdorf: 'Najdorf', dragon: 'Dragon' };   // openings with a walkthrough in the Lessons tab
 function renderFamily() {
   const f = S.family, main = mainOf(f);
   $('#family-title').textContent = f.name;
@@ -1053,6 +1064,9 @@ function renderFamily() {
   const gm = Object.values(LIBS).flatMap((lib) => (lib.openings[f.topic || f.id] || []).map((d) => ({ ...d, who: lib.short })));
   $('#masters').classList.toggle('hidden', !f.masters.length && !gm.length);
   const dn = danyaFamily(f).length;
+  const walk = WALKS[f.topic || f.id];
+  $('#walk-family').classList.toggle('hidden', !walk);
+  $('#walk-family').textContent = `Watch the ${walk} start to finish`;
   $('#danya-family').classList.toggle('hidden', !dn);
   $('#danya-family').textContent = `Danya's puzzles for this opening (${dn})`;
   $('#masters-list').innerHTML = f.masters.map((m) => `<li>${esc(m)}</li>`).join('') +
@@ -2321,6 +2335,22 @@ $('#pz-next').addEventListener('click', loadPuzzle);
 $('#pz-hint').addEventListener('click', showHint);
 $('#pz-solution').addEventListener('click', showSolution);
 $('#pz-danya').addEventListener('change', loadPuzzle);
+$('#walk-family').addEventListener('click', () => {
+  S.eloAt = { id: `walk-${S.family.topic || S.family.id}` };
+  switchTab('elo');
+});
+// A walkthrough's last screen sends you to that opening's Plan or Train pane.
+for (const [type, pane] of [['chess:open-plan', 'plan'], ['chess:open-train', 'train']]) {
+  document.addEventListener(type, (e) => {
+    const f = FAMILY.get(e.detail);
+    if (!f) return;
+    S.flip = false;   // the walkthrough teaches your repertoire, from your side
+    switchTab('openings');
+    selectFamily(f);
+    setOTab(pane);
+    if (pane === 'train') setOpeningMode('drill');
+  });
+}
 $('#danya-family').addEventListener('click', () => {
   S.pz.src = 'danya';
   document.querySelectorAll('[data-psrc]').forEach((x) => x.classList.toggle('active', x.dataset.psrc === 'danya'));
@@ -2653,33 +2683,61 @@ async function runAnalysis() {
   if (g.isGameOver()) {
     box.textContent = g.isCheckmate() ? 'Checkmate.' : 'Draw.';
     S.arrows = []; drawArrows();
+    labelPlayed(g, null, ep).catch(() => {});
     return;
   }
   box.innerHTML = '<div class="muted small">Stockfish is thinking…</div>';
   try {
     const r = await analyse(fen, 1200, 3);
     if (ep !== S.anaEpoch || S.tab !== 'analyze') return;
-    box.innerHTML = '';
-    for (const line of r.lines) {
-      const b = document.createElement('button');
-      b.className = 'line';
-      b.innerHTML = `<span class="ev">${evalText(line)}</span><span>${pvToSan(fen, line.pv || [], 10)}</span>`;
-      b.onclick = () => {
-        if (S.viewPly !== null || !line.pv || !line.pv[0]) return;
-        applyMove(line.pv[0]);
-        S.arrows = [];
-        render();
-        runAnalysis();
-      };
-      box.appendChild(b);
-    }
+    fillLines(box, fen, r, (line) => {
+      if (S.viewPly !== null || !line.pv || !line.pv[0]) return;
+      applyMove(line.pv[0]);
+      S.arrows = [];
+      render();
+      runAnalysis();
+    });
     S.arrows = r.lines.slice(0, 2).filter((l) => l.pv && l.pv[0])
       .map((l, i) => ({ from: l.pv[0].slice(0, 2), to: l.pv[0].slice(2, 4), kind: i === 0 ? 'good' : 'alt' }));
     drawArrows();
     updateEval(r.lines[0]);
+    labelPlayed(g, r, ep).catch(() => {});
   } catch (e) {
     if (ep === S.anaEpoch) box.textContent = `Engine error: ${e.message}`;
   }
+}
+
+// One row per Stockfish line: its symbol, whether it mates, and the moves. With onPick the rows are
+// the free board's, which also key each line to its arrow.
+function fillLines(box, fen, r, onPick) {
+  const marks = lineQuality(r.lines, fen);
+  box.classList.remove('stale');
+  box.replaceChildren(...r.lines.map((line, i) => {
+    const row = document.createElement(onPick ? 'button' : 'div');
+    row.className = 'line';
+    const key = onPick && i < 2 ? arrowKey(i === 0 ? 'good' : 'alt') : '';
+    const plies = line.mate ? Math.max(10, 2 * Math.abs(line.mate)) : 10;   // a mating line reads through to the mate
+    row.innerHTML = `<span class="ev">${evalText(line)}</span><span class="rv-badge ${marks[i]}" title="${LABEL[marks[i]]}">${MARK[marks[i]]}</span><span class="line-moves">${key}${matePill(line)}${pvToSan(fen, line.pv || [], plies)}</span>`;
+    if (onPick) row.onclick = () => onPick(line);
+    return row;
+  }));
+}
+
+// The free board's move symbol: the move that led here, judged once Stockfish has seen both sides of it.
+async function labelPlayed(g, after, ep) {
+  const hist = g.history({ verbose: true }), moves = hist.slice(-2);
+  if (!moves.length) return;
+  const [before, eco] = await Promise.all([Promise.all(moves.map((m) => analyse(m.before, 1200, 3))), ecoReady]);
+  if (ep !== S.anaEpoch || S.review || S.tab !== 'analyze') return;
+  S.tags[hist.length - 1] = labelMove(moves, [...before, after], eco).cls;
+  const info = gameOpening();
+  renderMoves(info ? info.book : new Set());
+  freeBadge();
+}
+
+function freeBadge() {
+  const k = S.viewPly ?? S.game.history().length, cls = S.tags[k - 1];
+  if (cls && k) badgeOn(S.game.history({ verbose: true })[k - 1].to, cls);
 }
 
 $('#btn-load').addEventListener('click', () => {
@@ -2806,7 +2864,7 @@ function switchTab(tab, reset = true) {
     renderPuzzleStats();
     if (S.saved.puzzles && (S.pz.p || S.pz.mistake)) {
       S.game = S.saved.puzzles; S.saved.puzzles = null;
-      S.orient = S.pz.color; S.arrows = [];
+      S.orient = S.pz.color; S.arrows = []; S.tags = {};   // Analyze may have put its symbols on the copy
       settlePuzzle();   // finish a reply/undo that the tab switch interrupted
       render(); puzzleButtons();
     } else loadPuzzle();

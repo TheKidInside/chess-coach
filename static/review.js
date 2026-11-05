@@ -132,6 +132,32 @@ const winFor = (color, e, fen) => (color === 'w' ? winWhite(e, fen) : 100 - winW
 
 const pointsLost = (loss) => (loss <= 2 ? 'excellent' : loss <= 5 ? 'good' : loss <= 10 ? 'inaccuracy' : loss <= 20 ? 'mistake' : 'blunder');
 
+/** "White mates in 3", or '' when the line has no forced mate. */
+export const mateWords = (e) => (e?.mate ? `${e.mate > 0 ? 'White' : 'Black'} mates in ${Math.abs(e.mate)}` : '');
+
+/** A label per Stockfish line, judged against its first line on the same table as a game's moves. */
+export function lineQuality(lines, fen) {
+  const me = fen.split(' ')[1], top = lines[0];
+  const mating = (l) => !!l?.mate && (me === 'w') === (l.mate > 0);
+  return lines.map((l, i) => {
+    if (!i) return 'best';
+    const win = winFor(me, l, fen), loss = Math.max(0, winFor(me, top, fen) - win);
+    if (mating(top) && Math.abs(top.mate) <= 5 && !mating(l) && win >= 50 && loss > 5) return 'miss';   // still fine, but the mate is gone: same reach as classifyGame's
+    return pointsLost(loss);
+  });
+}
+
+/**
+ * The last of a few consecutive moves, judged from the engine's answer to each position (the free board).
+ * Bring the move before it too: whether a move punishes a slip decides its label. A null last answer means the game ended.
+ */
+export function labelMove(moves, answers, eco = null) {
+  const last = moves[moves.length - 1], over = answers[moves.length];
+  const end = new Chess(last.after).isCheckmate() ? { over: 'mate' } : over ? compact(over) : { over: 'draw' };   // a repetition only shows on the live game
+  const evals = [...answers.slice(0, moves.length).map(compact), end];
+  return classifyGame({ moves }, evals, { eco })[moves.length - 1];
+}
+
 // Pieces the move leaves capturable at a profit, compared with before it. Legal captures only, so a
 // pinned attacker doesn't count. Returns the most the opponent could win, net of what the move took.
 function sacrificed(mv) {

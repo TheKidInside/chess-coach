@@ -5,6 +5,7 @@
 // The 'danya' group teaches a topic from GM Naroditsky's videos the same way; a scene or drill may start from a fen.
 import { Chess } from './vendor/chess.js';
 import { play as sfx, moveSound } from './sound.js';
+import { openWalkthrough, pauseWalkthrough, walkthroughKey } from './walkthrough.js';
 
 const CATALOG = [
   { id: 'italian', name: 'Italian Game', side: 'w', role: 'White, classical development' },
@@ -13,11 +14,17 @@ const CATALOG = [
   { id: 'slav', name: 'Slav Defence', side: 'b', role: 'Black against 1.d4' },
   { id: 'danya-king', group: 'danya', name: 'The king in endgames', side: 'w', role: 'King first, then opposition, then triangulation' },
   { id: 'danya-loose', group: 'danya', name: 'Loose pieces', side: 'w', role: 'Spot them, count them, overload the guard' },
+  { id: 'walk-london', group: 'walk', walk: 'london', drill: 'london', name: 'London System', side: 'w', role: 'Watch it start to finish, about 10 minutes' },
+  { id: 'walk-scotch', group: 'walk', walk: 'scotch', name: 'Scotch Game', side: 'w', role: 'Watch it start to finish, about 10 minutes' },
+  { id: 'walk-qgd', group: 'walk', walk: 'qgd', name: "Queen's Gambit", side: 'w', role: 'Watch it start to finish, about 10 minutes' },
+  { id: 'walk-najdorf', group: 'walk', walk: 'najdorf', name: 'Sicilian Najdorf', side: 'b', role: 'Watch it start to finish, about 10 minutes' },
+  { id: 'walk-dragon', group: 'walk', walk: 'dragon', name: 'Sicilian Dragon', side: 'b', role: 'Watch it start to finish, about 10 minutes' },
 ].map((c) => ({ group: 'openings', ...c }));
-const GROUPS = [['openings', 'Openings'], ['danya', "Danya's lessons"]];
+const GROUPS = [['openings', 'Openings'], ['danya', "Danya's lessons"], ['walk', 'Walkthroughs']];
 const CREDITS = {
   openings: `Format borrowed from Team Liquid's <a href="https://www.youtube.com/watch?v=baJ848UCB-0" target="_blank" rel="noopener">"Magnus Teaches the London System (to every Elo)"</a>. These are original lessons, not by or from Magnus Carlsen. Lines checked with Stockfish 19. Frequencies come from a sample of 812,516 Lichess rated games (Sept 2026), and some cells are small.`,
   danya: `Topics and principles come from GM Daniel Naroditsky's YouTube lessons, paraphrased, with the video moments linked at the end of each level. He did not teach these as four levels: the script, the coach and the choice of positions are ours, including classic studies and games. Lines checked with Stockfish 19.`,
+  walk: `Presentation borrowed from ChessPage1's <a href="https://www.youtube.com/watch?v=dksvHyyI_Vo" target="_blank" rel="noopener">"London System: One Opening against anything"</a>. These are original scripts, not by or from ChessPage1. The example games are made up, not real games. Lines checked with Stockfish 19.`,
 };
 const STORE_KEY = 'chess-coach-elo-v1';
 const SVGNS = 'http://www.w3.org/2000/svg';
@@ -26,7 +33,7 @@ const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const E = {
   ready: false, root: null, cache: {}, lesson: null, id: 'carokann',
   tier: 0, scene: 0, step: 0, solved: {}, doneDrills: {}, places: {}, lastIn: {},
-  misses: 0, drill: null, watch: null, auto: null, sel: null, game: new Chess(), last: null, busy: false, anim: null,
+  misses: 0, drill: null, watch: null, auto: null, sel: null, game: new Chess(), last: null, busy: false, anim: null, pick: 0,
 };
 const $ = (id) => E.root.querySelector(`[data-el="${id}"]`);
 const mk = (tag, cls, text) => {
@@ -103,7 +110,7 @@ function drawBoard(marks = []) {
   const dests = E.sel ? E.game.moves({ square: E.sel, verbose: true }).map((m) => m.to) : [];
   for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
     const sq = files()[c] + rankAt(r);
-    const light = ('abcdefgh'.indexOf(sq[0]) + Number(sq[1])) % 2 !== 0;
+    const light = ('abcdefgh'.indexOf(sq[0]) + Number(sq[1])) % 2 === 0;   // a1 is dark
     const el = mk('button', `el-sq ${light ? 'l' : 'd'}`);
     el.type = 'button';
     el.dataset.sq = sq;
@@ -620,12 +627,27 @@ function toggleAuto() {
 
 /* ---------- boot ---------- */
 async function selectOpening(id) {
+  const pick = ++E.pick;   // a slow fetch must not override a later choice
   if (E.busy) cancelAnim();
   stopAuto();
   E.drill = null;
   E.watch = null;
   E.misses = 0;
   const entry = CATALOG.find((c) => c.id === id);
+  pauseWalkthrough();
+  E.walking = !!entry.walk;
+  showWalk(E.walking);
+  if (entry.walk) {
+    E.id = id;
+    E.lastIn[entry.group] = id;
+    E.lesson = null;
+    renderPicker();
+    markTabs();
+    save();
+    const openPane = (type) => document.dispatchEvent(new CustomEvent(type, { detail: entry.walk }));
+    // No four-level lesson for this opening? Its drill is the Openings tab's Train pane.
+    return openWalkthrough($('walk'), entry.walk, { drill: () => (entry.drill ? drillSetup(entry.drill) : openPane('chess:open-train')), plan: () => openPane('chess:open-plan') });
+  }
   try {
     if (!E.cache[id]) {
       const r = await fetch(`elo-lessons/${id}.json`);
@@ -633,10 +655,15 @@ async function selectOpening(id) {
       E.cache[id] = await r.json();
     }
   } catch (err) {
+    if (pick !== E.pick) return;
     $('title').textContent = `Couldn't load the ${entry.name} lesson`;
     $('scroll').textContent = err instanceof TypeError ? 'The lesson file could not be reached. On this computer the app server has probably stopped: run start-chess.cmd, then reopen the app. On the website, check your internet connection.' : String(err.message || err);
+    // Coming from a walkthrough there is no lesson behind these controls.
+    if (!E.lesson) { $('tiers').textContent = ''; ['next', 'back', 'auto'].forEach((k) => { $(k).disabled = true; }); }
     return;
   }
+  if (pick !== E.pick) return;
+  $('auto').disabled = false;
   E.id = id;
   E.lastIn[entry.group] = id;
   E.lesson = E.cache[id];
@@ -657,6 +684,20 @@ async function selectOpening(id) {
   E.tier = T ? t : 0;
   E.scene = validScene ? sc : 0;
   E.step = validScene && T.scenes[sc]?.steps[st] ? st : 0;
+  sync(false);
+}
+
+function showWalk(on) {
+  $('walk').classList.toggle('hidden', !on);
+  $('tiers').classList.toggle('hidden', on);
+  $('stage').classList.toggle('hidden', on);
+}
+
+// From a walkthrough's last screen: the lesson's first level, on its practice page.
+async function drillSetup(id) {
+  await selectOpening(id);
+  if (!E.lesson) return;   // the lesson didn't load, and the stage says so
+  E.tier = 0; E.scene = tier().scenes.length; E.step = 0;
   sync(false);
 }
 
@@ -689,7 +730,8 @@ function build(root) {
     <div class="seg el-groups" data-el="groups"></div>
     <div class="el-picker" role="tablist" aria-label="Lesson" data-el="picker"></div>
     <div class="el-tiers" role="tablist" aria-label="Level" data-el="tiers"></div>
-    <div class="el-stage">
+    <div class="el-walk hidden" data-el="walk"></div>
+    <div class="el-stage" data-el="stage">
       <section class="el-left">
         <div class="el-board-wrap">
           <div class="el-board" data-el="board"></div>
@@ -724,9 +766,12 @@ function build(root) {
   $('auto').addEventListener('click', toggleAuto);
   document.addEventListener('keydown', (e) => {
     if (document.body.dataset.tab !== 'elo' || e.target.closest('input, textarea, select') || e.ctrlKey || e.altKey || e.metaKey) return;
+    if (E.walking) return walkthroughKey(e);
     if (e.key === 'ArrowRight' && !$('next').disabled) { stopAuto(); next(); e.preventDefault(); }
     else if (e.key === 'ArrowLeft' && !$('back').disabled) { back(); e.preventDefault(); }
   });
+  // A walkthrough stops talking when you leave the tab.
+  new MutationObserver(() => { if (document.body.dataset.tab !== 'elo') pauseWalkthrough(); }).observe(document.body, { attributes: true, attributeFilter: ['data-tab'] });
 }
 
 // at = { id, tier } jumps straight to one level, for a lesson opened from the coach's library.
@@ -739,6 +784,6 @@ export async function openLessons(root, at) {
   }
   if (at) {
     await selectOpening(at.id);
-    setTier(at.tier);
+    if (!E.walking) setTier(at.tier);
   } else if (first) selectOpening(E.id);
 }

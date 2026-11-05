@@ -5,7 +5,7 @@
 import { Chess } from './vendor/chess.js';
 import { P, save, today, addMistake, saveReview, getReview, reviewPatterns, findMoment } from './profile.js';
 import { moveSound } from './sound.js';
-import { parsePgnFile, gameFromPgn, analyseGame, classifyGame, summarise, trapIndex, findTraps, momentsOf, winWhite, moveNum, BAD, LABEL, themeWords } from './review.js';
+import { parsePgnFile, gameFromPgn, analyseGame, classifyGame, summarise, trapIndex, findTraps, momentsOf, winWhite, moveNum, mateWords, BAD, LABEL, themeWords } from './review.js';
 import { commentFor, bookNotes, toSpeech, swapSides } from './review-words.js';
 import { pvGain, worth } from './why.js';
 
@@ -16,8 +16,33 @@ const DECK = new Set(['miss', 'mistake', 'blunder']);
 const posKey = (fen) => fen.split(' ').slice(0, 4).join(' ');
 const who = (h, side) => (h[side] && h[side] !== '?' ? h[side] : side);   // a game with no player names says White and Black
 
-export function createReview({ S, $, esc, render, syncTools, runAnalysis, setView, drawArrows, updateEval, evalText, toast, api, switchTab, ecoReady, openings }) {
-  let view = 'home', running = null, pending = null, notes = null, traps = null, lastKey = -1;
+/** The small pill on a line or in the coach bubble: light when White mates, dark when Black does. */
+export const matePill = (e) => (e?.mate ? `<span class="mate-pill ${e.mate > 0 ? 'w' : 'b'}">${mateWords(e)}</span>` : '');
+export const arrowKey = (kind) => `<svg class="arrow-key" viewBox="0 0 24 10" aria-hidden="true"><path d="M1 5H17" stroke="var(--arrow-${kind})" stroke-width="3" stroke-linecap="round"/><path d="M15 0L24 5L15 10z" fill="var(--arrow-${kind})"/></svg>`;
+
+/** A move's symbol on its square. Called after every board redraw. */
+export function badgeOn(to, cls) {
+  const sq = document.querySelector(`#board .sq[data-sq="${to}"]`);
+  if (!sq || sq.querySelector('.rv-sqbadge')) return;
+  sq.insertAdjacentHTML('beforeend', `<span class="rv-badge rv-sqbadge ${cls}" title="${LABEL[cls]}">${MARK[cls]}</span>`);
+}
+
+const ARROWS = {
+  free: [['good', 'Best move'], ['alt', 'Second best']],
+  review: [['good', 'What Stockfish preferred'], ['bad', "Opponent's best reply"]],
+  line: [['good', "Next move in Stockfish's line"]],
+};
+const MEANS = {
+  brilliant: 'A sound sacrifice', great: 'The only good move here', best: "Stockfish's first choice", excellent: 'Gives up 2% or less', good: 'Gives up 2 to 5%',
+  book: 'Known opening theory', forced: 'The only legal move', inaccuracy: 'Gives up 5 to 10%', mistake: 'Gives up 10 to 20%', miss: 'Lets a chance slip', blunder: 'Over 20%, or allows mate or a big material loss',
+};
+/** What's under the board: the colours for this mode, and the symbols on request. */
+export const legendHtml = (mode) => `
+  <span class="eyebrow">Arrows</span>${ARROWS[mode].map(([k, t]) => `<span class="lg-item">${arrowKey(k)}${t}</span>`).join('')}
+  <details class="lg-symbols"><summary>Symbols</summary><div class="lg-pop">${Object.keys(LABEL).map((k) => `<span class="rv-badge ${k}">${MARK[k]}</span><b>${LABEL[k]}</b><span class="muted">${MEANS[k]}</span>`).join('')}<span class="muted small lg-note">Percentages are winning chances, compared with the best move.</span></div></details>`;
+
+export function createReview({ S, $, esc, render, syncTools, runAnalysis, setView, drawArrows, updateEval, evalText, toast, api, switchTab, ecoReady, openings, showLines }) {
+  let view = 'home', running = null, pending = null, notes = null, traps = null, lastKey = -1, linesTimer = 0;
   const panel = () => $('#review');
   const settings = () => P.data.settings;
   const search = (fen, movetime, multipv) => api('/api/analyse', { fen, movetime, multipv });
@@ -250,7 +275,7 @@ export function createReview({ S, $, esc, render, syncTools, runAnalysis, setVie
     const chess = new Chess();
     chess.loadPgn(game.pgn);
     const tags = {};
-    plies.forEach((p, i) => { if (['brilliant', 'great', 'best', 'inaccuracy', 'mistake', 'miss', 'blunder'].includes(p.cls)) tags[i] = p.cls; });
+    plies.forEach((p, i) => { if (p.cls !== 'book') tags[i] = p.cls; });
     const trapsAt = new Map();
     for (const t of trapHits) { if (!trapsAt.has(t.ply)) trapsAt.set(t.ply, []); trapsAt.get(t.ply).push(t); }
     S.review = { game, chess, tags, you, mine, evals, plies, trapHits, trapsAt, eco, summary: summarise(plies), preview: null };
@@ -276,6 +301,7 @@ export function createReview({ S, $, esc, render, syncTools, runAnalysis, setVie
 
   function exit(keep = false) {
     stopVoice();
+    clearTimeout(linesTimer);
     S.review = null;
     S.tags = {};
     S.arrows = [];
@@ -301,6 +327,8 @@ export function createReview({ S, $, esc, render, syncTools, runAnalysis, setVie
         <span class="spacer"></span>
         <button id="rv-next" class="primary">Next</button>
       </div>
+      <div class="olist-head"><span class="eyebrow">Stockfish top lines</span><span class="muted small">from the position on the board</span></div>
+      <div class="lines" id="rv-lines"></div>
       <div class="rv-graph" id="rv-graph"></div>
       <div class="rv-voice">
         <button id="rv-play" title="Play through the game (Space)">Play</button>
@@ -404,7 +432,7 @@ export function createReview({ S, $, esc, render, syncTools, runAnalysis, setVie
     $('#rv-bubble').innerHTML = `
       <img class="rv-coach" src="pieces/wN.svg" alt="">
       <div class="rv-say">
-        <div class="rv-sayhead">${b.cls ? `<span class="rv-badge ${b.cls}" title="${LABEL[b.cls]}">${MARK[b.cls]}</span>` : ''}<b>${esc(b.head)}</b><span class="eng rv-ev" title="White's view">${esc(evalChip(b.ev))}</span></div>
+        <div class="rv-sayhead">${b.cls ? `<span class="rv-badge ${b.cls}" title="${LABEL[b.cls]}">${MARK[b.cls]}</span>` : ''}<b>${esc(b.head)}</b>${matePill(b.ev)}<span class="eng rv-ev" title="White's view">${esc(evalChip(b.ev))}</span></div>
         <p>${esc(b.text)}</p>
         ${r.preview ? lineHtml(r, k) : ''}
       </div>`;
@@ -430,6 +458,7 @@ export function createReview({ S, $, esc, render, syncTools, runAnalysis, setVie
     }
     drawArrows(true);
     decorateBoard();
+    topLines(pr ? pr.game.fen() : b.fen);
     const ev = pr ? r.evals[k - 1] : r.evals[k];   // on the best line the bar shows what that line is worth
     if (ev.over) { updateEval(ev.over === 'mate' ? { mate: r.game.moves[k - 1].color === 'w' ? 1 : -1 } : { cp: 0 }); $('#evaltext').textContent = r.game.headers.Result && r.game.headers.Result !== '*' ? r.game.headers.Result : ev.over === 'mate' ? '#' : '½'; } else updateEval(ev);
     moveCursor(k);
@@ -446,16 +475,26 @@ export function createReview({ S, $, esc, render, syncTools, runAnalysis, setVie
 
   const evalChip = (ev) => (ev.over ? (ev.over === 'mate' ? '#' : '½') : evalText(ev));
 
+  // Live lines for the position on the board. The engine answers one search at a time, so a quick
+  // run through the moves only asks about the position it stops on.
+  function topLines(fen) {
+    const box = $('#rv-lines');
+    if (!box || box.dataset.fen === fen) return;
+    box.dataset.fen = fen;
+    clearTimeout(linesTimer);
+    if (new Chess(fen).isGameOver()) { box.classList.remove('stale'); box.textContent = 'The game is over here.'; return; }
+    if (box.querySelector('.line')) box.classList.add('stale');
+    else box.innerHTML = '<div class="muted small">Stockfish is thinking…</div>';
+    linesTimer = setTimeout(() => showLines(box, fen), 250);
+  }
+
   /** The badge on the piece that just moved. Called after every board redraw. */
   function decorateBoard() {
     const r = S.review;
     if (!r || r.preview) return;
     const k = curKey();
     if (!k) return;
-    const p = r.plies[k - 1];
-    const sq = document.querySelector(`#board .sq[data-sq="${p.to}"]`);
-    if (!sq || sq.querySelector('.rv-sqbadge')) return;
-    sq.insertAdjacentHTML('beforeend', `<span class="rv-badge rv-sqbadge ${p.cls}">${MARK[p.cls]}</span>`);
+    badgeOn(r.plies[k - 1].to, r.plies[k - 1].cls);
   }
 
   function step() {
@@ -546,7 +585,9 @@ export function createReview({ S, $, esc, render, syncTools, runAnalysis, setVie
     const end = new Chess(pr.before);
     for (const u of pr.ucis) end.move(uciMove(u));
     const { gain } = pvGain(pr.before, pr.ucis, pr.ucis.length);
+    const mate = mateWords(r.evals[k - 1]);
     const out = end.isCheckmate() ? `${end.turn() === 'w' ? 'Black' : 'White'} gives checkmate at the end of this line.`
+      : mate ? `This line leads to forced mate: ${mate}.`
       : gain >= 1 ? `${side} comes out ${worth(gain)} up by the end of this line.` : '';
     return `<p class="muted small">${out ? `${esc(out)} ` : ''}Worth ${esc(evalChip(r.evals[k - 1]))}, against ${esc(evalChip(r.evals[k]))} after the game move.</p>`;
   }
@@ -735,6 +776,9 @@ export function createReview({ S, $, esc, render, syncTools, runAnalysis, setVie
 
   function leave() {   // going to another tab
     stopVoice();
+    clearTimeout(linesTimer);
+    const box = $('#rv-lines');
+    if (box) delete box.dataset.fen;   // ask again on the way back
     if (S.review) { S.review.preview = null; S.review.at = S.viewPly; }
   }
 

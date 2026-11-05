@@ -130,6 +130,13 @@ export const MIDDLEGAMES = {
     lines: {
       'scotch-classical': 'After ...dxc6 you have a healthy 4-against-3 kingside majority. Push f4 and e5 for space, trade the dark bishops to blunt Black\'s activity, and aim for the endgame.',
       'scotch-steinitz': 'You gave the e4-pawn for development and Black\'s king is stuck on d8: open lines with Re1, Bf3 and Bf4 (hitting c7) and attack before Black untangles.',
+      'scotch-gambit-main': 'Your e5- and f4-pawns are a kingside majority. Nb3 stops ...c5, Rae1 and Qc3 tighten the blockade on d4 and c5, then f5 starts the attack. Black needs ...c5 and ...d4 quickly.',
+      'scotch-gambit-bc5-main': 'You have more central space and Black has the bishop pair. Play Bd3 and Rc1, keep the e5-pawn, and use the half-open c-file against c7.',
+      'scotch-gambit-h6-danish': 'You are two pawns down and well ahead in development. Bring the knight out and the rook to d1 or e1, then break with e5 before Black can castle.',
+      'scotch-fourknights': 'Black has the broken a- and c-pawns; you have the safer structure. Keep the pieces active with Na4 and Rfe1, and aim for an endgame against those pawns.',
+      'scotch-bxc6-bd3': 'Black\'s doubled c-pawns are your long-term target. Na4 trades or chases the c5-bishop, then Be3 and f4 give you the kingside space.',
+      'scotch-be3-qf6': 'Black pressures d4 and e4 with the pieces. Keep the knight on d4 supported, play Nd2 and f4 to gain space, and watch for ...d5 breaks.',
+      'scotch-goring': 'You are a pawn down for open c- and d-files. Use Qb3, Ba3 and Rd1, then break with e5 while Black\'s king is still in the centre.',
     },
   },
 

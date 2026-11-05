@@ -1,0 +1,162 @@
+{
+  "id": "london",
+  "title": "The London System",
+  "setupTitle": "The seven moves",
+  "end": { "drill": "Play the setup from memory", "plan": "Read the London plan" },
+  "setup": [
+    { "label": "Pawn to d4", "any": ["wP@d4"] },
+    { "label": "Bishop to f4, before e3", "any": ["wB@f4"] },
+    { "label": "Pawn to e3", "any": ["wP@e3"] },
+    { "label": "Knight to f3", "any": ["wN@f3"] },
+    { "label": "Knight to d2", "any": ["wN@d2"] },
+    { "label": "Pawn to c3", "any": ["wP@c3"] },
+    { "label": "Bishop to d3", "any": ["wB@d3"] }
+  ],
+  "chapters": [
+    {
+      "title": "Why this opening",
+      "beats": [
+        { "card": "One setup against almost anything", "say": "Most club games aren't lost in the opening. They're lost in the middlegame, when nobody knows what to do next." },
+        { "say": "So here's the deal. Learn one setup in ten minutes, play it nearly every game, and spend the time you save on the part that actually decides games." },
+        { "say": "Think of it as a morning routine. Same seven moves, same order. You can do it half asleep and still leave the house with your shoes on." },
+        { "say": "We'll build the setup, deal with the five ways Black tries to spoil it, learn the one punch, then watch it land in two games." }
+      ]
+    },
+    {
+      "title": "The setup",
+      "setup": true,
+      "beats": [
+        { "card": "The seven moves", "say": "Seven moves. Watch the list tick itself off." },
+        { "play": "d4 d5", "circle": ["d4"], "arrows": [["d1", "d4"]], "say": "Pawn to d4. Your queen already guards it." },
+        { "play": "Bf4 Nf6", "circle": ["f4"], "word": ["f4", "first!"], "say": "Bishop out, right now. This is the one move order you must not get wrong." },
+        { "play": "e3 e6", "arrows": [["e3", "f4"], ["e3", "d4"]], "say": "Now e3. Play it one move sooner and that bishop spends the whole game locked in a cupboard." },
+        { "play": "Nf3 Be7", "shade": ["e5"], "arrows": [["f3", "e5"]], "say": "Knight to f3. It looks at e5. Remember that square." },
+        { "play": "Nbd2 O-O", "arrows": [["d2", "f3"], ["d2", "e4"]], "say": "The other knight goes to d2, behind the first one, leaving the c-pawn free to move." },
+        { "play": "c3 c5", "shade": ["c3", "d4", "e3"], "arrows": [["c3", "d4"], ["e3", "d4"]], "word": ["d4", "solid"], "say": "c3 finishes the pyramid. Black can hit that d-pawn as often as they like." },
+        { "play": "Bd3 Nc6", "arrows": [["d3", "h7"]], "circle": ["h7"], "say": "Bishop to d3, staring straight at the black king's front door. That's it. The setup is done." },
+        { "shade": ["e5"], "arrows": [["d4", "e5"], ["f4", "e5"], ["f3", "e5"]], "say": "Now look at what your pieces agree on: e5. Pawn, bishop, knight. That one square is the whole plan." }
+      ]
+    },
+    {
+      "title": "Five annoying replies",
+      "beats": [
+        { "card": "Five ways Black spoils it", "say": "Your opponent didn't read the script. Here are the five things they'll try, and you only need one answer to each." },
+        { "reset": "d4 d5 Bf4 Nf6 e3 e6 Nf3 c5 c3 Nc6 Nbd2 Be7 Bd3", "play": "c4", "circle": ["c4"], "arrows": [["c4", "d3"]], "say": "One. Black kicks your bishop with the c-pawn." },
+        { "play": "Bc2", "arrows": [["c2", "h7"]], "circle": ["h7"], "say": "Drop back one square. Same diagonal, same target. That bishop only cares about h7." },
+        { "reset": "d4 d5 Bf4 Nf6 e3 e6 Nf3", "play": "Bd6", "circle": ["d6"], "arrows": [["d6", "f4"]], "say": "Two. Black offers to trade your best bishop." },
+        { "arrows": [["f4", "d6"]], "cross": ["d6"], "say": "Don't take. The queen recaptures on d6, and the piece fighting for e5 has gone." },
+        { "play": "Bg3", "arrows": [["g3", "e5"]], "shade": ["e5"], "say": "Slide back to g3 and stay on the diagonal. Stockfish rates this and the trade about equal, so you're keeping your plan, not winning anything." },
+        { "play": "Bxg3 hxg3", "arrows": [["h1", "h7"]], "word": ["h1", "h-file"], "say": "If they take, take back with the h-pawn. Your rook now has the h-file, right where Black wants to castle, for free." },
+        { "reset": "d4 d5 Bf4 Bf5 e3 e6 Nf3 Nf6", "circle": ["f5"], "arrows": [["f5", "b1"]], "say": "Three. Black copies you with Bf5, and that bishop owns the diagonal you wanted." },
+        { "play": "Bd3", "arrows": [["d3", "f5"]], "say": "Challenge it with your own bishop. Don't capture. Stand there and let them decide." },
+        { "play": "Bxd3 Qxd3", "circle": ["d3"], "say": "If they take, your queen lands on a good square. The engine calls it level, and the threat to your setup has gone." },
+        { "reset": "d4 d5 Bf4 Nf6 e3 e6 Nf3", "play": "Bb4+", "arrows": [["b4", "e1"]], "say": "Four. A bishop check, usually played to knock you off your routine." },
+        { "play": "c3", "arrows": [["c3", "b4"]], "word": ["c3", "wanted this"], "say": "You wanted c3 anyway. Now it arrives with an attack on the bishop." },
+        { "play": "Be7", "say": "Black has spent two moves getting the bishop to e7. You carry on with the list." },
+        { "reset": "d4 d5 Bf4 Nf6 e3 c5 c3", "play": "Qb6", "circle": ["b2"], "arrows": [["b6", "b2"]], "say": "Five. Queen to b6, hitting b2. Your bishop left home early, so that pawn has lost its guard." },
+        { "play": "Qb3", "arrows": [["b3", "b6"]], "say": "Put your own queen in the way. No pawn drops, and the queens stare at each other." },
+        { "play": "Qxb3 axb3", "arrows": [["a1", "a7"]], "say": "If they trade, your a-pawn takes back and your rook gets the a-file. The pawns look ugly, but the engine still prefers White." }
+      ]
+    },
+    {
+      "title": "The punch",
+      "from": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Be7 Nbd2 O-O c3 c5 Bd3 Nc6",
+      "beats": [
+        { "card": "The one punch", "say": "Back to the finished setup. Your pieces have been staring at e5 for a reason." },
+        { "play": "Ne5", "circle": ["e5"], "arrows": [["d4", "e5"], ["f4", "e5"]], "say": "The knight jumps in, guarded by the pawn and the bishop." },
+        { "play": "Nxe5", "say": "Taking feels natural, but it's a small mistake. The engine goes from about plus 0.2 to about plus 0.8." },
+        { "play": "dxe5", "circle": ["f6"], "arrows": [["e5", "f6"]], "word": ["f6", "move!"], "say": "Take back with the pawn, and now that pawn is hitting the knight on f6." },
+        { "play": "Nd7", "arrows": [["d1", "h5"]], "say": "It has to move. And the quiet part: your f3 knight left, so the road from d1 to h5 is open." },
+        { "play": "Qh5", "circle": ["h7"], "arrows": [["h5", "h7"], ["d3", "h7"]], "say": "Queen to h5. Queen and bishop both hit h7, and that threatens mate next move." },
+        { "say": "A warning. This isn't a forced win. With g6, Black holds, and the engine says White is about half a pawn better. But one slip, like h6, and it's above plus three." },
+        { "reset": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Be7 Nbd2 O-O c3 c5 Bd3 Nc6 Ne5", "play": "Nd7", "arrows": [["d7", "e5"]], "say": "And they don't have to take. Knight to d7 is the best reply. You haven't lost anything: keep developing, and castle." }
+      ]
+    },
+    {
+      "title": "Game one: the mating net",
+      "setup": true,
+      "beats": [
+        { "card": "Game one: it goes to plan", "say": "This game is made up by us and checked by Stockfish. Black's moves are all natural ones." },
+        { "play": "d4 d5 Bf4 Nf6 e3 e6 Nf3", "say": "The routine. Nothing to think about yet." },
+        { "play": "Bb4+", "arrows": [["b4", "e1"]], "say": "A check. You've seen this one." },
+        { "play": "c3", "arrows": [["c3", "b4"]], "say": "c3, and the bishop has to go." },
+        { "play": "Be7 Nbd2 O-O Bd3 Nc6", "shade": ["e5"], "say": "Setup done. Black's fine. And now you already know your next move." },
+        { "play": "Ne5", "circle": ["e5"], "say": "The knight jumps in." },
+        { "play": "Nxe5 dxe5", "arrows": [["e5", "f6"]], "say": "They take. You take back, hitting the knight." },
+        { "play": "Nd7 Qh5", "circle": ["h7"], "arrows": [["h5", "h7"], ["d3", "h7"]], "say": "It runs, and here comes the queen." },
+        { "play": "g6", "circle": ["g6"], "say": "Black blocks with g6, and it's safe for now. But look at the holes around that king: f6 and h6." },
+        { "play": "Qh6", "shade": ["f6", "g7"], "say": "So move in. Queen to h6, sitting on the dark squares like it pays rent." },
+        { "say": "Here Black's best is f6, hitting your pawn, and then the game is close to level. So far you've made no threat they can't meet." },
+        { "play": "c5", "word": ["c5", "counterplay?"], "say": "But most people want their own attack, so c5. That's the mistake. It takes the engine from about plus 0.4 to above plus three." },
+        { "play": "Nf3", "arrows": [["f3", "g5"]], "circle": ["g5"], "say": "Bring the last piece. The knight's going to g5, and from there it hits h7 as well." },
+        { "play": "b5", "say": "Black keeps pushing on the other side of the board." },
+        { "play": "Ng5", "circle": ["h7"], "arrows": [["g5", "h7"], ["h6", "h7"]], "say": "Knight to g5. Now it's mate on h7 unless Black gives something up." },
+        { "play": "Bxg5", "say": "Black takes the knight, and that gets rid of the bishop guarding the dark squares." },
+        { "play": "Bxg5", "arrows": [["g5", "d8"]], "say": "Your bishop takes back, and it hits the queen on the way." },
+        { "play": "Qb6", "say": "The queen steps aside, though f6 was the last real chance. What's missing? A queen on g7 would be mate, if only something guarded that square." },
+        { "play": "Bf6", "circle": ["g7"], "arrows": [["f6", "g7"], ["h6", "g7"]], "word": ["g7", "mate here"], "say": "So guard it. Bishop to f6. Black can't take it and escape." },
+        { "play": "Nxf6", "say": "The knight takes." },
+        { "play": "exf6", "arrows": [["f6", "g7"]], "say": "And your e5 pawn takes back. A pawn on f6 guards g7 just as well as the bishop did." },
+        { "play": "b4", "say": "Nothing can stop it. Black's queen can't reach g7, and the king has no way out." },
+        { "play": "Qg7#", "circle": ["g7"], "word": ["g8", "mate"], "say": "Checkmate. And count Black's mistakes: only one or two, and neither looked like much at the time." }
+      ]
+    },
+    {
+      "title": "Game two: the h-file",
+      "setup": true,
+      "beats": [
+        { "card": "Game two: a different start", "say": "Also ours, also engine-checked. This time Black opens with e6. Doesn't matter. Play the routine." },
+        { "play": "d4 e6 Bf4 d5", "say": "Bishop out. And Black's d5 brings us straight back to known ground." },
+        { "play": "e3 Bd6", "circle": ["d6"], "arrows": [["d6", "f4"]], "say": "Reply number two from the list: the bishop trade." },
+        { "play": "Bg3 Bxg3 hxg3", "arrows": [["h1", "h7"]], "say": "Back to g3. They take. The h-pawn takes back, and your rook has the h-file." },
+        { "play": "Nf6 Nf3 c5 c3 Nc6 Nbd2 Qe7", "say": "A few quiet moves. Same setup as always, with one bishop fewer." },
+        { "play": "Bd3 O-O", "circle": ["h7"], "arrows": [["d3", "h7"], ["h1", "h7"]], "say": "Setup done, and Black castles. Look at h7: your bishop and your rook both point at it." },
+        { "play": "Ne5", "circle": ["e5"], "say": "So you play the same knight jump as always." },
+        { "play": "Nxe5", "say": "In game one, taking cost Black a little. Here it loses on the spot." },
+        { "circle": ["f6"], "arrows": [["f6", "h7"]], "say": "Think it through. Bishop and rook want h7. The king can't take a guarded piece, so only the knight on f6 defends it. What if that knight had to leave?" },
+        { "play": "dxe5", "arrows": [["e5", "f6"]], "word": ["f6", "move!"], "say": "It has to. The same pawn recapture from the punch, and now the defender is under attack." },
+        { "play": "Nd7", "cross": ["f6"], "say": "The knight runs, and h7 has lost its defender." },
+        { "play": "Bxh7+", "circle": ["h7"], "say": "Bishop takes with check." },
+        { "play": "Kh8", "say": "The king steps into the corner, right in line with your rook. The only thing between them is your own bishop." },
+        { "play": "Bd3+", "arrows": [["h1", "h8"]], "word": ["h8", "check"], "say": "So move the bishop. Discovered check from the rook." },
+        { "play": "Qh4", "circle": ["h4"], "say": "The longest defence is to throw the queen in the way." },
+        { "play": "Rxh4+ Kg8", "say": "Thank you. The rook takes it, and the king goes back." },
+        { "play": "Rh8+", "circle": ["h8"], "word": ["h8", "bye rook"], "say": "One flourish left. Give up the rook, just to drag the king into the corner." },
+        { "play": "Kxh8", "arrows": [["d1", "h5"]], "say": "Black has to take. And your queen's road to h5 is open again." },
+        { "play": "Qh5+ Kg8", "arrows": [["d3", "h7"], ["h5", "h7"]], "say": "Check, the king goes back, and that bishop has been waiting on h7 the whole time." },
+        { "play": "Qh7#", "circle": ["h7"], "word": ["g8", "mate"], "say": "Checkmate, all from one knight jump, because Black took on e5 without looking at h7." }
+      ]
+    },
+    {
+      "title": "Your game plan",
+      "from": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Be7 Nbd2 O-O c3 c5 Bd3 Nc6",
+      "setup": true,
+      "beats": [
+        { "card": "So how do you win with this?", "say": "The opening is the easy part. Here's the whole plan in three lines." },
+        { "shade": ["c3", "d4", "e3"], "say": "One. Play the seven moves, and meet the five annoying replies with the answers you just saw." },
+        { "arrows": [["f3", "e5"]], "circle": ["e5"], "say": "Two. When the setup is done, jump to e5." },
+        { "arrows": [["d1", "h5"], ["d3", "h7"]], "circle": ["h7"], "say": "Three. If they take, take back with the pawn, then bring the queen to h5. With your rook on the h-file, look at taking on h7 as well." },
+        { "say": "That's a good way to win quick games. It isn't a middlegame plan. A careful opponent answers with f6 or knight to d7, the attack fizzles, and then you have to think." },
+        { "say": "So do two things next. Play the setup from memory until your hands know it, then read the London plan for what to do when the punch doesn't land." }
+      ]
+    }
+  ],
+  "checks": [
+    { "name": "Bc2 after c4", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 c5 c3 Nc6 Nbd2 Be7 Bd3 c4 Bc2", "min": -0.1 },
+    { "name": "Bg3 about equal to the trade", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Bd6 Bg3", "eval": 0.13 },
+    { "name": "Bxd6 about equal to Bg3", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Bd6 Bxd6 Qxd6", "eval": 0.14 },
+    { "name": "Qxd3 level", "moves": "d4 d5 Bf4 Bf5 e3 e6 Nf3 Nf6 Bd3 Bxd3 Qxd3", "eval": 0 },
+    { "name": "Black's Qb3 trade, White preferred", "moves": "d4 d5 Bf4 Nf6 e3 c5 c3 Qb6 Qb3 Qxb3 axb3", "min": 0.2 },
+    { "name": "Ne5 about +0.2", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Be7 Nbd2 O-O c3 c5 Bd3 Nc6 Ne5", "eval": 0.2 },
+    { "name": "Nxe5 about +0.8", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Be7 Nbd2 O-O c3 c5 Bd3 Nc6 Ne5 Nxe5", "eval": 0.8 },
+    { "name": "Qh5 g6 about half a pawn", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Be7 Nbd2 O-O c3 c5 Bd3 Nc6 Ne5 Nxe5 dxe5 Nd7 Qh5 g6", "eval": 0.5 },
+    { "name": "Qh5 h6 above +3", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Be7 Nbd2 O-O c3 c5 Bd3 Nc6 Ne5 Nxe5 dxe5 Nd7 Qh5 h6", "min": 3 },
+    { "name": "Game one Qh6 about +0.4 with f6 best", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Bb4+ c3 Be7 Nbd2 O-O Bd3 Nc6 Ne5 Nxe5 dxe5 Nd7 Qh5 g6 Qh6", "eval": 0.4 },
+    { "name": "Game one f6 close to level", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Bb4+ c3 Be7 Nbd2 O-O Bd3 Nc6 Ne5 Nxe5 dxe5 Nd7 Qh5 g6 Qh6 f6", "eval": 0.4 },
+    { "name": "Game one c5 above +3", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Bb4+ c3 Be7 Nbd2 O-O Bd3 Nc6 Ne5 Nxe5 dxe5 Nd7 Qh5 g6 Qh6 c5", "min": 3 },
+    { "name": "Nd7 holds the balance after Ne5", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Be7 Nbd2 O-O c3 c5 Bd3 Nc6 Ne5 Nd7", "eval": 0.2 },
+    { "name": "Game one ends in mate", "moves": "d4 d5 Bf4 Nf6 e3 e6 Nf3 Bb4+ c3 Be7 Nbd2 O-O Bd3 Nc6 Ne5 Nxe5 dxe5 Nd7 Qh5 g6 Qh6 c5 Nf3 b5 Ng5 Bxg5 Bxg5 Qb6 Bf6 Nxf6 exf6 b4 Qg7#", "mate": true },
+    { "name": "Game two Nxe5 loses", "moves": "d4 e6 Bf4 d5 e3 Bd6 Bg3 Bxg3 hxg3 Nf6 Nf3 c5 c3 Nc6 Nbd2 Qe7 Bd3 O-O Ne5 Nxe5", "min": 4 },
+    { "name": "Game two ends in mate", "moves": "d4 e6 Bf4 d5 e3 Bd6 Bg3 Bxg3 hxg3 Nf6 Nf3 c5 c3 Nc6 Nbd2 Qe7 Bd3 O-O Ne5 Nxe5 dxe5 Nd7 Bxh7+ Kh8 Bd3+ Qh4 Rxh4+ Kg8 Rh8+ Kxh8 Qh5+ Kg8 Qh7#", "mate": true }
+  ]
+}

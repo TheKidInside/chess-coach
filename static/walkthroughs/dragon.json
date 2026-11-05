@@ -1,0 +1,160 @@
+{
+  "id": "dragon",
+  "title": "The Sicilian Dragon",
+  "side": "b",
+  "setupTitle": "The eight moves",
+  "end": { "drill": "Drill the Dragon lines", "plan": "Read the Dragon plan" },
+  "setup": [
+    { "label": "Pawn to c5", "any": ["bP@c5"] },
+    { "label": "Pawn to d6", "any": ["bP@d6"] },
+    { "label": "Trade on d4", "any": ["bP@d4"] },
+    { "label": "Knight to f6", "any": ["bN@f6"] },
+    { "label": "Pawn to g6", "any": ["bP@g6"] },
+    { "label": "Bishop to g7", "any": ["bB@g7"] },
+    { "label": "Castle", "any": ["bK@g8"] },
+    { "label": "Knight to c6", "any": ["bN@c6"] }
+  ],
+  "chapters": [
+    {
+      "title": "Why this opening",
+      "beats": [
+        { "card": "One bishop, one long road", "say": "Most openings ask you to defend first and hit back later. The Dragon hits back from move six, with one bishop on one very long diagonal." },
+        { "say": "The name comes from Black's pawns. Someone thought their shape looked like the constellation Draco. The fire comes from the bishop." },
+        { "say": "It's a knife fight. Both kings get attacked, and it's often a race. The engine usually prefers White by about half a pawn, so you have to know your ideas." },
+        { "say": "We'll build the setup, deal with five ways White tries to spoil it, learn the one punch, then watch it land in two games. You're Black, so the board is turned around." }
+      ]
+    },
+    {
+      "title": "The setup",
+      "setup": true,
+      "beats": [
+        { "card": "The eight moves", "say": "Eight moves. Watch the list tick itself off." },
+        { "play": "e4 c5", "circle": ["c5"], "say": "White plays e4, and you answer with c5. That's the Sicilian. You're hitting d4 from the side." },
+        { "play": "Nf3 d6", "arrows": [["f3", "e5"]], "say": "White's knight comes out, and d6 takes e5 away from it and opens the road for your other bishop." },
+        { "play": "d4 cxd4", "circle": ["d4"], "say": "White plays d4, and you take. That's a wing pawn traded for a centre pawn, which is a good deal in the long run." },
+        { "play": "Nxd4 Nf6", "arrows": [["f6", "e4"]], "say": "The knight takes back, and yours comes out with a hit on e4." },
+        { "play": "Nc3 g6", "circle": ["g6"], "word": ["g6", "the Dragon"], "say": "White guards it. And now g6. That's the move that makes it a Dragon." },
+        { "play": "Be3 Bg7", "arrows": [["g7", "b2"]], "say": "Bishop to g7. It's blocked for now, but look how far that road goes, all the way to b2." },
+        { "play": "f3 O-O", "circle": ["g8"], "say": "White props up e4. You castle, tucked in behind that bishop." },
+        { "play": "Qd2 Nc6", "arrows": [["c6", "d4"]], "say": "Knight to c6, and that's the setup. Your knight hits d4, and the c-file is open for a rook." },
+        { "shade": ["c3", "d4"], "arrows": [["g7", "d4"], ["c6", "d4"], ["c8", "c3"]], "say": "Now look what your pieces agree on: d4 and c3. White's king usually goes that way too. That's the whole plan." }
+      ]
+    },
+    {
+      "title": "Five annoying replies",
+      "beats": [
+        { "card": "Five ways White spoils it", "say": "Your opponent didn't read the script. Here are the five things they'll try, and you only need one answer to each." },
+        { "reset": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7", "play": "Qd2", "circle": ["e3"], "say": "One. About three in ten under 1800 in our Lichess sample play queen to d2 before f3. It's natural, and it leaves g4 open." },
+        { "play": "Ng4", "circle": ["e3"], "arrows": [["g4", "e3"]], "say": "So jump in. Knight to g4 goes after that bishop, and the f3 pawn isn't there to stop you." },
+        { "play": "Bg5 h6 Bh4 Nc6", "arrows": [["h6", "g5"], ["c6", "d4"]], "say": "It runs, you chase it with h6, then develop. The engine says about plus 0.2, and White's usual attack is off the menu." },
+        { "reset": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6", "play": "Bc4", "arrows": [["c4", "f7"]], "say": "Two. Bishop to c4, about one in five. It looks at f7 and looks scary, but your king isn't there yet." },
+        { "play": "Bg7 O-O O-O", "circle": ["g8"], "say": "Just finish your setup. The engine calls this level. And if White pushes the f-pawn here, you'll see the punishment in game two." },
+        { "reset": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6", "play": "Bg5", "arrows": [["g5", "f6"]], "say": "Three. Bishop to g5, also about one in five. It pins nothing, because your e7 pawn stands between that knight and your queen." },
+        { "play": "Bg7 Qd2 h6", "arrows": [["h6", "g5"]], "say": "Bishop out, then h6 kicks it. It's dead level." },
+        { "play": "Bh4 Nc6", "arrows": [["c6", "d4"]], "say": "And you're back on the list. That bishop on h4 isn't doing much." },
+        { "reset": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6", "play": "Be2", "circle": ["e2"], "say": "Four. The quiet one, bishop to e2. White isn't racing, so you don't need to either." },
+        { "play": "Bg7 O-O O-O Be3 Nc6 Qd2", "arrows": [["d6", "d5"]], "say": "You finish the list. Now look for one pawn push." },
+        { "play": "d5", "circle": ["d5"], "word": ["d5", "free"], "say": "d5. Once that pawn gets there safely, your cramped position opens up. The engine says about plus 0.1. In the Sicilian, that push is always worth looking for." },
+        { "reset": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6", "play": "f4", "circle": ["f4"], "arrows": [["f4", "e5"]], "say": "Five. Pawn to f4, the Levenfish. It's rarer, and it's the one that punishes a player on autopilot." },
+        { "play": "Bg7 e5 dxe5 fxe5 Ng4 Bb5+", "circle": ["g4"], "arrows": [["b5", "e8"], ["d1", "g4"]], "say": "Play bishop to g7 as usual, and e5 comes fast. If your knight jumps to g4, this check wins material. The engine says about plus two." },
+        { "reset": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 f4", "play": "Nc6", "arrows": [["c6", "e5"], ["c6", "d4"]], "say": "So change the order. Knight to c6 first, so it hits d4 and watches e5." },
+        { "play": "Nxc6 bxc6 e5 Nd7", "circle": ["c6"], "say": "If White goes for it anyway, your knight steps back, and the engine actually prefers Black." }
+      ]
+    },
+    {
+      "title": "The punch",
+      "from": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6 Bc4 Bd7 O-O-O Rc8",
+      "beats": [
+        { "card": "The one punch", "circle": ["c3"], "arrows": [["c8", "c3"]], "say": "Here's the main line. White has castled long, and your rook is on the open c-file, pointing straight at that king." },
+        { "play": "Bb3 Ne5", "arrows": [["e5", "c4"]], "say": "Knight to e5, heading for c4, where it hits the queen and the bishop." },
+        { "play": "h4 Nc4", "arrows": [["c4", "d2"], ["c4", "e3"]], "say": "White starts pushing the h-pawn. Your knight jumps in." },
+        { "play": "Bxc4 Rxc4", "circle": ["c3"], "arrows": [["c4", "c3"]], "say": "White trades it off, and now your rook is one square from the target. Think about what that c3 knight does." },
+        { "shade": ["e4", "b2", "a2"], "circle": ["c3"], "say": "It guards e4, and it shields the king. If you give up a rook for it, and a pawn has to take back, the whole wall in front of that king falls apart." },
+        { "play": "g4 Rxc3", "circle": ["c3"], "say": "But not yet. Try it right now, and look." },
+        { "play": "Qxc3", "circle": ["c3"], "say": "The queen just takes it, no pawn moves, and you've simply lost material. The engine says above plus three. A punch needs loading first." },
+        { "reset": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6 Bc4 Bd7 O-O-O Rc8 Bb3 Ne5 h4 Nc4 Bxc4 Rxc4 g4", "play": "Qa5 h5 Rfc8", "circle": ["c3"], "arrows": [["c4", "c3"], ["c8", "c3"], ["a5", "c3"]], "say": "So load it. Queen to a5, second rook to c8, and now three pieces hit c3. White's h-pawn has arrived too, so this is a real race." },
+        { "play": "Kb1", "circle": ["b1"], "say": "Say White spends a move tucking the king away." },
+        { "play": "Rxc3", "circle": ["c3"], "arrows": [["d2", "c3"], ["c8", "c3"]], "say": "Now it lands. Rook takes c3. And if the queen takes back this time, your other rook takes the queen." },
+        { "play": "bxc3", "shade": ["a2", "c3"], "say": "So only the pawn can take back. You're a rook down for a knight, and White's king has lost its pawn wall. The engine calls that about level. That's the Dragon." },
+        { "reset": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6 O-O-O Bd7 h4 Rc8 h5 Nxh5 g4 Nf6 Bh6", "circle": ["h7"], "arrows": [["h6", "g7"], ["h1", "h7"]], "say": "A warning. This is what White is doing to you meanwhile. The h-file opens, then bishop to h6 offers to trade off your dragon. Without it, h7 is in danger." },
+        { "say": "So keep count. Every slow move you make, White's attack gets a move closer. It's a race, and it really can end in mate on h7." }
+      ]
+    },
+    {
+      "title": "Game one: the race",
+      "setup": true,
+      "beats": [
+        { "card": "Game one: the race", "say": "This game is made up by us and checked by Stockfish. White's moves are all natural ones, right up to a couple of mistakes." },
+        { "play": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6", "say": "The routine. Nothing to think about yet." },
+        { "play": "Be3 Bg7 f3 O-O Qd2 Nc6", "arrows": [["c6", "d4"]], "say": "White goes for the main attack, and your list is done." },
+        { "play": "Bc4 Bd7 O-O-O Rc8", "arrows": [["c8", "c3"]], "say": "White's king goes long, and your rook takes the c-file." },
+        { "play": "Bb3 Ne5 h4 Nc4", "arrows": [["c4", "d2"]], "say": "Knight to e5, then c4. You've seen this." },
+        { "play": "Bxc4 Rxc4", "arrows": [["c4", "c3"]], "say": "The trade, and your rook arrives." },
+        { "play": "g4 Qa5", "arrows": [["a5", "c3"], ["a5", "a2"]], "say": "White pushes on. Your queen joins in, hitting c3 and a2." },
+        { "play": "h5 Rfc8", "circle": ["c3"], "arrows": [["c4", "c3"], ["c8", "c3"], ["a5", "c3"]], "say": "The h-pawn lands close to your king. Load the second rook. Here the engine actually prefers White, by more than a pawn, if White takes on g6." },
+        { "play": "h6", "arrows": [["h6", "g7"]], "circle": ["g7"], "say": "But it looks so strong to hit the bishop. That's the mistake. It takes the engine from above plus one to about level." },
+        { "play": "Rxc3", "circle": ["c3"], "word": ["c3", "punch"], "say": "Leave your bishop where it is, and punch. Rook takes c3." },
+        { "play": "bxc3", "shade": ["a2", "c3"], "say": "If the queen takes back, your other rook wins it. So the pawn takes, and the wall has gone." },
+        { "play": "Bxg4", "circle": ["g4"], "arrows": [["g4", "f3"]], "say": "Now your other bishop joins in. It grabs the g4 pawn and hits f3. And if that f-pawn takes, your knight takes e4, forking the queen and c3." },
+        { "play": "Qg2", "arrows": [["g2", "g4"]], "say": "So White moves the queen away from that fork, and hits your bishop. That's a second slip, and now the king is short of defenders." },
+        { "play": "Qxc3", "circle": ["c3"], "arrows": [["c3", "e3"], ["c3", "a1"]], "say": "Queen takes c3. She hits the e3 bishop, and she can reach a1 with check." },
+        { "play": "Rhe1", "arrows": [["e1", "e3"]], "say": "White guards the bishop. But the f-pawn is still the only thing guarding e4." },
+        { "play": "Nxe4", "circle": ["e4"], "arrows": [["e4", "d2"], ["e4", "f2"]], "say": "So take it. Knight to e4 takes away d2, right next to that king." },
+        { "play": "Qd2", "arrows": [["d2", "c3"]], "say": "White offers a queen trade, to end the attack. It looks like the way out." },
+        { "play": "Qa1#", "circle": ["a1"], "arrows": [["a1", "c1"]], "word": ["b2", "mate"], "say": "It isn't. Queen to a1 is checkmate. White's own queen and rook fill the squares next to that king. And it all started when the pawn wall fell to one punch." }
+      ]
+    },
+    {
+      "title": "Game two: the smothered king",
+      "setup": true,
+      "beats": [
+        { "card": "Game two: reply number two", "say": "Also ours, also engine-checked. This time White brings the bishop to c4." },
+        { "play": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6", "say": "The routine again." },
+        { "play": "Bc4 Bg7 O-O O-O", "circle": ["g8"], "say": "Bishop to c4, and both sides finish up and castle." },
+        { "play": "f4", "circle": ["f2"], "arrows": [["f4", "e5"]], "say": "Pawn to f4, which is common here. It feels aggressive, but look at the hole it leaves. The pawn that guarded the king's dark road has gone." },
+        { "play": "Qb6", "circle": ["d4"], "arrows": [["b6", "d4"], ["d4", "g1"]], "say": "Queen to b6. The knight on d4 is now pinned to the king. It can't move, and it's about to be hit again. The engine is at about minus 1.8." },
+        { "play": "Be2", "arrows": [["c4", "e2"]], "say": "White tidies the bishop back to e2, not sure what to do." },
+        { "play": "Nc6", "circle": ["d4"], "arrows": [["c6", "d4"], ["b6", "d4"]], "say": "Knight to c6, and your list is finished. Another piece hits that pinned knight." },
+        { "play": "Be3", "arrows": [["e3", "d4"]], "say": "White guards it with the bishop. Fine. But your f6 knight still has a job." },
+        { "play": "Nxe4", "circle": ["e4"], "arrows": [["g7", "d4"]], "say": "Knight takes e4. That wins a pawn, and it opens the dragon's road right onto d4." },
+        { "play": "Bf3", "arrows": [["f3", "e4"]], "say": "White hits your knight, hoping to win the pawn back. That's another mistake, because of d4." },
+        { "play": "Bxd4 Bxd4 Nxd4", "circle": ["d4"], "arrows": [["d4", "f3"]], "say": "You take on d4 twice. Now you've won a knight, and your knight hits f3." },
+        { "play": "Nd5", "arrows": [["d5", "b6"]], "circle": ["b6"], "say": "White attacks your queen. It looks like White's getting something back." },
+        { "play": "Nxf3+", "circle": ["g1"], "arrows": [["f3", "g1"], ["b6", "g1"]], "word": ["f3", "double"], "say": "Knight takes f3. Check from the knight, and check from your queen behind it. That's double check, so the king has to move." },
+        { "play": "Kh1", "circle": ["h1"], "say": "There's only one square, the corner." },
+        { "play": "Qg1+", "circle": ["g1"], "word": ["g1", "take it"], "say": "Queen to g1. Yes, your queen, right next to that king, guarded by your knight. The king can't take it, so the rook has to." },
+        { "play": "Rxg1", "circle": ["g1"], "say": "Now look at that king. A rook, two pawns, and nowhere to go." },
+        { "play": "Nf2#", "circle": ["f2"], "arrows": [["f2", "h1"]], "word": ["f2", "mate"], "say": "Knight to f2. Smothered mate. White's own pieces have boxed in the king, and the whole thing began when one pawn left f2." }
+      ]
+    },
+    {
+      "title": "Your game plan",
+      "from": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6",
+      "setup": true,
+      "beats": [
+        { "card": "So how do you win with this?", "say": "The opening is the easy part. Here's the whole plan in three lines." },
+        { "arrows": [["g7", "d4"], ["c6", "d4"]], "shade": ["d4"], "say": "One. Play the eight moves, and meet the five annoying replies with the answers you just saw." },
+        { "play": "O-O-O d5", "circle": ["d5"], "say": "Two. If White castles long straight away, d5 at once is the engine's choice. Watch for that push in every line." },
+        { "reset": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6 Bc4 Bd7 O-O-O Rc8", "circle": ["c3"], "arrows": [["c8", "c3"]], "say": "Three. Otherwise take the c-file, send a knight to c4, load the queen and both rooks, then look at rook takes c3." },
+        { "say": "That's a good way to win quick games. It isn't magic. A careful White can win this race, so count moves, and take your own king seriously." },
+        { "say": "So do two things next. Drill these lines until your hands know them, then read the Dragon plan for what to do when the punch doesn't land." }
+      ]
+    }
+  ],
+  "checks": [
+    { "name": "Main setup about +0.5", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6", "eval": 0.5 },
+    { "name": "Qd2 Ng4 Bg5 h6 Bh4 Nc6 about +0.2", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 Qd2 Ng4 Bg5 h6 Bh4 Nc6", "eval": 0.2 },
+    { "name": "Bc4 castled level", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Bc4 Bg7 O-O O-O", "eval": 0 },
+    { "name": "Bg5 h6 level", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Bg5 Bg7 Qd2 h6", "eval": 0 },
+    { "name": "Be2 d5 about +0.1", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be2 Bg7 O-O O-O Be3 Nc6 Qd2 d5", "eval": 0.1 },
+    { "name": "f4 Bg7 trap above +2", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 f4 Bg7 e5 dxe5 fxe5 Ng4 Bb5+", "min": 1.5 },
+    { "name": "f4 Nc6 line prefers Black", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 f4 Nc6 Nxc6 bxc6 e5 Nd7", "max": 0 },
+    { "name": "Early Rxc3 Qxc3 above +3", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6 Bc4 Bd7 O-O-O Rc8 Bb3 Ne5 h4 Nc4 Bxc4 Rxc4 g4 Rxc3 Qxc3", "min": 3 },
+    { "name": "Loaded Kb1 Rxc3 bxc3 about level", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6 Bc4 Bd7 O-O-O Rc8 Bb3 Ne5 h4 Nc4 Bxc4 Rxc4 g4 Qa5 h5 Rfc8 Kb1 Rxc3 bxc3", "eval": 0 },
+    { "name": "Game one before h6, White above +1", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6 Bc4 Bd7 O-O-O Rc8 Bb3 Ne5 h4 Nc4 Bxc4 Rxc4 g4 Qa5 h5 Rfc8", "min": 1 },
+    { "name": "Game one h6 about level", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6 Bc4 Bd7 O-O-O Rc8 Bb3 Ne5 h4 Nc4 Bxc4 Rxc4 g4 Qa5 h5 Rfc8 h6", "eval": -0.2 },
+    { "name": "Game one ends in mate", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6 Bc4 Bd7 O-O-O Rc8 Bb3 Ne5 h4 Nc4 Bxc4 Rxc4 g4 Qa5 h5 Rfc8 h6 Rxc3 bxc3 Bxg4 Qg2 Qxc3 Rhe1 Nxe4 Qd2 Qa1#", "mate": true },
+    { "name": "Game two Qb6 about -1.8", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Bc4 Bg7 O-O O-O f4 Qb6", "eval": -1.8 },
+    { "name": "Game two ends in mate", "moves": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Bc4 Bg7 O-O O-O f4 Qb6 Be2 Nc6 Be3 Nxe4 Bf3 Bxd4 Bxd4 Nxd4 Nd5 Nxf3+ Kh1 Qg1+ Rxg1 Nf2#", "mate": true }
+  ]
+}

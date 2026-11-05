@@ -3,7 +3,7 @@
 // so they are worked out from the moves that follow.
 //   node tools/review/test_review.mjs [--words]
 import { readFileSync } from 'node:fs';
-import { parsePgnFile, analyseGame, classifyGame, summarise, trapIndex, findTraps, momentsOf, moveNum } from '../../static/review.js';
+import { parsePgnFile, analyseGame, classifyGame, summarise, trapIndex, findTraps, momentsOf, moveNum, mateWords, lineQuality, labelMove } from '../../static/review.js';
 import { commentFor, toSpeech } from '../../static/review-words.js';
 import { OPENINGS } from '../../static/openings.js';
 
@@ -35,6 +35,19 @@ const fenGame = parsePgnFile('[FEN "6k1/5ppp/8/8/8/8/5PPP/3R2K1 b - - 0 30"]\n[S
 check(moveNum(fenGame.moves[0]) === '30...' && moveNum(fenGame.moves[1]) === '31.', `FEN start keeps real move numbers: ${moveNum(fenGame.moves[0])} ${moveNum(fenGame.moves[1])}`);
 
 check(toSpeech('Bxf5 and gxf5, e8=Q+, O-O, Nbd2, Rxe8# but e4 too') === 'bishop takes f5 and g takes f5, e8 promotes to queen check, castles, knight b d2, rook takes e8 checkmate but e4 too', `speech: ${toSpeech('Bxf5 and gxf5, e8=Q+, O-O, Nbd2, Rxe8# but e4 too')}`);
+
+// Line symbols and mate words: scores are from White's view, whichever side is to move.
+const W = '4k3/8/8/8/8/8/8/4K3 w - - 0 1', B = '4k3/8/8/8/8/8/8/4K3 b - - 0 1';
+check(mateWords({ mate: 3 }) === 'White mates in 3' && mateWords({ mate: -2 }) === 'Black mates in 2' && mateWords({ cp: 50 }) === '', 'mate words name the side');
+check(lineQuality([{ cp: 100 }, { cp: 95 }, { cp: 40 }], W).join() === 'best,excellent,good', `white lines: ${lineQuality([{ cp: 100 }, { cp: 95 }, { cp: 40 }], W)}`);
+check(lineQuality([{ cp: -100 }, { cp: -95 }, { cp: 300 }], B).join() === 'best,excellent,mistake', `black lines read from Black's side: ${lineQuality([{ cp: -100 }, { cp: -95 }, { cp: 300 }], B)}`);
+check(lineQuality([{ mate: 2 }, { mate: 4 }, { cp: 500 }], W).join() === 'best,excellent,miss', `dropping a mate while still winning is a miss: ${lineQuality([{ mate: 2 }, { mate: 4 }, { cp: 500 }], W)}`);
+check(lineQuality([{ mate: 8 }, { cp: 1500 }], W)[1] !== 'miss', 'a mate that far off is not a miss, as in classifyGame');
+check(lineQuality([{ cp: 0 }, { mate: -2 }], W)[1] === 'blunder', 'a line that gets you mated is a blunder');
+const scholars = parsePgnFile('1. e4 e5 2. Bc4 Nc6 3. Qh5 Nf6 4. Qxf7# 1-0').games[0].moves.slice(5);
+const nf6Before = { bestmove: 'g7g6', lines: [{ cp: 40, pv: ['g7g6'] }] };
+const toMate = { bestmove: 'h5f7', lines: [{ mate: 1, pv: ['h5f7'] }, { cp: -200, pv: ['h5d1'] }] };
+check(labelMove(scholars, [nf6Before, toMate, null]).cls === 'best', `punishing a blunder with mate is best, not great: ${labelMove(scholars, [nf6Before, toMate, null]).cls}`);
 
 const game = parsed.games[0];
 const evals = await analyseGame(game, search, { speed: 'deep', eco });
