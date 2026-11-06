@@ -1,0 +1,199 @@
+{
+  "id": "bishops",
+  "title": "The Bishop's Opening",
+  "setupTitle": "Four moves, then pick a plan",
+  "end": { "play": "Play it against Stockfish", "playFrom": "e4 e5 Bc4" },
+  "setup": [
+    { "label": "Pawn to e4", "any": ["wP@e4"] },
+    { "label": "Bishop to c4, aimed at f7", "any": ["wB@c4"] },
+    { "label": "Pawn to d3, guarding e4", "any": ["wP@d3"] },
+    { "label": "Knight to c3", "any": ["wN@c3"] },
+    { "label": "Then: bishop to g5, or pawn to f4", "any": ["wB@g5", "wP@f4", "wP@f5"] }
+  ],
+  "chapters": [
+    {
+      "title": "Why this opening",
+      "beats": [
+        { "card": "Bishop first, knight later", "say": "After e4 e5, almost everyone plays knight to f3. The Bishop's Opening puts the bishop on c4 first and leaves that knight at home on purpose." },
+        { "say": "That one change keeps two roads open: the queen's road to h5, and the f-pawn's road to f4. A knight on f3 would block both." },
+        { "say": "Most club players have never studied it. They see an undeveloped knight and an uncastled king, think you're doing it wrong, and try to punish you." },
+        { "say": "We'll build the setup, learn two attacking plans, then two sharper d4 gambits. These ideas come from GM Igor Smirnov's video, retold in our words and checked with Stockfish." }
+      ]
+    },
+    {
+      "title": "The setup",
+      "setup": true,
+      "beats": [
+        { "card": "Four moves, then pick a plan", "say": "Four moves, then one decision. Watch the list tick itself off." },
+        { "play": "e4 e5", "circle": ["e4"], "say": "Pawn to e4, and Black answers with e5." },
+        { "play": "Bc4", "arrows": [["c4", "f7"]], "say": "Bishop to c4, straight at f7. That square is guarded only by Black's king, and this bishop will matter in every trap you see today." },
+        { "play": "Nf6", "arrows": [["f6", "e4"]], "say": "Black's most natural reply: knight to f6, hitting your e-pawn." },
+        { "play": "d3", "arrows": [["d3", "e4"]], "say": "Guard it with the d-pawn. Quiet, but it also opens a road for your dark-squared bishop." },
+        { "play": "Bc5 Nc3", "circle": ["c3"], "say": "Black copies with bishop to c5, and your queen's knight comes out. This setup is often called the Vienna Hybrid." },
+        { "circle": ["g1"], "arrows": [["d1", "h5"], ["f2", "f4"]], "say": "Now look at what you didn't do. The g1 knight is still home, so the queen can reach h5 and the f-pawn can reach f4." },
+        { "arrows": [["c1", "g5"], ["f2", "f4"]], "say": "Black's next move picks your plan. If they castle, pin the knight with bishop to g5. If their king stays in the middle, push the f-pawn." }
+      ]
+    },
+    {
+      "title": "Plan A: they castle",
+      "setup": true,
+      "from": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3",
+      "beats": [
+        { "card": "They castle: pin the knight", "say": "Black does the most natural thing in chess and castles." },
+        { "play": "O-O", "circle": ["g8"], "say": "Their king is now committed to the kingside. That's what makes the pin strong." },
+        { "play": "Bg5", "arrows": [["g5", "f6"], ["f6", "d8"]], "say": "Bishop to g5 pins the knight to the queen. With the king already castled, pushing g5 to chase your bishop would open Black's own king." },
+        { "play": "h6", "circle": ["h6"], "say": "Black asks the bishop where it's going." },
+        { "play": "Bh4", "arrows": [["h4", "f6"]], "say": "The safe answer is bishop to h4. The pin stays on, and the engine calls it level." },
+        { "reset": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3 O-O Bg5 h6", "play": "h4", "word": ["h4", "bait"], "say": "The bold answer is pawn to h4. Go on, take my bishop." },
+        { "say": "To be honest, this one is a trap, not a rule. If Black just ignores it with d6, the engine likes Black slightly. Play it when you want the risk." },
+        { "play": "hxg5 hxg5", "arrows": [["h1", "h7"], ["g5", "f6"]], "say": "But most players take. You take back, the knight is hit, and your rook now looks straight up the open h-file." },
+        { "shade": ["d5", "e4", "g4", "h5"], "say": "Where can the knight go? Your pieces cover d5, e4, g4 and h5. So it has to go backward, to e8 or h7." },
+        { "play": "Nh7", "say": "Say it goes to h7." },
+        { "play": "Qh5", "arrows": [["h5", "h7"], ["h1", "h7"]], "say": "Queen to h5. Queen and rook stack up on the h-file, and Black can't hold h7 for long." },
+        { "play": "Re8", "say": "Black makes an escape square on f8 for the king." },
+        { "play": "Qxf7+", "arrows": [["c4", "f7"]], "say": "Take f7 with check first. Your bishop guards the queen, so the king can't take it. It has to go to h8." },
+        { "play": "Kh8 Rxh7+", "circle": ["h7"], "say": "Now give up the rook on h7. The king has to take it." },
+        { "play": "Kxh7 Qh5#", "word": ["h5", "mate"], "say": "Queen back to h5. Checkmate." },
+        { "say": "One warning. After the rook recaptures on g5, Black's only good move is d5, which hits back in the centre. Then it's level and you play chess." }
+      ]
+    },
+    {
+      "title": "Plan B: they play d6",
+      "setup": true,
+      "from": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3",
+      "beats": [
+        { "card": "King in the middle: push the f-pawn", "say": "This time Black plays d6 and keeps the king in the middle." },
+        { "play": "d6", "circle": ["d6"], "say": "Now the pin is less scary for them, so switch plans." },
+        { "play": "f4", "arrows": [["f4", "e5"], ["c1", "f4"]], "say": "Pawn to f4. It's like a King's Gambit, but your c1-bishop guards the pawn, so it isn't even a gambit." },
+        { "circle": ["g1"], "say": "This is why the knight waited. On f3 it would have blocked this pawn. It comes out next, adding a third hit on e5." },
+        { "play": "exf4 Bxf4", "circle": ["f4"], "say": "If Black takes, they give up the centre and your bishop develops with a gain of time. That's just good for you." },
+        { "reset": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3 d6 f4", "play": "Ng4", "arrows": [["g4", "f2"], ["c5", "f2"]], "say": "The tricky reply: knight to g4. Black threatens bishop to f2 check, or knight to f2 forking queen and rook." },
+        { "play": "f5", "circle": ["f5"], "arrows": [["d1", "g4"]], "say": "Push f5 anyway. The pawn cuts the c8 bishop off from g4, so now your queen threatens to take that knight." },
+        { "play": "Nf2", "say": "Most players go ahead with the fork. It's a mistake: the engine now has you about one and a half pawns ahead." },
+        { "play": "Qh5", "arrows": [["h5", "f7"], ["c4", "f7"]], "say": "Leave the rook. Queen to h5, together with the bishop on f7. Mate is threatened." },
+        { "play": "O-O", "say": "Castling stops that mate. It walks into the next one." },
+        { "play": "Bg5", "arrows": [["g5", "d8"], ["c4", "g8"]], "say": "Bishop to g5 hits the queen. Black can't block with f6, because your bishop on c4 pins that pawn to the king." },
+        { "play": "Qe8 Nd5", "arrows": [["d5", "f6"]], "say": "The queen steps to e8. Knight to d5. Let Black take the rook; you're counting attackers, and you have more." },
+        { "play": "Nxh1 Nf6+", "say": "Knight to f6, check. Black has to take it, or queen takes h7 is mate." },
+        { "play": "gxf6 Bxf6", "shade": ["g7", "g5"], "say": "Bishop takes back. The king has no pawns left in front of it." },
+        { "play": "Bxg1 Qg5#", "word": ["g5", "mate"], "say": "Black grabs another piece. Queen to g5, checkmate." },
+        { "say": "The honest note: after queen to h5, Black's best is g6, and you're about a pawn and a half better. That's still a very good start." }
+      ]
+    },
+    {
+      "title": "Sharper: d4 against Nf6",
+      "from": "e4 e5 Bc4 Nf6",
+      "beats": [
+        { "card": "Pawn to d4, right now", "say": "Want more? Instead of guarding e4, offer it. Pawn to d4." },
+        { "play": "d4", "arrows": [["f6", "e4"], ["e5", "d4"]], "say": "Black has two captures. One is fine. The other one loses, and it's the natural one." },
+        { "play": "Nxe4", "circle": ["e4"], "say": "Knight takes e4, the pawn it was already attacking. That's the wrong one." },
+        { "play": "dxe5", "say": "Pawn takes e5. Already about plus one for White, and that knight in the middle is going to be chased." },
+        { "play": "Bc5", "arrows": [["c5", "f2"]], "say": "Black hits f2 and feels like the attacker. That's the real mistake." },
+        { "play": "Qd5", "arrows": [["d5", "f7"], ["d5", "e4"], ["d5", "c5"]], "say": "Queen to d5 hits three things: mate on f7, the knight on e4, and the bishop on c5 behind it." },
+        { "play": "Bxf2+ Kf1", "say": "Black takes on f2 with check. Step the king to f1. Nothing has changed: f7 and e4 are both still hit." },
+        { "play": "O-O Qxe4", "circle": ["e4"], "say": "Castling stops the mate, and you take the knight. You're a piece up, and your attack is just starting." },
+        { "play": "Bb6 Nf3 c6 Bd3", "arrows": [["d3", "h7"], ["e4", "h7"]], "say": "Develop, then bishop to d3. Queen and bishop now point at h7." },
+        { "play": "g6 Bg5", "arrows": [["g5", "d8"]], "say": "Black blocks with g6. Bishop to g5 comes in and hits the queen." },
+        { "play": "Qe8 Bf6", "shade": ["g7", "h8"], "say": "Bishop to f6. It locks the king in and owns the dark squares around it." },
+        { "play": "d5 Qh4", "arrows": [["h4", "h7"]], "say": "Queen to h4, heading for h7 and h8." },
+        { "play": "h5", "circle": ["h5"], "say": "Black plugs the h-file with h5." },
+        { "play": "Qxh5", "word": ["h5", "!"], "say": "Queen takes h5 anyway. A queen sacrifice." },
+        { "play": "gxh5 Ng5", "arrows": [["d3", "h7"], ["g5", "h7"]], "say": "Black takes. Knight to g5, and nothing stops bishop to h7." },
+        { "play": "d4 Bh7#", "word": ["h7", "mate"], "say": "Bishop to h7, checkmate, with the knight guarding it." }
+      ]
+    },
+    {
+      "title": "The right capture: Urusov",
+      "from": "e4 e5 Bc4 Nf6 d4",
+      "beats": [
+        { "card": "When Black takes the d-pawn", "say": "Now the correct capture: pawn takes d4." },
+        { "play": "exd4", "say": "Don't take back yet." },
+        { "play": "Nf3", "circle": ["f3"], "say": "Knight to f3 first. This is the Urusov Gambit. The engine calls it level, which is a fair price for fast development." },
+        { "play": "Nxe4", "say": "Your e-pawn is unguarded now, and most players grab it." },
+        { "play": "Qxd4", "arrows": [["d4", "e4"]], "say": "Queen takes on d4 and hits the knight. You're a pawn down, but every piece of yours is about to join in." },
+        { "play": "Nd6", "arrows": [["d6", "c4"]], "say": "If the knight drops to d6 and hits your bishop, let it." },
+        { "play": "O-O Nxc4 Re1+", "arrows": [["e1", "e8"]], "say": "Castle. Black takes the bishop, and the rook checks on the e-file. You're a piece down. Watch." },
+        { "play": "Be7 Qxg7", "arrows": [["g7", "h8"]], "say": "Black blocks with the bishop, which was the only guard of g7. Queen takes g7 and hits the rook." },
+        { "play": "Rf8 Bh6", "arrows": [["h6", "f8"], ["g7", "f8"]], "say": "The rook hides on f8. Bishop to h6, and it can't be saved: queen takes f8 is next. You're winning." },
+        { "reset": "e4 e5 Bc4 Nf6 d4 exd4 Nf3 Nxe4 Qxd4", "play": "Nf6", "say": "The better retreat is back to f6. Then you develop and aim everything at the king." },
+        { "play": "Nc3 Be7 Bg5", "arrows": [["g5", "f6"]], "say": "Knight to c3, then bishop to g5 pins the knight." },
+        { "play": "Nc6 Qh4", "arrows": [["h4", "h7"]], "say": "Knight to c6 hits your queen. Slide her to h4, toward the king Black is about to castle." },
+        { "say": "If Black plays h6 here, you can ignore it. The pawn can't take your bishop, because that opens the h-file and your queen takes the rook." },
+        { "play": "O-O O-O-O", "arrows": [["d1", "d8"]], "say": "Black castles. You castle long. A pawn down, but every piece is out and your rook is on the open file." },
+        { "play": "d6 Bd3", "arrows": [["d3", "h7"], ["h4", "h7"]], "say": "Bishop to d3. Now bishop takes f6, then queen takes h7, is a threat." },
+        { "play": "h6 Bxh6", "word": ["h6", "!"], "say": "Black pushes h6. Sacrifice the bishop there anyway." },
+        { "play": "gxh6 Qxh6", "shade": ["g7", "h7"], "say": "Queen takes back. The king's pawn cover is gone." },
+        { "play": "Bg4 Ng5", "arrows": [["g5", "h7"], ["d3", "h7"]], "say": "Knight to g5 brings one more attacker toward h7. The engine says you're winning by a mile." }
+      ]
+    },
+    {
+      "title": "Against Bc5: d4 again",
+      "from": "e4 e5 Bc4",
+      "beats": [
+        { "card": "When they copy you", "say": "Some players simply copy you: bishop to c5. Play d4 anyway." },
+        { "play": "Bc5 d4", "arrows": [["e5", "d4"], ["c5", "d4"]], "say": "Again two captures, and again one of them is a mistake." },
+        { "play": "exd4", "say": "Pawn takes is the mistake." },
+        { "play": "Bxf7+", "arrows": [["c4", "f7"]], "say": "Bishop takes f7, check. The same sacrifice." },
+        { "play": "Kxf7 Qh5+", "arrows": [["h5", "c5"]], "say": "The king takes, and queen to h5 checks and hits the bishop on c5 at the same time." },
+        { "play": "g6 Qxc5", "circle": ["c5"], "say": "Black blocks. You take the bishop back. Material's level, and Black's king is out in the open. The engine says about plus one." },
+        { "play": "Nc6 Nf3", "arrows": [["f3", "d4"]], "say": "Black guards d4. Knight to f3 hits it again." },
+        { "play": "d6 Qd5+", "say": "Black hits your queen with d6. Go forward, with check." },
+        { "play": "Kg7", "say": "If the king steps to g7, take on d4." },
+        { "play": "Nxd4", "circle": ["d4"], "cross": ["c6"], "say": "With the knight, not the queen. The knight on c6 guards d4, so queen takes would lose her. You're a pawn up and Black's king is airy." },
+        { "reset": "e4 e5 Bc4 Bc5 d4 exd4 Bxf7+ Kxf7 Qh5+ g6 Qxc5 Nc6 Nf3 d6 Qd5+", "play": "Be6", "say": "But many players block with bishop to e6, hitting your queen. It's the losing move." },
+        { "play": "Ng5+", "arrows": [["g5", "e6"], ["d5", "e6"]], "say": "Knight to g5, check, and e6 is hit twice." },
+        { "play": "Ke7 Nxe6", "say": "After king to e7, take the bishop. You're a piece up with the attack still going. If the king had gone to f6 instead, queen takes e6 mates soon." },
+        { "reset": "e4 e5 Bc4 Bc5 d4", "play": "Bxd4", "say": "Bishop takes is the right capture. This is the Lewis Gambit, and it's level. You just get an easy game." },
+        { "play": "Nf3 Nc6 Nxd4 Nxd4", "say": "Knight to f3 hits the bishop twice. Black guards it with the knight, and you trade." },
+        { "play": "Be3 Nc6 Qg4", "arrows": [["g4", "g7"]], "say": "Bishop to e3 sends the knight back. Then queen to g4 hits g7." },
+        { "play": "Qf6 Nc3", "arrows": [["c3", "d5"]], "say": "Black guards g7 with the queen. Knight to c3, eyeing d5." },
+        { "play": "d5", "arrows": [["d5", "c4"], ["c8", "g4"]], "say": "Now d5 looks clever: it hits your bishop and opens the c8 bishop onto your queen. It's actually a mistake." },
+        { "play": "Qg3", "arrows": [["g3", "g7"]], "say": "Queen to g3, still looking at g7. Not e2, where none of what follows works." },
+        { "play": "dxc4 Nd5", "arrows": [["d5", "f6"], ["d5", "c7"]], "say": "Black takes the bishop. Knight to d5 hits the queen, and threatens knight takes c7, forking king and rook." },
+        { "play": "Qd6 Qxg7", "arrows": [["g7", "h8"]], "say": "If the queen covers c7 from d6, she stops guarding g7. Queen takes g7, and the rook on h8 is next." }
+      ]
+    },
+    {
+      "title": "Your game plan",
+      "from": "e4 e5 Bc4",
+      "beats": [
+        { "card": "So how do you win with this?", "say": "The whole opening in three lines." },
+        { "arrows": [["c4", "f7"]], "say": "One. Bishop to c4, aimed at f7. In nearly every trap today, that bishop pinned or covered f7." },
+        { "circle": ["g1"], "arrows": [["d1", "h5"], ["f2", "f4"]], "say": "Two. Keep the g1 knight home until the queen or the f-pawn has used the road. Castled king: bishop to g5. King in the middle: f4." },
+        { "arrows": [["d2", "d4"]], "say": "Three. Against knight f6 or bishop c5, d4 is the sharp choice. Know the wrong capture: knight takes e4, or pawn takes d4 against bishop c5." },
+        { "say": "These traps win quick games. They aren't the whole opening. A careful opponent reaches a level game, and then you have to think." },
+        { "say": "So play it against Stockfish next, and see which plan each game asks for." }
+      ]
+    }
+  ],
+  "checks": [
+    { "name": "Setup level", "moves": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3", "eval": 0 },
+    { "name": "Bh4 level", "moves": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3 O-O Bg5 h6 Bh4", "eval": 0 },
+    { "name": "h4 d6 slightly better for Black", "moves": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3 O-O Bg5 h6 h4 d6", "max": 0 },
+    { "name": "hxg5 hxg5 d5 level", "moves": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3 O-O Bg5 h6 h4 hxg5 hxg5 d5", "eval": 0.2 },
+    { "name": "Plan A mate", "moves": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3 O-O Bg5 h6 h4 hxg5 hxg5 Nh7 Qh5 Re8 Qxf7+ Kh8 Rxh7+ Kxh7 Qh5#", "mate": true },
+    { "name": "exf4 Bxf4 fine for White", "moves": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3 d6 f4 exf4 Bxf4", "min": -0.2 },
+    { "name": "Ng4 f5 fine for White", "moves": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3 d6 f4 Ng4 f5", "min": 0 },
+    { "name": "Nf2 about +1.5", "moves": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3 d6 f4 Ng4 f5 Nf2", "eval": 1.5 },
+    { "name": "Qh5 g6 about +1.5", "moves": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3 d6 f4 Ng4 f5 Nf2 Qh5 g6", "eval": 1.5 },
+    { "name": "Plan B mate", "moves": "e4 e5 Bc4 Nf6 d3 Bc5 Nc3 d6 f4 Ng4 f5 Nf2 Qh5 O-O Bg5 Qe8 Nd5 Nxh1 Nf6+ gxf6 Bxf6 Bxg1 Qg5#", "mate": true },
+    { "name": "Nxe4 dxe5 about +1", "moves": "e4 e5 Bc4 Nf6 d4 Nxe4 dxe5", "eval": 1 },
+    { "name": "Bc5 Qd5 winning", "moves": "e4 e5 Bc4 Nf6 d4 Nxe4 dxe5 Bc5 Qd5", "min": 2.5 },
+    { "name": "Ponziani mate", "moves": "e4 e5 Bc4 Nf6 d4 Nxe4 dxe5 Bc5 Qd5 Bxf2+ Kf1 O-O Qxe4 Bb6 Nf3 c6 Bd3 g6 Bg5 Qe8 Bf6 d5 Qh4 h5 Qxh5 gxh5 Ng5 d4 Bh7#", "mate": true },
+    { "name": "Urusov level", "moves": "e4 e5 Bc4 Nf6 d4 exd4 Nf3", "eval": 0 },
+    { "name": "Urusov Qxd4 level", "moves": "e4 e5 Bc4 Nf6 d4 exd4 Nf3 Nxe4 Qxd4", "eval": 0 },
+    { "name": "Nd6 line winning", "moves": "e4 e5 Bc4 Nf6 d4 exd4 Nf3 Nxe4 Qxd4 Nd6 O-O Nxc4 Re1+ Be7 Qxg7 Rf8 Bh6", "min": 5 },
+    { "name": "Nf6 Qh4 level", "moves": "e4 e5 Bc4 Nf6 d4 exd4 Nf3 Nxe4 Qxd4 Nf6 Nc3 Be7 Bg5 Nc6 Qh4", "eval": 0.1 },
+    { "name": "Qh4 h6 ignorable", "moves": "e4 e5 Bc4 Nf6 d4 exd4 Nf3 Nxe4 Qxd4 Nf6 Nc3 Be7 Bg5 Nc6 Qh4 h6 O-O-O", "min": 0.8 },
+    { "name": "Urusov attack winning", "moves": "e4 e5 Bc4 Nf6 d4 exd4 Nf3 Nxe4 Qxd4 Nf6 Nc3 Be7 Bg5 Nc6 Qh4 O-O O-O-O d6 Bd3 h6 Bxh6 gxh6 Qxh6 Bg4 Ng5", "min": 5 },
+    { "name": "Boi exd4 Qxc5 about +1", "moves": "e4 e5 Bc4 Bc5 d4 exd4 Bxf7+ Kxf7 Qh5+ g6 Qxc5", "eval": 1.1 },
+    { "name": "Kg7 Nxd4 pawn up", "moves": "e4 e5 Bc4 Bc5 d4 exd4 Bxf7+ Kxf7 Qh5+ g6 Qxc5 Nc6 Nf3 d6 Qd5+ Kg7 Nxd4", "min": 1.5 },
+    { "name": "Kg7 Qxd4 loses the queen", "moves": "e4 e5 Bc4 Bc5 d4 exd4 Bxf7+ Kxf7 Qh5+ g6 Qxc5 Nc6 Nf3 d6 Qd5+ Kg7 Qxd4+", "max": -3 },
+    { "name": "Be6 Ng5 Ke7 Nxe6 winning", "moves": "e4 e5 Bc4 Bc5 d4 exd4 Bxf7+ Kxf7 Qh5+ g6 Qxc5 Nc6 Nf3 d6 Qd5+ Be6 Ng5+ Ke7 Nxe6", "min": 5 },
+    { "name": "Lewis level", "moves": "e4 e5 Bc4 Bc5 d4 Bxd4", "eval": 0 },
+    { "name": "Lewis Qg4 Qf6 Nc3 level", "moves": "e4 e5 Bc4 Bc5 d4 Bxd4 Nf3 Nc6 Nxd4 Nxd4 Be3 Nc6 Qg4 Qf6 Nc3", "eval": -0.2 },
+    { "name": "d5 Qg3 better for White", "moves": "e4 e5 Bc4 Bc5 d4 Bxd4 Nf3 Nc6 Nxd4 Nxd4 Be3 Nc6 Qg4 Qf6 Nc3 d5 Qg3", "min": 0.8 },
+    { "name": "d5 Qe2 bad", "moves": "e4 e5 Bc4 Bc5 d4 Bxd4 Nf3 Nc6 Nxd4 Nxd4 Be3 Nc6 Qg4 Qf6 Nc3 d5 Qe2", "max": -2 },
+    { "name": "Qd6 Qxg7 winning", "moves": "e4 e5 Bc4 Bc5 d4 Bxd4 Nf3 Nc6 Nxd4 Nxd4 Be3 Nc6 Qg4 Qf6 Nc3 d5 Qg3 dxc4 Nd5 Qd6 Qxg7", "min": 4 }
+  ]
+}

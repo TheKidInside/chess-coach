@@ -70,7 +70,7 @@
         { "play": "h4 Nc4", "arrows": [["c4", "d2"], ["c4", "e3"]], "say": "White starts pushing the h-pawn. Your knight jumps in." },
         { "play": "Bxc4 Rxc4", "circle": ["c3"], "arrows": [["c4", "c3"]], "say": "White trades it off, and now your rook is one square from the target. Think about what that c3 knight does." },
         { "shade": ["e4", "b2", "a2"], "circle": ["c3"], "say": "It guards e4, and it shields the king. If you give up a rook for it, and a pawn has to take back, the whole wall in front of that king falls apart." },
-        { "play": "g4 Rxc3", "circle": ["c3"], "say": "But not yet. Try it right now, and look." },
+        { "play": "g4 Rxc3", "drill": false, "circle": ["c3"], "say": "But not yet. Try it right now, and look." },
         { "play": "Qxc3", "circle": ["c3"], "say": "The queen just takes it, no pawn moves, and you've simply lost material. The engine says above plus three. A punch needs loading first." },
         { "reset": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6 Bc4 Bd7 O-O-O Rc8 Bb3 Ne5 h4 Nc4 Bxc4 Rxc4 g4", "play": "Qa5 h5 Rfc8", "circle": ["c3"], "arrows": [["c4", "c3"], ["c8", "c3"], ["a5", "c3"]], "say": "So load it. Queen to a5, second rook to c8, and now three pieces hit c3. White's h-pawn has arrived too, so this is a real race." },
         { "play": "Kb1", "circle": ["b1"], "say": "Say White spends a move tucking the king away." },

@@ -110,6 +110,34 @@ export const MIDDLEGAMES = {
     },
   },
 
+  friedliver: {
+    structure: 'After the sacrifice on f7 you have given a piece for a pawn; you are castled, with the black king stuck in the centre on e6 behind a pinned knight on d5.',
+    you: [
+      'Open the centre fast: d4 hits e5 and opens lines towards the king on e6.',
+      'Bring every piece with tempo: Re1, Bg5 or Bf4, and keep the pin on d5.',
+      'Count before you take back material: the attack matters more than winning the piece back.',
+    ],
+    them: [
+      '...Nb4 and ...c6 to hold d5, then ...Kd7 and ...Kc7 to run to the queenside.',
+      'The fork ...Nxc2 if you play a3 or let c2 go undefended.',
+    ],
+    pieces: [
+      'Queen on f3 and bishop on c4 keep the pin on d5; the knight on c3 adds a third attacker.',
+      'Breaks: d4 first, then Re1; a rook on the e-file is the usual decisive piece.',
+    ],
+    avoid: [
+      'a3 or Qe4 early: both let Black untangle, and a3 allows ...Nxc2+.',
+      'Slow moves: every quiet move gives the black king time to walk to safety.',
+    ],
+    lines: {
+      'friedliver': 'You have castled and played d4. Now Re1 and Bg5 or Bf4: you are a piece down, so the attack must stay fast. Open the e-file and keep the d5 knight pinned until Black runs out of defenders.',
+      'friedliver-lolli': 'Black has grabbed a pawn, but both knights stand loose in the centre and the king is still on e8. Win material back with cxd4 or Nxf7, castle, and use the bishop on d3 against h7.',
+      'friedliver-na5': 'A pawn up on paper, but Stockfish calls it level because Black has more active pieces. Castle, challenge the e4 pawn with d3 or d4, and try to keep the extra pawn into an endgame.',
+      'friedliver-ulvestad': 'You are a pawn up and Black has the open lines. Castle and finish development before Black\'s pieces get going; d4 has already started the fight for the centre.',
+      'friedliver-fritz': 'A pawn up against a king on d8. Bring the queen and knight out with Qf3 and Nc3, then Re1 and Bg5 against the king that cannot castle.',
+      'friedliver-traxler': 'A clean extra pawn and the safer king. Castle, develop with Be3 and Nbd2, and trade pieces: the endgame favours you.',
+    },
+  },
   scotch: {
     structure: 'Mieses Scotch: your e5-pawn and c4 grip the centre; Black has doubled c-pawns and an isolated a-pawn that become targets later.',
     you: [

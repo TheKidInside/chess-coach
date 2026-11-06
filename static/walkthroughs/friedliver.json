@@ -1,0 +1,166 @@
+{
+  "id": "friedliver",
+  "title": "The Fried Liver Attack",
+  "setupTitle": "Five moves to the fork in the road",
+  "end": { "drill": "Drill the Fried Liver lines", "plan": "Read the Fried Liver plan", "play": "Play it against Stockfish", "playFrom": "e4 e5 Nf3 Nc6 Bc4 Nf6" },
+  "setup": [
+    { "label": "Pawn to e4", "any": ["wP@e4"] },
+    { "label": "Knight to f3", "any": ["wN@f3", "wN@g5"] },
+    { "label": "Bishop to c4, aimed at f7", "any": ["wB@c4"] },
+    { "label": "Knight to g5, the second attacker", "any": ["wN@g5"] },
+    { "label": "Take on d5", "any": ["wP@d5"] }
+  ],
+  "chapters": [
+    {
+      "title": "Why this attack",
+      "beats": [
+        { "card": "Two pieces, one square", "say": "The Fried Liver is the most famous trap in the Italian Game. Your bishop and knight gang up on f7, and if Black takes back the wrong way, the black king gets dragged into the middle." },
+        { "say": "It's popular for a reason. Under 1800 in our Lichess sample, about a third of White players go knight to g5 here. After d5, Black takes back the wrong way almost half the time." },
+        { "say": "But Black has good answers too. We'll learn the attack, its mating patterns, then each refutation and what you do against it." },
+        { "say": "The script is our own, checked move by move with Stockfish. You're White." }
+      ]
+    },
+    {
+      "title": "The setup",
+      "setup": true,
+      "beats": [
+        { "card": "Five moves to the fork in the road", "say": "Five moves. Watch the list tick itself off." },
+        { "play": "e4 e5 Nf3 Nc6", "arrows": [["f3", "e5"]], "say": "e4, e5, then your knight hits e5 and Black guards it." },
+        { "play": "Bc4", "arrows": [["c4", "f7"]], "say": "Bishop to c4, aimed at f7. Only the black king guards that pawn." },
+        { "play": "Nf6", "arrows": [["f6", "e4"]], "say": "Black's knight comes out and hits e4. That's the Two Knights Defence." },
+        { "play": "Ng5", "circle": ["f7"], "arrows": [["g5", "f7"], ["c4", "f7"]], "say": "Knight to g5. Two pieces now hit f7, and only the king defends it. Black has to do something right now." },
+        { "play": "d5", "arrows": [["d5", "c4"]], "say": "Three times in four, Black blocks the bishop with d5." },
+        { "play": "exd5", "circle": ["d5"], "say": "You take. Now Black chooses, and everything depends on how they take back. Stockfish calls it level, about plus 0.1." }
+      ]
+    },
+    {
+      "title": "The Fried Liver",
+      "from": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5",
+      "beats": [
+        { "card": "Knight takes d5: the mistake", "say": "The natural recapture is knight takes d5. It looks fine. It loses the right to castle." },
+        { "play": "Nxd5", "circle": ["d5"], "say": "Knight takes d5. Its bishop on c4 is now blocked, and f7 is guarded only by the king." },
+        { "play": "Nxf7", "circle": ["f7"], "say": "Knight takes f7! It forks the queen and the rook. Stockfish: about plus 0.9." },
+        { "play": "Kxf7", "say": "The king has to take, or Black just loses the rook." },
+        { "play": "Qf3+", "arrows": [["f3", "f7"], ["f3", "d5"]], "say": "Queen to f3, check. It also hits the d5 knight a second time." },
+        { "play": "Ke6", "circle": ["e6"], "say": "Ke6 is Black's best. The king steps forward to guard d5 and walks into the middle." },
+        { "play": "Nc3", "arrows": [["c3", "d5"]], "say": "Knight to c3. Now three pieces hit d5, and the knight there can't move: it's pinned to the king." },
+        { "play": "Ncb4", "arrows": [["b4", "d5"], ["b4", "c2"]], "say": "Black's best is knight to b4, guarding d5 and eyeing c2." },
+        { "play": "O-O", "circle": ["g1"], "say": "Castle. Your king is safe, theirs is in the middle." },
+        { "play": "c6", "circle": ["d5"], "say": "c6 props up d5 one more time." },
+        { "play": "d4", "arrows": [["d4", "e5"], ["c1", "g5"]], "say": "d4 opens lines to the king on e6. Stockfish: about plus 0.7. You're a piece down, with the better position." },
+        { "reset": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Ke6 Nc3 Ncb4", "play": "a3", "drill": false, "arrows": [["a3", "b4"]], "say": "Old books play a3, kicking the knight. It's a mistake." },
+        { "play": "Nxc2+", "arrows": [["c2", "e1"], ["c2", "a1"]], "say": "The knight takes c2 with check and forks the rook. Stockfish now prefers Black. Queen to e4 is no better. Castle." },
+        { "reset": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5", "play": "d4", "arrows": [["d4", "e5"]], "say": "One more option: d4 at once, the Lolli Attack. Stockfish rates it about plus 0.7, close to the Fried Liver. Pick one and know it." }
+      ]
+    },
+    {
+      "title": "Mating patterns",
+      "from": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+",
+      "beats": [
+        { "card": "Where the king goes wrong", "say": "Under 1800, Black finds king to e6 only about a third of the time. Here's how to punish the others." },
+        { "play": "Kg8", "circle": ["g8"], "say": "King to g8, about one in ten. It hides behind its pawns, and walks into mate." },
+        { "play": "Bxd5+", "arrows": [["c4", "d5"]], "say": "Bishop takes d5, check." },
+        { "play": "Qxd5 Qxd5+", "say": "If the queen takes, you take back with check." },
+        { "play": "Be6 Qxe6#", "circle": ["g8"], "say": "The bishop blocks, and queen takes e6 is mate. The king's own pawns box it in." },
+        { "reset": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+", "play": "Ke8", "circle": ["e8"], "say": "King back to e8, about one in three. Safer, but it gives back the piece." },
+        { "play": "Bxd5", "arrows": [["f3", "f7"], ["d5", "f7"]], "say": "Bishop takes d5, and queen to f7 is mate next move." },
+        { "play": "Qf6", "arrows": [["f6", "f7"]], "say": "Black has to guard f7 with the queen." },
+        { "play": "Bxc6+ bxc6", "say": "Take the knight with check. You're a pawn up, Black's pawns are broken and the king can't castle. Stockfish: about plus 3.4." },
+        { "reset": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+", "play": "Qf6", "arrows": [["f6", "f3"]], "say": "Blocking with the queen, about one in four, drops the knight on d5." },
+        { "play": "Bxd5+ Be6", "arrows": [["d5", "c6"]], "say": "Bishop takes d5, check. The bishop blocks." },
+        { "play": "Bxc6 bxc6 Qxc6", "arrows": [["c6", "a8"]], "say": "Take the knight, then the pawn, and the queen hits the rook in the corner. Two pawns up, about plus 3.4." },
+        { "reset": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+", "play": "Ke7", "circle": ["e7"], "say": "King to e7 leaves d5 with one defender." },
+        { "play": "Bxd5", "say": "Bishop takes d5, back to even material." },
+        { "play": "Nd4", "arrows": [["d4", "f3"]], "say": "The knight jumps at your queen." },
+        { "play": "Qf7+ Kd6", "circle": ["d6"], "say": "Queen to f7, check, and the king has to walk up to d6. Stockfish: about plus three, and the king has no shelter." },
+        { "reset": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Ke6 Nc3 Ncb4 O-O c6 d4", "play": "exd4", "say": "Back in the main line. If Black grabs the d4 pawn..." },
+        { "play": "Re1+", "arrows": [["e1", "e6"]], "say": "...the rook joins with check down the open file. Stockfish: about plus four, and more the deeper it looks. The king is out in the open with nowhere to hide." }
+      ]
+    },
+    {
+      "title": "Refutation one: Na5",
+      "from": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5",
+      "beats": [
+        { "card": "The main line: knight to a5", "say": "The best players don't take on d5. About a third of the time under 1800, Black plays knight to a5." },
+        { "play": "Na5", "arrows": [["a5", "c4"]], "say": "Knight to a5 hits your bishop. Black gives up a pawn for quick development." },
+        { "play": "Bb5+", "arrows": [["b5", "e8"]], "say": "Bishop to b5, check. Keep the bishop alive." },
+        { "play": "c6 dxc6 bxc6", "say": "Black blocks, you take, Black takes back." },
+        { "play": "Be2", "circle": ["e2"], "say": "Bishop to e2. You're a pawn up, but your pieces are tangled." },
+        { "play": "h6", "arrows": [["h6", "g5"]], "say": "h6 kicks your knight." },
+        { "play": "Nf3 e4", "arrows": [["e4", "f3"]], "say": "It goes back to f3, and e4 kicks it again." },
+        { "play": "Ne5", "circle": ["e5"], "say": "Knight to e5, the best square. Stockfish calls it dead level." },
+        { "say": "So this is the honest truth: against knight to a5, the Fried Liver is over. You keep a pawn, Black keeps the activity. Play solid moves and castle." }
+      ]
+    },
+    {
+      "title": "Refutation two: b5 and Nd4",
+      "from": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5",
+      "beats": [
+        { "card": "Two side tricks, one answer", "say": "Two rarer tries hit your bishop with a pawn or a knight. One move handles both." },
+        { "play": "b5", "arrows": [["b5", "c4"]], "say": "Pawn to b5 attacks the bishop." },
+        { "play": "Bxb5", "drill": false, "say": "Taking it looks greedy and good." },
+        { "play": "Qxd5", "arrows": [["d5", "g2"], ["d5", "b5"]], "say": "But the queen takes d5 and hits your bishop on b5 and the pawn on g2. Black is fine." },
+        { "reset": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 b5", "play": "Bf1", "circle": ["f1"], "say": "Instead, bishop all the way back to f1. It looks silly, but d5 stays defended and b5 is weak. About plus 0.5." },
+        { "reset": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5", "play": "Nd4", "arrows": [["d4", "c2"]], "say": "Knight to d4, about one in eight, threatens a fork on c2." },
+        { "play": "c3", "arrows": [["c3", "d4"]], "say": "Kick it with c3." },
+        { "play": "b5 Bf1", "circle": ["f1"], "say": "Black chases the bishop, and it goes back to f1 again." },
+        { "play": "Nxd5 cxd4 Qxg5", "say": "Black takes on d5, you take the knight, the queen takes yours." },
+        { "play": "Bxb5+ Kd8", "say": "Bishop takes b5 with check. The black king loses castling." },
+        { "play": "O-O", "circle": ["g1"], "say": "Castle. You're a pawn up, about plus 0.6." }
+      ]
+    },
+    {
+      "title": "Refutation three: the Traxler",
+      "from": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5",
+      "beats": [
+        { "card": "Bishop to c5: Black counterattacks", "say": "The wildest answer ignores f7 completely. About one in eight under 1800." },
+        { "play": "Bc5", "arrows": [["c5", "f2"]], "say": "Bishop to c5. Black lets you take f7 and goes after your f2." },
+        { "play": "Bxf7+", "arrows": [["c4", "f7"]], "say": "Take with the bishop, with check. Stockfish: about plus 1.2, your best result against a sound defence." },
+        { "play": "Ke7", "circle": ["e7"], "say": "The king moves." },
+        { "play": "Bb3", "circle": ["b3"], "say": "Bishop back to b3. You're a pawn up and Black's king can't castle. Keep it simple from here." },
+        { "reset": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 Bc5", "play": "Nxf7", "drill": false, "arrows": [["f7", "d8"], ["f7", "h8"]], "say": "Two in three players take with the knight instead, forking queen and rook." },
+        { "play": "Bxf2+", "circle": ["f2"], "say": "Black ignores it: bishop takes f2, check. Now one slip and you're mated." },
+        { "play": "Ke2", "drill": false, "say": "King to e2?" },
+        { "play": "Nd4+", "arrows": [["d4", "e2"]], "say": "Knight to d4, check, and the black pieces swarm. Stockfish says Black is winning." },
+        { "reset": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 Bc5 Nxf7 Bxf2+", "play": "Kxf2 Nxe4+", "drill": false, "say": "Even the best line, king takes f2, is a fight. The knight comes in with check." },
+        { "play": "Kg1 Qh4", "drill": false, "arrows": [["h4", "f2"]], "say": "King to g1, queen to h4. The engine says it's level, if you find a string of only-moves." },
+        { "play": "Nxh8", "drill": false, "say": "Greed: knight takes the rook?" },
+        { "play": "Qf2#", "circle": ["g1"], "say": "Queen to f2 is mate, guarded by the knight on e4. That's why you take on f7 with the bishop." }
+      ]
+    },
+    {
+      "title": "Your game plan",
+      "from": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5",
+      "beats": [
+        { "card": "Four rules", "say": "The whole thing in four lines." },
+        { "arrows": [["g5", "f7"], ["c4", "f7"]], "say": "One. If Black takes on d5 with the knight, take f7, check on f3, bring the knight to c3, castle, then d4." },
+        { "arrows": [["c4", "b5"]], "say": "Two. Against knight to a5, check on b5, drop the bishop to e2 and accept a level game, a pawn up." },
+        { "arrows": [["c4", "f1"]], "say": "Three. Against b5 or knight to d4, the bishop goes all the way back to f1." },
+        { "arrows": [["c4", "f7"]], "say": "Four. Against bishop to c5, take f7 with the bishop, not the knight." },
+        { "say": "So play it against Stockfish next. It won't fall for the trap, so you'll practise the refutations." }
+      ]
+    }
+  ],
+  "checks": [
+    { "name": "Two Knights level", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5", "eval": 0.1 },
+    { "name": "Nxf7 about +0.9", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7", "eval": 0.9 },
+    { "name": "Main line d4 about +0.7", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Ke6 Nc3 Ncb4 O-O c6 d4", "eval": 0.7 },
+    { "name": "a3 Nxc2+ Black better", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Ke6 Nc3 Ncb4 a3 Nxc2+", "max": -0.2 },
+    { "name": "Qe4 Black better", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Ke6 Nc3 Ncb4 Qe4", "max": -0.3 },
+    { "name": "Lolli about +0.7", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 d4", "eval": 0.7 },
+    { "name": "Kg8 mate", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Kg8 Bxd5+ Qxd5 Qxd5+ Be6 Qxe6#", "mate": true },
+    { "name": "Ke8 Bxc6+ about +3.4", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Ke8 Bxd5 Qf6 Bxc6+ bxc6", "min": 2.8 },
+    { "name": "Qf6 line about +3.4", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Qf6 Bxd5+ Be6 Bxc6 bxc6 Qxc6", "min": 2.8 },
+    { "name": "Ke7 Qf7+ about +3", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Ke7 Bxd5 Nd4 Qf7+ Kd6", "min": 2.5 },
+    { "name": "exd4 Re1+ winning", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Ke6 Nc3 Ncb4 O-O c6 d4 exd4 Re1+", "min": 3 },
+    { "name": "Na5 main line level", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Na5 Bb5+ c6 dxc6 bxc6 Be2 h6 Nf3 e4 Ne5", "eval": 0 },
+    { "name": "Ulvestad Bxb5 Qxd5 level", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 b5 Bxb5 Qxd5", "max": 0.3 },
+    { "name": "Ulvestad Bf1 about +0.5", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 b5 Bf1", "eval": 0.5 },
+    { "name": "Fritz O-O about +0.6", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nd4 c3 b5 Bf1 Nxd5 cxd4 Qxg5 Bxb5+ Kd8 O-O", "eval": 0.6 },
+    { "name": "Traxler Bxf7+ about +1.2", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 Bc5 Bxf7+", "eval": 1.2 },
+    { "name": "Traxler Bb3 about +1", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 Bc5 Bxf7+ Ke7 Bb3", "eval": 1 },
+    { "name": "Traxler Ke2 Nd4+ losing", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 Bc5 Nxf7 Bxf2+ Ke2 Nd4+", "max": -2.5 },
+    { "name": "Traxler Kg1 Qh4 level", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 Bc5 Nxf7 Bxf2+ Kxf2 Nxe4+ Kg1 Qh4", "eval": 0 },
+    { "name": "Traxler Qf2 mate", "moves": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 Bc5 Nxf7 Bxf2+ Kxf2 Nxe4+ Kg1 Qh4 Nxh8 Qf2#", "mate": true }
+  ]
+}

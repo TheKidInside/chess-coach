@@ -4,6 +4,8 @@ Usage (from the project root, with python-chess importable):
     py tools/lessons/verify_walkthrough.py [id ...]
 Fails on an illegal move, a bad square, a beat with nothing to say, or a "checks" entry more than
 0.45 off the engine. A check may claim "eval", "min", "max" or "mate", as in verify_elo.py.
+Also fails on a move "Drill it" would ask you to find (your side's, in a beat without "drill": false)
+that leaves you worse by 1.5+ after losing 1.5+: a mistake shown on purpose must say "drill": false.
 """
 import json, re, sys
 from pathlib import Path
@@ -13,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 ENG = ROOT / 'engine' / 'stockfish' / 'stockfish-windows-x86-64-universal.exe'
 SQ = re.compile(r'^[a-h][1-8]$')
 TOLERANCE = 0.45
+DRILL_LIMIT = chess.engine.Limit(depth=12)
 MAX_SAY = 220           # a long utterance can be cut off by some browser voices
 errors = 0
 
@@ -31,6 +34,31 @@ def push(b, moves, where):
             err(f'{where}: {s}: {e}')
             return False
     return True
+
+
+def drill_score(b, me):
+    if b.is_checkmate():
+        return -10000 if b.turn == me else 10000
+    return eng.analyse(b, DRILL_LIMIT)['score'].pov(me).score(mate_score=10000)
+
+
+def check_drill(b, moves, me, where, seen):
+    """b is the position before `moves`; leaves it unchanged."""
+    b = b.copy()
+    for s in moves.split():
+        try:
+            mv = b.parse_san(s)
+        except ValueError:
+            return
+        if b.turn == me and (b.fen(), s) not in seen:
+            seen.add((b.fen(), s))
+            before = drill_score(b, me)
+            b.push(mv)
+            after = drill_score(b, me)
+            if after < -150 and before - after > 150:
+                err(f'{where}: drilled move {s} goes {before} -> {after} cp; mark the beat "drill": false')
+        else:
+            b.push(mv)
 
 
 def check_marks(beat, where):
@@ -54,6 +82,8 @@ for path in sorted((ROOT / 'static' / 'walkthroughs').glob('*.json')):
     if wanted and W['id'] not in wanted:
         continue
     print('\n#####', W['title'])
+    me = chess.BLACK if W.get('side') == 'b' else chess.WHITE
+    seen = set()
     for ch in W['chapters']:
         b = chess.Board()
         push(b, ch.get('from', ''), ch['title'])
@@ -63,6 +93,8 @@ for path in sorted((ROOT / 'static' / 'walkthroughs').glob('*.json')):
             if 'reset' in beat:
                 b = chess.Board()
                 push(b, beat['reset'], where)
+            if beat.get('drill') is not False:
+                check_drill(b, beat.get('play', ''), me, where, seen)
             push(b, beat.get('play', ''), where)
             check_marks(beat, where)
             say = beat.get('say', '')

@@ -1,0 +1,191 @@
+{
+  "id": "scholars",
+  "title": "Beating the Scholar's Mate",
+  "side": "b",
+  "setupTitle": "Four moves that stop the mate",
+  "end": { "play": "Play it against Stockfish", "playFrom": "e4 e5 Qh5 Nc6 Bc4" },
+  "setup": [
+    { "label": "Pawn to e5", "any": ["bP@e5"] },
+    { "label": "Knight to c6, guarding e5", "any": ["bN@c6"] },
+    { "label": "Pawn to g6, blocking the queen", "any": ["bP@g6"] },
+    { "label": "Knight to f6, once the queen has left h5", "any": ["bN@f6"] },
+    { "label": "Then: knight to d4, or pawn to d5", "any": ["bN@d4", "bP@d5"] }
+  ],
+  "chapters": [
+    {
+      "title": "Why this matters",
+      "beats": [
+        { "card": "The mate that backfires", "say": "Queen to h5, bishop to c4, and mate on f7. It wins a lot of beginner games, which is why so many players keep trying it." },
+        { "say": "Against a player who knows the answers, it backfires. The queen comes out early, gets kicked around, and White falls behind in development." },
+        { "say": "We'll build the setup that stops the mate, then punish five ways White keeps trying. You're Black, so the board is turned around." },
+        { "say": "The ideas come from Yellow Rook's video on the Scholar's Mate, retold in our words and checked with Stockfish. Where the engine disagrees with the video, we say so." }
+      ]
+    },
+    {
+      "title": "The setup",
+      "setup": true,
+      "beats": [
+        { "card": "Four moves that stop the mate", "say": "Four moves. Watch the list tick itself off." },
+        { "play": "e4 e5", "circle": ["e5"], "say": "White plays e4, and you answer with e5." },
+        { "play": "Qh5", "arrows": [["h5", "e5"], ["h5", "f7"]], "say": "Queen to h5 on move two. It hits your e5 pawn, and it looks at f7." },
+        { "play": "Nc6", "arrows": [["c6", "e5"]], "say": "Guard e5 with a move that develops: knight to c6. No need to rush." },
+        { "play": "Bc4", "circle": ["f7"], "arrows": [["c4", "f7"], ["h5", "f7"]], "say": "Bishop to c4. Now two pieces aim at f7, and only your king guards it. That's the threat: queen takes f7." },
+        { "play": "Nf6", "drill": false, "arrows": [["f6", "h5"]], "say": "The natural move is knight to f6, hitting the queen. It's the mistake the whole trick is waiting for." },
+        { "play": "Qxf7#", "circle": ["f7"], "say": "Queen takes f7, checkmate. Your knight attacked the queen but did nothing for f7." },
+        { "reset": "e4 e5 Qh5 Nc6 Bc4", "play": "g6", "arrows": [["g6", "h5"]], "say": "Instead, g6. It blocks the queen's road to f7 and kicks her at the same time." },
+        { "play": "Qf3", "arrows": [["f3", "f7"], ["c4", "f7"]], "say": "The queen steps to f3 and lines up on f7 again. Same threat, new road." },
+        { "play": "Nf6", "circle": ["f6"], "arrows": [["f6", "f7"]], "say": "Now knight to f6 is right: it stands in the queen's way, so f7 is safe. One move earlier, the same knight lost the game." },
+        { "say": "Stockfish already likes Black a little, about minus 0.3. White's queen has moved twice and nothing else is out." }
+      ]
+    },
+    {
+      "title": "White pushes g4",
+      "from": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6",
+      "beats": [
+        { "card": "A pawn storm on move five", "say": "The most common try now is g4. The plan is g5, to chase your knight off f6. If the knight leaves, f7 falls again." },
+        { "play": "g4", "arrows": [["g4", "g5"]], "say": "Pawn to g4." },
+        { "play": "Bg7", "drill": false, "say": "Bishop to g7 looks natural. Watch what g5 does to it." },
+        { "play": "g5", "arrows": [["g5", "f6"]], "say": "Pawn to g5 hits the knight." },
+        { "play": "Nh5", "drill": false, "say": "If the knight simply steps away..." },
+        { "play": "Qxf7#", "circle": ["f7"], "say": "...it's mate on f7 again. To be fair, Stockfish says bishop g7 still wins if you meet g5 with knight to d4. Playing knight to d4 at once is simpler." },
+        { "reset": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4", "play": "Nd4", "arrows": [["d4", "f3"], ["d4", "c2"]], "say": "Answer a wing attack in the centre. Knight to d4 hits the queen and eyes a fork on c2. Stockfish: about minus six." },
+        { "play": "Qd1", "say": "The queen has to run, and d1 is the usual square." },
+        { "play": "d6", "drill": false, "arrows": [["c8", "g4"]], "say": "Many players now play d6, opening the bishop toward g4. It still wins, but it's slow." },
+        { "play": "c3", "arrows": [["c3", "d4"]], "say": "White gets time to kick your knight with c3." },
+        { "reset": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Nd4 Qd1", "play": "d5", "arrows": [["d5", "c4"], ["c8", "g4"]], "say": "d5 is the upgrade. It hits the bishop on c4 and opens your bishop toward g4, all in one move. White has to react now." }
+      ]
+    },
+    {
+      "title": "The d5 punch: two mates",
+      "from": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Nd4 Qd1 d5",
+      "beats": [
+        { "card": "Two mates from one push", "say": "White usually takes the pawn. Then your bishop comes out with a hit." },
+        { "play": "exd5 Bxg4", "arrows": [["g4", "d1"]], "say": "Pawn takes d5, and bishop takes g4, attacking the queen." },
+        { "play": "Ne2", "say": "If White blocks with the knight..." },
+        { "play": "Nf3+", "arrows": [["f3", "e1"]], "say": "...knight to f3 is check. The king's only square is f1." },
+        { "play": "Kf1 Bh3#", "circle": ["f1"], "arrows": [["h3", "f1"]], "say": "Bishop to h3, mate. The knight covers g1 and h2, and the bishop gives the check." },
+        { "reset": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Nd4 Qd1 d5 exd5 Bxg4", "play": "f3", "arrows": [["f3", "g4"]], "say": "Pawn to f3 is more common. It attacks your bishop." },
+        { "play": "Ne4", "circle": ["e4"], "arrows": [["d8", "h4"]], "say": "Knight to e4! It opens the road from your queen to h4. Whichever piece the pawn takes, the queen comes in. About minus eight." },
+        { "play": "fxg4 Qh4+", "arrows": [["h4", "e1"]], "say": "Take the bishop, and it's queen to h4, check." },
+        { "play": "Kf1 Qf2#", "circle": ["f2"], "say": "King to f1, queen to f2, mate. The knight on e4 guards f2. It's the Scholar's Mate, played against White." },
+        { "reset": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Nd4 Qd1 d5 exd5 Bxg4 f3 Ne4", "play": "fxe4 Qh4+", "arrows": [["h4", "e1"]], "say": "Take the knight instead, and the same check comes." },
+        { "play": "Kf1 Bxd1", "circle": ["d1"], "say": "This time the bishop just takes the queen. Stockfish: about minus thirteen." }
+      ]
+    },
+    {
+      "title": "Against Ne2: the solid reply",
+      "from": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6",
+      "beats": [
+        { "card": "White guards d4 first", "say": "Better players stop your knight jump before it happens." },
+        { "play": "Ne2", "circle": ["d4"], "say": "Knight to e2 covers d4 and gets ready to castle. It's White's best move here." },
+        { "play": "Bg7", "say": "Finish your development: bishop to g7. Keep the d-pawn at home, because it wants to go to d5 in one step." },
+        { "play": "d3 O-O", "circle": ["g8"], "say": "White opens the other bishop, and you castle." },
+        { "play": "Bg5", "arrows": [["g5", "f6"]], "say": "A common club move: pin the knight with bishop to g5." },
+        { "play": "h6", "arrows": [["h6", "g5"]], "say": "Ask the question at once: h6." },
+        { "play": "Bxf6 Bxf6", "say": "If it takes, take back. You have the two bishops and nothing to fear. Stockfish: about minus 0.7." },
+        { "reset": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 Ne2 Bg7 d3 O-O Bg5 h6", "play": "Bh4 g5", "arrows": [["g5", "h4"]], "say": "If it keeps the pin, g5 chases it again." },
+        { "play": "Bg3 d5", "arrows": [["d5", "e4"], ["d5", "c4"]], "say": "And now d5. White's king is still in the middle, so open the middle." },
+        { "play": "exd5", "say": "Three white pieces hit d5 and only two of yours guard it. It looks like you just lost a pawn." },
+        { "play": "Bg4", "arrows": [["g4", "f3"]], "say": "Bishop to g4, an in-between move that hits the queen. Stockfish rates knight to b4 a bit higher, but this one is easier to remember." },
+        { "play": "Qe3", "say": "No other square for the queen keeps things together, so it goes to e3." },
+        { "play": "Nd4", "arrows": [["d4", "c2"], ["d4", "e2"]], "say": "Knight to d4, and the fork on c2 is back." },
+        { "play": "Nxd4 exd4", "arrows": [["d4", "e3"]], "say": "White trades, you take back with the pawn, and it hits the queen. White's best now is a quiet retreat to c1, still about minus two." },
+        { "play": "Qxd4 Re8+", "arrows": [["e8", "e1"]], "say": "Greedy: queen takes d4, two pawns up. Then rook to e8, check, with the king still in the middle." },
+        { "play": "Kd2 Ne4+", "arrows": [["g7", "d4"]], "say": "King to d2? Knight to e4 is check, and now your bishop on g7 hits the queen. It falls." },
+        { "reset": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 Ne2 Bg7 d3 O-O Bg5 h6 Bh4 g5 Bg3 d5 exd5 Bg4 Qe3 Nd4 Nxd4 exd4 Qxd4 Re8+", "play": "Kf1 Be2+", "arrows": [["e2", "f1"]], "say": "King to f1? Bishop to e2, check." },
+        { "play": "Kg1 Nh5", "arrows": [["g7", "d4"], ["h5", "g3"]], "say": "King to g1, then knight to h5. Your bishop hits the queen and the knight hits the bishop. About minus seven." }
+      ]
+    },
+    {
+      "title": "Queen to b3: f7 again",
+      "from": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6",
+      "beats": [
+        { "card": "Same target, new angle", "say": "Another try: the queen swings over to b3 and hits f7 a different way." },
+        { "play": "Qb3", "arrows": [["b3", "f7"]], "say": "Queen to b3." },
+        { "say": "Queen to e7 guards f7, and Stockfish calls it about minus two for White. Good, but you can do much better." },
+        { "play": "Nd4", "arrows": [["d4", "b3"], ["d4", "c2"]], "say": "Knight to d4 hits the queen and eyes c2. Yes, it lets the bishop take f7. About minus six." },
+        { "play": "Bxf7+ Ke7", "circle": ["e7"], "say": "Bishop takes f7, check, and your king steps up to e7. It looks wrong. Count White's problems: the queen, the c2 square and the loose bishop." },
+        { "play": "Qc4", "say": "Queen to c4 is the only move that covers all three, for now." },
+        { "play": "b5", "arrows": [["b5", "c4"]], "say": "So take that square away: b5." },
+        { "play": "Qc5+", "arrows": [["c5", "e7"]], "say": "Queen to c5, check, still guarding c2." },
+        { "play": "Kxf7", "circle": ["f7"], "say": "Your king takes the bishop." },
+        { "play": "Qxe5 Nxc2+", "arrows": [["c2", "e1"], ["c2", "a1"]], "say": "And if the queen grabs e5, your knight forks king and rook. About minus nine." }
+      ]
+    },
+    {
+      "title": "White plays c3 first",
+      "from": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6",
+      "beats": [
+        { "card": "c3 instead of Ne2", "say": "The other way to cover d4 is a pawn: c3. It's weaker than knight to e2, about minus 0.8." },
+        { "play": "c3", "circle": ["d4"], "say": "Pawn to c3. It takes d4 away from your knight." },
+        { "play": "Bg7 d3 O-O", "say": "Same plan as before: bishop out, then castle." },
+        { "play": "Bg5 h6 Bh4 g5 Bg3", "say": "Same pin, same chase." },
+        { "play": "d5 exd5 Bg4", "arrows": [["g4", "f3"]], "say": "Same punch, same in-between move." },
+        { "play": "Qe3 Nxd5", "circle": ["d5"], "say": "This time d4 is covered, so just take back on d5. You win the pawn back and gain time on the queen. About minus four and a half." },
+        { "play": "Bxd5 Qxd5", "say": "If the bishop takes, take with the queen. Two bishops, and White's attack is gone." }
+      ]
+    },
+    {
+      "title": "The quiet order: Bc4 first",
+      "from": "e4 e5 Bc4 Nc6",
+      "beats": [
+        { "card": "Bishop first, queen second", "say": "Some players hide the plan: bishop first, then queen to f3. From f3 the queen doesn't give you a free g6." },
+        { "play": "Qf3", "arrows": [["f3", "f7"], ["c4", "f7"]], "say": "Queen to f3, aiming at f7." },
+        { "play": "Nf6", "arrows": [["f6", "f7"]], "say": "Knight to f6 blocks the queen at once. Don't hurry your bishop to c5." },
+        { "play": "c3 d5", "arrows": [["d5", "e4"]], "say": "Against c3, play d5 anyway. The pawn looks loose." },
+        { "play": "exd5 e4", "arrows": [["e4", "f3"]], "say": "Push e4. It hits the queen and cuts it off." },
+        { "play": "Qg3 Nxd5", "say": "Queen to g3, and you take back in the centre. About minus 0.7." },
+        { "reset": "e4 e5 Bc4 Nc6 Qf3 Nf6 c3 d5 exd5 e4", "play": "Qe2", "arrows": [["e2", "e8"]], "say": "Queen to e2 pins your e-pawn, so it can't take on d5." },
+        { "play": "Na5", "arrows": [["a5", "c4"]], "say": "Stockfish's choice is knight to a5, hitting the bishop. It's about level." },
+        { "reset": "e4 e5 Bc4 Nc6 Qf3 Nf6 c3 d5 exd5 e4 Qe2", "play": "Ne5", "drill": false, "arrows": [["e5", "d3"]], "say": "The video likes knight to e5, threatening d3 check. It's a trap: against bishop to b5 check, White is fine." },
+        { "reset": "e4 e5 Bc4 Nc6 Qf3 Nf6 c3 d5 exd5 e4 Qe2 Ne5", "play": "Bb3 Nd3+", "arrows": [["d3", "e1"]], "say": "But if the bishop drops back to b3, knight to d3 is check." },
+        { "play": "Kd1 Bc5", "arrows": [["c5", "f2"], ["d3", "f2"]], "say": "The king has to go to d1, and bishop to c5 hits f2 twice. About minus eight." },
+        { "reset": "e4 e5 Bc4 Nc6 Qf3 Nf6", "play": "d3 Nd4", "arrows": [["d4", "f3"], ["d4", "c2"]], "say": "Against d3, the d4 square is open: knight to d4." },
+        { "play": "Qd1 d5", "say": "The queen goes back, and you play d5 again." },
+        { "play": "exd5 Nxd5", "say": "Take back. Two knights in the centre, about level. Stockfish likes b5 here even more." },
+        { "play": "Qh5", "arrows": [["h5", "d5"], ["h5", "f7"]], "say": "Some players go for the same mate twice: queen to h5, hitting d5." },
+        { "play": "Nxc2+", "arrows": [["c2", "e1"], ["c2", "a1"]], "say": "Ignore it. Knight takes c2, check, forking king and rook. Your knight on d5 still blocks f7. About minus seven." }
+      ]
+    },
+    {
+      "title": "Your game plan",
+      "from": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6",
+      "beats": [
+        { "card": "Three rules", "say": "The whole defence in three lines." },
+        { "arrows": [["c4", "f7"], ["f3", "f7"]], "say": "One. Count the attackers on f7 before every move. Knight to f6 only when it blocks the queen, never to hit her on h5." },
+        { "arrows": [["c6", "d4"]], "say": "Two. If White hasn't covered d4, put your knight there. It hits the queen and forks on c2." },
+        { "arrows": [["d7", "d5"]], "say": "Three. Play d5, not d6. It opens your bishop and gives White no time." },
+        { "say": "Most players who try this have one trick. Once it fails, they're behind in development, and you're the one attacking." },
+        { "say": "So play it against Stockfish next, as Black, from the queen's early sortie." }
+      ]
+    }
+  ],
+  "checks": [
+    { "name": "Nf6 mate", "moves": "e4 e5 Qh5 Nc6 Bc4 Nf6 Qxf7#", "mate": true },
+    { "name": "Setup slightly better for Black", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6", "eval": -0.3 },
+    { "name": "g5 Nh5 mate", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Bg7 g5 Nh5 Qxf7#", "mate": true },
+    { "name": "g4 Nd4 winning", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Nd4", "max": -5 },
+    { "name": "d6 c3 still winning", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Nd4 Qd1 d6 c3", "max": -4 },
+    { "name": "d5 winning", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Nd4 Qd1 d5", "max": -5 },
+    { "name": "Ne2 Bh3 mate", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Nd4 Qd1 d5 exd5 Bxg4 Ne2 Nf3+ Kf1 Bh3#", "mate": true },
+    { "name": "f3 Ne4 winning", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Nd4 Qd1 d5 exd5 Bxg4 f3 Ne4", "max": -6 },
+    { "name": "fxg4 Qf2 mate", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Nd4 Qd1 d5 exd5 Bxg4 f3 Ne4 fxg4 Qh4+ Kf1 Qf2#", "mate": true },
+    { "name": "fxe4 Bxd1 winning", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 g4 Nd4 Qd1 d5 exd5 Bxg4 f3 Ne4 fxe4 Qh4+ Kf1 Bxd1", "max": -9 },
+    { "name": "Bxf6 Bxf6 about -0.7", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 Ne2 Bg7 d3 O-O Bg5 h6 Bxf6 Bxf6", "eval": -0.7 },
+    { "name": "Bg4 Qe3 Nd4 Nxd4 exd4 about -2", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 Ne2 Bg7 d3 O-O Bg5 h6 Bh4 g5 Bg3 d5 exd5 Bg4 Qe3 Nd4 Nxd4 exd4", "max": -1.5 },
+    { "name": "Qxd4 Re8+ winning", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 Ne2 Bg7 d3 O-O Bg5 h6 Bh4 g5 Bg3 d5 exd5 Bg4 Qe3 Nd4 Nxd4 exd4 Qxd4 Re8+", "max": -5 },
+    { "name": "Kd2 Ne4+ winning", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 Ne2 Bg7 d3 O-O Bg5 h6 Bh4 g5 Bg3 d5 exd5 Bg4 Qe3 Nd4 Nxd4 exd4 Qxd4 Re8+ Kd2 Ne4+", "max": -5 },
+    { "name": "Kf1 Be2+ Kg1 Nh5 about -7", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 Ne2 Bg7 d3 O-O Bg5 h6 Bh4 g5 Bg3 d5 exd5 Bg4 Qe3 Nd4 Nxd4 exd4 Qxd4 Re8+ Kf1 Be2+ Kg1 Nh5", "max": -5 },
+    { "name": "Qb3 Qe7 about -2", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 Qb3 Qe7", "eval": -2 },
+    { "name": "Qb3 Nd4 about -6", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 Qb3 Nd4", "max": -4.5 },
+    { "name": "Qxe5 Nxc2+ winning", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 Qb3 Nd4 Bxf7+ Ke7 Qc4 b5 Qc5+ Kxf7 Qxe5 Nxc2+", "max": -6 },
+    { "name": "c3 about -0.8", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 c3", "eval": -0.8 },
+    { "name": "c3 line Nxd5 about -4.5", "moves": "e4 e5 Qh5 Nc6 Bc4 g6 Qf3 Nf6 c3 Bg7 d3 O-O Bg5 h6 Bh4 g5 Bg3 d5 exd5 Bg4 Qe3 Nxd5", "max": -3.5 },
+    { "name": "Qg3 Nxd5 about -0.7", "moves": "e4 e5 Bc4 Nc6 Qf3 Nf6 c3 d5 exd5 e4 Qg3 Nxd5", "eval": -0.7 },
+    { "name": "Qe2 Na5 level", "moves": "e4 e5 Bc4 Nc6 Qf3 Nf6 c3 d5 exd5 e4 Qe2 Na5", "eval": -0.1 },
+    { "name": "Ne5 Bb5+ fine for White", "moves": "e4 e5 Bc4 Nc6 Qf3 Nf6 c3 d5 exd5 e4 Qe2 Ne5 Bb5+", "min": -0.2 },
+    { "name": "Bb3 Nd3+ Kd1 Bc5 winning", "moves": "e4 e5 Bc4 Nc6 Qf3 Nf6 c3 d5 exd5 e4 Qe2 Ne5 Bb3 Nd3+ Kd1 Bc5", "max": -6 },
+    { "name": "d3 line Nxd5 level", "moves": "e4 e5 Bc4 Nc6 Qf3 Nf6 d3 Nd4 Qd1 d5 exd5 Nxd5", "eval": -0.1 },
+    { "name": "Qh5 Nxc2+ winning", "moves": "e4 e5 Bc4 Nc6 Qf3 Nf6 d3 Nd4 Qd1 d5 exd5 Nxd5 Qh5 Nxc2+", "max": -5 }
+  ]
+}

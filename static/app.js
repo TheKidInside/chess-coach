@@ -16,9 +16,11 @@ import { api, isStatic } from './backend.js';
 import { VALUE, PIECE, materialFor, passFen, threatIn, explainMove } from './why.js';
 import { createReview, MARK, matePill, arrowKey, badgeOn, legendHtml } from './review-ui.js';
 import { lineQuality, labelMove, LABEL } from './review.js';
+import { userArrows } from './board-input.js';
 
 const $ = (s) => document.querySelector(s);
 const boardEl = $('#board');
+const myArrows = userArrows(boardEl.parentElement);   // right-drag to draw your own arrows
 const FILES = 'abcdefgh';
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 // Study links come from a PGN anyone can write: only plain lichess.org paths go into an href.
@@ -480,6 +482,7 @@ function render() {
     }
   }
   boardEl.replaceChildren(frag);
+  myArrows.sync(g.fen());
   S.flash = null;
   if (S.anim && (live || S.review?.preview)) slide(S.anim);
   S.anim = null;
@@ -614,6 +617,7 @@ function inputLocked() {
 }
 
 boardEl.addEventListener('pointerdown', (e) => {
+  if (e.button !== 0 || !e.isPrimary) return;   // right presses draw arrows (board-input.js)
   if (studying()) {   // Study: drag a piece to try a move (what-if); tap an empty square's half for Next / Back
     const sq = squareAt(e.clientX, e.clientY), piece = sq && S.game.get(sq);
     if (S.selected && sq && tryMove(S.selected, sq, true)) return;
@@ -1054,7 +1058,7 @@ function divergence(a, b) {   // first ply where two lines part ways
   return i;
 }
 
-const WALKS = { london: 'London', scotch: 'Scotch', qgd: "Queen's Gambit", najdorf: 'Najdorf', dragon: 'Dragon' };   // openings with a walkthrough in the Lessons tab
+const WALKS = { london: 'London', scotch: 'Scotch', qgd: "Queen's Gambit", najdorf: 'Najdorf', dragon: 'Dragon', friedliver: 'Fried Liver' };   // openings with a walkthrough in the Lessons tab
 function renderFamily() {
   const f = S.family, main = mainOf(f);
   $('#family-title').textContent = f.name;
@@ -2351,6 +2355,8 @@ for (const [type, pane] of [['chess:open-plan', 'plan'], ['chess:open-train', 't
     if (pane === 'train') setOpeningMode('drill');
   });
 }
+// A walkthrough without an opening family ends with a game against the engine from its first moves.
+document.addEventListener('chess:play-from', (e) => startPlayFrom(e.detail.moves.split(' '), e.detail.side));
 $('#danya-family').addEventListener('click', () => {
   S.pz.src = 'danya';
   document.querySelectorAll('[data-psrc]').forEach((x) => x.classList.toggle('active', x.dataset.psrc === 'danya'));

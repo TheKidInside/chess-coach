@@ -21,7 +21,7 @@
   --light-sq: #ead6b0; --dark-sq: #a97d55;
   --sel: rgba(46, 122, 83, .5); --last: rgba(214, 180, 60, .42); --check: rgba(200, 40, 40, .6);
   --dot: rgba(24, 32, 28, .28); --hint: rgba(46, 122, 83, .55);
-  --arrow-good: rgba(30, 140, 80, .85); --arrow-bad: rgba(200, 50, 50, .85); --arrow-alt: rgba(40, 100, 200, .7);
+  --arrow-good: rgba(30, 140, 80, .85); --arrow-bad: rgba(200, 50, 50, .85); --arrow-alt: rgba(40, 100, 200, .7); --user-arrow: rgba(230, 140, 20, .82);
   --eval-black: #2b302d; --eval-white: #f7f8f5;
   --shadow: 0 1px 2px rgba(20, 30, 25, .06), 0 4px 16px rgba(20, 30, 25, .06);
   --f-display: "Bricolage Grotesque", "Segoe UI", sans-serif;
@@ -730,6 +730,16 @@ body[data-tab="elo"] .layout { display: none; }
 .wt-chapter { position: relative; display: block; width: 100%; padding: 6px 10px 8px; text-align: left; font-size: 13px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .wt-chapter i { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); }
 li[aria-current="true"] > .wt-chapter { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.wt-drilling .el-board .el-sq { cursor: pointer; }
+/* Dragging a piece on the lesson and walkthrough boards (board-input.js); no page scroll while you drag. */
+.wt-drilling .el-board, [data-el="board"] { touch-action: none; }
+.el-piece.dragging { z-index: 10; cursor: grabbing; }
+.el-board-wrap { user-select: none; -webkit-user-select: none; }
+/* Your own arrows: right-drag on any board (board-input.js). */
+.user-arrows { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 8; }
+.ua-line { stroke: var(--user-arrow); stroke-width: .16; stroke-linecap: round; }
+.ua-head { fill: var(--user-arrow); }
+.ua-ring { fill: none; stroke: var(--user-arrow); stroke-width: .08; }
 @media (max-width: 960px) {
   .el-view { height: auto; overflow: visible; padding: 10px 16px 18px; }
   .el-picker, .el-tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); }

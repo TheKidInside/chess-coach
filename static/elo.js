@@ -6,6 +6,7 @@
 import { Chess } from './vendor/chess.js';
 import { play as sfx, moveSound } from './sound.js';
 import { openWalkthrough, pauseWalkthrough, walkthroughKey } from './walkthrough.js';
+import { followDrag, userArrows } from './board-input.js';
 
 const CATALOG = [
   { id: 'italian', name: 'Italian Game', side: 'w', role: 'White, classical development' },
@@ -19,6 +20,12 @@ const CATALOG = [
   { id: 'walk-qgd', group: 'walk', walk: 'qgd', name: "Queen's Gambit", side: 'w', role: 'Watch it start to finish, about 10 minutes' },
   { id: 'walk-najdorf', group: 'walk', walk: 'najdorf', name: 'Sicilian Najdorf', side: 'b', role: 'Watch it start to finish, about 10 minutes' },
   { id: 'walk-dragon', group: 'walk', walk: 'dragon', name: 'Sicilian Dragon', side: 'b', role: 'Watch it start to finish, about 10 minutes' },
+  { id: 'walk-bishops', group: 'walk', walk: 'bishops', name: "Bishop's Opening", side: 'w', role: 'Two plans and two gambits, about 15 minutes',
+    credit: `Lines and traps from GM Igor Smirnov's <a href="https://www.youtube.com/watch?v=s4466dzeDms" target="_blank" rel="noopener">"They Will QUIT Chess After You Play This Opening"</a> (Remote Chess Academy), retold in our own words: the script is ours, not by or from GM Smirnov. Presentation borrowed from ChessPage1's London video. Every line checked with Stockfish 19; where the engine is less sure than the video (the h4 bait), the script says so.` },
+  { id: 'walk-scholars', group: 'walk', walk: 'scholars', name: "Beating the Scholar's Mate", side: 'b', role: 'Stop the early queen, then punish it, about 15 minutes',
+    credit: `Lines and traps from Yellow Rook's <a href="https://www.youtube.com/watch?v=yusczVFpEGo" target="_blank" rel="noopener">"I Feared the Scholar's Mate, Now I Love When They Try It"</a>, retold in our own words: the script is ours, not by or from Yellow Rook. Presentation borrowed from ChessPage1's London video. Every line checked with Stockfish 19; where the engine disagrees with the video (the Ne5 trap, Bg4 vs Nb4), the script says so.` },
+  { id: 'walk-friedliver', group: 'walk', walk: 'friedliver', name: 'Fried Liver Attack', side: 'w', role: 'The attack, its mates and every refutation, about 15 minutes',
+    credit: `An original script, not taken from a video. Presentation borrowed from ChessPage1's <a href="https://www.youtube.com/watch?v=dksvHyyI_Vo" target="_blank" rel="noopener">"London System: One Opening against anything"</a>. Every line checked with Stockfish 19; how often each move is played comes from a sample of Lichess games by players under 1800 (Sept 2026).` },
 ].map((c) => ({ group: 'openings', ...c }));
 const GROUPS = [['openings', 'Openings'], ['danya', "Danya's lessons"], ['walk', 'Walkthroughs']];
 const CREDITS = {
@@ -129,9 +136,18 @@ function drawBoard(marks = []) {
     }
     if (r === 7) el.appendChild(mk('span', 'el-coord f', sq[0]));
     if (c === 0) el.appendChild(mk('span', 'el-coord r', sq[1]));
-    el.addEventListener('click', () => onSquare(sq));
+    // Tap or drag a piece; keyboard Enter still clicks (detail 0).
+    el.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0 || !e.isPrimary) return;
+      // Pressing the piece that is already picked: drag it, or a tap puts it down.
+      if (E.sel === sq) return followDrag(e, b, sq, (to) => onSquare(to), () => onSquare(sq));
+      onSquare(sq);
+      if (E.sel === sq) followDrag(e, b, sq, (to) => onSquare(to));
+    });
+    el.addEventListener('click', (e) => { if (e.detail === 0) onSquare(sq); });
     b.appendChild(el);
   }
+  E.arrows?.sync(`${E.id}|${E.tier}|${E.scene}|${E.step}|${E.drill ? 'drill' : E.watch ? 'watch' : ''}|${E.game.fen()}`);
 }
 
 function drawArrows(list = []) {
@@ -646,7 +662,7 @@ async function selectOpening(id) {
     save();
     const openPane = (type) => document.dispatchEvent(new CustomEvent(type, { detail: entry.walk }));
     // No four-level lesson for this opening? Its drill is the Openings tab's Train pane.
-    return openWalkthrough($('walk'), entry.walk, { drill: () => (entry.drill ? drillSetup(entry.drill) : openPane('chess:open-train')), plan: () => openPane('chess:open-plan') });
+    return openWalkthrough($('walk'), entry.walk, { drill: () => (entry.drill ? drillSetup(entry.drill) : openPane('chess:open-train')), plan: () => openPane('chess:open-plan'), play: (end) => document.dispatchEvent(new CustomEvent('chess:play-from', { detail: { moves: end.playFrom, side: entry.side } })) });
   }
   try {
     if (!E.cache[id]) {
@@ -705,7 +721,7 @@ async function drillSetup(id) {
 function renderPicker() {
   const group = groupOf(E.id);
   [...$('groups').children].forEach((b) => b.classList.toggle('active', b.dataset.group === group));
-  $('credit').innerHTML = CREDITS[group];
+  $('credit').innerHTML = CATALOG.find((c) => c.id === E.id)?.credit || CREDITS[group];
   const box = $('picker');
   box.textContent = '';
   CATALOG.filter((c) => c.group === group).forEach((c) => {
@@ -753,6 +769,7 @@ function build(root) {
       </section>
     </div>
     <footer class="el-credit" data-el="credit"></footer>`;
+  E.arrows = userArrows($('board').parentElement);   // right-drag to draw your own arrows
   GROUPS.forEach(([g, label]) => {
     const b = mk('button', 'seg-btn', label);
     b.type = 'button';

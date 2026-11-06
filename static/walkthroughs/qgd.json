@@ -63,8 +63,8 @@
         { "play": "dxe5 d4", "circle": ["d4"], "say": "Take the pawn. Black's other pawn jumps to d4 and sits in your way." },
         { "play": "Nf3 Nc6 a3", "arrows": [["a3", "b4"]], "say": "Just develop. Knight to f3, then a3, so no bishop can check you on b4. The engine says about plus 0.7, and you're a pawn up." },
         { "reset": "d4 d5 c4 e5 dxe5 d4", "play": "e3 Bb4+ Bd2 dxe3", "circle": ["e3"], "say": "Here's the trap. Hit that pawn with e3, and the bishop checks. You block, and the pawn takes on e3." },
-        { "play": "Bxb4 exf2+", "circle": ["f2"], "arrows": [["f2", "e1"]], "say": "Grab the bishop, and the pawn takes on f2 with check." },
-        { "play": "Ke2 fxg1=N+", "circle": ["g1"], "word": ["g1", "knight!"], "say": "And it takes on g1, turning into a knight with check. Yes, a knight. Grabbing the bishop loses. If you've played e3, retake with the f-pawn. Better still, skip it." }
+        { "play": "Bxb4 exf2+", "drill": false, "circle": ["f2"], "arrows": [["f2", "e1"]], "say": "Grab the bishop, and the pawn takes on f2 with check." },
+        { "play": "Ke2 fxg1=N+", "drill": false, "circle": ["g1"], "word": ["g1", "knight!"], "say": "And it takes on g1, turning into a knight with check. Yes, a knight. Grabbing the bishop loses. If you've played e3, retake with the f-pawn. Better still, skip it." }
       ]
     },
     {
@@ -79,9 +79,9 @@
         { "reset": "d4 d5 c4 e6 Nc3 Nf6 cxd5 exd5 Bg5 Be7 e3 O-O Bd3 Nbd7 Qc2 c6 Nf3 Re8 O-O Nf8", "circle": ["f8"], "arrows": [["f8", "h7"]], "say": "A careful Black brings another guard, knight to f8. Fine. You don't have to break through there." },
         { "play": "Rab1 Be6 b4", "arrows": [["b4", "b5"], ["b5", "c6"]], "say": "Switch sides. Rook to b1, then b4 and b5, breaking up Black's queenside pawns. Engine, about plus 0.5. So you always have a plan." },
         { "reset": "d4 d5 c4 e6 Nc3 Nf6 Bg5", "play": "Nbd7 cxd5 exd5", "circle": ["d5"], "say": "Now a warning. This is the Elephant Trap. With the knight on d7, d5 looks free, because the f6 knight seems pinned to the queen." },
-        { "play": "Nxd5 Nxd5", "arrows": [["g5", "d8"]], "say": "Take it, and the knight moves anyway, right past that pin." },
-        { "play": "Bxd8 Bb4+", "arrows": [["b4", "e1"]], "say": "You take the queen. Then the bishop checks." },
-        { "play": "Qd2 Bxd2+ Kxd2 Kxd8", "circle": ["d8"], "say": "Your queen has to block, and it falls. Queens are gone and you've lost a knight for a pawn, about minus five. So check the pin before you trust it." }
+        { "play": "Nxd5 Nxd5", "drill": false, "arrows": [["g5", "d8"]], "say": "Take it, and the knight moves anyway, right past that pin." },
+        { "play": "Bxd8 Bb4+", "drill": false, "arrows": [["b4", "e1"]], "say": "You take the queen. Then the bishop checks." },
+        { "play": "Qd2 Bxd2+ Kxd2 Kxd8", "drill": false, "circle": ["d8"], "say": "Your queen has to block, and it falls. Queens are gone and you've lost a knight for a pawn, about minus five. So check the pin before you trust it." }
       ]
     },
     {
