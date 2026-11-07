@@ -1289,13 +1289,14 @@ $('#otabs').addEventListener('click', (e) => { const b = e.target.closest('[data
 $('#to-lines').addEventListener('click', () => setOTab('lines'));
 
 // Phone: keep the explanation (Study card, or the Learn/Drill note) right under the sticky board.
+// On phones the page itself is fixed and `.layout` is what scrolls.
 function keepStudyInView() {
   if (!narrow.matches || S.tab !== 'openings' || S.otab !== 'train' || document.body.dataset.rep !== 'closed') return;
   const el = studying() ? $('#study') : $('#opening-note');
   if (!el.innerHTML) return;
   const top = $('#otabs').getBoundingClientRect().bottom;
   const r = el.getBoundingClientRect();
-  if (r.top < top || r.top > innerHeight - 160) scrollBy({ top: r.top - top - 8, behavior: 'smooth' });
+  if (r.top < top || r.top > innerHeight - 160) $('.layout').scrollBy({ top: r.top - top - 8, behavior: 'smooth' });
 }
 const posKey = (fen) => fen.split(' ').slice(0, 4).join(' ');
 
