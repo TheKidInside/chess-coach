@@ -58,7 +58,7 @@
 }
 
 * { box-sizing: border-box; }
-html, body { height: 100%; }
+html, body { height: 100%; overflow-x: clip; overscroll-behavior: none; touch-action: manipulation; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-body); accent-color: var(--accent); -webkit-font-smoothing: antialiased; }
 button, select, input, textarea { font: inherit; color: inherit; }
 button { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 14px; cursor: pointer; transition: border-color .15s, background-color .15s, transform .1s; }
