@@ -1,0 +1,180 @@
+# Ruy Lopez and Berlin: replies the main lines don't cover. Format in write_lines.mjs.
+@ruy-d6 | 1 | 3...d6: the Old Steinitz Defence | Black props up e5 and gets cramped. Play d4 at once; after ...exd4 Nxd4 and the trade on c6, Black's pawns are split and you develop freely.
+d6: The Old Steinitz: solid, but it gives up the centre and shuts in the f8-bishop. || Unlike 3...a6, it doesn't ask your bishop anything, so the pressure on c6 stays.
+d4: Hit e5 at once. The pin on c6 means Black can't hold the pawn comfortably.
+exd4: Black gives up the centre.
+Nxd4: Recapture with the knight; now c6 is attacked twice.
+Bd7: Black unpins the knight.
+Nxc6: Trade knights so the b-pawn has to recapture.
+bxc6: Black's pawns are now doubled and split.
+Bc4: The bishop retreats to its Italian diagonal, aiming at f7.
+Nf6: Black develops and attacks e4.
+O-O: Castle; e4 is safe because ...Nxe4 runs into Re1.
+Be7: Black prepares to castle.
+Nc3: Defend e4 and finish the knights.
+O-O: Both kings are safe.
+Bd3: The bishop guards e4 so the f-pawn and rooks can come into play. You have more space and the better structure.
+@ruy-bc5 | 2 | 3...Bc5: the Classical (Cordel) Defence | Take on c6 and grab e5. Black wins the pawn back with ...Qd4, but after the queen trade you have the healthier pawns and the more active king.
+Bc5: Black develops the bishop to its best diagonal, aiming at f2. || It ignores the pressure on c6, which you can cash in at once.
+Bxc6: Remove the defender of e5.
+dxc6: Black recaptures towards the centre and opens the queen and bishop.
+Nxe5: Take the pawn.
+Qd4: The fork: e5 and f2 are both attacked. This is why the trade works for Black.
+Nd3: The knight guards f2 and hits the c5-bishop.
+Qxe4+: Black regains the pawn with check.
+Qe2: Offer the queen trade; the endgame suits you.
+Qxe2+: Black takes.
+Kxe2: Recapture with the king; in an endgame it belongs in the centre.
+Bd6: The bishop drops back out of the knight's reach.
+Nc3: Develop. Your structure is better: the 4-to-3 kingside majority will make a passed pawn, and Black's doubled c-pawns can't.
+@ruy-nge7 | 2 | 3...Nge7: the Cozio Defence | The knight guards c6, so there is no immediate pin. Castle, keep the bishop with Ba4 and Bb3, and develop. Don't grab at f7: Ng5 and Nxf7 lose material.
+Nge7: The Cozio: an unusual defence of c6 that blocks Black's f8-bishop.
+O-O: Castle and wait. Black's set-up is slow and the centre is yours.
+a6: Black asks the bishop.
+Ba4: Keep the bishop on the diagonal.
+b5: Black kicks it again and gains queenside space.
+Bb3: The bishop sits on its best diagonal, aimed at f7.
+Bb7: Black develops the bishop to the long diagonal.
+Nc3: Develop and defend e4. Black still has to untangle the e7-knight and bishop, so you are comfortably ahead in development.
+@ruy-nd4 | 1 | 3...Nd4: Bird's Defence | Trade on d4 and castle. Black's pawn on d4 cramps you a little, but c3 will break it up, and Re1 keeps pressure on e-file.
+Nd4: Bird's Defence: Black trades knights to get rid of the pressure on c6.
+Nxd4: Take, so Black has to recapture with a pawn.
+exd4: Black now has a pawn on d4 that cramps your queenside.
+O-O: Castle first; c3 comes next.
+c6: Black kicks the bishop.
+Bc4: The bishop drops back to its best diagonal, aimed at f7.
+Nf6: Black develops and hits e4.
+Re1: Guard e4 with the rook and prepare to open the e-file.
+d6: Black guards the centre and opens the c8-bishop.
+c3: Break up the d4 pawn. If ...dxc3, Nxc3 develops with gain of time.
+@ruy-b5 | 2 | 4...b5 and the Marshall Attack | An early ...b5 often leads to the Marshall Attack. Accept the pawn: Nxe5 and Rxe5 are sound, then d4 and good defence keep the extra pawn safe.
+b5: Black kicks the bishop before developing the king's knight.
+Bb3: The bishop's best square, out of reach.
+Nf6: Now the knight comes out.
+O-O: Castle.
+Be7: Black prepares to castle.
+Re1: Guard e4, the standard move in the Closed Ruy.
+c3: Make a home for the bishop on c2 and prepare d4.
+d5: The Marshall Attack: Black gives a pawn for an attack on your king.
+exd5: Accept the gambit.
+Nxd5: Black recaptures, opening lines towards your kingside.
+Nxe5: Take a second pawn... briefly.
+Nxe5: Black trades knights.
+Rxe5: The rook recaptures. You are a pawn up.
+Bb7: Black's bishop aims down the long diagonal at your king.
+d4: Close the long diagonal and develop the c1-bishop. Defend with Re1, Qd3 and g3, and the extra pawn stays.
+@ruy-b52 | 2 | 5...b5: the Marshall Attack move order | The same Marshall structure from the 5...b5 move order. Take the pawn and defend calmly.
+b5: Black kicks the bishop at once.
+Bb3: The bishop retreats to its best diagonal. From here the moves are the same as after 4...b5.
+@ruy-bd7 | 2 | 3...d6 4.d4 Bd7: Black holds e5 | Black keeps the pawn on e5 with ...Bd7. Close the centre with d5, trade the light bishops and grab space with c4.
+Bd7: Black unpins and keeps e5.
+d5: Gain space and push the c6-knight back.
+Nce7: The knight retreats towards g6.
+Bxd7+: Trade the light bishops; Black's remaining bishop is the bad one behind d6 and e5.
+Qxd7: Black recaptures.
+c4: Grab queenside space. Your plan is c5 to open lines where you have more space.
+Nf6: Black develops.
+Nc3: Develop and keep an eye on d5.
+Ng6: The knight eyes f4.
+g3: Take f4 away from the knight. You have more space and the better bishop.
+@ruy-bc6 | 1 | 4.Bxc6 bxc6: the other recapture | Taking towards the centre with the b-pawn keeps Black's queenside pawns together but gives you d4 with tempo. Open the centre and develop fast.
+bxc6: Black takes towards the centre, keeping the d-file closed.
+d4: Open the centre while Black's pieces are undeveloped.
+exd4: Black takes.
+Qxd4: The queen recaptures; nothing can hit it with tempo right away.
+Qf6: Black offers a queen trade to slow you down.
+Qa4: Keep the queens on and eye the weak pawns on a6 and c6.
+Bc5: Black develops with a threat on f2.
+O-O: Castle and the threat is gone.
+Ne7: Black develops the knight.
+Nc3: Develop. Black's queenside pawns are weak and your pieces are faster.
+@berlin-bc6 | 1 | 4.Bxc6 against the Berlin | Taking on c6 and e5 gives Black the ...Qd4 fork, which wins the pawn back. Trade queens and the endgame is level.
+Bxc6: Trade the bishop for the knight.
+dxc6: Black recaptures and opens the queen's diagonal.
+Nxe5: Take the pawn.
+Qd4: The fork on e5 and e4.
+Nf3: The knight retreats and attacks the queen.
+Qxe4+: Black wins the pawn back with check.
+Qe2: Block and offer the queen trade.
+Qxe2+: Black trades.
+Kxe2: The king recaptures; it is safe without queens.
+Nd5: The knight heads for f4 or b4. Black's bishop pair balances the structure: level.
+@berlin-nc3 | 2 | 4.Nc3 Bc5: the Four Knights trick | After 5.Bxc6 dxc6 6.Nxe5 Black has the trick 6...Bxf2+ and 7...Qd4+, winning the pawn back. Black keeps the bishop pair and you have a loose king: it is level, but play precisely.
+Nc3: The Four Knights set-up: develop and defend e4.
+Bc5: Black develops actively.
+Bxc6: Remove the defender of e5.
+dxc6: Black recaptures.
+Nxe5: Take the pawn.
+Bxf2+: The trick: deflect the king.
+Kxf2: Take the bishop.
+Qd4+: The fork: check and the e5-knight.
+Kf1: Step aside.
+Qxe5: Black has the pawn back.
+d3: Shore up e4 and open the c1-bishop.
+Ng4: The knight jumps in, threatening ...Qf6+ ideas.
+@berlin-o-o | 2 | 4.Nc3 Bc5 5.O-O: quiet play | Castle and play d3. When ...Nd4 lands, swap it off and use Na4 to win the bishop pair.
+O-O: Castle.
+O-O: Black castles too.
+d3: Guard e4 calmly.
+Nd4: The knight jumps to its outpost.
+Bc4: Keep the bishop.
+d6: Black guards the centre.
+Nxd4: Trade the strong knight.
+Bxd4: Black recaptures.
+Na4: Prepare c3 to kick the bishop; if it drops back to b6, the knight takes it and you have the bishop pair.
+c6: Black prepares ...b5 to chase the knight away.
+@berlin-d3 | 2 | 4.Nc3 Bc5 5.d3: the Na4 idea | After d3 the knight goes to a4 to win the bishop pair. Castle, trade on b6 and play c3 and d4 later.
+d3: Guard e4 and open the c1-bishop.
+d6: Black does the same.
+Na4: The knight chases the bishop.
+Bb6: The bishop drops back.
+O-O: Castle.
+O-O: Black castles.
+Nxb6: Take the bishop pair.
+axb6: Black recaptures, opening the a-file.
+c3: Prepare d4 with a solid centre.
+Na7: Black challenges your bishop and hopes for ...c6.
+@berlin-d32 | 1 | 4.Bxc6 dxc6 5.d3: the slow Exchange | Take on c6 but don't grab e5. Black has the bishop pair; you have the better pawns. Develop with h3, b3 and Bb2 and aim at e5.
+d3: Defend e4 and don't take on e5.
+Bd6: Black guards e5.
+h3: Stop ...Bg4.
+h6: Black stops Bg5.
+b3: Prepare Bb2 against e5.
+Be6: Black develops.
+Bb2: The bishop presses on e5.
+Nd7: The knight reinforces e5.
+Nc3: Develop.
+Qe7: Black links the rooks. It is a slow, level fight.
+@berlin-o-o2 | 2 | 4.d3 Bc5 5.O-O: the anti-Berlin | The main line of the anti-Berlin. Castle, play c3 for d4, and pin the f6-knight.
+O-O: Castle.
+d6: Black supports e5.
+c3: Prepare d4 and give the bishop a retreat.
+Bb6: Black retreats before d4 arrives.
+Bg5: Pin the f6-knight.
+O-O: Black castles into the pin.
+Bh4: Keep the pin.
+Ne7: The knight heads for g6.
+Bg3: Drop back and keep the bishop.
+Nh5: Black goes for the bishop pair.
+@berlin-bc62 | 2 | 4.d3 Bc5 5.Bxc6: a quick trade | Take on c6 and castle. Black's structure is damaged; Black plays ...Nd7 and ...f6 to keep e5.
+Bxc6: Trade the bishop and leave Black with doubled pawns.
+dxc6: Black recaptures towards the centre.
+O-O: Castle.
+Nd7: The knight reroutes to defend e5.
+h3: Stop ...Bg4.
+a5: Black grabs queenside space.
+Bg5: Provoke a weakness.
+f6: Black blocks the bishop and guards e5.
+Be3: Offer a trade of Black's good bishop.
+b6: Black keeps the bishop with ...b6. Play Nbd2 and c3.
+@berlin-nc32 | 2 | 4.Bxc6 dxc6 5.Nc3: open centre | Trade on c6, develop and play d4. Black's pin with ...Bb4 is answered by castling.
+Nc3: Develop.
+Bd6: Black guards e5.
+d4: Open the centre.
+Bb4: Black pins the knight.
+O-O: Castle and ignore the pin.
+exd4: Black takes.
+Nxd4: Recapture.
+Bxc3: Black takes the knight.
+bxc3: Recapture.
+c5: Black kicks your knight. Equal.

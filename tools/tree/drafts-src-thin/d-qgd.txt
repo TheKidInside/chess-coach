@@ -1,0 +1,277 @@
+# Queen's Gambit, Catalan and English (White): Black's other replies. Format in write_lines.mjs.
+@qgd-nf6 | 2 | 2...Nf6: the Marshall Defence | 2...Nf6 lets you take on d5 and build a big centre with e4. After the knight retreats, develop with Nc3, Nf3 and Bd3.
+Nf6: Black develops but leaves d5 under-protected. || It is called the Marshall Defence and is known to be dubious: the knight gets kicked around.
+cxd5: Take the pawn.
+Nxd5: Black recaptures with the knight.
+e4: Kick the knight and take the centre with tempo.
+Nf6: The knight retreats.
+Nc3: Develop and guard e4.
+e6: Black opens the bishop.
+Nf3: Develop.
+Bb4: Black pins the c3-knight to pressure e4.
+Bd3: Guard e4 with the bishop.
+c5: Black hits your centre.
+a3: Ask the bishop.
+Ba5: Black keeps the pin.
+O-O: Castle; the pin doesn't matter.
+cxd4: Black takes.
+Nb5: The knight jumps towards d6 and d4. Your pieces are much more active.
+@qgd-bf5 | 2 | 2...Bf5: the Baltic Defence | Take on d5 and develop with tempo. If Black gets greedy with ...Nc6, Qb3 wins the b7 pawn.
+Bf5: The Baltic: Black develops the light bishop before ...e6. || It leaves b7 without the bishop's protection, which Qb3 targets.
+cxd5: Take on d5.
+Qxd5: Black recaptures with the queen, but it can be kicked.
+Nc3: Hit the queen and develop.
+Qd8: The queen retreats all the way home.
+e4: Take the centre with tempo on the bishop.
+Bg6: The bishop retreats.
+Qb3: Hit b7 at once.
+Nc6: Black develops and leaves b7. ...b6 or ...Qc8 was needed.
+Qxb7: Take the pawn; the c6-knight is attacked too.
+Na5: The knight attacks the queen.
+Bb5+: Check, and the knight on c6 is gone: you are winning.
+@qgd-e5 | 2 | 2...e5: the Albin Countergambit | Take the pawn. Black's d4 pawn cramps you, but after Nf3, a3 and taking the bishop pair you keep a healthy extra pawn.
+e5: The Albin: Black gives a pawn for space and quick development.
+dxe5: Take it.
+d4: The pawn advances and cramps your knights.
+Nf3: Develop and guard e5.
+Nc6: Black attacks e5.
+a3: Stop ...Bb4+, which would be very annoying.
+Bg4: Black pins the knight.
+h3: Ask the bishop.
+Bxf3: Black takes.
+exf3: Recapture and open the e-file and the f1-bishop. || The doubled pawns don't matter much: you have the bishop pair.
+Nxe5: Black wins the pawn back.
+f4: Kick the knight and use the extra pawn to grab space.
+Ng6: The knight retreats.
+Bd3: Develop and hit g6. With the bishop pair you have the better game.
+@qgd-nc6 | 2 | 2...Nc6: the Chigorin Defence | Develop with Nc3 and Nf3. After ...dxc4 and ...Bg4, push d5 to kick the knight and use the e5 square.
+Nc6: The Chigorin: Black develops a knight in front of the c-pawn.
+Nc3: Develop and guard d5.
+dxc4: Black takes the pawn.
+Nf3: Develop.
+Bg4: Black pins the knight.
+d5: Kick the c6-knight.
+Nb8: The knight goes all the way back. ...Ne5 was better.
+Ne5: Hit the bishop and the c4 pawn.
+Nf6: Black develops.
+Nxg4: Take the bishop pair.
+Nxg4: Black recaptures.
+e4: Take the centre. You will win back c4 with a big lead in development.
+@qgd-c6 | 1 | 3...c6: the Semi-Slav move order | Develop normally with Bg5, e3 and Bd3. When Black takes on c4, retreat the bishop to d3.
+c6: Black heads for a solid Semi-Slav set-up.
+Nf3: Develop.
+Nf6: Black develops.
+Bg5: Pin the knight.
+Be7: Black unpins.
+e3: Support d4 and open the bishop.
+O-O: Black castles.
+Bd3: Develop.
+Nbd7: Black prepares ...dxc4 and ...e5.
+O-O: Castle.
+dxc4: Black takes the pawn.
+Bxc4: Recapture.
+h6: Black asks the bishop.
+Bf4: Keep it.
+b5: Black hits your bishop.
+Bd3: Retreat; you have the freer game.
+@qgd-bb4 | 2 | 3...Bb4: the Ragozin idea | Develop with Nf3 and Bg5. When Black plays ...h6, take on f6 and play Qc2; then capture on c5 to open the game.
+Bb4: Black pins the knight.
+Nf3: Develop.
+Nf6: Black develops.
+Bg5: Pin back.
+h6: Black asks the bishop.
+Bxf6: Take.
+Qxf6: Black recaptures.
+Qc2: Guard the knight so the pin doesn't hurt.
+c5: Black strikes the centre.
+e3: Support d4.
+O-O: Black castles.
+dxc5: Take; Black's bishop and queen are out of play.
+@qgd-c5 | 2 | 3...c5: the Tarrasch | Black accepts an isolated pawn. Take on d5, fianchetto the bishop and press on d5.
+c5: The Tarrasch: active pieces in return for an isolated pawn.
+cxd5: Take on d5.
+exd5: Black recaptures.
+Nf3: Develop.
+Nc6: Black develops.
+g3: Fianchetto: the bishop on g2 will hit d5.
+Nf6: Black develops.
+Bg2: The bishop aims at d5.
+cxd4: Black releases the tension.
+Nxd4: Recapture and blockade d4.
+Bc5: Black hits the knight.
+Nb3: Retreat with tempo on the bishop. The d5 pawn is your target.
+@qgd-dc4 | 2 | 3...dxc4: Accepted after Nc3 | Take the centre with e4. After ...Bb4, take back on c4 and push e5 to gain space.
+dxc4: Black takes the pawn.
+e4: Take the centre.
+Bb4: Black pins the knight.
+Bxc4: Win the pawn back.
+Nf6: Black hits e4.
+e5: Kick the knight.
+Nd5: It goes to d5.
+Bd2: Unpin.
+O-O: Black castles.
+a3: Ask the bishop.
+Bxc3: Black takes.
+bxc3: Recapture: a big centre and the bishop pair.
+@catalan-c6 | 1 | 6...c6: solid Closed Catalan | Play Qc2 and Rd1, then prepare e4. When Black plays ...c5, push e4 at once.
+c6: Black keeps d5 solid.
+Qc2: The queen supports e4.
+b6: Black prepares ...Bb7 or ...Ba6.
+Rd1: The rook supports d4 and the coming e4.
+Nbd7: Black develops.
+Nbd2: Develop and support e4.
+Ba6: Black hits c4.
+b3: Guard c4.
+c5: Black strikes the centre.
+e4: The break: open the centre while you are better developed.
+@catalan-b6 | 2 | 6...b6: Black fianchettoes | Take on d5 and develop with Nc3 and Bf4. When Black plays ...c5, take and hit with Qb3.
+b6: Black prepares ...Bb7.
+cxd5: Take on d5 and fix Black's pawns.
+exd5: Black recaptures.
+Nc3: Develop and hit d5.
+Bb7: Black guards d5.
+Bf4: Develop the bishop.
+c5: Black strikes back.
+dxc5: Take.
+Bxc5: Black recaptures.
+Qb3: Hit d5 and the c5-bishop. Black's centre is weak.
+@catalan-c62 | 1 | 4...c6: Black takes on c4 later | Develop and castle, then win c4 back with the queen.
+c6: Black keeps the centre solid.
+Nf3: Develop.
+Be7: Black develops.
+O-O: Castle.
+O-O: Black castles.
+dxc4: Black takes.
+Qxc4: Recapture.
+b5: Black gains space with tempo.
+Qc2: The queen drops back.
+Bb7: Black develops.
+Nbd2: Develop. Next e4.
+@catalan-bd6 | 2 | 4...c6 5.Nf3 Bd6: a Stonewall set-up | Black plays for ...Ne4 and ...f5. Keep the queen central and gain space on the kingside with h4-h5.
+Bd6: Black aims the bishop at your king.
+Qd3: Guard c4 and the e4 square.
+Ne4: Black occupies the outpost.
+Nbd2: Challenge it.
+f5: Black supports the knight: a Stonewall.
+h4: Grab space so Black can't play ...g5.
+Nd7: Black develops.
+h5: More space on the kingside.
+a6: Black prepares ...b5.
+Qc2: The queen drops back. Play Nf1-e3 or Nxe4 next.
+@catalan-nbd7 | 2 | 4...c6 5.Nf3 Nbd7: the pawn grab | If Black takes on c4 and holds it with ...b5, a4 and Ne5 break the chain.
+Nbd7: Black develops.
+a3: Prepare b4 or a4.
+dxc4: Black takes.
+a4: Stop ...b5 from holding the pawn.
+b5: Black tries anyway.
+Ne5: Hit c6 and c4.
+Nxe5: Black takes.
+dxe5: Recapture and kick the f6-knight.
+Nd5: The knight goes to d5.
+axb5: Break the chain. You win back material with a strong position.
+@english-e6 | 1 | 1.c4 e6: towards a Queen's Gambit | After ...d5 take on d5 and play d4: an Exchange Queen's Gambit with Bg5, e3, Bd3 and Qc2.
+e6: Black prepares ...d5.
+Nc3: Develop.
+d5: Black takes the centre.
+cxd5: Take, so Black's light bishop stays shut in.
+exd5: Black recaptures.
+d4: Now it is an Exchange Queen's Gambit.
+Nf6: Black develops.
+Bg5: Pin the knight.
+Be7: Black unpins.
+e3: Support d4.
+O-O: Black castles.
+Bd3: Develop.
+c6: Black guards d5.
+Qc2: The queen eyes h7.
+h6: Black asks the bishop.
+Bh4: Keep the pin. Plans: Nge2 and the minority attack with b4-b5.
+@english-d5 | 2 | 1.c4 d5: Black takes the centre | Take on d5 and develop with tempo on the queen. After d4 and e4 you have the big centre.
+d5: Black grabs the centre at once.
+cxd5: Take.
+Qxd5: Black recaptures with the queen.
+Nc3: Develop with tempo.
+Qd8: The queen goes home.
+Nf3: Develop.
+Nf6: Black develops.
+d4: Take the centre.
+e6: Black opens the bishop.
+e4: Build the full centre. The next moves are the same as in the Marshall Defence line of the Queen's Gambit.
+cxd4: Black takes instead of retreating the bishop.
+axb4: Take the bishop. After ...dxc3 bxc3 you have a big centre and the bishop pair.
+@english-c6 | 1 | 1.c4 c6: towards a Slav | Take on d5 and play d4: an Exchange Slav. Develop with Nf3, Bf4 and e3.
+c6: Black prepares ...d5.
+Nc3: Develop.
+d5: Black takes the centre.
+cxd5: Take.
+cxd5: Black recaptures.
+d4: Now it is an Exchange Slav.
+Nf6: Black develops.
+Nf3: Develop.
+a6: Black stops Nb5 and Bb5.
+e3: Support d4.
+Bg4: Black pins.
+h3: Ask the bishop.
+Bxf3: Black takes.
+Qxf3: Recapture; you have the bishop pair.
+@english-g6 | 1 | 1.c4 g6: towards a King's Indian | Take the centre with d4 and e4. After ...e5 and d5, play Ne1 and f3 for the queenside attack.
+g6: Black prepares a fianchetto.
+Nc3: Develop.
+Bg7: Black fianchettoes.
+d4: Take the centre.
+d6: Black supports ...e5.
+e4: Build the big centre.
+Nf6: Black develops.
+Ne1: The knight heads for d3 to support c5, and f3 can follow.
+@english-nc6 | 1 | 1.c4 e5 2.Nc3 Nc6 3.g3 Nf6: Reversed Sicilian | Fianchetto, play e3 and Nge2, castle and push d4.
+Nc6: Black develops.
+g3: Fianchetto.
+Nf6: Black develops.
+Bg2: The bishop takes the long diagonal.
+Bc5: Black develops.
+e3: Blunt the bishop on c5.
+d6: Black supports e5.
+Nge2: Develop and prepare d4.
+Bb6: Black keeps the bishop.
+h3: Stop ...Bg4.
+O-O: Black castles.
+O-O: Castle.
+Ne7: Black reroutes the knight.
+d4: Strike the centre.
+@english-d6 | 2 | 1.c4 d6: Black plays ...e5 | Fianchetto and develop; push d4 against ...e5. If Black pushes ...e4, retreat the knight and break with f3.
+d6: Black prepares ...e5.
+Nc3: Develop.
+Nf6: Black develops.
+g3: Fianchetto.
+e5: Black takes space.
+Bg2: The bishop takes the long diagonal.
+Be7: Black develops.
+Nf3: Develop.
+c6: Black prepares ...d5.
+d4: Strike the centre.
+e4: Black kicks the knight.
+Ng1: Retreat; f3 next.
+d5: Black supports e4.
+f3: Break the chain. Black's centre is overextended.
+@english-e62 | 2 | 1...Nf6 2.Nc3 e6 3.e4: the Mikenas Attack | Push e4 and e5. After ...d4 exf6 dxc3 bxc3 Qxf6 you have the better centre and development.
+e6: Black prepares ...d5.
+e4: Take the centre.
+d5: Black strikes.
+e5: Kick the knight.
+d4: Black counterattacks.
+exf6: Take the knight.
+dxc3: Black takes the knight.
+bxc3: Recapture.
+Qxf6: Black recaptures; the queen is exposed.
+Nf3: Develop. Your centre and development are better.
+@english-bc5 | 1 | 1.c4 e5 2.Nc3 Bc5: an early bishop | Fianchetto, play e3 to blunt the bishop, then castle.
+Bc5: Black develops the bishop.
+g3: Fianchetto.
+d6: Black supports e5.
+Bg2: The bishop takes the diagonal.
+Nf6: Black develops.
+e3: Blunt the bishop on c5.
+Bg4: Black develops.
+Nge2: Develop; d4 later.
+c6: Black prepares ...d5.
+O-O: Castle.

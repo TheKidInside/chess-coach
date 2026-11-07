@@ -851,6 +851,113 @@ function familyBar(f) {   // how well the whole opening is known: average memory
   return `<span class="fbar${mastered === lines.length ? ' mastered' : ''}" title="${mastered} of ${lines.length} lines mastered"><i style="width:${pct}%"></i></span>`;
 }
 
+// ---------------------------------------------------------- my repertoire ---
+// The openings you actually play, a list of family ids in settings.myRep. Starts as the London
+// family; the star on an opening's header adds or removes it. "My repertoire" in the library
+// shows only these, with a coverage check: which common replies none of your lines answer.
+
+const SEED_REP = ['london', 'london-nf6', 'london-side', 'jobava'];
+const myRep = () => P.data.settings.myRep || (P.data.settings.myRep = SEED_REP.filter((id) => FAMILY.has(id)));
+const isMine = (f) => myRep().includes(f.id);
+const STAR = '<svg viewBox="0 0 24 24" class="star" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>';
+
+function toggleMine(f) {
+  P.data.settings.myRep = isMine(f) ? myRep().filter((id) => id !== f.id) : [...myRep(), f.id];
+  save();
+  renderMineToggle();
+  fillOpeningList();
+  toast(isMine(f) ? `<b>Added to your repertoire</b>${esc(f.name)}` : `<b>Removed from your repertoire</b>${esc(f.name)}`);
+}
+
+function renderMineToggle() {
+  const f = S.family, b = $('#mine-toggle');
+  if (!f) return;
+  const on = isMine(f);
+  b.classList.toggle('on', on);
+  b.innerHTML = `${STAR}<span>${on ? 'In my repertoire' : 'Add to my repertoire'}</span>`;
+  b.title = on ? 'Remove this opening from your repertoire' : 'Mark this as an opening you play';
+}
+$('#mine-toggle').addEventListener('click', () => S.family && toggleMine(S.family));
+
+const COVER_MIN = 0.03;   // replies played in fewer games than this don't count as gaps
+// Coverage goes by position, so a line reaching the same position by another move order counts.
+// Your first moves (and the replies you choose as Black) come from your real lines only, not from
+// transpositions: a Catalan reached via 1.Nf3 does not make 1.Nf3 one of your openings.
+function coverage() {     // [{ side, label, ok, note, gaps: [{ moves, share, lib }] }]
+  const lines = FAMILIES.filter(isMine).flatMap(familyLines);
+  const own = (side) => lines.filter((o) => familyOf(o).side === side);
+  const real = (side) => own(side).filter((o) => o.kind !== 'transposition');
+  const reach = (set) => {   // every position the lines pass through
+    const seen = new Set();
+    for (const o of set) { const g = new Chess(); seen.add(posKey(g.fen())); for (const m of o.moves) { g.move(m); seen.add(posKey(g.fen())); } }
+    return seen;
+  };
+  const W = reach(own('w')), B = reach(own('b'));
+  const at = (moves) => { const g = new Chess(); for (const m of moves) g.move(m); return g; };
+  const replies = (moves) => explorerMoves(at(moves).fen()).filter((r) => r.share >= COVER_MIN);
+  // Does any line in the whole library start with these moves? Then a gap chip can search for it.
+  const inLib = (side, moves) => FAMILIES.some((f) => f.side === side && familyLines(f).some((o) => moves.every((m, i) => o.moves[i] === m)));
+  const gapsAt = (side, seen, moves) => replies(moves).filter((r) => { const g = at(moves); g.move(r.san); return !seen.has(posKey(g.fen())); })
+    .map((r) => ({ moves: [...moves, r.san], share: r.share, lib: inLib(side, [...moves, r.san]) }));
+  const rows = [];
+  const firsts = [...new Set(real('w').map((o) => o.moves[0]))];
+  if (!firsts.length) rows.push({ side: 'w', label: 'As White', ok: false, note: 'No White opening yet.', gaps: [] });
+  for (const m of firsts) {
+    const gaps = gapsAt('w', W, [m]);
+    rows.push({ side: 'w', label: `As White · 1.${m}`, ok: !gaps.length, note: gaps.length ? 'No line against:' : 'Every common reply has a line.', gaps });
+  }
+  const start = replies([]);
+  for (const m of ['e4', 'd4']) {
+    const mine = real('b').filter((o) => o.moves[0] === m);
+    const label = `As Black · against 1.${m}`;
+    if (!mine.length) { rows.push({ side: 'b', label, ok: false, note: 'Nothing yet.', gaps: [{ moves: [m], share: start.find((r) => r.san === m)?.share || 0, lib: inLib('b', [m]) }] }); continue; }
+    const gaps = [...new Set(mine.map((o) => o.moves[1]))].flatMap((r) => gapsAt('b', B, [m, r]));
+    rows.push({ side: 'b', label, ok: !gaps.length, note: gaps.length ? 'No line against:' : 'Every common second move has a line.', gaps });
+  }
+  const others = start.filter((r) => r.san !== 'e4' && r.san !== 'd4' && !B.has(posKey(at([r.san]).fen())));
+  rows.push({ side: 'b', label: 'As Black · other first moves', ok: !others.length, note: others.length ? 'No line against:' : 'Covered.', gaps: others.map((r) => ({ moves: [r.san], share: r.share, lib: inLib('b', [r.san]) })) });
+  return rows;
+}
+
+function renderCoverage(show) {
+  const box = $('#coverage');
+  box.classList.toggle('hidden', !show);
+  if (!show) return;
+  if (!EXPLORER) {
+    box.innerHTML = '<div class="muted small">Checking your coverage...</div>';
+    if (!S.coverWait) S.coverWait = explorerReady.then(() => {
+      if (box.classList.contains('hidden')) return;
+      if (EXPLORER) renderCoverage(true);
+      else box.innerHTML = '<div class="muted small">Coverage needs the opening explorer, which did not load. Check your connection and reload.</div>';
+    });
+    return;
+  }
+  const rows = coverage();
+  const holes = rows.reduce((n, r) => n + (r.ok ? 0 : Math.max(1, r.gaps.length)), 0);
+  const chip = (r, g) => {
+    const pct = `${Math.max(1, Math.round(g.share * 100))}%`;
+    return g.lib
+      ? `<button class="cov-gap" data-side="${r.side}" data-moves="${esc(g.moves.join(' '))}" title="Played in ${Math.round(g.share * 100)}% of games here. Show the openings that answer it"><span class="mono">${esc(moveText(g.moves))}</span><span class="cov-share">${pct}</span></button>`
+      : `<span class="cov-gap none" title="Played in ${Math.round(g.share * 100)}% of games here. No opening in the library answers it yet"><span class="mono">${esc(moveText(g.moves))}</span><span class="cov-share">${pct} · not in the library</span></span>`;
+  };
+  const tappable = rows.some((r) => r.gaps.some((g) => g.lib));
+  box.innerHTML = `<div class="cov-head"><b>Coverage</b><span class="muted small">${holes ? `${holes} gap${holes > 1 ? 's' : ''} in your repertoire.${tappable ? ' Tap one to see the openings that answer it.' : ''}` : 'Every common reply has a line.'}</span></div>` +
+    rows.map((r) => `<div class="cov-row${r.ok ? ' ok' : ''}"><span class="cov-mark" aria-hidden="true">${r.ok ? '&#10003;' : '!'}</span>` +
+      `<span class="cov-text"><span class="cov-label">${esc(r.label)}</span> <span class="cov-note muted small">${esc(r.note)}</span></span>` +
+      (r.gaps.length ? `<span class="cov-gaps">${r.gaps.map((g) => chip(r, g)).join('')}</span>` : '') +
+      '</div>').join('');
+}
+$('#coverage').addEventListener('click', (e) => {   // a gap: search the whole library for openings that answer it
+  const b = e.target.closest('button.cov-gap');   // a dashed "not in the library" chip is not a button
+  if (!b) return;
+  Object.assign(repFilter(), { mine: 'all', side: b.dataset.side, first: 'all', status: 'all' });
+  S.repQuery = b.dataset.moves;
+  $('#rep-search').value = S.repQuery;
+  save();
+  $('#opening-list').scrollTop = 0;
+  fillOpeningList();
+});
+
 // ------------------------------------------------------- repertoire picker ---
 // Filter by your colour, the first move and progress; search by name, ECO code or moves;
 // group by first move, difficulty or progress. Filters persist in settings.repFilter.
@@ -894,7 +1001,7 @@ const GROUPS = {   // group key -> [sort order, heading]
 };
 
 function repFilter() {
-  const d = { side: 'all', first: 'all', status: 'all', group: 'first' };
+  const d = { mine: 'mine', side: 'all', first: 'all', status: 'all', group: 'first' };
   return (P.data.settings.repFilter = { ...d, ...(P.data.settings.repFilter || {}) });
 }
 
@@ -917,10 +1024,11 @@ function fillOpeningList() {
   const scroll = list.scrollTop;
   const F = repFilter(), q = S.repQuery.trim();
   // every filter except progress decides the counts on the progress pills
-  const base = FAMILIES.filter((f) => (F.side === 'all' || f.side === F.side) && (F.first === 'all' || firstMove(f) === F.first) && searchMatch(f, q));
+  const scope = FAMILIES.filter((f) => F.mine === 'all' || isMine(f));
+  const base = scope.filter((f) => (F.side === 'all' || f.side === F.side) && (F.first === 'all' || firstMove(f) === F.first) && searchMatch(f, q));
   const test = STATUS.find((s) => s[0] === F.status)?.[2] || (() => true);
   const shown = base.filter((f) => test(famStatus(f)));
-  for (const [k, v] of [['#f-side', F.side], ['#f-first', F.first]]) {
+  for (const [k, v] of [['#f-mine', F.mine], ['#f-side', F.side], ['#f-first', F.first]]) {
     document.querySelectorAll(`${k} [data-v]`).forEach((b) => { const on = b.dataset.v === v; b.classList.toggle('active', on); b.setAttribute('aria-checked', String(on)); });
   }
   $('#f-status').innerHTML = STATUS.map(([id, label, t]) => {
@@ -931,11 +1039,16 @@ function fillOpeningList() {
   $('#f-group').value = F.group;
   const filtered = F.side !== 'all' || F.first !== 'all' || F.status !== 'all' || q;
   $('#filter-result').innerHTML = filtered
-    ? `Showing ${shown.length} of ${FAMILIES.length} openings <button class="linkish" id="filter-clear">Clear filters</button>` : '';
+    ? `Showing ${shown.length} of ${scope.length} openings <button class="linkish" id="filter-clear">Clear filters</button>` : '';
+  $('#mine-count').textContent = myRep().filter((id) => FAMILY.has(id)).length;
+  document.body.dataset.mine = F.mine;   // labels the unfiltered list in CSS
+  renderCoverage(F.mine === 'mine' && scope.length > 0 && !q);   // about the whole repertoire, so colour filters don't hide it
 
   list.innerHTML = '';
   if (!shown.length) {
-    list.innerHTML = '<div class="bempty muted small">No opening matches these filters.</div>';
+    list.innerHTML = F.mine === 'mine' && !scope.length
+      ? '<div class="bempty muted small">Your repertoire is empty. Switch to All openings, open one you play and tap Add to my repertoire.</div>'
+      : '<div class="bempty muted small">No opening matches these filters.</div>';
   }
   const groups = new Map();
   for (const f of shown) {
@@ -957,7 +1070,7 @@ function fillOpeningList() {
       row.dataset.id = f.id;
       row.title = `${f.name}: you play ${colorName(f.side)}`;
       row.innerHTML = `<img class="oside" src="pieces/${f.side}K.svg" alt="${colorName(f.side)}">` +
-        `<span class="omain"><span class="oname">${due ? '<span class="due">Due</span>' : ''}${esc(f.name)}</span>` +
+        `<span class="omain"><span class="oname">${due ? '<span class="due">Due</span>' : ''}${isMine(f) && F.mine === 'all' ? `<span class="omine" title="In your repertoire">${STAR}</span>` : ''}${esc(f.name)}</span>` +
         `<span class="omoves">${esc(moveText(famPrefix(f)))}</span>` +
         `<span class="oeco">${topicSummary(lines)}${score}</span></span>` +
         `<span class="ometa"><span class="olvl l${mainOf(f).level}">${LEVELS[mainOf(f).level]}</span>${familyBar(f)}</span>`;
@@ -988,7 +1101,7 @@ function setRepFilter(k, v) {
   $('#opening-list').scrollTop = 0;
   fillOpeningList();
 }
-for (const k of ['side', 'first', 'status']) {
+for (const k of ['mine', 'side', 'first', 'status']) {
   $(`#f-${k}`).addEventListener('click', (e) => { const b = e.target.closest('[data-v]'); if (b) setRepFilter(k, b.dataset.v); });
 }
 $('#f-group').addEventListener('change', (e) => setRepFilter('group', e.target.value));
@@ -1064,6 +1177,7 @@ function renderFamily() {
   $('#family-title').textContent = f.name;
   $('#family-moves').innerHTML = `<img src="pieces/${f.side}K.svg" alt=""><span>Your repertoire as ${colorName(f.side)}</span><span class="mono">${esc(moveText(famPrefix(f)))}</span>`;
   $('#family-idea').textContent = f.idea;
+  renderMineToggle();
   renderPopular(f);
   const gm = Object.values(LIBS).flatMap((lib) => (lib.openings[f.topic || f.id] || []).map((d) => ({ ...d, who: lib.short })));
   $('#masters').classList.toggle('hidden', !f.masters.length && !gm.length);
@@ -1204,7 +1318,8 @@ function renderReviewStrip() {
 
 function startReview() {
   S.flip = false;   // reviews are your repertoire, from your side
-  S.reviewQueue = dueOpenings(OPENINGS).map((o) => o.id);
+  const due = dueOpenings(OPENINGS);   // your repertoire's lines first, then the rest
+  S.reviewQueue = [...due.filter((o) => isMine(familyOf(o))), ...due.filter((o) => !isMine(familyOf(o)))].map((o) => o.id);
   setRepOpen(false);
   nextReview();
 }
@@ -3257,7 +3372,7 @@ async function boot() {
   ping();
   // Land on what's most worth doing: due reviews first.
   const due = dueOpenings(OPENINGS);
-  if (due.length) S.opening = due[0];
+  if (due.length) S.opening = due.find((o) => isMine(familyOf(o))) || due[0];
   S.family = familyOf(S.opening);
   setRepOpen(P.data.settings.repOpen);
   fillOpeningList();

@@ -5,6 +5,7 @@
 // need no repeating. Source blocks, in the order the lines should be listed:
 //   @<lineId> | <level 1-3> | <branch label> | <idea sentence>
 //   Bd6: short note || optional longer why
+// --src <folder> uses another source folder with the same files (default drafts-src/).
 // --todo prints, per line, the plies that still need words. --write produces add_lines input in
 // drafts-src/lines.gen.json (no notes missing, or it refuses); run add_lines.mjs on it next.
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
@@ -16,9 +17,11 @@ const { Chess } = await import(pathToFileURL(root + 'vendor/chess.js').href);
 const { OPENINGS, FAMILIES } = await import(pathToFileURL(root + 'openings.js').href);
 const { STUDY } = await import(pathToFileURL(root + 'study.js').href);
 const ECO = JSON.parse(readFileSync(root + 'eco.json', 'utf8'));
-const planned = JSON.parse(readFileSync(here + 'drafts-src/moves.json', 'utf8')).lines;
-const familyOf = JSON.parse(readFileSync(here + 'drafts-src/families.json', 'utf8'));
 const args = process.argv.slice(2);
+const srcName = args.includes('--src') ? args[args.indexOf('--src') + 1].replace(/\/?$/, '/') : 'drafts-src/';
+const src = here + srcName;
+const planned = JSON.parse(readFileSync(src + 'moves.json', 'utf8')).lines;
+const familyOf = JSON.parse(readFileSync(src + 'families.json', 'utf8'));
 
 const key = (f) => f.split(' ').slice(0, 4).join(' ');
 const pairs = (moves) => {        // [{ ply, san, id }] where id names the move from that position
@@ -28,15 +31,24 @@ const pairs = (moves) => {        // [{ ply, san, id }] where id names the move 
 
 const clean = (s) => s.replace(/ [—–] /g, ': ');   // older notes still use dashes; the validator rejects them
 const said = new Map();           // (position, move) -> { note, why }
+// The same words, kept per repertoire colour: a line borrows words from a line of its own colour
+// first, so "you" means the student's side (a Petrov line through a Scotch position shouldn't
+// tell Black to "trade first").
+const sideOf = (fam) => FAMILIES.find((f) => f.id === fam)?.side;
+const sided = new Map();          // `${side}|${position|move}` -> { note, why }
+const remember = (side, id, words) => {
+  if (!said.has(id)) said.set(id, words);
+  if (side && !sided.has(`${side}|${id}`)) sided.set(`${side}|${id}`, words);
+};
 for (const o of OPENINGS) {
   if (planned[o.id]) continue;
-  pairs(o.moves).forEach((p, i) => { if (!said.has(p.id)) said.set(p.id, { note: clean(o.notes[i]), why: clean(STUDY[o.id]?.why?.[i] || o.notes[i]) }); });
+  pairs(o.moves).forEach((p, i) => remember(sideOf(o.family), p.id, { note: clean(o.notes[i]), why: clean(STUDY[o.id]?.why?.[i] || o.notes[i]) }));
 }
 // Fallback words per group + colour + SAN, for routine moves (drafts-src/glossary-<group>.gloss).
 const gloss = new Map();
-for (const f of readdirSync(here + 'drafts-src/').filter((x) => x.endsWith('.gloss'))) {
+for (const f of readdirSync(src).filter((x) => x.endsWith('.gloss'))) {
   const group = f.replace(/^glossary-|\.gloss$/g, '');
-  for (const raw of readFileSync(here + 'drafts-src/' + f, 'utf8').split(/\r?\n/)) {
+  for (const raw of readFileSync(src + f, 'utf8').split(/\r?\n/)) {
     const m = raw.trim().match(/^([wb]) (\S+?): (.*)$/);
     if (m) gloss.set(`${group}|${m[1]}|${m[2]}`, m[3]);
   }
@@ -45,7 +57,7 @@ const groupOf = (fam) => (fam.startsWith('london') ? 'london' : fam === 'jobava'
 
 // Read the words.
 const blocks = [];
-const dir = here + 'drafts-src/';
+const dir = src;
 for (const f of readdirSync(dir).filter((x) => x.endsWith('.txt')).sort()) {
   let cur = null;
   readFileSync(dir + f, 'utf8').split(/\r?\n/).forEach((raw, n) => {
@@ -74,9 +86,11 @@ for (const b of blocks) {
   if (!line) { console.log(`ERROR ${b.at}: ${b.id} is not in moves.json`); problems++; continue; }
   const ps = pairs(line.moves.trim().split(/\s+/));
   for (const s of b.says) {
+    const side = sideOf(familyOf[b.id] || line.family);
     const hit = ps.find((p) => p.san === s.san && !said.has(p.id));
     if (!hit) { console.log(`ERROR ${b.at}: ${b.id}: ${s.san} matches no unexplained move of the line`); problems++; continue; }
-    said.set(hit.id, { note: s.note, why: s.why });
+    sided.set(`${side}|${hit.id}`, { note: s.note, why: s.why });
+    if (!said.has(hit.id)) said.set(hit.id, { note: s.note, why: s.why });
   }
 }
 for (const id of order) {
@@ -103,8 +117,8 @@ for (const id of order) {
   out[id] = {
     family: famId, branch: b.branch, kind: line.kind || 'variation', name: `${(fam?.name || familyOf.$names[famId])}: ${b.branch}`, eco, level: b.level, idea: b.idea,
     moves: ps.map((p) => p.san).join(' '),
-    notes: ps.map((p) => said.get(p.id).note),
-    why: ps.map((p) => said.get(p.id).why),
+    notes: ps.map((p) => (sided.get(`${fam?.side}|${p.id}`) || said.get(p.id)).note),
+    why: ps.map((p) => (sided.get(`${fam?.side}|${p.id}`) || said.get(p.id)).why),
     ...(line.topic ? { topic: line.topic } : {}),
     ...(line.gambitPlies ? { gambitPlies: line.gambitPlies } : {}),
   };
@@ -113,5 +127,5 @@ console.log(`${Object.keys(out).length} lines complete of ${Object.keys(planned)
 if (args.includes('--write')) {
   if (problems) { console.log('not writing: finish the lines above first'); process.exit(1); }
   writeFileSync(dir + 'lines.gen.json', JSON.stringify(out, null, 1));
-  console.log('wrote drafts-src/lines.gen.json');
+  console.log(`wrote ${srcName}lines.gen.json`);
 }

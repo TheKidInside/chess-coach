@@ -1,0 +1,351 @@
+# White 1.e4 systems: Vienna, King's Gambit, Alapin, Caro-Kann Advance. Format in write_lines.mjs.
+@vienna-d6 | 1 | 2...d6: a Philidor set-up | Develop with Nf3 and d4. After ...Bg4 and the trades on e5, Qxf3 gives you the bishop pair.
+d6: Black plays a Philidor set-up.
+Nf3: Develop and hit e5.
+Bg4: Black pins.
+d4: Take the centre.
+Nd7: Black holds e5.
+dxe5: Take.
+dxe5: Black recaptures.
+h3: Ask the bishop.
+Bxf3: Black takes.
+Qxf3: Recapture. You have the bishop pair.
+@vienna-bc5 | 1 | 2...Bc5: the bishop comes early | Develop with Nf3 and Bc4. Na4 wins the bishop pair.
+Bc5: Black develops the bishop.
+Nf3: Develop and hit e5.
+d6: Black holds e5.
+Bc4: Develop.
+Bg4: Black pins.
+Na4: Go after the bishop.
+Bb6: It retreats.
+Nxb6: Take the bishop pair.
+axb6: Black recaptures.
+h3: Ask the bishop.
+Bh5: Keep the pin.
+d3: Solid. You have the bishop pair.
+@vienna-bc52 | 1 | 2...Nc6 3.Bc4 Bc5 | Play d3 and Na4 for the bishop pair.
+Bc5: Black develops.
+d3: Solid.
+d6: Black supports e5.
+Na4: Go after the bishop.
+Bb6: It retreats.
+Ne2: Develop.
+Be6: Black offers a trade.
+Bxe6: Trade.
+fxe6: Black recaptures.
+c3: Prepare d4.
+@vienna-nf6 | 1 | 2...d6 3.Nf3 Nf6: slow | Develop with Bc4 and d3, pin with Bg5.
+Nf6: Black develops.
+Bc4: Develop.
+Be7: Black develops.
+d3: Solid.
+O-O: Black castles.
+Bg5: Pin.
+c6: Black prepares ...b5.
+a4: Stop it.
+h6: Black asks.
+Bd2: Retreat.
+Be6: Black offers a trade.
+Bxe6: Trade.
+@vienna-bb4 | 1 | 2...Bb4: an early pin | Develop with Nf3. After ...Bxc3, recapture towards the centre and develop.
+Bb4: Black pins.
+Nf3: Develop and hit e5.
+Bxc3: Black gives up the bishop pair.
+dxc3: Recapture towards the centre and open the c1-bishop.
+d6: Black holds e5.
+Bd3: Develop.
+Nf6: Black develops.
+Qe2: Prepare long castling.
+Nfd7: Black regroups.
+Be3: Develop.
+@vienna-c6 | 1 | 2...c6: prepare ...d5 | Develop with Nf3 and d4. If Black takes on d4, the queen recaptures with tempo.
+c6: Black prepares ...d5.
+Nf3: Develop.
+d6: Black holds e5.
+d4: Take the centre.
+exd4: Black takes.
+Qxd4: Recapture.
+h6: Black stops Bg5.
+Bf4: Develop.
+Qb6: Black offers a trade.
+O-O-O: Castle long.
+Qxd4: Black trades.
+Rxd4: Recapture with the rook.
+@vienna-nc62 | 1 | 2...d6 3.Nf3 Nc6: d4 | Open the centre with d4, castle long and break with e5.
+Nc6: Black develops.
+d4: Take the centre.
+exd4: Black takes.
+Nxd4: Recapture.
+Nxd4: Black trades.
+Qxd4: Recapture.
+Nf6: Black develops.
+Bg5: Pin.
+Be7: Black unpins.
+O-O-O: Castle long.
+O-O: Black castles.
+e5: Break.
+dxe5: Black takes.
+Qxe5: Recapture.
+Bd6: Black hits the queen.
+Qd4: Retreat.
+@vienna-d62 | 2 | 2...Nf6 3.f4 d6: the Vienna Gambit | Develop and pin with Bb5. Take back on f4 with the bishop.
+d6: Black holds e5.
+Nf3: Develop.
+Nc6: Black develops.
+Bb5: Pin.
+Bd7: Black unpins.
+d3: Solid.
+exf4: Black takes.
+Bxf4: Recapture.
+a6: Black asks.
+Bxc6: Trade.
+Bxc6: Black recaptures.
+Nd4: Hit the bishop.
+@kingsgambit-nc6 | 1 | 2...Nc6: declined | Develop with Nf3 and Bc4. If Black takes on f4, take back with the bishop.
+Nc6: Black declines.
+Nf3: Develop.
+d6: Black holds e5.
+Bc4: Develop.
+Bg4: Black pins.
+c3: Prepare d4.
+Nf6: Black develops.
+d3: Solid.
+exf4: Black takes.
+Bxf4: Recapture.
+d5: Black strikes.
+exd5: Take.
+Nxd5: Black recaptures.
+Qe2+: Check.
+@kingsgambit-d6 | 2 | 2...d6: declined | Bc4 and d4. After ...Qh4+, Kf1 and Nf3 hit the queen.
+d6: Black declines.
+Bc4: Develop.
+exf4: Black takes.
+d4: Take the centre.
+Qh4+: Black checks.
+Kf1: Step aside.
+Bg4: Black hits your queen.
+Nf3: Block and hit the queen.
+Nc6: Black develops.
+Nxh4: Take the queen. Black takes yours back.
+@kingsgambit-nc62 | 2 | 3...Nc6: accepted | Play d4. After ...d5 take, Nc3 develops with tempo.
+Nc6: Black develops.
+d4: Take the centre.
+d5: Black strikes.
+exd5: Take.
+Qxd5: Black recaptures.
+Nc3: Develop with tempo.
+Bb4: Black pins.
+Bd3: Develop.
+Nxd4: Black takes.
+Nxd4: Recapture.
+@kingsgambit-d62 | 2 | 3...d6: Fischer-style | d4, then Nc3 when Black plays ...g5.
+d6: Black supports the pawn.
+d4: Take the centre.
+g5: Black holds f4.
+Nc3: Develop.
+@kingsgambit-be7 | 2 | 3...Be7: the Cunningham | Bc4. After ...Bh4+ Kf1 and d4.
+Be7: Black plans ...Bh4+.
+Bc4: Develop.
+Bh4+: Check.
+Kf1: Step aside.
+d6: Black develops.
+d4: Take the centre.
+@kingsgambit-nf6 | 2 | 3...Nf6: the Schallopp | e5 kicks the knight.
+Nf6: Black develops.
+e5: Kick it.
+Nd5: It goes to d5.
+Nc3: Trade.
+Nxc3: Black takes.
+dxc3: Recapture.
+g5: Black holds f4.
+h4: Hit it.
+g4: Black pushes.
+Nd4: Centralise.
+@kingsgambit-bc5 | 2 | 2...Nc6 3.Nf3 Bc5 | Take on e5 and develop.
+Bc5: Black develops.
+fxe5: Take.
+Nxe5: Black recaptures.
+Nc3: Develop.
+Nxf3+: Black trades.
+Qxf3: Recapture.
+c6: Black prepares ...d5.
+Na4: Go after the bishop.
+Be7: It retreats.
+d4: Take the centre.
+@kingsgambit-e4 | 2 | 2...d5: the Falkbeer | Take and play d3.
+e4: Black pushes.
+d3: Challenge it.
+Nf6: Black develops.
+dxe4: Take.
+Nxe4: Black recaptures.
+Nf3: Develop.
+Bc5: Black develops.
+Qe2: Pin.
+Bf5: Black develops.
+Nc3: Develop.
+@alapin-nc6 | 1 | 2...Nc6 with ...d5 | Play d4, push e5 and develop.
+Nc6: Black develops.
+d4: Take the centre.
+cxd4: Black takes.
+cxd4: Recapture.
+d5: Black strikes.
+e5: Push.
+Bf5: Black develops.
+Nf3: Develop.
+e6: Black develops.
+Bd3: Trade.
+Nge7: Black develops.
+O-O: Castle.
+a6: Black prepares.
+Bxf5: Trade.
+@alapin-d6 | 1 | 2...d6 | Play d4 and Bd3. After ...Bg4, push d5.
+d6: Black prepares ...Nf6.
+d4: Take the centre.
+Nf6: Black hits e4.
+Bd3: Guard e4.
+cxd4: Black takes.
+cxd4: Recapture.
+Nc6: Black develops.
+Nf3: Develop.
+Bg4: Black pins.
+d5: Kick the knight.
+Ne5: It centralises.
+Nc3: Develop.
+@alapin-cd4 | 1 | 2...e6 3.d4 cxd4 | Recapture, push e5 and develop with Bb5.
+cxd4: Black takes.
+cxd4: Recapture.
+d5: Black strikes.
+e5: Push.
+Nc6: Black develops.
+Nf3: Develop.
+Nge7: Black develops.
+Bb5: Pin.
+Bd7: Black unpins.
+Nc3: Develop.
+Nf5: Black hits d4.
+O-O: Castle.
+Qb6: Black hits d4.
+Ba4: Retreat.
+@alapin-bd7 | 2 | French structure with ...Bd7 | Bd3, castle; if Black grabs d4, Nbd2 and Qh5.
+Bd7: Black develops.
+Bd3: Develop.
+Qb6: Black hits d4.
+Nbd2: Develop.
+Bc5: Black develops.
+Nxd4: Trade.
+Bxd4: Black recaptures.
+Qh5: Attack.
+Qc7: Black defends.
+Nf3: Hit the bishop.
+@alapin-qb6 | 2 | French structure with ...Qb6 | Transposes to the ...Bd7 line.
+Qb6: Black hits d4.
+Nf3: Develop.
+Nc6: Black develops.
+@alapin-cd42 | 1 | French structure with ...cxd4 | Transposes to the 3...cxd4 line.
+cxd4: Black takes.
+cxd4: Recapture.
+@alapin-e6 | 1 | 2...Nc6 3.d4 cxd4 4.cxd4 e6 | Push e5 and develop.
+e6: Black develops.
+Nf3: Develop.
+d5: Black strikes.
+e5: Push.
+Qb6: Black hits d4.
+Ba4: Retreat.
+Bd7: Black develops.
+Nc3: Develop.
+Nf5: Black hits d4.
+O-O: Castle.
+@alapin-nge7 | 1 | French structure with ...Nge7 | Bd3 and take on f5.
+Nge7: Black develops.
+Bd3: Develop.
+cxd4: Black takes.
+cxd4: Recapture.
+Nf5: Black hits d4.
+Bxf5: Take.
+@caroadv-e6 | 1 | 3...e6 | Develop with Nf3, c3 and Bb5.
+e6: Black plays solid.
+Nf3: Develop.
+c5: Black strikes.
+c3: Support d4.
+Nc6: Black develops.
+Bb5: Pin.
+Be3: Develop.
+cxd4: Black takes.
+Bxd4: Recapture.
+Nxe5: Black takes.
+Nxe5: Recapture.
+@caroadv-nc6 | 2 | 3...c5 4.dxc5 Nc6 | Develop and use the queen.
+Nc6: Black develops.
+Nf3: Develop.
+Bg4: Black pins.
+c3: Prepare Qb3.
+a6: Black prepares.
+Qb3: Hit b7.
+Qc7: Black defends.
+Qxd5: Take.
+e6: Black hits the queen.
+Qe4: Retreat.
+@caroadv-h6 | 2 | 3...Bf5 4.Nf3 h6 | Nh4 chases the bishop; e6 breaks.
+h6: Black makes room.
+Nh4: Chase the bishop.
+Bh7: It retreats.
+e6: Break.
+Qd6: Black develops.
+exf7+: Take.
+Kxf7: Black recaptures.
+f4: Gain space.
+c5: Black strikes.
+Bd3: Trade.
+@caroadv-ne7 | 2 | 3...e6 4.Nf3 Ne7 | Nbd2 and take on c5.
+Ne7: Black develops.
+Nbd2: Develop.
+c5: Black strikes.
+dxc5: Take.
+Ng6: Black develops.
+b4: Hold c5.
+a5: Black hits.
+c3: Support.
+Be7: Black develops.
+Nb3: Guard c5.
+@caroadv-cd4 | 2 | 3...e6 4.Nf3 c5 5.c3 cxd4 | Recapture and develop.
+cxd4: Black takes.
+cxd4: Recapture.
+f5: Black supports.
+Nc3: Develop.
+Bb4: Black pins.
+h4: Gain space.
+Bd7: Black develops.
+Bd3: Develop.
+@caroadv-nd72 | 1 | 3...e6 4.Nf3 Nd7 | Bd3, c3 and b4.
+Nd7: Black develops.
+Bd3: Develop.
+c5: Black strikes.
+c3: Support.
+Ne7: Black develops.
+a3: Prepare b4.
+Nc6: Black develops.
+b4: Gain space.
+cxd4: Black takes.
+cxd4: Recapture.
+@caroadv-f6 | 2 | 3...e6 4.Nf3 f6 | Bd3, castle and c4.
+f6: Black challenges e5.
+Bd3: Develop.
+c5: Black strikes.
+O-O: Castle.
+Nc6: Black develops.
+c4: Strike.
+dxc4: Black takes.
+Bxc4: Recapture.
+cxd4: Black takes.
+exf6: Take.
+@caroadv-c52 | 2 | 3...Bf5 4.Nf3 c5 | Take on c5 and hold it with b4.
+c5: Black strikes.
+dxc5: Take.
+a6: Black prepares.
+b4: Hold c5.
+Nc6: Black develops.
+a3: Support.
+g6: Black fianchettoes.
+Be2: Develop.
+Bg7: Black develops.
+Bb2: Develop.

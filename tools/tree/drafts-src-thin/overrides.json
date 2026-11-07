@@ -1,0 +1,29 @@
+{
+ "_about": "Words for moves whose only explanation came from a line of the other colour. Applied to lines.gen.json by apply_overrides.mjs: { lineId: { ply: note } }, why = note.",
+ "caroadv-e6": { "11": "Black blocks the check and develops." },
+ "dutch-bf4": { "7": "Prepare ...Bb7 to control e4." },
+ "dutch-nf3": { "7": "Prepare ...Bb7 to control e4." },
+ "english-c6": { "9": "Black develops and controls e5 and d4.", "10": "Develop the bishop outside the pawn chain." },
+ "english-g6": {
+  "8": "Develop the knight.",
+  "9": "Black castles.",
+  "10": "Develop and get ready to castle.",
+  "11": "Black strikes the centre.",
+  "12": "Castle.",
+  "13": "Black pressures d4.",
+  "14": "Close the centre: your play is on the queenside, Black's on the kingside.",
+  "15": "Black's knight heads for the kingside to support ...f5."
+ },
+ "petrov-d42": {
+  "9": "Pin the knight: the most reliable move.",
+  "10": "White trades on c6.",
+  "11": "Recapture towards the centre.",
+  "12": "White develops the bishop.",
+  "13": "Claim the centre.",
+  "14": "White releases the tension.",
+  "15": "Recapture: you keep a pawn on d5.",
+  "16": "White castles.",
+  "17": "Castle."
+ },
+ "twoknights-o-o3": { "8": "White castles and offers the e-pawn." }
+}

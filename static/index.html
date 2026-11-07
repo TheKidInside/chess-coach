@@ -107,6 +107,10 @@
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none"/><path d="M16 16l4.5 4.5" fill="none"/></svg>
               <input id="rep-search" type="search" placeholder="Search a name, ECO code or moves (Caro, B12, e4 c6)" aria-label="Search openings" autocomplete="off">
             </label>
+            <div class="seg mine-seg" id="f-mine" role="radiogroup" aria-label="Which openings">
+              <button class="seg-btn" data-v="mine" role="radio" title="The openings you play"><svg viewBox="0 0 24 24" class="star" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>My repertoire <span class="count" id="mine-count"></span></button>
+              <button class="seg-btn" data-v="all" role="radio">All openings</button>
+            </div>
             <div class="filter-row">
               <div class="seg" id="f-side" role="radiogroup" aria-label="Your colour">
                 <button class="seg-btn" data-v="all" role="radio">Both</button>
@@ -132,6 +136,7 @@
               </label>
             </div>
           </div>
+          <div id="coverage" class="coverage hidden"></div>
           <div id="opening-list" class="olist"></div>
         </div>
       </div>
@@ -140,6 +145,7 @@
         <div class="lesson-head">
           <div class="otitle"><b id="family-title"></b></div>
           <div id="family-moves" class="fam-moves"></div>
+          <button id="mine-toggle" class="mine-toggle" type="button"></button>
           <button id="lesson-review" class="primary hidden" title="Drill every line that is due, back to back"></button>
         </div>
         <div class="seg otabs" id="otabs" role="tablist" aria-label="Opening">

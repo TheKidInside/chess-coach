@@ -1,0 +1,417 @@
+# Black against 1.d4: King's Indian, Slav, Nimzo-Indian, Grunfeld, Dutch, Benoni. Format in write_lines.mjs.
+@kid-nc3 | 2 | 3.Nf3 and 4.Nc3: the Classical by another order | The same Classical King's Indian. When White starts the queenside attack with b4, answer ...a5 and use the a-file.
+Nc3: White develops; the Classical structure is coming.
+O-O: Castle before you commit the centre.
+e4: White takes the full centre.
+d6: Prepare ...e5, the King's Indian break.
+b4: The Bayonet Attack: White races on the queenside.
+a5: Hit b4 at once, before c5 comes.
+bxa5: White takes.
+Rxa5: Recapture; the rook is active on the a-file.
+a4: White stops ...Rxa2 ideas and guards b5.
+Ra8: The rook goes back. Your plan is the kingside: ...Nd7, ...f5.
+@kid-be2 | 2 | 5.Be2: the Classical move order | Castle and play ...e5. Against the Bayonet with b4, answer ...a5, then ...Nh5 heads for f4.
+Be2: White develops modestly.
+O-O: Castle.
+Nf3: White transposes to the Classical.
+Be3: White develops the last minor piece.
+Nh5: The knight heads for f4 and makes room for ...f5.
+@kid-bd3 | 2 | 5.Nf3 O-O 6.Bd3: an unusual bishop | Pin the knight with ...Bg4. If White retreats the bishop to e2, trade it off and put the knight on b8-d7.
+Bd3: The bishop on d3 blocks the d-file and can be hit.
+Bg4: Pin the knight and pressure d4.
+Be2: White admits the bishop was misplaced.
+Nc6: Develop and hit d4.
+d5: White kicks the knight.
+Nb8: The knight goes back, heading for d7.
+Nd4: White offers to trade bishops.
+Bxe2: Take.
+Ndxe2: White recaptures.
+a6: Prepare ...b5. You are comfortable.
+@kid-h3 | 2 | 5.h3: the Makogonov | White stops ...Bg4 and ...Ng4. After d5, ...h6 and ...c6 keep your play on both wings.
+h3: The Makogonov: no ...Ng4 or ...Bg4.
+O-O: Castle.
+Nf3: White develops.
+e5: The King's Indian break.
+d5: White closes the centre.
+h6: Stop Bg5 so ...Nh7 and ...f5 can follow. || Don't follow with ...g5 at once: Stockfish shows it only weakens your king.
+g4: White grabs kingside space to stop ...f5.
+c6: Switch to the queenside: open the c-file. Your king is safe behind g6 and h6.
+@kid-bd32 | 2 | 5.Bd3: the bishop blocks d-file | Castle and hit d4 with ...Nc6. After d5 the knight goes to e5, and ...c5 grabs space.
+Bd3: White guards e4 with the bishop.
+O-O: Castle.
+Nge2: White keeps f-pawn free.
+Nc6: Hit d4.
+d5: White kicks.
+Ne5: The knight centralises and hits the d3-bishop.
+O-O: White castles.
+a6: Prepare ...b5.
+Nd4: White's knight jumps into the centre.
+c5: Kick it. You have a solid Benoni-type position.
+@kid-bg5 | 2 | 4.Bg5: an early pin | Castle and play ...d6, ...Nbd7 and ...h6. When the bishop retreats, ...Ng4 and ...e5 free your game.
+Bg5: White pins the knight early.
+O-O: Castle.
+Nf3: White develops.
+d6: Prepare ...e5.
+e3: White supports d4.
+Nbd7: Develop and back up ...e5.
+e4: White takes the centre after all.
+h6: Ask the bishop.
+Be3: White retreats.
+Ng4: Chase the bishop.
+Bc1: It goes home.
+e5: The break, with gain of time.
+@kid-e3 | 1 | 3.e3: a quiet set-up | White plays slowly. Fianchetto, castle, play ...d6 and ...e5, and take on d4 when White pushes e4.
+e3: White plays solidly.
+Bg7: Fianchetto.
+Nf3: White develops.
+O-O: Castle.
+Nc3: White develops.
+d6: Prepare ...e5.
+Be2: White develops.
+Nbd7: Back up ...e5.
+O-O: White castles.
+e5: The break.
+e4: White takes the centre with a tempo lost.
+exd4: Take.
+Nxd4: White recaptures.
+c6: Prepare ...Re8 and ...Nc5, the classical plan against e4.
+@kid-bd33 | 1 | 3.e3 and 6.Bd3 | Pin the knight with ...Bg4 and take it when White plays h3. Then ...c6, ...Nbd7 and ...e5.
+Bd3: White develops the bishop.
+Bg4: Pin the knight.
+h3: White asks.
+Bxf3: Take.
+Qxf3: White recaptures.
+c6: Prepare ...e5.
+O-O: White castles.
+Nbd7: Develop.
+Rd1: White guards d4.
+Re8: Support ...e5.
+@slav-g3 | 1 | 4.g3: the Catalan-style Slav | Develop the bishop to f5 before ...e6, then castle.
+g3: White fianchettoes.
+Bf5: Develop the light bishop first.
+Bg2: White fianchettoes.
+e6: Now open the f8-bishop.
+O-O: White castles.
+Be7: Develop.
+Nc3: White develops.
+O-O: Castle. A solid Slav.
+@slav-bg5 | 2 | 4.Bg5: an early pin | Take on c4 and hold it with ...b5. Your bishop goes to g4 later.
+Bg5: White pins.
+dxc4: Take the pawn.
+Qc1: White prepares to win it back... slowly.
+b5: Hold the pawn.
+g3: White fianchettoes.
+h6: Ask the bishop.
+Bf4: White keeps it.
+Bg4: Develop with pressure.
+Bg2: White develops.
+Nbd7: Develop. You are a pawn up.
+@slav-bd3 | 1 | 4.e3 Bf5 5.Nc3 e6 6.Bd3: trade the bishops | Trade on d3: your problem bishop is gone. Castle and meet e4 calmly.
+Bd3: White offers the trade.
+Bxd3: Take.
+Qxd3: White recaptures.
+Be7: Develop.
+O-O: White castles.
+O-O: Castle.
+Rd1: White prepares e4.
+Na6: The knight heads for b4 or c7.
+e4: White breaks.
+Re8: Guard e-file. Solid.
+@slav-e4 | 2 | 4.Nc3 dxc4 5.e4: the gambit | Hold c4 with ...b5. After a4 b4 Na2, ...Nxe4 grabs a second pawn.
+e4: White gambits the pawn for the centre.
+b5: Hold c4.
+a4: White hits b5.
+b4: Push past.
+Na2: The knight retreats.
+Nxe4: Take a second pawn.
+Bxc4: White wins one back.
+a5: Hold b4.
+O-O: White castles.
+e6: Develop. You are a pawn up.
+@slav-bg52 | 2 | Exchange Slav with 6.Bg5 | Jump to e4 and trade the bishop. Then ...Bg4 and ...Nxe5.
+Bg5: White pins.
+Ne4: Hit the bishop and the knight.
+Bd2: White retreats.
+Nxd2: Take the bishop pair.
+Qxd2: White recaptures.
+Bg4: Develop.
+Ne5: White hits.
+Nxe5: Trade.
+dxe5: White recaptures.
+Bd7: The bishop retreats. Level.
+@slav-be2 | 1 | 6.Be2: the slow line | Keep the bishop with ...Qc7 and ...Be4. When the knight hits it, ...Bg6.
+Be2: White develops modestly.
+Qc7: Control e5 and prepare ...Be4.
+Nh4: White chases the bishop.
+Be4: Keep it in the centre.
+O-O: White castles.
+Be7: Develop.
+f3: White kicks the bishop.
+Bg6: Retreat.
+c5: White grabs space.
+Nbd7: Develop. Play ...e5 next.
+@slav-cd5 | 2 | 6.cxd5: the exchange | Recapture with the e-pawn: open lines for your pieces.
+cxd5: White trades.
+exd5: Take towards the open e-file.
+Nh4: White chases the bishop.
+Be6: Retreat.
+Bd3: White develops.
+Bd6: Develop.
+Nf3: The knight returns.
+Nbd7: Develop.
+Ng5: White hits the bishop again.
+Bg4: Keep it. Level.
+@slav-bf4 | 2 | 4.Bf4 dxc4: hold the pawn | Take on c4 and keep it with ...b5. After b3, ...c3 cramps White.
+Bf4: White develops.
+dxc4: Take.
+Nbd2: White hopes to win it back.
+b5: Hold it.
+b3: White attacks the chain.
+c3: Push past with tempo on the knight.
+Nb1: The knight retreats.
+b4: Support c3.
+a3: White hits the chain.
+Bf5: Develop. You are ahead.
+@nimzo-nf3 | 1 | 4.Nf3: the Kasparov-style Nimzo | Castle, ask the bishop with ...h6 after Bg5, and break with ...c5 and ...d5.
+Nf3: White develops.
+O-O: Castle.
+Bg5: White pins.
+h6: Ask.
+Bh4: White keeps the pin.
+c5: Strike the centre.
+e3: White supports d4.
+cxd4: Take.
+exd4: White recaptures.
+d5: Take the centre. Level.
+@nimzo-bg5 | 2 | 4.Bg5: the Leningrad | Ask the bishop, strike with ...c5 and pin with ...Qa5. The a2 pawn can fall.
+Bg5: The Leningrad Variation.
+h6: Ask.
+Bh4: White keeps the pin.
+c5: Strike.
+e3: White supports d4.
+Qa5: Pile up on the pinned knight.
+Ne2: White guards it.
+Ne4: More pressure.
+Rc1: White guards c3.
+Qxa2: Take a pawn.
+@nimzo-bd2 | 1 | 4.Bd2: modest | Castle, ...b6 and ...d5. Trade on c3 and develop the bishop.
+Bd2: White unpins.
+O-O: Castle.
+e3: White supports d4.
+b6: Prepare ...Bb7.
+Qf3: The queen eyes your a8-rook down the long diagonal.
+d5: Close the diagonal.
+a3: White asks.
+Bxc3: Take.
+Bxc3: White recaptures.
+Bb7: Develop.
+@nimzo-f3 | 2 | 4.f3: the Kmoch | Take the centre with ...d5 and trade on c3. Then ...c5 against White's pawns.
+f3: White prepares e4.
+d5: Stop it.
+a3: White asks the bishop.
+Bxc3+: Take.
+bxc3: White recaptures.
+Bd7: Develop.
+cxd5: White trades.
+Nxd5: Recapture.
+Qc2: White eyes h7.
+c5: Hit the centre.
+@nimzo-qb3 | 1 | 4.Qb3: the Spielmann | Strike with ...c5 and ...Nc6, then ...d5.
+Qb3: White guards c3 and hits b4.
+c5: Defend the bishop with a centre break.
+Nf3: White develops.
+Nc6: Develop.
+e3: White supports d4.
+cxd4: Take.
+exd4: White recaptures.
+d5: Take the centre.
+cxd5: White trades.
+Nxd5: Recapture. Level.
+@nimzo-bf6 | 2 | 4.Bg5 h6 5.Bxf6 | Take on c3 with check, recapture with the queen and fianchetto the bishop.
+Bxf6: White takes.
+Bxc3+: Take with check.
+bxc3: White recaptures.
+Qxf6: Recapture.
+Rb1: White eyes b7.
+b6: Guard it.
+e3: White supports.
+Bb7: Develop.
+Nf3: White develops.
+d6: Solid.
+@nimzo-e4 | 2 | 4.Qc2 O-O 5.e4: too fast | Answer with ...d5 and hit e4 at once.
+e4: White takes the centre too early.
+d5: Hit e4 straight away.
+@grunfeld-e3 | 1 | 4.e3: the quiet line | Fianchetto, castle, ...c5. After the trades, ...Nc6 and ...b6.
+e3: White plays quietly.
+Bg7: Fianchetto.
+Nf3: White develops.
+O-O: Castle.
+Bd3: White develops.
+c5: Strike.
+O-O: White castles.
+cxd4: Take.
+exd4: White recaptures.
+Nc6: Hit d4.
+h3: White prevents ...Bg4.
+b6: Prepare ...Bb7.
+@grunfeld-cd5 | 2 | 5.cxd5: the Exchange with Nf3 | Trade on c3 and hit the centre with ...c5 and ...Qa5.
+cxd5: White takes.
+Nxd5: Recapture.
+e4: White kicks.
+Nxc3: Trade.
+bxc3: White recaptures.
+Be3: White guards d4.
+Qa5: Pin and press.
+Qd2: White guards.
+O-O: Castle.
+Rc1: White guards c3.
+cxd4: Take.
+cxd4: White recaptures.
+Qxd2+: Trade queens.
+@grunfeld-bg5 | 2 | 5.Bg5: the pin | Jump to e4. After Bf4, trade on c3 and strike with ...c5.
+Bg5: White pins.
+Ne4: Hit the bishop.
+Bf4: It retreats.
+Nxc3: Trade.
+bxc3: White recaptures.
+c5: Strike.
+e3: White supports.
+O-O: Castle.
+Be2: White develops.
+Qa5: Press on c3.
+@grunfeld-bg52 | 2 | 4.Bg5: trade on f6 | Recapture with the bishop and strike with ...c5.
+Bg5: White pins early.
+Bg7: Develop anyway.
+Bxf6: White takes.
+Bxf6: Recapture.
+cxd5: White takes.
+c5: Strike.
+Nf3: White develops.
+cxd4: Take.
+Nxd4: White recaptures.
+Qb6: Hit d4 and b2.
+@grunfeld-bf42 | 2 | 5.Bf4: hit c7 | Castle and strike with ...c5 and ...Qa5.
+Bf4: White develops.
+O-O: Castle.
+e3: White supports.
+c5: Strike.
+dxc5: White takes.
+Qa5: Pin and win c5 back.
+Rc1: White guards.
+dxc4: Take.
+Bxc4: White recaptures.
+Bb3: White retreats.
+Nc6: Develop.
+O-O: White castles.
+Qa5: Keep the queen safe.
+@dutch-c4 | 1 | 2.c4: the main Dutch | Develop with ...Nf6, ...e6, ...Be7 and castle. ...b6 and ...Bb7 hit e4.
+c4: White takes space.
+Nf6: Develop.
+Nc3: White develops.
+e6: Open the bishop.
+Bg5: White pins.
+Be7: Unpin.
+Nf3: White develops.
+O-O: Castle.
+e3: White supports.
+b6: Prepare ...Bb7.
+Bd3: White develops.
+Bb7: Develop; e4 is under control.
+h4: White grabs space.
+h6: Stop h5 ideas.
+@dutch-nf32 | 2 | 2.c4 with 4.Nf3: pin the knight | Play ...Bb4, castle, then ...a5 and ...Nc6.
+Nf3: White develops.
+Bb4: Pin.
+Bg5: White pins too.
+O-O: Castle.
+Qb3: White hits the bishop.
+a5: Defend it.
+e3: White supports.
+Nc6: Develop.
+c5: White grabs space.
+a4: Kick the queen.
+@dutch-nf33 | 2 | 2.c4 Nf6 3.Nf3: same idea | Transposes after Nc3.
+Nf3: White develops.
+e6: Open the bishop.
+Nc3: White transposes.
+@dutch-bf4 | 1 | 2.Bf4: a London against the Dutch | Develop with ...e6, ...b6, ...Be7 and castle. ...Ne4 lands on e4.
+Be2: White develops.
+Be7: Develop.
+c4: White takes space.
+O-O: Castle.
+h3: White guards g4.
+Ne4: Occupy e4.
+@dutch-nf3 | 1 | 2.Nf3: then Bf4 | The same as the London line.
+Nf3: White develops.
+Nf6: Develop.
+Bf4: White plays the London.
+e6: Open the bishop.
+e3: White supports.
+@dutch-nc3 | 1 | 2.Nc3: the Veresov idea | Develop with ...Nf6 and ...d5, then ...e6 and castle.
+Nc3: White develops.
+Nf6: Develop.
+Bg5: White pins.
+d5: Take the centre.
+Nf3: White develops.
+e6: Open the bishop.
+e3: White supports.
+Be7: Develop.
+Bd3: White develops.
+O-O: Castle.
+@dutch-e3 | 1 | 2.e3: slow | Develop with ...e6, ...b6, ...Bb7 and ...Be7.
+e3: White plays slowly.
+Nf6: Develop.
+Nf3: White develops.
+e6: Open the bishop.
+Bd3: White develops.
+b6: Prepare ...Bb7.
+O-O: White castles.
+Bb7: Develop.
+c4: White grabs space.
+Be7: Develop.
+Qc2: White eyes f5.
+Nc6: Develop.
+@dutch-bf42 | 1 | 2.Nc3 Nf6 3.Bf4 | Pin with ...Bb4 and play ...d5.
+Bf4: White develops.
+e6: Open the bishop.
+e3: White supports.
+Bb4: Pin.
+Ne2: White unpins.
+d5: Take the centre.
+a3: White asks.
+Bd6: Trade bishops.
+h3: White keeps it.
+O-O: Castle.
+@benoni-bd3 | 2 | 7.Bd3: the Modern Benoni with Bd3 | Fianchetto, castle and ...Qa5. The knight goes to a6.
+Bd3: White develops.
+Bg7: Fianchetto.
+h3: White stops ...Bg4.
+O-O: Castle.
+Qc2: White guards e4.
+Qa5: Pressure c3.
+Ne2: White guards.
+Bd7: Develop.
+Bd2: White develops.
+Na6: The knight heads for b4.
+@benoni-h3 | 2 | 7.h3: the modern main line | Fianchetto, castle, ...Re8 and ...c4. The e4 pawn falls.
+h3: White stops ...Bg4.
+Bg7: Fianchetto.
+Nf3: White develops.
+O-O: Castle.
+Be3: White develops.
+Re8: Hit e4.
+Bd3: White guards e4.
+c4: Kick the bishop.
+Bc2: It retreats.
+Nxe4: Take e4.
+@benoni-bf4 | 2 | 6.Nf3 g6 7.Bf4 | Fianchetto, castle, ...h6 and ...Nh5.
+Bf4: White hits d6.
+Bg7: Fianchetto.
+h3: White prepares.
+O-O: Castle.
+e3: White supports.
+h6: Give the bishop no g5.
+Nd2: White plays Nd2-c4.
+Nh5: Chase the bishop.
+Bh2: It retreats.
+Nf6: Back again.

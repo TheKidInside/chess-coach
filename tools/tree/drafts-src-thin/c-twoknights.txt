@@ -1,0 +1,159 @@
+# Two Knights Defence and Petrov (Black): White's other tries. Format in write_lines.mjs.
+@twoknights-nc3 | 2 | 4.Nc3: the Italian Four Knights | Against 4.Nc3 put the bishop on c5 and play ...d6. If White pins with Bg5, ...h6 and ...g5 break the pin, and ...Bg4-h5 keeps the pressure on f3.
+Nc3: White develops quietly and allows ...Nxe4 tricks, which don't quite work.
+Bc5: Develop to the best diagonal, aimed at f2. || 4...Nxe4 5.Nxe4 d5 is also possible, but the bishop move keeps things simple.
+d3: White guards e4.
+d6: Guard e5 and open the c8-bishop.
+Bg5: White pins your f6-knight.
+h6: Ask the bishop at once.
+Bh4: White keeps the pin.
+g5: Break the pin with space. You have not castled, so the pawns don't weaken your king. || This only works because your king can stay in the centre or go long; with a castled king it would be reckless.
+Bg3: The bishop retreats.
+Bg4: Pin White's knight in return.
+h3: White asks the bishop.
+Bh5: Keep the pin; ...g5 already guards h5.
+Bb5: White turns to the c6-knight.
+a6: Ask the bishop to decide.
+Bxc6+: White gives up the bishop.
+bxc6: Recapture towards the centre. You have the bishop pair and a solid centre.
+@twoknights-o-o | 2 | 4.Nc3 Bc5 5.O-O: both sides castle | When both kings are castled, don't play ...g5. Break the Bg5 pin with ...h6 and ...Bg4 instead.
+O-O: White castles.
+O-O: Castle too.
+d3: White guards e4.
+d6: Guard e5.
+Bg5: The pin again.
+h6: Ask the bishop.
+Bh4: White keeps the pin.
+Bg4: Pin back. With your king castled, ...g5 would only weaken it, so pin the knight instead.
+@twoknights-o-o2 | 2 | 4.O-O Bc5: White castles first | Develop with ...Bc5 and ...d6. If White builds c3 and d4, keep the bishop with ...Bb6 and meet d4 calmly.
+O-O: White castles, inviting ...Nxe4.
+Bc5: Develop; ...Nxe4 5.Re1 gives White the initiative.
+d3: White guards e4.
+d6: Guard e5 too.
+c3: White prepares d4.
+Bg4: Pin the knight so d4 is harder to support.
+h3: White asks the bishop.
+Be6: Challenge the c4-bishop instead of giving up the bishop pair.
+Bb5: White avoids the trade.
+Bb6: Retreat the bishop out of the way of d4.
+a3: White gives the b5-bishop a retreat on a4.
+h6: Stop Bg5 before you castle.
+d4: White strikes the centre at last.
+Bd7: Drop back and break the pin on c6. You are solid and ready to castle.
+@twoknights-bg5 | 2 | 4.d3 Bc5 5.Bg5: the early pin | ...h6 and ...g5 break the pin. When White kicks with c3, ...Nh5 goes after the g3-bishop and wins the bishop pair.
+Bg5: White pins at once.
+h6: Ask the bishop.
+Bh4: White keeps the pin.
+g5: Break it; your king hasn't castled.
+Bg3: The bishop retreats.
+d6: Guard e5 and develop.
+c3: White prepares d4.
+Nh5: The knight goes after the g3-bishop.
+Nxe5: White grabs e5 instead of saving the bishop.
+Nxg3: Take the bishop first. White's knight on e5 is still hanging.
+@twoknights-ng5 | 2 | 4.d3 Bc5 5.Ng5: aiming at f7 | With the bishop on c5 and White having played d3, Ng5 has no real threat: just castle. The knight will have to go back.
+Ng5: White eyes f7, but with d3 played there is no Nxf7 trick.
+O-O: Castle and f7 is safe: the rook guards it.
+O-O: White castles too.
+d6: Guard e5.
+c3: White prepares d4.
+h6: Kick the knight.
+Nf3: It goes back where it came from: White has lost two tempi.
+Ne7: Reroute the knight to g6, where it eyes f4 and h4.
+Nbd2: White develops.
+Ng6: The knight settles on g6. A comfortable position.
+@twoknights-c3 | 2 | 4.c3: take the pawn | Take on e4: 4...Nxe4 5.d4 d5 gives you a solid centre. After 6.Bb5 exd4 castle and get developed.
+c3: White prepares d4 but leaves e4 hanging.
+Nxe4: Take it.
+d4: White strikes, hoping to open lines.
+d5: Hit the bishop and guard your knight.
+Bb5: The bishop pins the c6-knight.
+exd4: Take the pawn.
+O-O: White castles.
+Bd6: Develop and guard e5 squares.
+Qxd4: White wins the pawn back.
+O-O: Castle. You are a pawn up after White's play: Stockfish has you about three pawns better.
+@twoknights-o-o3 | 2 | 4.d4 exd4 5.O-O Nxe4: the Max Lange area | After 6.Re1 d5 7.Bxd5 Qxd5 8.Nc3 the queen steps to d7. You give back the e4-knight but keep a pawn.
+Nxe4: Take the pawn; it is safe.
+Re1: White pins along the e-file.
+d5: Guard the knight with a pawn.
+Bxd5: White gives up the bishop for the pawn.
+Qxd5: Recapture.
+Nc3: White attacks the queen and the pinned knight.
+Qd7: The queen steps back and still guards the e-file.
+Nxe4: White wins the knight back.
+Be7: Block the e-file and get castled.
+Bg5: White trades off your defender.
+O-O: Castle at once.
+Bxe7: White takes.
+Qxe7: Recapture. You are a pawn up with a safe king.
+@petrov-nc32 | 2 | 3.Nc3 Nc6: Four Knights with Bc4 | The Petrov transposes into a Four Knights Italian. Same plan: ...Bc5, ...d6, and ...h6-g5 against an early pin.
+Nc3: White develops instead of taking on e5.
+Nc6: Mirror White and transpose into the Four Knights.
+Bc4: White plays it like an Italian.
+Bb5: White skips h3 and turns on the c6-knight.
+a6: Ask the bishop.
+Bxc6+: White takes.
+bxc6: Recapture towards the centre. Your bishop still pins the f3-knight and you have the bishop pair.
+@petrov-bc4 | 2 | 3.Bc4 Nxe4: the Urusov-style gambit | Take on e4. After 4.Nxe5 d5 5.Bb3 Qg5 the g2-pawn falls, and White's king can't easily castle.
+Bc4: White ignores e5 and develops.
+Nxe4: Take the pawn.
+Nxe5: White takes back.
+d5: Hit the bishop and block the c4-f7 diagonal.
+Bb3: The bishop retreats.
+Qg5: Fork g2 and e5.
+Qe2: White guards e5 and pins your knight.
+Qxg2: Take g2.
+Rf1: White saves the rook.
+Be6: Develop and block the e-file.
+Nf3: White hits the queen.
+Bg4: Pin the knight to the queen. You are two pawns up.
+@petrov-d42 | 2 | 3.Nc3 Nc6 4.d4: Scotch Four Knights | The game becomes a Scotch Four Knights. After the trades on c6 and d5, castle and use the open b-file.
+d4: White opens the centre.
+exd4: Take.
+Nxd4: White recaptures.
+h3: White stops ...Bg4.
+Be7: Retreat the bishop to keep it.
+Qf3: White eyes your c6 and d5 pawns.
+Rb8: The rook takes the open b-file. Level.
+@petrov-bb5 | 2 | 3.Nc3 Nc6 4.Bb5 Bc5: the f2 trick | The ...Bxf2+ and ...Qd4+ trick wins the pawn back. Keep the queen active and the knight jumps to h5.
+Bb5: White pins your c6-knight. Answer with ...Bc5 and the f2 trick.
+Nh5: The knight heads for f4, where it hits d3 and g2.
+@petrov-d3 | 1 | 3.d3: the quiet Philidor reversed | White plays it safe. Develop with ...Nc6, ...Bb4 and castle, then free yourself with ...d5.
+d3: White guards e4 and plays a reversed Philidor.
+Nc6: Develop and guard e5.
+Nc3: White develops.
+Bb4: Pin the knight.
+Bd2: White unpins.
+O-O: Castle.
+Be2: White prepares to castle.
+d5: Free your game with a central break.
+Nxd5: White trades.
+Nxd5: Recapture.
+exd5: White takes.
+Bxd2+: Trade the bishops first.
+Nxd2: White recaptures.
+Qxd5: Win the pawn back. Your pieces are active and the game is level.
+@petrov-ng5 | 2 | 3.Nc3 Nc6 4.Bc4 Bc5 5.Ng5: too early | Castle: f7 is safe. After ...h6 the knight goes back, and ...Na5 trades off the c4-bishop.
+Ng5: White eyes f7 too early.
+O-O: Castle; the rook guards f7.
+d3: White guards e4.
+h6: Kick the knight.
+Nf3: It goes back.
+d6: Guard e5.
+h3: White stops ...Bg4.
+Na5: Go after the c4-bishop.
+Bb3: White saves it.
+c6: Prepare ...Nxb3 or ...b5. A comfortable position.
+@petrov-be2 | 1 | 3.d3 Nc6 4.Be2: quiet development | Develop with ...Bc5, castle, and use the d4 square. When White's knight goes to a4, drop the bishop to f8.
+Be2: White develops modestly.
+Bc5: Take the best diagonal.
+O-O: White castles.
+O-O: Castle.
+Nc3: White develops.
+Re8: Guard e5 with the rook.
+Na4: White goes after the bishop.
+Bf8: Keep it; f8 is safe and it guards the king.
+c4: White grabs space and covers d5.
+Nd4: Jump into the hole on d4, which no white pawn can attack. You are fine.
+@petrov-o-o | 2 | 3.Nc3 Nc6 4.Bc4 Bc5 5.O-O: both sides castle | The same position as the Two Knights line with 5.O-O. With both kings castled, answer the Bg5 pin with ...h6 and ...Bg4, not ...g5.

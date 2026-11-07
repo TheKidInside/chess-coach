@@ -1,0 +1,115 @@
+# Italian Game: replies to 3.Bc4 the main lines don't cover. Format in write_lines.mjs.
+@italian-d6 | 1 | 3...d6: the Hungarian-style defence | Black holds e5 passively. Open the centre with d4 at once: after the trades your queen lands on d4, you castle, and your pieces are freer than Black's.
+d6: Solid but passive: it shuts in the f8-bishop and gives up any fight for d4. || Black keeps e5 propped up instead of developing. That is a slow plan, so you should open the centre while you are ahead in development.
+d4: Strike now, while Black's bishop is still shut in behind d6. || With only one black knight in play, the d4 push opens lines for your c4-bishop and queen faster than Black can use them.
+exd4: Black gives up the centre rather than allow dxe5.
+Nxd4: Recapture with the knight; it is centralised and eyes f5 and b5.
+Nxd4: Black trades knights to slow your development down.
+Qxd4: The queen recaptures and dominates the centre. Nothing black can kick it with tempo yet.
+Nf6: Black develops and prepares to castle.
+O-O: Castle first; e4 is safe because the queen guards it.
+Be7: Black finishes the kingside, still a little cramped.
+Nc3: Develop the last minor piece and protect e4 a second time.
+O-O: Both kings are safe; the question is who uses the open centre better.
+Bg5: Pin the f6-knight and add pressure to d6. || With Rad1 to come, the d6 pawn is the target of your whole set-up.
+c6: Black prepares ...Qb6 or ...b5 to unpin and find counterplay.
+Rad1: Every piece is out and the rook bears down on d6. You have the freer game: Black has no good plan to free the position.
+@italian-legal | 1 | 3...d6 4.Nc3 Bg4?: Legal's mate | If Black pins your knight early, the queen sacrifice Nxe5 punishes it. 6...Bxd1 runs into Bxf7+ and Nd5 mate; the safe reply 6...Nxe5 still leaves you a pawn up.
+Nc3: Develop and protect e4. The quiet move invites Black to try something.
+Bg4: The pin on your f3-knight. It looks annoying but leaves e5 loosely guarded.
+h3: Ask the bishop at once.
+Bh5: Keeping the pin is the mistake. ...Bxf3 was safe. || The bishop on h5 is far from home, and the knight on f3 is pinned only to your queen, which you are happy to give.
+Nxe5: The sacrifice. The pin is not real: if Black takes the queen, it is mate. || Black's best is 6...Nxe5, and after Qxh5 Nxc4 Qb5+ you win the pawn back with a better position.
+Bxd1: Black takes the queen and walks into mate.
+Bxf7+: Check, and the king has one square.
+Ke7: Forced.
+Nd5#: Mate. Three minor pieces did it: the bishop covers f7, the knights cover d6, e6, f6 and d7 is blocked by the pawn.
+@italian-h6 | 2 | 3...h6: a wasted move | ...h6 stops Ng5 but costs a tempo. Open the centre with d4 and play it like a Scotch Four Knights with an extra move.
+h6: A prophylactic move: no Ng5 ever. It does nothing for development. || Under 1800 this is common, because players fear Ng5. Answer it by using the tempo in the centre.
+d4: Strike the centre. Black's spare move ...h6 helps nothing here.
+exd4: Black takes, as usual.
+Nf6: Black develops and attacks e4.
+Nc3: Defend e4 and complete the knights.
+Bb4: Pin the knight to renew the pressure on e4.
+Nxc6: Trade first to deflect the b-pawn before e4 comes under fire.
+bxc6: Black's pawns are now a little weaker on the queenside.
+Bd3: Guard e4 with the bishop and keep it pointing at the kingside.
+d5: Black's freeing push, the natural answer.
+exd5: Take, and the c6-pawn has to recapture.
+cxd5: Black has a central pawn but an isolated a-pawn and a backward c-file.
+O-O: Castle. You will put a rook on e1 and a bishop on g5 against the pin.
+O-O: Level material, but your structure is healthier: target the c-pawn and a7.
+@italian-nd4 | 1 | 3...Nd4: the Blackburne Shilling | Take the knight and castle. If Black answers with 5...Bc5, Bxf7+ and Qh5+ win the bishop. Don't play 4.Nxe5?, which walks into ...Qg5.
+Nd4: A trick move. It leaves e5 hanging on purpose. || The trap: 4.Nxe5? Qg5 5.Nxf7?? Qxg2 6.Rf1 Qxe4+ 7.Be2 Nf3 mate. Simply take the knight instead.
+Nxd4: The safe answer: trade the knight off and keep your extra development.
+exd4: Black gets a pawn on d4 that is more weak than strong.
+O-O: Castle and prepare c3 to break up the d4 pawn.
+Bc5: Natural, but the bishop is loose on c5. || It defends d4, but nothing defends the bishop itself, and f7 is guarded only by the king.
+Bxf7+: The deflection: drag the king away from the defence of c5.
+Kxf7: Black takes; ...Kf8 was the way to lose less.
+Qh5+: A fork: check and the c5-bishop at the same time.
+g6: Black has to answer the check.
+Qxc5: You win the bishop for the bishop: a clean pawn up, and Black's king has lost the right to castle.
+d6: The queen is kicked.
+Qxd4: And the d4 pawn falls too. You are two pawns up.
+@italian-be7 | 1 | 3...Be7: the Hungarian Defence | The bishop on e7 is solid and passive. Same recipe as against ...d6: d4, trade into an open centre, castle and pressure d6.
+Be7: The Hungarian: Black avoids every sharp line by keeping the bishop at home. || It guards against Ng5 ideas and prepares ...d6. Without any pressure on your centre, d4 comes for free.
+d4: Take the centre while Black is passive.
+exd4: Black gives up the centre.
+Nxd4: The knight recaptures and takes a central post.
+Nxd4: Black trades to ease the cramp.
+Qxd4: The queen takes over d4. With no knight on c6 any more, nothing can hit it with tempo.
+Nf6: Black develops and eyes e4.
+Nc3: Guard e4 and develop the last knight.
+d6: Black supports e5-ideas and opens the c8-bishop.
+O-O: Castle. Bg5 and Rad1 come next.
+@italian-f5 | 2 | 3...f5: the Rousseau Gambit | Black opens the f-file at once. 4.d4 hits e5 and turns the gambit against Black: after 5.Nxe5 d5 6.Bb5, the pin on c6 and your central knight leave you clearly better.
+f5: A gamble on the f-file. It also weakens e8-h5 and the light squares around Black's king.
+d4: Hit e5 when it has lost the f-pawn's support. || You open the centre while Black's king is the one with the weaknesses.
+fxe4: Black grabs a pawn.
+Nxe5: Take back with the knight, which now sits in the centre.
+d5: Black hits the bishop and builds a centre.
+Bb5: Pin the c6-knight: your e5-knight stays and the pressure on c6 grows.
+Qd6: Black defends c6 and attacks e5.
+c4: Strike the centre again while Black's king is still in the middle.
+a6: Black asks the bishop to decide.
+Bxc6+: Take with check and leave Black with broken pawns.
+bxc6: Black's pawns on c6, d5 and e4 look big but are loose.
+O-O: Castle. Black's king has no safe home, and c4xd5 or f3 will open more lines.
+@italian-bc5-d6 | 2 | 3...Bc5 4.c3 d6: the slow defence | Against ...d6 the centre is yours: d4 with cxd4 builds two big pawns. If Black gives up the bishop pair to stop it, e5 opens the position for your pieces.
+d6: Black holds e5 instead of attacking your centre with ...Nf6. || That is slower than 4...Nf6 and lets you build the classical centre for free.
+d4: The point of c3: two pawns in the centre.
+exd4: Black gives way.
+cxd4: Now you have the ideal centre, pawns on e4 and d4.
+Bb4+: Black checks to gain time. ...Bb6 was better.
+Nc3: Block with a developing move.
+Bg4: Black pins the f3-knight to increase the pressure on d4.
+O-O: Castle and offer the c3-knight. Black's pins don't really hurt.
+Bxc3: Black gives up the bishop pair.
+bxc3: Your pawn centre is now three wide, ready for e5.
+Nf6: Black attacks e4.
+h3: Ask the bishop to choose before you push e5.
+Bh5: Keeping the pin.
+e5: Push with tempo. The knight has to move and the centre opens towards Black's king. || Stockfish rates this around two pawns for White: Black's pieces are scattered and your bishops are pointing at the king.
+@italian-h6-4d3 | 1 | 3...Nf6 4.d3 h6: a slow move in the quiet line | ...h6 is useful later but costs time now. Develop with Nc3 and Be3 and castle; if Black trades on e3, the f-file opens for your rook.
+h6: Prevents Ng5 and Bg5, at the cost of a tempo.
+Nc3: Develop the knight towards d5.
+Bc5: Black puts the bishop on its best diagonal.
+Be3: Challenge it. If Black trades, you get the half-open f-file.
+Bxe3: Black takes.
+fxe3: Recapture towards the centre: the f-file opens and the e3 pawn guards d4.
+d6: Black supports e5.
+O-O: Castle, with a rook already looking down the half-open f-file. Next, Qe1-g3 or Nh4-f5.
+@italian-d5 | 2 | 4.d3 d5?!: Black opens the centre too early | After exd5 Nxd5 castle and play Re1, and the e5 pawn is under fire. If Black also pins with ...Bg4 and props up e5 with ...f6, Nxe5 breaks through.
+d5: A direct break, but Black isn't ready: e5 will be weak. || Your d3 move means your king's side is solid, while Black's pawn on e5 becomes the target once the centre opens.
+exd5: Take, and the knight has to recapture.
+Nxd5: The knight is centralised but can be kicked.
+O-O: Castle and bring the rook to e1 against e5.
+Bg4: Black pins the knight to stop Nxe5 ideas.
+Re1: Pile up on e5. The pin is not as strong as it looks.
+f6: Black guards e5 a second time, but it weakens the diagonal to the king. || ...Qd6 was the safe way.
+Nxe5: Break the pin anyway: e5 was guarded twice, but the bishop on g4 is loose.
+Nxe5: Black takes back.
+Qxg4: The point: the queen takes the bishop that the knight had been shielding. You are a pawn up with an attack.
+Qd6: Black defends the e5-knight.
+d4: Kick the knight away and win more ground. Stockfish rates it close to winning.
