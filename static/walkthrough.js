@@ -78,8 +78,10 @@ function notation(g) {
 }
 
 /* ---------- board ---------- */
-// A Black opening (`side: "b"`) is told from Black's side of the board.
-const blackBelow = () => W.data?.side === 'b';
+// A Black opening (`side: "b"`) is told from Black's side of the board. A chapter marked `flip`
+// (how the other side refutes or counters the opening) turns it round while you watch; Drill it
+// keeps your side at the bottom, since you're the one making the moves.
+const blackBelow = () => (W.data?.side === 'b') !== (W.mode !== 'drill' && !!W.data?.chapters[W.ch]?.flip);
 const sqXY = (sq) => {
   const x = 'abcdefgh'.indexOf(sq[0]), y = 8 - Number(sq[1]);
   return blackBelow() ? { x: 7 - x, y: 7 - y } : { x, y };

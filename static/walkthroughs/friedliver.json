@@ -78,7 +78,7 @@
       ]
     },
     {
-      "title": "Refutation one: Na5",
+      "title": "Refutation one: Na5", "flip": true,
       "from": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5",
       "beats": [
         { "card": "The main line: knight to a5", "say": "The best players don't take on d5. About a third of the time under 1800, Black plays knight to a5." },
@@ -93,7 +93,7 @@
       ]
     },
     {
-      "title": "Refutation two: b5 and Nd4",
+      "title": "Refutation two: b5 and Nd4", "flip": true,
       "from": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5",
       "beats": [
         { "card": "Two side tricks, one answer", "say": "Two rarer tries hit your bishop with a pawn or a knight. One move handles both." },
@@ -110,7 +110,7 @@
       ]
     },
     {
-      "title": "Refutation three: the Traxler",
+      "title": "Refutation three: the Traxler", "flip": true,
       "from": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5",
       "beats": [
         { "card": "Bishop to c5: Black counterattacks", "say": "The wildest answer ignores f7 completely. About one in eight under 1800." },
