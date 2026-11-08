@@ -397,20 +397,28 @@ function gameOpening(g = S.game) {
 
 function renderBoardHead(info) {
   const el = $('#opening-name');
-  if (S.tab === 'puzzles' && (S.pz.p || S.pz.mistake)) {
-    el.innerHTML = S.pz.p
-      ? `<b>${S.pz.p.lesson ? 'DANYA' : 'PUZZLE'}</b>${S.pz.p.lesson ? '' : `Rated ${Number(S.pz.p.rating) || '?'} · `}${colorName(S.pz.color)} to move`
-      : `<b>REVIEW</b>Your mistake from ${esc(S.pz.mistake.date)}`;
+  // Play: the opponent sits above the board and you below it, as in a game client
+  $('#you-tag').innerHTML = S.tab === 'play'
+    ? `<img src="pieces/${S.playColor}K.svg" alt=""><span>You · ${colorName(S.playColor)}</span>` : '';
+  if (S.tab === 'puzzles') {   // a prompt card: whose move, then #pz-status says what to find
+    const z = S.pz, side = z.p || z.mistake ? z.color : null;
+    const sub = z.p ? (z.p.lesson ? "Danya's opening puzzle" : `Rated ${Number(z.p.rating) || '?'}`)
+      : z.mistake ? `Your mistake from ${esc(z.mistake.date)}` : '';
+    el.innerHTML = side
+      ? `<span class="pz-side ${side}" aria-hidden="true"></span><b class="pz-title">${colorName(side)} to move</b><span class="pz-rated">${sub}</span>`
+      : '<span class="pz-side" aria-hidden="true"></span><b class="pz-title">Puzzles</b>';
     return;
   }
+  const opp = S.tab === 'play'
+    ? `<span class="opp-tag"><img src="pieces/${S.playColor === 'w' ? 'b' : 'w'}N.svg" alt=""><b>${esc(oppLabel())}</b></span>` : '';
   const sans = S.game.history();
   if (!info) {
-    el.innerHTML = !sans.length ? '<span class="muted">Starting position</span>'
-      : ECO ? '<span class="muted">Opening not in the database</span>' : '';
+    el.innerHTML = opp + (!sans.length ? '<span class="muted">Starting position</span>'
+      : ECO ? '<span class="muted">Opening not in the database</span>' : '');
     return;
   }
   const out = info.lastBook < info.total - 1 ? ` · out of book after ${moveLabel(info.lastBook, sans[info.lastBook])}` : '';
-  el.innerHTML = `<b>${info.eco}</b>${esc(info.name)}<span class="muted small">${out}</span>`;
+  el.innerHTML = `${opp}<b>${info.eco}</b>${esc(info.name)}<span class="muted small">${out}</span>`;
 }
 
 // ------------------------------------------------------------------- board ---
@@ -728,14 +736,22 @@ function toast(html, big = false) {
   setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 320); }, big ? 3200 : 1900);
 }
 
-function verdictText(v) {
-  const loss = Math.round(v.loss);
-  if (v.cls === 'best') return `<b>${v.label}</b>: Stockfish's top choice.`;
-  if (v.cls === 'good') return `<b>${v.label}</b>: good move${v.loss >= 5 && v.bestSan ? ` (Stockfish slightly preferred <b>${v.bestSan}</b>)` : ''}.`;
-  const name = { inaccuracy: 'Inaccuracy', mistake: 'Mistake', blunder: 'Blunder' }[v.cls];
-  return `<b>${name}: ${v.label}${TAG_MARK[v.cls]}</b> costs about ${loss}% winning chances (eval ${v.evalBefore} → ${v.evalAfter}, White's view).` +
+const VERDICT_NAME = { inaccuracy: 'Inaccuracy', mistake: 'Mistake', blunder: 'Blunder' };
+function verdictCost(v) {   // what an inaccuracy, mistake or blunder gives away, and what was better
+  return `costs about ${Math.round(v.loss)}% winning chances (eval ${v.evalBefore} → ${v.evalAfter}, White's view).` +
     (v.replySan ? ` It allows <b>${v.replySan}</b>.` : '') +
     (v.bestSan ? ` Better was <b>${v.bestSan}</b>.` : '');
+}
+function verdictText(v) {
+  if (v.cls === 'best') return `<b>${v.label}</b>: Stockfish's top choice.`;
+  if (v.cls === 'good') return `<b>${v.label}</b>: good move${v.loss >= 5 && v.bestSan ? ` (Stockfish slightly preferred <b>${v.bestSan}</b>)` : ''}.`;
+  return `<b>${VERDICT_NAME[v.cls]}: ${v.label}${TAG_MARK[v.cls]}</b> ${verdictCost(v)}`;
+}
+// Play: the card the coach shows when it pauses the game (a bottom sheet on phones)
+function stopCard(v) {
+  return '<div class="stop-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>' +
+    `<b>${VERDICT_NAME[v.cls]} · ${v.label}${TAG_MARK[v.cls]}</b><span>Coach paused the game</span></div>` +
+    `<p class="stop-body">This move ${verdictCost(v)}</p>`;
 }
 
 // Compare the position before and after the student's move from their side.
@@ -773,10 +789,13 @@ function updateHud() {
   $('#hud-goal').classList.toggle('done', x >= d.goal);
   const lvl = levelOf(d.xp), lo = levelStart(lvl), hi = levelStart(lvl + 1);
   $('#lvl-num').textContent = lvl;
+  $('#lvl-xp').innerHTML = `${d.xp - lo}<span class="xp-of"> / </span><span class="xp-slash">/</span>${hi - lo}<span class="xp-unit"> XP</span>`;
   $('#xp-fill').style.width = `${((d.xp - lo) / (hi - lo)) * 100}%`;
   const due = dueOpenings(OPENINGS).length;
-  $('#due-badge').textContent = due;
-  $('#due-badge').classList.toggle('hidden', !due);
+  for (const b of [$('#due-badge'), $('#due-badge-m')]) {   // header tab, and the phone's bottom bar
+    b.textContent = due;
+    b.classList.toggle('hidden', !due);
+  }
   const mDue = dueMistakes().length;
   $('#mistake-count').textContent = mDue ? `(${mDue})` : '';
 }
@@ -2155,10 +2174,42 @@ function puzzleButtons() {
   const active = (z.p || z.mistake) && !z.done;
   $('#pz-hint').disabled = !active || S.busy;
   $('#pz-solution').disabled = !active || S.busy;
-  $('#pz-next').textContent = z.src === 'mistakes' ? 'Next mistake' : 'Next puzzle';
+  $('#pz-next .lbl').textContent = z.src === 'mistakes' ? 'Next mistake' : 'Next puzzle';
   $('#pz-theme-field').classList.toggle('hidden', z.src !== 'lichess');
   $('#pz-danya-field').classList.toggle('hidden', z.src !== 'danya');
+  syncThemeChips();
 }
+
+// Theme chips: one per option of the (hidden) #pz-theme select, which stays the source of truth
+$('#pz-chips').innerHTML = [...$('#pz-theme').options].map((o) =>
+  `<button class="pz-chip" role="radio" data-theme="${o.value}" aria-checked="false">${esc(o.textContent)}</button>`).join('');
+function syncThemeChips() {
+  const v = $('#pz-theme').value;
+  document.querySelectorAll('#pz-chips [data-theme]').forEach((b) => {
+    const on = b.dataset.theme === v;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-checked', String(on));
+    b.tabIndex = on ? 0 : -1;
+  });
+}
+$('#pz-chips').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-theme]');
+  if (!b || b.dataset.theme === $('#pz-theme').value) return;
+  $('#pz-theme').value = b.dataset.theme;
+  syncThemeChips();
+  $('#pz-theme').dispatchEvent(new Event('change'));
+});
+$('#pz-chips').addEventListener('keydown', (e) => {   // a radio group: arrows move between themes
+  const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+  if (!step) return;
+  e.preventDefault();
+  e.stopPropagation();   // the document's arrow keys step through moves
+  const chips = [...document.querySelectorAll('#pz-chips [data-theme]')];
+  const i = chips.findIndex((b) => b.dataset.theme === $('#pz-theme').value);
+  const next = chips[(i + step + chips.length) % chips.length];
+  next.click();
+  next.focus();
+});
 
 async function fetchPuzzle() {
   const theme = $('#pz-theme').value;
@@ -2223,7 +2274,9 @@ async function loadPuzzle() {
   S.busy = true;
   render();
   puzzleButtons();
-  pzStatus('', p.lesson ? `<b>${colorName(z.color)} to move.</b> ${esc(p.ask)}` : `<b>${colorName(z.color)} to move.</b> Find the best move.`);
+  // the prompt card above the board already says whose move it is
+  const themeName = p.theme && p.theme !== 'mix' ? $(`#pz-theme option[value="${p.theme}"]`)?.textContent : '';
+  pzStatus('', p.lesson ? esc(p.ask) : `Find the best move.${themeName ? ` Theme: ${esc(themeName)}` : ''}`);
   setTimeout(() => {
     if (ep !== S.epoch) return;
     settlePuzzle();
@@ -2280,7 +2333,7 @@ async function onPuzzleMove(mv, fenBefore) {
       S.busy = false;
       render();
       puzzleButtons();
-      pzStatus('', `<b>${colorName(z.color)} to move.</b> What's the follow-up?`);
+      pzStatus('', "What's the follow-up?");
     }, 380);
     return;
   }
@@ -2640,6 +2693,7 @@ function syncPeek() {
   if (S.peek && S.peek.fen !== S.game.fen()) S.peek = null;
   const p = S.peek, btn = $('#btn-sf'), card = $('#sf-card');
   btn.textContent = p ? "Hide Stockfish's move" : "Show Stockfish's move";
+  btn.setAttribute('aria-pressed', String(!!p));   // drawn as a checkbox row
   btn.disabled = !p && !peekAllowed();
   $('#sf-note').classList.toggle('hidden', !!p || !peekAllowed());
   card.classList.toggle('hidden', !p);
@@ -2742,8 +2796,8 @@ async function onPlayMove(mv, fenBefore) {
       S.paused = true;
       sfx('bad');
       setPlayNote('Game paused: the coach caught something. It is saved to your mistake deck.');
-      banner('bad', verdictText(v), [
-        ['Take back & retry', takeBack, true],
+      banner('bad stop', stopCard(v), [
+        ['Take back', takeBack, true],
         ['Show better move', () => { S.arrows = [{ from: v.from, to: v.to, kind: 'bad' }, ...(v.bestUci ? [{ from: v.bestUci.slice(0, 2), to: v.bestUci.slice(2, 4), kind: 'good' }] : [])]; drawArrows(); }],
         ['Ask the coach why', () => ask(`Why is ${v.label} a ${v.cls}? What was I missing, and why is ${v.bestSan || 'the engine move'} better?`)],
         ['Play on', () => { S.paused = false; hideBanner(); S.arrows = []; drawArrows(); engineReply(); }],
@@ -2950,10 +3004,26 @@ $('#live-pill').addEventListener('click', () => setView(S.game.history().length)
 function syncToolButtons() {
   const t = S.tab;
   $('#btn-undo').classList.toggle('hidden', t === 'puzzles' || t === 'progress' || t === 'games' || studying() || (t === 'analyze' && !!S.review));
-  $('#btn-reset').classList.toggle('hidden', t === 'progress' || t === 'games');
-  $('#btn-reset').textContent = t === 'puzzles' ? 'Skip' : 'Restart';
+  $('#btn-reset').classList.toggle('hidden', t === 'puzzles' || t === 'progress' || t === 'games');   // puzzles: Next puzzle skips
   $('#moves-card').classList.toggle('hidden', t === 'progress');
 }
+
+// Phones: the bottom bar's More sheet holds Lessons, Games, Progress, and the header's streak,
+// goal, sound and theme (moved there so the phone header keeps only the level).
+function setMore(open) {
+  $('#more-sheet').hidden = !open;
+  $('#more-btn').setAttribute('aria-expanded', String(open));
+}
+$('#more-btn').addEventListener('click', () => setMore($('#more-sheet').hidden));
+$('#more-sheet').addEventListener('click', (e) => { if (e.target.closest('.tab')) setMore(false); });   // also when it is the current tab
+document.addEventListener('click', (e) => { if (!$('#more-sheet').hidden && !e.target.closest('#more-sheet, #more-btn')) setMore(false); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('#more-sheet').hidden) { setMore(false); $('#more-btn').focus(); } });
+function placeHud() {
+  (narrow.matches ? $('#more-hud') : $('.hud')).appendChild($('#hud-extra'));
+  if (!narrow.matches) setMore(false);
+}
+narrow.addEventListener('change', placeHud);
+placeHud();
 
 function switchTab(tab, reset = true) {
   if (S.tab === tab && reset) return;
@@ -2972,7 +3042,16 @@ function switchTab(tab, reset = true) {
   }
   S.tab = tab;
   syncPage();
-  document.querySelectorAll('.tab').forEach((b) => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab').forEach((b) => {
+    const on = b.dataset.tab === tab;
+    b.classList.toggle('active', on);
+    if (b.closest('.tabs')) b.setAttribute('aria-selected', String(on));
+    else if (on) b.setAttribute('aria-current', 'page');
+    else b.removeAttribute('aria-current');
+  });
+  $('#more-btn').classList.toggle('active', ['elo', 'games', 'progress'].includes(tab));
+  setMore(false);
+  if (narrow.matches) $('.layout').scrollTop = 0;   // phones share one scroller: a new tab starts at its top
   for (const t of ['openings', 'puzzles', 'play', 'games', 'analyze', 'progress', 'elo']) $(`#panel-${t}`).classList.toggle('hidden', t !== tab);
   S.epoch++;
   S.busy = false; S.paused = false; S.selected = null; S.hint = null; S.viewPly = null; S.whatIf = null;
@@ -3269,6 +3348,7 @@ function practiseLesson(btn) {
   S.pz.src = 'lichess';
   document.querySelectorAll('[data-psrc]').forEach((x) => x.classList.toggle('active', x.dataset.psrc === 'lichess'));
   $('#pz-theme').value = btn.dataset.try;
+  syncThemeChips();
   S.pz.next = null;
   switchTab('puzzles');
   $('#pz-lesson').innerHTML = pinned;

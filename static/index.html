@@ -16,46 +16,101 @@
 </head>
 <body>
 <header class="top">
-  <div class="brand"><img src="pieces/wN.svg" alt=""><span>Chess Coach</span></div>
+  <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>Chess Coach</span></div>
 
   <nav class="tabs" role="tablist" aria-label="Sections">
-    <button class="tab active" data-tab="openings" role="tab">Openings<span id="due-badge" class="badge hidden"></span></button>
+    <button class="tab active" data-tab="openings" role="tab" aria-selected="true">Openings<span id="due-badge" class="badge hidden"></span></button>
     <button class="tab" data-tab="elo" role="tab">Lessons</button>
     <button class="tab" data-tab="puzzles" role="tab">Puzzles</button>
     <button class="tab" data-tab="play" role="tab">Play</button>
     <button class="tab" data-tab="games" role="tab">Games</button>
-    <button class="tab" data-tab="analyze" role="tab">Analyze</button>
+    <button class="tab" data-tab="analyze" role="tab">Analyse</button>
     <button class="tab" data-tab="progress" role="tab">Progress</button>
   </nav>
 
   <div class="hud">
-    <div class="hud-item" id="hud-streak" title="Day streak: days in a row you hit your daily goal">
-      <svg viewBox="0 0 24 24" class="ico streak-ico" aria-hidden="true"><path d="M12 2c1 3.5-1.5 5.5-1.5 8 0 1.4 1 2.5 2.3 2.5 1.6 0 2.4-1.3 2.2-3.2C17.6 11.2 19 13.6 19 16a7 7 0 0 1-14 0c0-4.6 4.2-7.4 7-14Z"/></svg>
-      <b id="streak-num">0</b>
-    </div>
-    <div class="hud-item" id="hud-goal" title="Today's XP toward your daily goal">
-      <svg viewBox="0 0 36 36" class="ring" aria-hidden="true"><circle cx="18" cy="18" r="15" class="ring-bg"/><circle cx="18" cy="18" r="15" class="ring-fg" id="goal-ring"/></svg>
-      <span><b id="goal-num">0</b><span class="muted">/<span id="goal-max">60</span> XP</span></span>
-    </div>
     <div class="hud-item hud-level" title="Level and XP to the next level">
-      <span class="lvl">Lv <b id="lvl-num">1</b></span>
+      <span class="lvl-row"><span class="lvl"><span class="lvl-word">Level</span> <b id="lvl-num">1</b></span><span class="lvl-xp" id="lvl-xp"></span></span>
       <span class="xpbar"><span id="xp-fill"></span></span>
     </div>
-    <button class="icon-btn" id="btn-sound" aria-label="Sound on" title="Sound (on)">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="snd-waves" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none"/></svg>
-    </button>
-    <button class="icon-btn" id="btn-theme" aria-label="Theme" title="Theme: system">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none"/><path d="M12 4a8 8 0 0 1 0 16z"/></svg>
-    </button>
+    <!-- On phones this group moves into the bottom bar's More sheet (app.js placeHud) -->
+    <div class="hud-extra" id="hud-extra">
+      <div class="hud-item hud-chip" id="hud-streak" title="Day streak: days in a row you hit your daily goal">
+        <svg viewBox="0 0 24 24" class="ico streak-ico" aria-hidden="true"><path d="M12 2c1 3.5-1.5 5.5-1.5 8 0 1.4 1 2.5 2.3 2.5 1.6 0 2.4-1.3 2.2-3.2C17.6 11.2 19 13.6 19 16a7 7 0 0 1-14 0c0-4.6 4.2-7.4 7-14Z"/></svg>
+        <b id="streak-num">0</b>
+      </div>
+      <div class="hud-item hud-chip" id="hud-goal" title="Today's XP toward your daily goal">
+        <svg viewBox="0 0 36 36" class="ring" aria-hidden="true"><circle cx="18" cy="18" r="15" class="ring-bg"/><circle cx="18" cy="18" r="15" class="ring-fg" id="goal-ring"/></svg>
+        <span><b id="goal-num">0</b><span class="muted">/<span id="goal-max">60</span> XP</span></span>
+      </div>
+      <button class="icon-btn ghost" id="btn-sound" aria-label="Sound on" title="Sound (on)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="snd-waves" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none"/></svg>
+      </button>
+      <button class="icon-btn ghost" id="btn-theme" aria-label="Theme" title="Theme: system">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none"/><path d="M12 4a8 8 0 0 1 0 16z"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
 <div class="el-view hidden" id="panel-elo"></div>
 
 <main class="layout">
+  <!-- Openings library: the whole page while you choose, a sidebar (wide screens) or one
+       "All openings" row while you study. Moved out of the side column so it can sit left of the board. -->
+  <aside class="lib-col" aria-label="Opening library">
+    <div class="panel repertoire" id="repertoire">
+      <button class="fold-head" id="rep-toggle" aria-expanded="true" aria-controls="rep-body">
+        <span class="rep-label" id="rep-label"></span>
+        <span class="muted small" id="mastery-count"></span>
+        <span class="rep-back" id="rep-back"></span>
+      </button>
+      <div class="rep-body" id="rep-body">
+        <div id="review-strip" class="review-strip"></div>
+        <div class="rep-filters">
+          <label class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none"/><path d="M16 16l4.5 4.5" fill="none"/></svg>
+            <input id="rep-search" type="search" placeholder="Search a name, ECO code or moves (Caro, B12, e4 c6)" aria-label="Search openings" autocomplete="off">
+          </label>
+          <div class="seg mine-seg" id="f-mine" role="radiogroup" aria-label="Which openings">
+            <button class="seg-btn" data-v="mine" role="radio" title="The openings you play"><svg viewBox="0 0 24 24" class="star" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>My repertoire <span class="count" id="mine-count"></span></button>
+            <button class="seg-btn" data-v="all" role="radio">All openings</button>
+          </div>
+          <div class="filter-row">
+            <div class="seg" id="f-side" role="radiogroup" aria-label="Your colour">
+              <button class="seg-btn" data-v="all" role="radio">Both</button>
+              <button class="seg-btn" data-v="w" role="radio"><img src="pieces/wK.svg" alt="">White</button>
+              <button class="seg-btn" data-v="b" role="radio"><img src="pieces/bK.svg" alt="">Black</button>
+            </div>
+            <div class="seg" id="f-first" role="radiogroup" aria-label="First move">
+              <button class="seg-btn" data-v="all" role="radio">Any start</button>
+              <button class="seg-btn mono" data-v="e4" role="radio">1.e4</button>
+              <button class="seg-btn mono" data-v="d4" role="radio">1.d4</button>
+              <button class="seg-btn" data-v="other" role="radio" title="1.c4, 1.Nf3 and other first moves">Other</button>
+            </div>
+          </div>
+          <div class="pills" id="f-status" role="radiogroup" aria-label="Progress"></div>
+          <div class="filter-row">
+            <div class="filter-result muted small" id="filter-result"></div>
+            <label class="group-by">Group
+              <select id="f-group" aria-label="Group openings by">
+                <option value="first">by first move</option>
+                <option value="level">by difficulty</option>
+                <option value="progress">by progress</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div id="coverage" class="coverage hidden"></div>
+        <div id="opening-list" class="olist"></div>
+      </div>
+    </div>
+  </aside>
+
   <section class="board-col">
     <div class="board-head">
       <div id="opening-name" class="opening-name"></div>
+      <div id="pz-status" class="pz-status" aria-live="polite"></div>
       <button id="live-pill" class="live-pill hidden" title="Return to the current position (End)">Viewing an earlier move · back to live</button>
     </div>
     <div class="board-wrap">
@@ -81,10 +136,18 @@
         <button class="icon-btn" id="nav-next" aria-label="Next move" title="Next move (Right arrow)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6l8 6-8 6z"/></svg></button>
         <button class="icon-btn" id="nav-last" aria-label="Last move" title="Current position (End)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M6 6l8 6-8 6z"/></svg></button>
       </div>
+      <span class="you-tag" id="you-tag"></span>
       <span class="spacer"></span>
-      <button id="btn-undo" title="Take back your last move">Take back</button>
-      <button id="btn-flip" title="Flip the board (F)">Flip</button>
-      <button id="btn-reset" title="Start this line, game, or board over">Restart</button>
+      <button class="tool" id="btn-undo" title="Take back your last move"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg>Take back</button>
+      <button class="tool" id="btn-flip" title="Flip the board (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 4-4 4 4 4"/><path d="M3 8h14"/><path d="m17 20 4-4-4-4"/><path d="M21 16H7"/></svg>Flip</button>
+      <button class="tool" id="btn-reset" title="Start this line, game, or board over"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Restart</button>
+      <!-- Puzzles only: the puzzle's own actions take the toolbar -->
+      <div class="pz-actions">
+        <button class="tool" id="pz-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V16h8v-1.3A7 7 0 0 0 12 2z"/></svg>Hint</button>
+        <button class="tool" id="pz-solution"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Show solution</button>
+        <span class="spacer"></span>
+        <button class="tool primary next-btn" id="pz-next"><span class="lbl">Next puzzle</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></button>
+      </div>
     </div>
     <div id="arrow-legend" class="arrow-legend"></div>
   </section>
@@ -92,55 +155,8 @@
   <section class="side-col">
     <div id="banner" class="banner hidden" role="status"></div>
 
-    <!-- Openings: the repertoire (collapses once you pick an opening) and the lesson -->
+    <!-- Openings: the lesson (the library is .lib-col, left of the board) -->
     <div class="panel-stack" id="panel-openings">
-      <div class="panel repertoire" id="repertoire">
-        <button class="fold-head" id="rep-toggle" aria-expanded="true" aria-controls="rep-body">
-          <span class="rep-label" id="rep-label"></span>
-          <span class="muted small" id="mastery-count"></span>
-          <span class="rep-back" id="rep-back"></span>
-        </button>
-        <div class="rep-body" id="rep-body">
-          <div id="review-strip" class="review-strip"></div>
-          <div class="rep-filters">
-            <label class="search">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none"/><path d="M16 16l4.5 4.5" fill="none"/></svg>
-              <input id="rep-search" type="search" placeholder="Search a name, ECO code or moves (Caro, B12, e4 c6)" aria-label="Search openings" autocomplete="off">
-            </label>
-            <div class="seg mine-seg" id="f-mine" role="radiogroup" aria-label="Which openings">
-              <button class="seg-btn" data-v="mine" role="radio" title="The openings you play"><svg viewBox="0 0 24 24" class="star" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>My repertoire <span class="count" id="mine-count"></span></button>
-              <button class="seg-btn" data-v="all" role="radio">All openings</button>
-            </div>
-            <div class="filter-row">
-              <div class="seg" id="f-side" role="radiogroup" aria-label="Your colour">
-                <button class="seg-btn" data-v="all" role="radio">Both</button>
-                <button class="seg-btn" data-v="w" role="radio"><img src="pieces/wK.svg" alt="">White</button>
-                <button class="seg-btn" data-v="b" role="radio"><img src="pieces/bK.svg" alt="">Black</button>
-              </div>
-              <div class="seg" id="f-first" role="radiogroup" aria-label="First move">
-                <button class="seg-btn" data-v="all" role="radio">Any start</button>
-                <button class="seg-btn mono" data-v="e4" role="radio">1.e4</button>
-                <button class="seg-btn mono" data-v="d4" role="radio">1.d4</button>
-                <button class="seg-btn" data-v="other" role="radio" title="1.c4, 1.Nf3 and other first moves">Other</button>
-              </div>
-            </div>
-            <div class="pills" id="f-status" role="radiogroup" aria-label="Progress"></div>
-            <div class="filter-row">
-              <div class="filter-result muted small" id="filter-result"></div>
-              <label class="group-by">Group
-                <select id="f-group" aria-label="Group openings by">
-                  <option value="first">by first move</option>
-                  <option value="level">by difficulty</option>
-                  <option value="progress">by progress</option>
-                </select>
-              </label>
-            </div>
-          </div>
-          <div id="coverage" class="coverage hidden"></div>
-          <div id="opening-list" class="olist"></div>
-        </div>
-      </div>
-
       <div class="panel lesson">
         <div class="lesson-head">
           <div class="otitle"><b id="family-title"></b></div>
@@ -186,9 +202,9 @@
           <p id="opening-idea" class="idea"></p>
           <div class="train-ctl">
           <div class="seg" role="radiogroup" aria-label="Training mode">
-            <button class="seg-btn active" data-omode="study" title="Step through the line with the reasoning for every move">Study</button>
-            <button class="seg-btn" data-omode="learn" title="Play the line yourself with arrows showing each move">Learn</button>
-            <button class="seg-btn" data-omode="drill" title="Play the line from memory; a clean run moves it up a review box">Drill</button>
+            <button class="seg-btn active" data-omode="study" title="Step through the line with the reasoning for every move">Study<small>Read the ideas</small></button>
+            <button class="seg-btn" data-omode="learn" title="Play the line yourself with arrows showing each move">Learn<small>Guided moves</small></button>
+            <button class="seg-btn" data-omode="drill" title="Play the line from memory; a clean run moves it up a review box">Drill<small>From memory</small></button>
           </div>
           <div class="seg side-seg" id="side-seg" role="radiogroup" aria-label="Which side you practise">
             <button class="seg-btn" data-flip="0" role="radio"></button>
@@ -204,85 +220,89 @@
       </div>
     </div>
 
-    <!-- Puzzles -->
-    <div class="panel hidden" id="panel-puzzles">
+    <!-- Puzzles: stats, then where puzzles come from. The prompt (#pz-status) sits above the board,
+         and Hint / Show solution / Next sit under it (.pz-actions). -->
+    <div class="panel-stack hidden" id="panel-puzzles">
       <div class="pstats">
         <div class="stat"><span class="eyebrow">Puzzle rating</span><b id="pz-rating" class="bignum">1200</b><span id="pz-delta" class="delta"></span></div>
         <div class="stat"><span class="eyebrow">Run</span><b id="pz-run" class="bignum">0</b><span class="muted small">best <span id="pz-best">0</span></span></div>
         <div class="stat"><span class="eyebrow">Solved</span><b id="pz-solved" class="bignum">0</b><span class="muted small" id="pz-rate"></span></div>
       </div>
-      <div class="seg" role="radiogroup" aria-label="Puzzle source">
-        <button class="seg-btn active" data-psrc="lichess">Lichess puzzles</button>
-        <button class="seg-btn" data-psrc="danya">Danya's openings</button>
-        <button class="seg-btn" data-psrc="mistakes">My mistakes <span id="mistake-count" class="count"></span></button>
+      <div class="panel">
+        <div class="field"><span class="eyebrow">Source</span>
+          <div class="seg" role="radiogroup" aria-label="Puzzle source">
+            <button class="seg-btn active" data-psrc="lichess">Lichess</button>
+            <button class="seg-btn" data-psrc="danya">Danya's openings</button>
+            <button class="seg-btn" data-psrc="mistakes">My mistakes <span id="mistake-count" class="count"></span></button>
+          </div>
+        </div>
+        <div id="pz-lesson" class="note hidden"></div>
+        <label class="field hidden" id="pz-danya-field"><span class="eyebrow">Opening</span>
+          <select id="pz-danya"></select>
+        </label>
+        <div class="field" id="pz-theme-field"><span class="eyebrow" id="pz-theme-label">Theme</span>
+          <div class="theme-chips" id="pz-chips" role="radiogroup" aria-labelledby="pz-theme-label"></div>
+          <!-- the chips drive this select; app.js reads its value -->
+          <select id="pz-theme" class="hidden" aria-hidden="true" tabindex="-1">
+            <option value="mix">Mixed</option>
+            <option value="mateIn1">Mate in 1</option>
+            <option value="mateIn2">Mate in 2</option>
+            <option value="mateIn3">Mate in 3</option>
+            <option value="fork">Forks</option>
+            <option value="pin">Pins</option>
+            <option value="skewer">Skewers</option>
+            <option value="hangingPiece">Hanging pieces</option>
+            <option value="discoveredAttack">Discovered attacks</option>
+            <option value="opening">Opening tactics</option>
+            <option value="endgame">Endgames</option>
+            <option value="pawnEndgame">Pawn endgames</option>
+            <option value="rookEndgame">Rook endgames</option>
+            <option value="knightEndgame">Knight endgames</option>
+            <option value="bishopEndgame">Bishop endgames</option>
+            <option value="advancedPawn">Advanced pawns</option>
+            <option value="promotion">Promotion</option>
+            <option value="zugzwang">Zugzwang</option>
+            <option value="kingsideAttack">Kingside attacks</option>
+            <option value="exposedKing">Exposed king</option>
+            <option value="sacrifice">Sacrifices</option>
+            <option value="deflection">Deflection</option>
+            <option value="capturingDefender">Remove the defender</option>
+            <option value="intermezzo">In-between moves</option>
+            <option value="defensiveMove">Defensive moves</option>
+            <option value="crushing">Finish a won position</option>
+          </select>
+        </div>
+        <div id="pz-meta" class="muted small"></div>
       </div>
-      <div id="pz-lesson" class="note hidden"></div>
-      <label class="field hidden" id="pz-danya-field">Opening
-        <select id="pz-danya"></select>
-      </label>
-      <label class="field" id="pz-theme-field">Theme
-        <select id="pz-theme">
-          <option value="mix">Mixed</option>
-          <option value="mateIn1">Mate in 1</option>
-          <option value="mateIn2">Mate in 2</option>
-          <option value="fork">Forks</option>
-          <option value="pin">Pins</option>
-          <option value="skewer">Skewers</option>
-          <option value="hangingPiece">Hanging pieces</option>
-          <option value="discoveredAttack">Discovered attacks</option>
-          <option value="opening">Opening tactics</option>
-          <option value="endgame">Endgames</option>
-          <option value="pawnEndgame">Pawn endgames</option>
-          <option value="rookEndgame">Rook endgames</option>
-          <option value="knightEndgame">Knight endgames</option>
-          <option value="bishopEndgame">Bishop endgames</option>
-          <option value="advancedPawn">Advanced pawns</option>
-          <option value="promotion">Promotion</option>
-          <option value="zugzwang">Zugzwang</option>
-          <option value="mateIn3">Mate in 3</option>
-          <option value="kingsideAttack">Kingside attacks</option>
-          <option value="exposedKing">Exposed king</option>
-          <option value="sacrifice">Sacrifices</option>
-          <option value="deflection">Deflection</option>
-          <option value="capturingDefender">Remove the defender</option>
-          <option value="intermezzo">In-between moves</option>
-          <option value="defensiveMove">Defensive moves</option>
-          <option value="crushing">Finish a won position</option>
-        </select>
-      </label>
-      <div id="pz-status" class="pz-status"></div>
-      <div class="btnrow">
-        <button id="pz-hint">Hint</button>
-        <button id="pz-solution">Show solution</button>
-        <span class="spacer"></span>
-        <button id="pz-next" class="primary">Next puzzle</button>
-      </div>
-      <div id="pz-meta" class="muted small"></div>
     </div>
 
-    <!-- Play -->
-    <div class="panel hidden" id="panel-play">
-      <div class="field">You play
-        <div class="seg" role="radiogroup" aria-label="Your colour">
-          <button class="seg-btn active" data-color="w">White</button>
-          <button class="seg-btn" data-color="b">Black</button>
-          <button class="seg-btn" data-color="r">Random</button>
+    <!-- Play: Stockfish's move, the coach's note, the plan, then the next game's settings -->
+    <div class="panel-stack hidden" id="panel-play">
+      <div class="card sf-box">
+        <button id="btn-sf" class="sf-toggle" aria-pressed="false" disabled title="Available on your turn, at the current position">Show Stockfish's move</button>
+        <div id="sf-note" class="muted small hidden">Using it halves this game's XP, and the move won't count toward your accuracy.</div>
+        <div id="sf-card" class="sf-card hidden" aria-live="polite"></div>
+      </div>
+      <div class="card play-note-card"><div id="play-note" class="note"></div></div>
+      <details id="play-plan" class="mg play-plan hidden" open></details>
+      <div class="panel play-setup">
+        <div class="field"><span class="eyebrow">Next game</span>
+          <div class="seg" role="radiogroup" aria-label="Your colour">
+            <button class="seg-btn active" data-color="w">White</button>
+            <button class="seg-btn" data-color="b">Black</button>
+            <button class="seg-btn" data-color="r">Random</button>
+          </div>
+        </div>
+        <label class="field">
+          <span class="field-row">Opponent <b id="elo-label"></b></span>
+          <input id="play-elo" type="range" min="1320" max="3190" step="10" value="1500">
+        </label>
+        <label class="switch"><input id="coach-on" type="checkbox" checked><span class="track"></span>Coach stops me on mistakes and blunders</label>
+        <div class="play-btns">
+          <button id="btn-resign"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 22V4"/><path d="M4 4h12l-2 4 2 4H4"/></svg>Resign</button>
+          <button id="btn-newgame" class="ink">New game</button>
         </div>
       </div>
-      <label class="field">
-        <span class="field-row">Opponent <b id="elo-label"></b></span>
-        <input id="play-elo" type="range" min="1320" max="3190" step="10" value="1500">
-      </label>
-      <label class="switch"><input id="coach-on" type="checkbox" checked><span class="track"></span>Coach stops me on mistakes and blunders</label>
-      <div class="btnrow">
-        <button id="btn-newgame" class="primary grow">New game</button>
-        <button id="btn-resign">Resign</button>
-      </div>
-      <button id="btn-sf" disabled title="Available on your turn, at the current position">Show Stockfish's move</button>
-      <div id="sf-note" class="muted small hidden">Using it halves this game's XP, and the move won't count toward your accuracy.</div>
-      <div id="sf-card" class="sf-card hidden" aria-live="polite"></div>
-      <div id="play-note" class="note"></div>
-      <details id="play-plan" class="mg play-plan hidden" open></details>
     </div>
 
     <!-- Analyze -->
@@ -344,6 +364,23 @@
   <p class="muted small" id="lessons-source"></p>
   <div id="lessons-body" class="lessons-body"></div>
 </dialog>
+
+<!-- Phones: the sections live in a bottom bar; More holds the rest plus the streak, goal, sound and theme -->
+<nav class="bottom-nav" aria-label="Sections">
+  <button class="tab active" data-tab="openings" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg><span>Openings</span><span id="due-badge-m" class="badge hidden"></span></button>
+  <button class="tab" data-tab="puzzles"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg><span>Puzzles</span></button>
+  <button class="tab" data-tab="play"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4z"/></svg><span>Play</span></button>
+  <button class="tab" data-tab="analyze"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span>Analyse</span></button>
+  <button class="more-btn" id="more-btn" aria-expanded="false" aria-controls="more-sheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg><span>More</span></button>
+</nav>
+<div class="more-sheet" id="more-sheet" hidden>
+  <div class="more-tabs">
+    <button class="tab" data-tab="elo">Lessons</button>
+    <button class="tab" data-tab="games">Games</button>
+    <button class="tab" data-tab="progress">Progress</button>
+  </div>
+  <div class="more-hud" id="more-hud"></div>
+</div>
 
 <div id="toasts" class="toasts" aria-live="polite"></div>
 
