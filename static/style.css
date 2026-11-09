@@ -798,7 +798,8 @@ body[data-tab="analyze"] .arrow-legend { display: flex; }
 
 /* ---- Lessons tab (elo.js): one opening at four levels, own board beside the conversation ---- */
 body[data-tab="elo"] .layout { display: none; }
-.el-view { --el-board: min(540px, calc(100vh - var(--header) - 240px)); height: calc(100vh - var(--header)); overflow-y: auto; max-width: 1240px; margin: 0 auto; padding: 12px 24px 14px; display: flex; flex-direction: column; gap: 10px; }
+/* --el-board: the board takes the height left after the group switch, picker, levels, controls and credit (about 290px), so a 1366x800 laptop shows the whole lesson without scrolling */
+.el-view { --el-board: min(540px, calc(100vh - var(--header) - 290px)); height: calc(100vh - var(--header)); overflow-y: auto; max-width: 1240px; margin: 0 auto; padding: 12px 24px 14px; display: flex; flex-direction: column; gap: 10px; }
 .el-view.hidden { display: none; }
 .el-picker { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; flex: none; }
 .el-pick { display: flex; align-items: center; gap: 8px; text-align: left; padding: 6px 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; min-width: 0; }
@@ -814,7 +815,9 @@ body[data-tab="elo"] .layout { display: none; }
 .el-tier small { grid-column: 1 / -1; font-size: 11.5px; line-height: 1.3; color: var(--muted); }
 .el-tier[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .el-tier[aria-selected="true"] span, .el-tier[aria-selected="true"] small { color: var(--accent-ink); }
-.el-stage { display: grid; grid-template-columns: var(--el-board) minmax(0, 1fr); gap: 20px; align-items: stretch; flex: 1; min-height: 0; }
+/* The stage grows into spare height but never shrinks below the board and its buttons: when the screen
+   is too short the view scrolls, instead of the credit footer sliding over Next and taking its clicks. */
+.el-stage { display: grid; grid-template-columns: var(--el-board) minmax(0, 1fr); gap: 20px; align-items: stretch; flex: 1 0 auto; }
 .el-left { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .el-board-wrap { position: relative; width: 100%; aspect-ratio: 1; border-radius: 6px; overflow: hidden; touch-action: manipulation; flex: none; }
 .el-board { position: absolute; inset: 0; display: grid; grid-template: repeat(8, 1fr) / repeat(8, 1fr); }
@@ -842,7 +845,7 @@ body[data-tab="elo"] .layout { display: none; }
 .el-btn.primary { flex: 1 1 110px; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
 .el-btn.done { background: var(--ok-bg); border-color: var(--ok-ink); color: var(--ok-ink); }
 .el-pos { margin-left: auto; font: 400 12px/1.4 var(--f-mono); color: var(--muted); }
-.el-talk { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+.el-talk { display: flex; flex-direction: column; min-width: 0; min-height: 0; contain: size; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }   /* contain: a long conversation scrolls inside; the board side sets the row height */
 .el-head { padding: 10px 16px; border-bottom: 1px solid var(--line); flex: none; }
 .el-head h2 { font: 800 19px/1.2 var(--f-display); margin: 2px 0 0; text-wrap: balance; }
 .el-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
